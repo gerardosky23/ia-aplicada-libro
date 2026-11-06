@@ -10,7 +10,7 @@
 % ==========================================
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage[spanish,es-tabla]{babel}
+\usepackage[spanish,es-tabla,es-noshorthands]{babel}
 \usepackage{geometry}
 \geometry{top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm}
 \usepackage{graphicx}
@@ -23,6 +23,7 @@
 \usepackage{tcolorbox}
 \usepackage{xcolor}
 \usepackage{tikz}
+\usetikzlibrary{babel,arrows.meta,positioning,shapes}
 \usepackage{titletoc} 
 \usepackage{fancyhdr} 
 \usepackage{anyfontsize}
@@ -44,6 +45,7 @@
 % CONFIGURACIÓN DE TÍTULOS (Estilo visual)
 % ==========================================
 \usepackage[explicit]{titlesec}
+\usepackage{xurl}
 \usepackage{hyperref}
 
 % Formato para CAPÍTULO
@@ -123,6 +125,8 @@
 % ==========================================
 % CONFIGURACIÓN DE ENCABEZADOS Y PIES (fancyhdr)
 % ==========================================
+\setlength{\headheight}{25pt}
+\addtolength{\topmargin}{-13pt}
 \pagestyle{fancy}
 \fancyhf{} 
 % Encabezado (Header institucional)
