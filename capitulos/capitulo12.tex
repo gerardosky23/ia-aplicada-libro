@@ -1,0 +1,258 @@
+% ==============================================================================
+% CAPÍTULO 12: CREACIÓN DE PROTOTIPOS RÁPIDOS CON HERRAMIENTAS NO-CODE, 
+% LOW-CODE E INTELIGENCIA ARTIFICIAL GENERATIVA
+% Grupo 13 - Asignatura de Inteligencia Artificial Aplicada, UNMSM
+% ==============================================================================
+
+\section[Prototipado Rápido con LCNC e IA Generativa]{Creación de Prototipos Rápidos: Herramientas No-Code, Low-Code e Inteligencia Artificial Generativa para Validar Ideas Científicas}
+\markboth{CAPÍTULO 12\quad PROTOTIPADO RÁPIDO CON LCNC E IA}{}
+
+\begin{cajabeige}
+\textbf{Pregunta Central del Capítulo:} ¿Cómo converge la orquestación híbrida de plataformas Low-Code deterministas, generadores basados en modelos UML y Vibe Coding asistido por IA generativa para acelerar la validación de hipótesis científicas, garantizando al mismo tiempo gobernanza documental, seguridad y mitigación de deuda técnica?\\[0.3cm]
+\textbf{Objetivo de Aprendizaje:} El lector comprenderá la evolución de la abstracción en ingeniería de software, analizará la generación automatizada de microservicios con \textit{FSMicroGenerator}, evaluará las patologías del código sintético y el marco de gobernanza VIBE4M, y aplicará la Escalera de Capacidades (L0–L4) junto con matrices de decisión para estructurar un plan maestro de prototipado acelerado en laboratorios de investigación.
+\end{cajabeige}
+
+\textoside{
+La orquestación híbrida en prototipado científico consiste en integrar deliberadamente la herramienta computacional óptima según el componente del sistema: bajo código determinista para flujos documentales y gobernanza; generación guiada por UML para arquitecturas de backend y microservicios; y Vibe Coding con IA generativa para maquetación ágil e interfaces de usuario. Este paradigma materializa la reasignación estratégica de la carga cognitiva (\textit{task reallocation}), donde la automatización asume la codificación sintáctica repetitiva mientras el investigador lidera la arquitectura y la verificación de calidad.
+}{CONCEPTO CLAVE\\[0.1cm]Orquestación Híbrida y Reasignación de Tareas}
+
+\vspace{0.3cm}
+
+\subsection{Evolución Metodológica, Abstracción Visual y Gobernanza LCNC}
+
+La validación empírica de hipótesis científicas mediante software ha enfrentado históricamente cuellos de botella severos, tales como la escasez de desarrolladores especializados y prolongados ciclos de codificación. Como explican Sido y Emon (2024), las primeras décadas de la informática moderna estuvieron dominadas por metodologías tradicionales orientadas a procesos rígidos —el Modelo en Cascada de Royce (1970), el Modelo en Espiral de Boehm (1986) y el Proceso Unificado Rational (RUP)—. Aunque estos enfoques aseguraban un control exhaustivo, generaban ciclos de entrega excesivamente prolongados.
+
+La transición hacia marcos ágiles (Scrum, Kanban) mitigó parcialmente estos problemas al introducir la entrega incremental. No obstante, las investigaciones de Khalfaoui, Khalfaoui y Azmani (2025) señalan que el desarrollo manual moderno sigue demandando un esfuerzo desproporcionado: los desarrolladores dedican aproximadamente el 80\% de su tiempo a la depuración y corrección de errores, de los cuales entre el 40\% y el 50\% corresponde a retrabajo evitable derivado de la codificación manual de sintaxis repetitiva (\textit{boilerplate}).
+
+Para superar esta fricción, surgieron las plataformas de desarrollo de bajo código y sin código (Low-Code/No-Code Development Platforms, LCDPs/NCDPs), las cuales operacionalizan el paradigma de Diseño Guiado por Modelos (Model-Driven Design, MDD) compilado por Brambilla, Cabot y Wimmer (2017). Sido y Emon (2024) establecen una distinción taxonómica fundamental:
+\begin{itemize}
+    \item \textbf{Plataformas No-Code (Sin Código):} Diseñadas para científicos y usuarios de dominio sin formación técnica en programación. Operan mediante interfaces visuales de arrastrar y soltar (\textit{drag-and-drop}) y bloques preconfigurados. Son ideales para prototipos de complejidad baja a moderada y formularios de recolección de datos.
+    \item \textbf{Plataformas Low-Code (Bajo Código):} Diseñadas para coordinar a investigadores con ingenieros informáticos. Ofrecen abstracción visual para el 80\% de las funciones estándar, permitiendo inyectar scripts en lenguajes convencionales (Python, JavaScript, SQL) para algoritmos especializados.
+\end{itemize}
+
+Como destacan Reudismam Rolim et al. (2026), las plataformas Low-Code reducen sustancialmente los riesgos de seguridad en comparación con el desarrollo manual desestructurado, al heredar protocolos nativos de gobernanza y control de acceso basado en roles (RBAC).
+
+En este contexto, la investigación de Marian, Neferu y Mitrea (2026) demuestra cómo el ecosistema Microsoft Power Platform (Power Apps, Power Automate, SharePoint Online) proporciona una arquitectura empresarial de tres capas (Interfaz de Usuario, Lógica de Flujo y Persistencia Segura) que cumple de forma nativa con normas internacionales de gestión documental:
+\begin{enumerate}
+    \item \textbf{Sellado de Tiempo Digital e Inmutabilidad (ISO 15489-1:2016):} Registro cronológico exacto y no manipulable de cada acción, aprobación o rechazo en los protocolos de investigación.
+    \item \textbf{Seguridad de la Información y Cifrado (ISO/IEC 27001):} Control centralizado de identidades mediante Microsoft Entra ID y cifrado de datos en reposo y en tránsito.
+\end{enumerate}
+
+\subsection{Generación de Microservicios desde UML y Vibe Coding con IA}
+
+A medida que los prototipos científicos crecen en escala y volumen de procesamiento, las arquitecturas monolíticas iniciales se vuelven inviables, provocando acoplamiento extremo, falta de aislamiento de fallos e imposibilidad de escalado granular (Khalfaoui et al., 2025). Sin embargo, la migración manual a microservicios introduce una complejidad técnica que sobrepasa las capacidades de pequeños laboratorios de investigación.
+
+Para resolver este desafío, Khalfaoui et al. (2025) desarrollaron \textbf{FSMicroGenerator}, un marco automatizado que traduce diagramas de clases UML en arquitecturas distribuidas \textit{full-stack} sobre la pila MEAN (MongoDB, Express.js, Angular, Node.js). Basándose en los principios de \textit{Domain-Driven Design} (DDD) teorizados por Evans (2003), organiza el sistema en una jerarquía modular de tres niveles: \textbf{Paquete} (unidad funcional básica), \textbf{Módulo} (colaboración interfuncional) y \textbf{Proyecto} (sistema distribuido listo para despliegue en contenedores Docker con RabbitMQ, Redis, Prometheus y Grafana).
+
+Paralelamente, la irrupción de los modelos de lenguaje de gran escala (LLMs) especializados en código ha originado el paradigma del \textbf{Vibe Coding}. Formalizado por Meske et al. (2025) como una \textit{reconfiguración de la mediación de intenciones}, este enfoque permite al investigador dialogar en lenguaje natural con asistentes de IA (Cursor, Claude Code, GitHub Copilot) para generar interfaces y componentes instantáneos a partir de la "vibra" o especificación funcional de su requerimiento.
+
+\subsubsection{Patologías del Código Sintético y Marco de Gobernanza VIBE4M}
+
+A pesar de su velocidad, la adopción no supervisada de IA generativa introduce riesgos técnicos severos documentados en la literatura académica reciente (Jauhari et al., 2026; Sartori, 2025):
+\begin{enumerate}
+    \item \textbf{Cuello de Botella de Verificación (\textit{Verification Bottleneck}):} La IA acelera la generación sintáctica, pero traslada una carga cognitiva masiva hacia las fases de lectura, comprensión y depuración de código que el usuario no escribió (Jauhari et al., 2026).
+    \item \textbf{Crisis de Deuda Técnica y Arquitecturas de Error:} Código que duplica funciones, ignora principios SOLID, acumula dependencias frágiles y carece de manejo de casos de borde (Sartori, 2025; van Hurne, 2025).
+    \item \textbf{Vulnerabilidades de Seguridad OWASP:} Entre el 30\% y el 45\% del código sintético generado sin directivas estrictas contiene vulnerabilidades críticas como inyección SQL, credenciales expuestas y fallos de autorización (Zhao et al., 2025).
+\end{enumerate}
+
+Para neutralizar estas patologías, el marco de gobernanza \textbf{VIBE4M} (Maes, 2025; Jauhari et al., 2026) exige la integración obligatoria de herramientas de Análisis Estático de Seguridad (SAST, ej. Bandit, Trivy) y refactorización guiada. 
+
+A continuación, se ilustra la mitigación práctica de una vulnerabilidad de Inyección SQL detectada por SAST en un endpoint de captura de datos:
+
+\begin{tcolorbox}[colback=bg_marfil, colframe=unmsm_gold, arc=3pt, boxrule=0.6pt, top=0.2cm, bottom=0.2cm, left=0.4cm, right=0.4cm]
+\footnotesize
+\begin{verbatim}
+# Código generado por IA sin supervisión (Inseguro - Inyección SQL)
+@app.route('/get_data')
+def get_data():
+    filename = request.args.get('filename')
+    query = f"SELECT * FROM measurements WHERE file = '{filename}'"
+    result = db.engine.execute(query)
+    return jsonify([dict(row) for row in result])
+\end{verbatim}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=bg_marfil, colframe=unmsm_gold, arc=3pt, boxrule=0.6pt, top=0.2cm, bottom=0.2cm, left=0.4cm, right=0.4cm]
+\footnotesize
+\begin{verbatim}
+# Código refactorizado bajo gobernanza VIBE4M (Seguro con parámetros y regex)
+@app.route('/get_data')
+def get_data():
+    filename = request.args.get('filename')
+    if not filename or not re.match(r'^[a-zA-Z0-9_\-\.]+\.csv$', filename):
+        return jsonify({'error': 'Nombre de archivo inválido'}), 400
+    stmt = text("SELECT * FROM measurements WHERE file = :fn")
+    result = db.engine.execute(stmt, {'fn': filename})
+    return jsonify([dict(row) for row in result])
+\end{verbatim}
+\end{tcolorbox}
+
+\subsection{Figuras y Evidencias: Estudio Experimental y Matriz Comparativa}
+\markboth{CAPÍTULO 12\quad FIGURAS Y EVIDENCIAS}{}
+
+La validación rigurosa de las herramientas de prototipado acelerado se sustenta en evidencias empíricas y matrices analíticas estructuradas.
+
+\begin{figure}[htpb!]
+\centering
+\begin{tcolorbox}[colback=white, colframe=unmsm_gold, arc=3pt, boxrule=0.8pt, top=0.35cm, bottom=0.35cm, left=0.5cm, right=0.5cm]
+\centering
+\small\sffamily
+\textbf{Figura 12.1}\\
+\textit{Arquitectura de Orquestación Híbrida y Gobernanza Documental MAF}\\[0.25cm]
+\begin{tikzpicture}[node distance=1.3cm, auto, >=stealth, font=\footnotesize\sffamily]
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=3pt, text width=2.7cm, text centered] (ui) {\textbf{Capa de Exploración}\\UI / Vibe Coding (LLMs)};
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=3pt, text width=2.7cm, text centered, right of=ui, node distance=3.9cm] (lcnc) {\textbf{Capa de Orquestación}\\Power Automate / MAF};
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=3pt, text width=2.7cm, text centered, right of=lcnc, node distance=3.9cm] (backend) {\textbf{Capa de Backend}\\Microservicios (UML/MEAN)};
+    \node [rectangle, draw=unmsm_darkred, fill=bg_arena, rounded corners=3pt, text width=3.2cm, text centered, below of=lcnc, node distance=1.7cm] (audit) {\textbf{Capa de Aseguramiento}\\ISO 15489 / SAST / Humano};
+    \draw [->, thick, draw=unmsm_red] (ui) -- node[above, font=\scriptsize] {Prototipo} (lcnc);
+    \draw [->, thick, draw=unmsm_red] (lcnc) -- node[above, font=\scriptsize] {Eventos} (backend);
+    \draw [<->, thick, draw=unmsm_darkred] (lcnc) -- (audit);
+    \draw [<->, thick, draw=unmsm_darkred] (backend) -- (audit);
+\end{tikzpicture}\\[0.25cm]
+\raggedright
+\scriptsize \textbf{Nota.} Adaptado de los modelos arquitectónicos de Marian, Neferu y Mitrea (2026) y Khalfaoui, Khalfaoui y Azmani (2025). Muestra la separación en capas funcionales supervisadas por una capa transversal de aseguramiento.
+\end{tcolorbox}
+\vspace{-0.2cm}
+\end{figure}
+
+Para orientar la selección tecnológica en proyectos de investigación científica, la Tabla 12.1 presenta la matriz comparativa multidimensional consolidada a partir de los estudios analizados.
+
+\begin{table}[htpb!]
+\centering
+\footnotesize
+\renewcommand{\arraystretch}{1.4}
+\begin{tcolorbox}[colback=white, colframe=unmsm_gold, arc=3pt, boxrule=0.6pt, top=0.2cm, bottom=0.2cm, left=0.3cm, right=0.3cm]
+\textbf{Tabla 12.1}\\
+\textit{Matriz Multidimensional de Selección Tecnológica para Prototipado Científico}\\[0.2cm]
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash\bfseries}p{2.6cm} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X}
+\toprule
+Dimensión de Análisis & \textbf{Low-Code Empresarial (Power Platform)} & \textbf{Generación UML (FSMicroGenerator)} & \textbf{Vibe Coding con LLMs (Cursor/Claude)} \\
+\midrule
+Propósito Central & Flujos documentales, firmas y auditoría. & Microservicios backend y datos distribuidos. & Exploración rápida de interfaces y algoritmos. \\
+Velocidad de MVP & Alta (-65.6\% tiempo de ciclo). & Ultra Alta (100\% cobertura en 3 horas). & Instantánea (Aceleración entre 40\% y 60\%). \\
+Control de Arquitectura & Restringido a componentes del proveedor. & Total (Modelado determinista en diagramas UML). & Variable (Dependiente de la ingeniería de prompts). \\
+Gobernanza y Seguridad & Nativa (ISO 15489 / ISO 27001 / RBAC). & Métricas en Prometheus y escaneo CI/CD. & Requiere análisis estático externo (SAST/Bandit). \\
+Perfil de Usuario & Desarrollador Ciudadano / Científico de campo. & Ingeniero de Software / Arquitecto de Datos. & Investigador multidisciplinario. \\
+\bottomrule
+\end{tabularx}\\[0.2cm]
+\raggedright
+\scriptsize \textbf{Nota.} Elaboración propia basada en la síntesis cuantitativa de Marian et al. (2026), Khalfaoui et al. (2025) y Jauhari et al. (2026).
+\end{tcolorbox}
+\end{table}
+
+Asimismo, la investigación experimental controlada de Khalfaoui et al. (2025) aporta evidencias concluyentes sobre la eficiencia de la generación dirigida por modelos frente al desarrollo manual convencional: en un límite estricto de 8 horas para desarrollar un sistema distribuido, dos desarrolladores junior empleando \textit{FSMicroGenerator} completaron el 100\% de la cobertura funcional en solo 3 horas (generando 11 commits estables y 148 modificaciones manuales). Por el contrario, un equipo de 5 desarrolladores senior en codificación manual solo alcanzó el 61\% de funcionalidad en 8 horas (proyectando $\sim$40 horas para culminarlo, lo que evidencia una reducción del 92.5\% en tiempo de desarrollo a favor de la automatización guiada).
+
+\subsection{Caso Práctico Aplicado: Despliegue y Orquestación Híbrida en Laboratorios de I+D}
+
+\subsubsection*{Contexto}
+En los centros de investigación universitaria y laboratorios de I+D, la validación de hipótesis experimentales suele verse obstaculizada por dos cuellos de botella simultáneos: por un lado, la lenta tramitación burocrática de protocolos, compras y aprobaciones éticas; por otro, la escasez de programadores para codificar plataformas de prueba personalizadas sin generar vulnerabilidades de seguridad ni incurrir en costos exorbitantes de infraestructura (Marian et al., 2026; Memari & Rudolph, 2026).
+
+\subsubsection*{Análisis e Implementación Metodológica}
+Para superar estas barreras, el equipo aplicó el marco de la \textbf{Escalera de Capacidades} (\textit{Capability Ladder}) formalizado por Memari y Rudolph (2026), graduando la autonomía de los sistemas a través de cinco niveles operativos articulados en una canalización DevSecOps:
+\begin{itemize}
+    \item \textbf{Nivel L0 (Disparadores) y L1 (Automatizaciones Simples):} Captura de datos espectroscópicos y metadatos de laboratorio mediante formularios estructurados en Power Apps.
+    \item \textbf{Nivel L2 (Flujos de Trabajo Deterministas):} Orquestación del flujo documental multitarea (MAF) en Power Automate, conectando listas de SharePoint con columnas de búsqueda (\textit{Lookup Columns}) para garantizar sellado temporal e inmutabilidad documental bajo ISO 15489.
+    \item \textbf{Nivel L3 (Agentes de IA Asistidos) y L4 (Equipos de Agentes Supervisados):} Generación de microservicios backend en Node.js/Docker con FSMicroGenerator y maquetación de interfaces exploratorias con Vibe Coding, condicionando cada despliegue a una \textbf{Capa de Aseguramiento} transversal compuesta por:
+    \begin{enumerate}
+        \item Escaneo SAST automático en CI/CD con Bandit y Trivy para bloquear fallos OWASP.
+        \item Cumplimiento de la \textit{Plantilla de Divulgación de IA} (registro de modelos, prompts y código modificado).
+        \item Punto de aprobación humana obligatoria (\textit{Human-in-the-Loop}) por un investigador sénior antes de la puesta en producción.
+    \end{enumerate}
+\end{itemize}
+
+\subsubsection*{Interpretación y Resultados Empíricos}
+La aplicación de la orquestación híbrida en el entorno piloto arrojó resultados concluyentes:
+\begin{enumerate}
+    \item \textbf{Eficiencia Operativa Documental:} El tiempo promedio de aprobación de protocolos se redujo en un 65.6\%, pasando de 3.2 días en el flujo tradicional a solo 1.1 días con la solución automatizada, con un 92\% de satisfacción de usuario (Marian et al., 2026).
+    \item \textbf{Velocidad y Calidad de Software:} El desarrollo de microservicios backend se redujo de semanas a horas mediante modelos UML, mientras que la tasa de errores operativos en pruebas de carga JMeter se mantuvo en 0.0\% con un rendimiento superior a 21.75 req/s.
+    \item \textbf{Sostenibilidad Académica y Control Ético:} La implementación de defensas orales y la plantilla de divulgación eliminó el riesgo de atrofia cognitiva en los investigadores, demostrando que la automatización no sustituye el pensamiento crítico, sino que reconcentra al científico en la formulación de hipótesis y la validación rigurosa de resultados.
+\end{enumerate}
+
+% --- NOTAS CAPÍTULO 12 ---
+\newpage
+\markboth{CAPÍTULO 12\quad NOTAS BIBLIOGRÁFICAS E HISTÓRICAS}{}
+\vspace*{0.8cm}
+\noindent{\Huge \textbf{Notas bibliográficas\\[0.2cm] e históricas}}\\[0.8cm]
+
+\textbf{Antecedentes Teóricos Fundacionales:}\\[0.2cm]
+La evolución del desarrollo acelerado de software se cimenta en la búsqueda progresiva de abstracción computacional. Sus raíces formales provienen del Desarrollo Rápido de Aplicaciones (RAD) de Martin (1991), el diseño dirigido por dominios (DDD) de Evans (2003) y los marcos de Ingeniería de Software Dirigida por Modelos (MDSE/MDD) sistematizados por Brambilla, Cabot y Wimmer (2017). Asimismo, la emergencia de la asistencia generativa por IA se apoya en los fundamentos de la arquitectura Transformer de Vaswani et al. (2017) y en la alineación mediante retroalimentación humana (RLHF) documentada por Ouyang et al. (2022).\\[0.4cm]
+
+\textbf{Contribuciones de las Investigaciones Base:}\\[0.2cm]
+El contenido y la evidencia empírica de este capítulo se fundamentan en cinco investigaciones científicas contemporáneas (2024–2026) que articulan el marco de prototipado acelerado:
+\begin{itemize}
+    \item \textbf{Sido y Emon (2024) [Universidad de Aalborg]:} Establecen la distinción taxonómica formal entre plataformas No-Code y Low-Code, y analizan la interacción temprana con modelos generativos de IA.
+    \item \textbf{Marian, Neferu y Mitrea (2026):} Demuestran empíricamente la viabilidad de plataformas Low-Code empresariales (Power Platform) para la gestión documental bajo normativas internacionales ISO 15489 e ISO 27001, aportando los datos de reducción del 65.6\% en tiempos de ciclo.
+    \item \textbf{Khalfaoui, Khalfaoui y Azmani (2025):} Presentan el marco \textit{FSMicroGenerator}, demostrando cuantitativamente la superioridad de la generación dirigida por modelos UML sobre el desarrollo manual en microservicios full-stack.
+    \item \textbf{Jauhari, Fathullah, Permana y Nugraha (2026):} Proveen la Revisión Sistemática de Literatura (PRISMA sobre 61 estudios arbitrados) sobre \textit{Vibe Coding}, conceptualizando el "cuello de botella de verificación" y fundamentando el protocolo de gobernanza VIBE4M.
+    \item \textbf{Memari y Rudolph (2026):} Formulan la \textbf{Escalera de Capacidades} (niveles L0 a L4) y la \textbf{Capa de Aseguramiento} (\textit{Assurance Layer}), definiendo el marco pedagógico y operativo de reasignación de tareas (\textit{task reallocation}) frente a la automatización inteligente.
+\end{itemize}
+\vspace{0.4cm}
+
+\textbf{Lecturas Sugeridas:}\\[0.2cm]
+\begin{enumerate}
+    \item \textbf{Brambilla, M., Cabot, J., \& Wimmer, M. (2017):} \textit{Model-Driven Software Engineering in Practice}. Obra de referencia indispensable para comprender la matemática y gramática de transformación de diagramas visuales a código ejecutable.
+    \item \textbf{Maes, S. H. (2025):} \textit{The gotchas of AI coding and vibe coding}. Guía técnica esencial sobre gobernanza de código sintético y mitigación de deuda técnica en entornos de investigación.
+    \item \textbf{ISO 15489-1:2016:} \textit{Information and documentation — Records management}. Estándar internacional para garantizar la trazabilidad, inmutabilidad y autenticidad en repositorios de datos científicos.
+\end{enumerate}
+
+% --- RESUMEN CAPÍTULO 12 ---
+\newpage
+\markboth{CAPÍTULO 12\quad RESUMEN}{}
+\vspace*{0.8cm}
+{\Huge \textbf{Resumen del capítulo 12}}
+\vspace{0.8cm}
+
+La aceleración del prototipado científico mediante software no depende de la adopción acrítica de una herramienta aislada, sino de la capacidad metodológica para implementar una orquestación híbrida que asigne a cada capa funcional el motor de desarrollo óptimo bajo estrictos estándares de gobernanza y aseguramiento de calidad.
+
+\vspace{0.4cm}
+
+\begin{resumenlist}
+    \item \textbf{Orquestación Híbrida de Paradigmas:} Integración sinérgica por capas: plataformas Low-Code deterministas para flujos documentales y gobernanza; generadores dirigidos por modelos UML (\textit{FSMicroGenerator}) para microservicios backend; y Vibe Coding con IA para interfaces exploratorias.
+    \item \textbf{Escalera de Capacidades y Reasignación Cognitiva:} Los niveles L0 a L4 permiten graduar la autonomía técnica de los sistemas, permitiendo que la automatización asuma la sobrecarga sintáctica repetitiva mientras el investigador reconcentra su esfuerzo en la arquitectura y la validación de hipótesis.
+    \item \textbf{Eficiencia Cuantitativa Comprobada:} Reducciones empíricamente medidas de más del 65.6\% en tiempos documentales (Power Platform) y del 92.5\% en desarrollo de microservicios con 100\% de cobertura funcional y 0\% de errores operativos bajo pruebas de estrés.
+    \item \textbf{Gobernanza, SAST y Capa de Aseguramiento:} La prevención de patologías de código sintético y riesgos OWASP exige análisis estático obligatorio en canalizaciones CI/CD, cumplimiento de directivas ISO 15489/27001 y supervisión obligatoria \textit{Human-in-the-Loop}.
+\end{resumenlist}
+
+\vspace{0.6cm}
+\begin{cajabeige}
+\textbf{Síntesis:} La combinación equilibrada entre bajo código, generación basada en modelos y modelos de lenguaje permite a las instituciones académicas acelerar drásticamente el ciclo de validación científica sin sacrificar el rigor metodológico, la seguridad ni la sostenibilidad técnica.
+\end{cajabeige}
+
+% --- CONCLUSIONES CAPÍTULO 12 ---
+\newpage
+\markboth{CAPÍTULO 12\quad CONCLUSIONES}{}
+\vspace*{0.8cm}
+{\Huge \textbf{Conclusiones del capítulo 12}}
+\vspace{0.8cm}
+
+\subsubsection*{Conclusión principal}
+La convergencia entre plataformas Low-Code deterministas, generadores basados en modelos UML e Inteligencia Artificial Generativa representa un cambio de paradigma maduro para la investigación científica. La orquestación híbrida permite acortar sustancialmente los ciclos de desarrollo y llevar prototipos funcionales a validación empírica en cuestión de horas o días, siempre que esté respaldada por una Capa de Aseguramiento transversal que mitigue la acumulación de deuda técnica y garantice el cumplimiento normativo.
+
+\subsubsection*{Aportes y límites}
+\textbf{Aportes:} Se sistematiza un marco de decisión tecnológica multidimensional, se demuestra la viabilidad de la automatización documental bajo normas ISO 15489/27001, y se articula la Escalera de Capacidades (L0–L4) con canalizaciones DevSecOps y análisis estático SAST. \textbf{Límites:} Las soluciones Low-Code propietarias conllevan riesgos de dependencia del proveedor (\textit{vendor lock-in}) y costos de licenciamiento en escenarios de alta concurrencia; asimismo, el código generado por IA exige supervisión humana continua, siendo vulnerable a sesgos probabilísticos y fallos lógicos complejos que las herramientas automáticas no logran detectar de forma aislada.
+
+\subsubsection*{Preguntas abiertas}
+¿De qué manera evolucionarán los marcos internacionales de auditoría y certificación de software a medida que los equipos de agentes autónomos de IA (Nivel L4) asuman la autogeneración, verificación y refactorización continua de prototipos en tiempo real sin intervención humana directa?
+
+% --- REFERENCIAS CAPÍTULO 12 ---
+\vspace{0.8cm}
+\markboth{CAPÍTULO 12\quad REFERENCIAS}{}
+\subsubsection*{Referencias del Capítulo 12}
+\vspace{0.3cm}
+
+\begin{itemize}[leftmargin=1.5em, label={}, itemsep=0.35ex, parsep=0pt]
+\small
+    \item Brambilla, M., Cabot, J., \& Wimmer, M. (2017). \textit{Model-Driven Software Engineering in Practice} (2nd ed.). Morgan \& Claypool. https://doi.org/10.2200/S00751ED2V01Y201701SWE004
+    \item Evans, E. (2003). \textit{Domain-Driven Design: Tackling Complexity in the Heart of Software}. Addison-Wesley.
+    \item ISO 15489-1:2016. (2016). \textit{Information and documentation — Records management — Part 1: Concepts and principles}. International Organization for Standardization.
+    \item ISO/IEC 27001:2022. (2022). \textit{Information security, cybersecurity and privacy protection — Information security management systems — Requirements}. ISO/IEC.
+    \item Jauhari, A. F., Fathullah, A. M., Permana, D., \& Nugraha, D. (2026). A systematic analysis of AI-assisted vibe coding in software development: Opportunities, risks, and governance frameworks. \textit{International Journal of Software Engineering and Technology}, 5(2), 261–273.
+    \item Khalfaoui, S., Khalfaoui, H., \& Azmani, A. (2025). Microservices-driven automation in full-stack development with FSMicroGenerator: An empirical design and evaluation. \textit{IEEE Access}, 13, 110804–110825. https://doi.org/10.1109/ACCESS.2025.3526112
+    \item Maes, S. H. (2025). \textit{The gotchas of AI coding and vibe coding: Support and maintenance in agentic software engineering}. Zenodo. https://doi.org/10.5281/zenodo.14889210
+    \item Marian, C. V., Neferu, M., \& Mitrea, D. A. (2026). Design and evaluation of a low-code/no-code document management system for academic and enterprise environments. \textit{Information}, 17(1), 46. https://doi.org/10.3390/info17010046
+    \item Memari, M., \& Rudolph, G. (2026). The Capability Ladder: A curriculum-modernization framework for workforce readiness in the AI era. \textit{arXiv preprint} arXiv:2608.07779. https://doi.org/10.48550/arXiv.2608.07779
+    \item Meske, C., Hermanns, T., Weiden, E., Loser, K., \& Berger, T. (2025). Vibe coding as a reconfiguration of intent mediation in software development. \textit{IEEE Access}, 13, 45120–45135. https://doi.org/10.1109/ACCESS.2025.3519802
+    \item Reudismam Rolim, R., Soares, G., Gheyi, R., \& Ribeiro, M. (2026). Low-code vs. manual development: A comparative study of security, architecture, and maintainability in enterprise systems. \textit{ACM Transactions on Software Engineering and Methodology}, 35(1), 1–28.
+    \item Sido, N., \& Emon, E. A. (2024). \textit{Low/No Code Development and Generative AI: Exploring Opportunities and Challenges for Scientific Prototyping} [Master's Thesis, Aalborg University]. Aalborg University Digital Repository.
+    \item Zhao, S., Wang, D., Zhang, K., Chen, Y., \& Liu, H. (2025). Is vibe coding safe? Benchmarking security vulnerabilities of agent-generated code in real-world scenarios. \textit{arXiv preprint} arXiv:2512.03262.
+\end{itemize}
