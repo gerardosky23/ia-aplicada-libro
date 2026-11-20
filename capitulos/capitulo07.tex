@@ -728,7 +728,7 @@ En el despliegue de modelos masivos de Mezcla de Expertos en clústeres distribu
 La arquitectura del módulo en PyTorch se estructura de forma modular. En primer lugar, se define la clase \texttt{DeepSeekMoELayer} con su inicialización, reservando el experto compartido invariante, los centroides de afinidad de los 256 sub-expertos y el búfer del sesgo dinámico $b_j$:
 
 \begin{tcolorbox}[colback=bg_marfil, colframe=unmsm_gold, arc=3pt, boxrule=0.6pt, top=0.2cm, bottom=0.2cm, left=0.4cm, right=0.4cm]
-\footnotesize
+\scriptsize\ttfamily
 \begin{verbatim}
 import torch
 import torch.nn as nn
@@ -765,7 +765,7 @@ class DeepSeekMoELayer(nn.Module):
 En segundo lugar, se implementa el pase hacia adelante (\texttt{forward}), donde se incorporan los sesgos para la selección Top-K, se normalizan los pesos con afinidades puras y se actualiza el sesgo en tiempo de ejecución:
 
 \begin{tcolorbox}[colback=bg_marfil, colframe=unmsm_gold, arc=3pt, boxrule=0.6pt, top=0.2cm, bottom=0.2cm, left=0.4cm, right=0.4cm]
-\footnotesize
+\scriptsize\ttfamily
 \begin{verbatim}
     def forward(self, u):
         batch_size, seq_len, d_model = u.shape
@@ -827,7 +827,7 @@ Para instanciar el paradigma de DeepSeek-R1-Zero, se formula la implementación 
 La implementación del entrenador GRPO se divide en dos módulos cohesivos: en primer término, la inicialización de la política y el evaluador determinista de recompensas basado en verificación simbólica y sintaxis estricta:
 
 \begin{tcolorbox}[colback=bg_marfil, colframe=unmsm_gold, arc=3pt, boxrule=0.6pt, top=0.2cm, bottom=0.2cm, left=0.4cm, right=0.4cm]
-\footnotesize
+\scriptsize\ttfamily
 \begin{verbatim}
 import re
 import torch
@@ -867,7 +867,7 @@ class GRPOTrainer:
 En segundo término, el bucle de entrenamiento \texttt{train\_step} muestrea un grupo de $G=8$ trayectorias, calcula la ventaja relativa del grupo y ejecuta el paso de retropropagación recortado:
 
 \begin{tcolorbox}[colback=bg_marfil, colframe=unmsm_gold, arc=3pt, boxrule=0.6pt, top=0.2cm, bottom=0.2cm, left=0.4cm, right=0.4cm]
-\footnotesize
+\scriptsize\ttfamily
 \begin{verbatim}
     def train_step(self, prompts, ground_truths):
         """Ejecución de un paso de optimización de política en grupo."""
