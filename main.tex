@@ -19,6 +19,7 @@
 \usepackage{amssymb}
 \usepackage{booktabs}
 \usepackage{caption}
+\usepackage{listings}
 \usepackage{parskip}
 \usepackage{enumitem}
 \usepackage{setspace}
@@ -42,6 +43,24 @@
 \definecolor{bg_arena}{RGB}{237, 225, 207}     % Fondo arena #EDE1CF
 \definecolor{unmsm_gray}{RGB}{106, 98, 90}     % Gris cálido #6A625A
 \definecolor{unmsm_gold}{RGB}{200, 190, 176}   % Separadores y acentos #C8BEB0
+
+\lstset{
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    breakatwhitespace=true,
+    frame=single,
+    rulecolor=\color{unmsm_gold},
+    backgroundcolor=\color{bg_marfil},
+    keywordstyle=\color{unmsm_red}\bfseries,
+    commentstyle=\color{unmsm_gray}\itshape,
+    stringstyle=\color{unmsm_darkred},
+    numbers=left,
+    numberstyle=\tiny\color{unmsm_gray},
+    numbersep=8pt,
+    tabsize=2,
+    showstringspaces=false,
+    captionpos=b
+}
 
 % ==========================================
 % CONFIGURACIÓN DE TÍTULOS (Estilo visual)
@@ -311,13 +330,17 @@ Con este esfuerzo, la Universidad Nacional Mayor de San Marcos reafirma su compr
 \input{capitulos/capitulo09.tex}
 
 \clearpage
-\input{capitulos/capitulo10.tex}
-
-\clearpage
+\setcounter{section}{10} % Capítulo 10 omitido (Grupo 5 sin entrega de material)
 \input{capitulos/capitulo11.tex}
 
 \clearpage
 \input{capitulos/capitulo12.tex}
+
+\clearpage
+\input{capitulos/capitulo13.tex}
+
+\clearpage
+\input{capitulos/capitulo14.tex}
 
 % ==========================================
 % SOBRE ESTA OBRA (Contracubierta)
