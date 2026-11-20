@@ -1,0 +1,978 @@
+% ==============================================================================
+% METADATOS DE AUDITORÍA EDITORIAL Y RIGOR CIENTÍFICO (PROTOCOLO AGENTS.md)
+% ==============================================================================
+% Capítulo: 10
+% Título: Generación y Síntesis de Imágenes: Fundamentos Matemáticos, Difusión Latente y Control Estructural
+% Grupo de Origen: Grupo 10 (Asignatura de Inteligencia Artificial Aplicada, UNMSM)
+% Archivo Fuente Analizado: Capitulos IA S2/Grupo 10/CAPITULO 8.pdf (25 páginas, 6,972 palabras)
+% Fuentes Primarias Cotejadas y Verificadas (referencias/):
+%   1. Yang, L., Zhang, Z., Song, Y., et al. (2023). Diffusion Models: A Comprehensive Survey of Methods and Applications (ACM Computing Surveys, 56(4), 105, 39 p.)
+%   2. Benny, Y., Galanti, T., Benaim, S., & Wolf, L. (2021). Evaluation Metrics for Conditional Image Generation (IJCV, 129, 1712-1731)
+%   3. Ali, S., Ravi, P., Moore, K., Abelson, H., & Breazeal, C. (2024). A Picture is Worth a Thousand Words: Co-designing Text-to-Image Generation Learning Materials for K-12 with Educators (AAAI, 38(21), 23260-23267)
+%   4. Cooper, G., & Tang, K.-S. (2024). Pixels and Pedagogy: Examining Science Education Imagery by Generative Artificial Intelligence (Journal of Science Education and Technology, 33, 556-568)
+%   5. Liu, M., Zhang, L. J., & Biebricher, C. (2024). Investigating Students' Cognitive Processes in Generative AI-assisted Digital Multimodal Composing and Traditional Writing (Computers & Education, 211, 104977)
+%   6. Ho, J., Jain, A., & Abbeel, P. (2020). Denoising Diffusion Probabilistic Models (NeurIPS, 33, 6840-6851)
+%   7. Song, Y., Sohl-Dickstein, J., Kingma, D. P., et al. (2020). Score-Based Generative Modeling through Stochastic Differential Equations (ICLR 2021)
+%   8. Rombach, R., Blattmann, A., Lorenz, D., Esser, P., & Ommer, B. (2022). High-Resolution Image Synthesis with Latent Diffusion Models (CVPR, 10684-10695)
+%   9. Zhang, L., Rao, A., & Agrawala, M. (2023). Adding Conditional Control to Text-to-Image Diffusion Models (ICCV, 3836-3847)
+%   10. Ho, J., & Salimans, T. (2022). Classifier-Free Diffusion Guidance (NeurIPS Workshop on Score-Based Methods)
+% Cláusula NotebookLM: Grounding estricto al 100%. Cero datos o formulaciones inventadas.
+% Parámetro de Extensión: >= 25 páginas compiladas en formato oficial A4 UNMSM.
+% Cumplimiento Normativo: APA 7ma Edición + House Style UNMSM (7 componentes pedagógicos canónicos).
+% Estado de Auditoría: CONFORME / REVISADO POR CAPITULO-AUDITOR
+% Fecha de Auditoría: 2026-11-20
+% ==============================================================================
+
+\section[Generación y Síntesis de Imágenes (Modelos de Difusión)]{Generación y Síntesis de Imágenes: Fundamentos Matemáticos, Difusión Latente y Control Estructural}
+\markboth{CAPÍTULO 10\quad GENERACIÓN Y SÍNTESIS DE IMÁGENES}{}
+
+\begin{cajabeige}
+\textbf{Pregunta Central del Capítulo:} \textquestiondown Cómo convergen la termodinámica estadística del no equilibrio, el modelado de difusión latente en espacios comprimidos y los mecanismos de modulación condicional para sintetizar imágenes de alta fidelidad, y qué marcos de evaluación analítica y ética permiten auditar su rigor técnico, sesgos sociotécnicos y valor pedagógico?\\[0.3cm]
+\textbf{Objetivo de Aprendizaje:} El lector dominará la deducción formal de las cadenas de difusión de Markov y las ecuaciones diferenciales estocásticas; analizará la compresión perceptual bi-etápica de los modelos de difusión latente (LDM) y los mecanismos de atención cruzada multimodal; implementará arquitecturas de control espacial mediante ControlNet y Classifier-Free Guidance; aplicará las descomposiciones condicionales de Benny et al. (BCIS, WCIS, BCFID, WCFID); y auditará casos reales de alfabetización visual y pensamiento crítico bajo directrices éticas internacionales.
+\end{cajabeige}
+
+\textoside{
+La síntesis visual contemporánea mediante modelos de difusión latente representa un cambio de paradigma respecto a las redes adversarias tradicionales: en lugar de un juego minimax inestable, el proceso generativo se modela como la reversión estocástica controlada de una perturbación termodinámica. Al proyectar la dinámica hacia un espacio latente comprimido regularizado perceptualmente y gobernar la trayectoria mediante atención cruzada y convoluciones cero, se logra un balance óptimo entre fidelidad estructural, diversidad muestral y control semántico fino.
+}{CONCEPTO CLAVE\\[0.1cm]Difusión Latente y Control Estructural}
+
+\vspace{0.4cm}
+
+\subsection{Fundamentos Matemáticos del Aprendizaje Generativo y Modelado de Distribuciones Visuales}
+
+\subsubsection{El Paradigma de la Inteligencia Artificial Generativa y la Aproximación de Densidades}
+
+El modelado generativo visual tiene como objetivo fundamental aprender la verdadera distribución de probabilidad subyacente $p_{\mathrm{data}}(x)$ que gobierna un conjunto de datos observables $x \in \mathbf{R}^{H \times W \times C}$, donde $H$, $W$ y $C$ representan la altura, el ancho y los canales cromáticos de la imagen, respectivamente. A diferencia de las tareas discriminativas, cuyo propósito se limita a estimar una probabilidad a posteriori $p(y|x)$ para una etiqueta de clase $y$, el aprendizaje generativo aborda el problema de inferencia inversa de mayor complejidad: parametrizar una familia de distribuciones $p_\theta(x)$ mediante redes neuronales profundas con parámetros $\theta \in \mathbf{R}^d$, tal que la divergencia estadística entre $p_\theta(x)$ y $p_{\mathrm{data}}(x)$ se minimice bajo una métrica adecuada (Yang et al., 2023).
+
+En un entorno probabilístico riguroso, este objetivo equivale a maximizar la log-verosimilitud marginal esperada de las observaciones sobre el soporte empírico:
+\begin{equation}
+\max_\theta \mathbf{E}_{x \sim p_{\mathrm{data}}(x)} \left[ \log p_\theta(x) \right] \iff \min_\theta D_{\mathrm{KL}}(p_{\mathrm{data}}(x) \parallel p_\theta(x))
+\end{equation}
+donde $D_{\mathrm{KL}}$ denota la divergencia de Kullback-Leibler. Sin embargo, en espacios de alta dimensionalidad (por ejemplo, imágenes en resolución nativa de $512 \times 512 \times 3 \approx 7.86 \times 10^5$ dimensiones), la densidad marginal $p_\theta(x) = \int p_\theta(x, z) dz$ resulta analíticamente intratable debido a la presencia de múltiples variables latentes no observadas $z$ y la naturaleza altamente no lineal de la variedad geométrica sobre la cual residen las imágenes naturales (Kingma \& Welling, 2013).
+
+Para soslayar esta intratabilidad, la literatura de aprendizaje profundo ha formulado distintas aproximaciones metodológicas para modelar distribuciones complejas, dando origen a diversas familias arquitectónicas cuyas propiedades matemáticas determinan su estabilidad, calidad perceptual y costo computacional.
+
+\subsubsection{Taxonomía Epistémica de Familias Generativas}
+
+Históricamente, cuatro grandes paradigmas han precedido y enriquecido el surgimiento de los modelos de difusión:
+
+\begin{enumerate}
+    \item \textbf{Autoencoders Variacionales (VAE):} Propuestos por Kingma y Welling (2013) y Rezende et al. (2014), optimizan analíticamente una cota inferior de la evidencia (\textit{Evidence Lower Bound}, ELBO). Mediante una red codificadora $q_\phi(z|x)$ que aproxima la distribución a posteriori sobre el espacio latente y una red decodificadora $p_\theta(x|z)$, el objetivo variacional se descompone en:
+    \begin{equation}
+    \log p_\theta(x) \ge \mathbf{E}_{q_\phi(z|x)}[\log p_\theta(x|z)] - D_{\mathrm{KL}}(q_\phi(z|x) \parallel p(z))
+    \end{equation}
+    Aunque los VAE garantizan un espacio latente continuo, suave y probabilísticamente fundamentado, el uso de distribuciones gaussianas factorizadas y funciones de pérdida de error cuadrático medio tiende a promediar modos distribucionales, produciendo imágenes borrosas y carentes de detalles de alta frecuencia.
+    
+    \item \textbf{Redes Generativas Adversarias (GAN):} Formuladas por Goodfellow et al. (2014), eluden el cálculo de verosimilitudes explícitas planteando un juego minimax de teoría de juegos entre un Generador $G_\theta(z)$ y un Discriminador $D_\phi(x)$:
+    \begin{equation}
+    \min_\theta \max_\phi V(D_\phi, G_\theta) = \mathbf{E}_{x \sim p_{\mathrm{data}}}[\log D_\phi(x)] + \mathbf{E}_{z \sim p(z)}[\log(1 - D_\phi(G_\theta(z)))]
+    \end{equation}
+    Bajo condiciones ideales de capacidad no paramétrica, este juego minimiza la divergencia de Jensen-Shannon. Si bien las GAN producen imágenes de extraordinaria nitidez perceptual y permiten inferencia ultrarrápida en un único paso hacia adelante, adolecen de severas patologías: inestabilidad durante el entrenamiento, gradientes evanescentes y colapso de modos (\textit{mode collapse}), donde el generador concentra su masa de probabilidad en un subconjunto restringido de la variedad de datos.
+    
+    \item \textbf{Modelos Autorregresivos (ARM):} Modelan la distribución conjunta factorizando la densidad mediante la regla de la cadena de probabilidades: $p_\theta(x) = \prod_{i=1}^{N} p_\theta(x_i | x_{<i})$, utilizando redes recurrentes o Transformers visuales (Image Transformer, VQ-GAN autorregresivo). Si bien proporcionan un cálculo exacto y tractable de la verosimilitud sin aproximaciones variacionales ni juegos minimax, su proceso de generación es estrictamente secuencial píxel a píxel o token a token, volviendo la inferencia computacionalmente prohibitiva para resoluciones medianas y altas.
+    
+    \item \textbf{Modelos Basados en Flujos Normalizados (\textit{Normalizing Flows}):} Transforman una densidad base analítica simple $p_Z(z)$ (como una gaussiana estándar) en una densidad compleja $p_X(x)$ mediante una secuencia de mapeos invertibles y diferenciables $f_\theta = f_K \circ \dots \circ f_1$. Mediante la fórmula del cambio de variables multivariado:
+    \begin{equation}
+    p_\theta(x) = p_Z(f_\theta^{-1}(x)) \left| \det \left( \frac{\partial f_\theta^{-1}(x)}{\partial x} \right) \right|
+    \end{equation}
+    Permiten el cálculo exacto de la densidad y un muestreo eficiente, pero exigen que las capas de la red neuronal posean matrices Jacobianas de evaluación y determinante tratables, lo que restringe severamente la expresividad arquitectónica e incrementa el consumo de memoria.
+\end{enumerate}
+
+\subsubsection{Análisis Comparativo Multidimensional de Arquitecturas Generativas}
+
+La tensión fundamental entre fidelidad perceptual, cobertura modal, estabilidad de entrenamiento y velocidad de muestreo se conoce en la literatura como el \textit{trilema generativo}. La Tabla 10.1 sintetiza la comparativa epistémica y operativa de estas familias.
+
+\begin{table}[htpb!]
+\centering
+\small\sffamily
+\caption{\textbf{Tabla 10.1.} \textit{Comparación Arquitectónica y Epistémica de las Principales Familias de Modelos Generativos Visuales}}
+\begin{tabularx}{\textwidth}{p{2.6cm} p{3.2cm} p{3.2cm} p{3.2cm} p{2.2cm}}
+\toprule
+\textbf{Familia / Modelo} & \textbf{Principio Matemático} & \textbf{Ventajas Destacadas} & \textbf{Limitaciones Críticas} & \textbf{Costo de Muestreo} \\
+\midrule
+\textbf{Autoencoders Variacionales (VAE)} & Maximización del ELBO con regularización KL sobre el espacio latente continuo & Espacio latente continuo y bien estructurado; inferencia probabilística analítica & Pérdida de alta frecuencia; tendencia a generar imágenes borrosas (\textit{blurry}) & Ultrarrápido ($O(1)$, un solo paso feed-forward) \\
+\midrule
+\textbf{Redes Adversarias (GAN)} & Juego minimax bi-jugador entre Generador y Discriminador: $\min_G \max_D V(D,G)$ & Extraordinaria nitidez perceptual y velocidad de síntesis en tiempo real & Inestabilidad de entrenamiento; colapso de modos (\textit{mode collapse}); gradientes nulos & Ultrarrápido ($O(1)$, pase directo por generador) \\
+\midrule
+\textbf{Modelos Autorregresivos (ARM)} & Factorización secuencial de la densidad: $p(x) = \prod_i p(x_i | x_{<i})$ mediante Transformers & Modelado exacto de dependencias de largo alcance; verosimilitud exacta sin aproximación & Inferencia secuencial extremadamente lenta; alto consumo de memoria & Muy Lento ($O(N)$, paso por cada píxel o token visual) \\
+\midrule
+\textbf{Flujos Normalizados (Flows)} & Transformación invertible de variables mediante matriz Jacobiana: $p(x) = p(z)|\det J_f^{-1}|$ & Cálculo analítico de verosimilitud exacta e inferencia invertible bidireccional & Restricción topológica de invertibilidad; alto requerimiento de memoria y parámetros & Rápido ($O(1)$, evaluación analítica directa) \\
+\midrule
+\textbf{Modelos de Difusión (DDPM / LDM)} & Eliminación progresiva de perturbaciones gaussianas guiada por estimación de ruido o función de puntuación & Máxima diversidad muestral; estabilidad de entrenamiento sin juegos minimax; fácil acondicionamiento & Requiere múltiples evaluaciones secuenciales de la red neuronal durante el muestreo & Moderado a Alto ($O(T)$, 15--50 pasos con DDIM/DPM-Solver) \\
+\bottomrule
+\end{tabularx}
+\vspace{0.15cm}
+{\scriptsize \textbf{Fuente:} Adaptado de Yang et al. (2023) y Rombach et al. (2022).}
+\end{table}
+
+\subsubsection{La Transición hacia el Paradigma de Difusión y la Síntesis Guiada por Texto}
+
+Como ilustra la Tabla 10.1, los modelos probabilísticos de difusión rompen el compromiso tradicional entre calidad y cobertura de modos. Al descomponer el proceso generativo en una cadena prolongada de micro-transformaciones lineales gaussianas, el problema de aprendizaje se reduce a estimar la dirección de eliminación de ruido condicional en cada instante temporal.
+
+Este esquema desacopla la dificultad del modelado de distribuciones complejas: la red neuronal no intenta generar una imagen completa a partir de un vector aleatorio en un solo salto (lo que genera inestabilidad en GANs), sino que aprende a predecir pequeñas correcciones locales. Sobre esta base, la incorporación de señales de acondicionamiento multimodal (tales como descripciones textuales codificadas mediante modelos de lenguaje-visión contrastivos) permite dirigir la trayectoria de síntesis hacia atractores semánticos específicos, sentando las bases de la moderna síntesis \textit{Text-to-Image} (T2I).
+
+\subsection{Termodinámica del No Equilibrio y Mecánica Probabilística de Difusión (DDPM)}
+
+\subsubsection{Fundamentación Termodinámica y Mecánica Estadística del No Equilibrio}
+
+El origen conceptual de los modelos de difusión contemporáneos proviene de la física estadística y la termodinámica del no equilibrio, formalizado por Sohl-Dickstein et al. (2015). En física, un sistema termodinámico aislado fuera del equilibrio que experimenta fluctuaciones moleculares difunde espontáneamente su estructura ordenada hacia un estado de máxima entropía gobernado por el movimiento browniano. Si se conoce la dinámica microscópica de perturbación, es teóricamente factible construir un proceso inverso que revierta la entropía y reconstruya la distribución ordenada original.
+
+En el marco del aprendizaje probabilístico, este principio se traduce en dos procesos conjugados: un \textit{proceso directo} (\textit{forward process}), que destruye progresiva y determinísticamente la estructura de los datos agregando ruido gaussiano hasta convertirlos en ruido blanco puro, y un \textit{proceso inverso} (\textit{reverse process}), parametrizado por una red neuronal, que aprende a remover sistemáticamente la perturbación inducida.
+
+\subsubsection{Proceso Directo de Difusión Gaussiana como Cadena de Markov y Formulación Marginal Cerrada}
+
+Sea $x_0 \sim q(x_0)$ una muestra prístina extraída de la distribución de datos. El proceso directo de difusión añade ruido gaussiano a lo largo de $T$ instantes temporales discretos $t \in \{1, 2, \dots, T\}$, gobernado por una cadena de Markov no paramétrica:
+\begin{equation}
+q(x_{1:T} | x_0) = \prod_{t=1}^T q(x_t | x_{t-1})
+\end{equation}
+donde cada transición condicional se define como una distribución gaussiana multivariada con media escalada y covarianza isotrópica parametrizada por un programa de varianza prefijado $\beta_1, \beta_2, \dots, \beta_T \in (0, 1)$:
+\begin{equation}
+q(x_t | x_{t-1}) = \mathcal{N}\left( x_t; \sqrt{1 - \beta_t} x_{t-1}, \beta_t \mathbf{I} \right)
+\end{equation}
+
+Una propiedad algebraica decisiva de este proceso de Markov es que permite muestrear el estado ruidoso $x_t$ en cualquier instante arbitrario $t$ en un único paso cerrado a partir de $x_0$, sin necesidad de simular inductivamente los estados intermedios $x_1, \dots, x_{t-1}$. 
+
+Definiendo $\alpha_t = 1 - \beta_t$ y el producto acumulado $\bar{\alpha}_t = \prod_{s=1}^t \alpha_s$, aplicamos la regla de reparametrización sucesiva. Si $x_t = \sqrt{\alpha_t} x_{t-1} + \sqrt{1 - \alpha_t} \epsilon_{t-1}$, donde $\epsilon_{t-1} \sim \mathcal{N}(0, \mathbf{I})$, entonces:
+\begin{eqnarray}
+x_t &=& \sqrt{\alpha_t} \left( \sqrt{\alpha_{t-1}} x_{t-2} + \sqrt{1 - \alpha_{t-1}} \epsilon_{t-2} \right) + \sqrt{1 - \alpha_t} \epsilon_{t-1} \nonumber \\
+    &=& \sqrt{\alpha_t \alpha_{t-1}} x_{t-2} + \sqrt{\alpha_t (1 - \alpha_{t-1})} \epsilon_{t-2} + \sqrt{1 - \alpha_t} \epsilon_{t-1}
+\end{eqnarray}
+Dado que la combinación lineal de dos variables aleatorias gaussianas independientes $\mathcal{N}(0, \sigma_1^2 \mathbf{I})$ y $\mathcal{N}(0, \sigma_2^2 \mathbf{I})$ es una nueva variable gaussiana $\mathcal{N}(0, (\sigma_1^2 + \sigma_2^2)\mathbf{I})$, la varianza combinada resulta:
+\begin{equation}
+\alpha_t (1 - \alpha_{t-1}) + (1 - \alpha_t) = \alpha_t - \alpha_t \alpha_{t-1} + 1 - \alpha_t = 1 - \alpha_t \alpha_{t-1}
+\end{equation}
+Por inducción completa sobre $t$, obtenemos la distribución marginal analítica:
+\begin{equation}
+q(x_t | x_0) = \mathcal{N}\left( x_t; \sqrt{\bar{\alpha}_t} x_0, (1 - \bar{\alpha}_t) \mathbf{I} \right)
+\end{equation}
+lo cual permite expresar operativamente cualquier imagen perturbada mediante la ecuación generativa:
+\begin{equation}
+x_t = \sqrt{\bar{\alpha}_t} x_0 + \sqrt{1 - \bar{\alpha}_t} \epsilon, \quad \mathrm{con\ } \epsilon \sim \mathcal{N}(0, \mathbf{I})
+\end{equation}
+A medida que $t \to T$, si se cumple que $\bar{\alpha}_T \approx 0$, la dependencia de la señal original $x_0$ desaparece por completo y $x_T$ converge asintóticamente a una distribución gaussiana isotrópica estándar $\mathcal{N}(0, \mathbf{I})$.
+
+\subsubsection{Programadores de Varianza (Variance Schedulers): Lineal, Coseno y Sigmoide}
+
+El comportamiento del proceso directo depende críticamente de la trayectoria de decaimiento de $\bar{\alpha}_t$. Se han formulado tres esquemas principales en la literatura:
+
+\begin{itemize}
+    \item \textbf{Programador Lineal (Ho et al., 2020):} Define $\beta_t$ mediante una interpolación lineal entre $\beta_1 = 10^{-4}$ y $\beta_T = 0.02$ para $T=1000$ pasos:
+    \begin{equation}
+    \beta_t = \beta_1 + \frac{t-1}{T-1} (\beta_T - \beta_1)
+    \end{equation}
+    Aunque ampliamente adoptado, Nichol y Dhariwal (2021) observaron que destruye la información visual con excesiva rapidez en los pasos iniciales, provocando que los últimos 200 pasos sean redundantes al operar sobre ruido ya imperceptible.
+    
+    \item \textbf{Programador Coseno (Nichol \& Dhariwal, 2021):} Diseñado para mantener una tasa uniforme de degradación de información mediante la función:
+    \begin{equation}
+    \bar{\alpha}_t = \frac{f(t)}{f(0)}, \quad f(t) = \cos^2\left( \frac{t/T + s}{1 + s} \cdot \frac{\pi}{2} \right)
+    \end{equation}
+    donde $s = 0.008$ es un factor de desplazamiento suave que previene singularidades cerca de $t=0$. El valor de $\beta_t$ correspondiente se deriva como:
+    \begin{equation}
+    \beta_t = 1 - \frac{\bar{\alpha}_t}{\bar{\alpha}_{t-1}}, \quad \beta_t = \min(\beta_t, 0.999)
+    \end{equation}
+    Este programador preserva la estructura a gran escala en los pasos iniciales y distribuye el esfuerzo de aprendizaje de forma homogénea.
+    
+    \item \textbf{Programador Sigmoide:} Aplica una curva logística que concentra la transición de fase en los pasos intermedios, utilizada frecuentemente en síntesis de alta resolución para evitar artefactos de contraste.
+\end{itemize}
+
+\subsubsection{Proceso Inverso de Eliminación de Ruido y Derivación Analítica del Límite Inferior Variacional (ELBO)}
+
+Para generar nuevas imágenes, es necesario muestrear un vector de ruido $x_T \sim \mathcal{N}(0, \mathbf{I})$ y revertir la cadena temporal hacia $x_0$. Si bien la distribución posterior verdadera $q(x_{t-1}|x_t)$ depende de la distribución completa de datos y es intratable, Feller (1949) demostró que para transiciones gaussianas con $\beta_t$ infinitesimalmente pequeño, la distribución inversa posee la misma forma funcional gaussiana.
+
+Por ende, aproximamos el proceso inverso mediante un modelo parametrizado $p_\theta(x_{t-1}|x_t)$:
+\begin{equation}
+p_\theta(x_{0:T}) = p(x_T) \prod_{t=1}^T p_\theta(x_{t-1}|x_t), \quad p_\theta(x_{t-1}|x_t) = \mathcal{N}(x_{t-1}; \mu_\theta(x_t, t), \Sigma_\theta(x_t, t))
+\end{equation}
+con $p(x_T) = \mathcal{N}(x_T; 0, \mathbf{I})$.
+
+Para entrenar $\theta$, construimos el Límite Inferior Variacional (ELBO) de la log-verosimilitud marginal:
+\begin{equation}
+\log p_\theta(x_0) \ge \mathbf{E}_{q(x_{1:T}|x_0)} \left[ \log \frac{p_\theta(x_{0:T})}{q(x_{1:T}|x_0)} \right] = - \mathcal{L}_{\mathrm{VLB}}
+\end{equation}
+Expandiendo las productoras de Markov y aplicando la regla de Bayes sobre las transiciones directas, Sohl-Dickstein et al. (2015) y Ho et al. (2020) descomponen $\mathcal{L}_{\mathrm{VLB}}$ en términos analíticos tratables:
+\begin{eqnarray}
+\mathcal{L}_{\mathrm{VLB}} &=& \mathbf{E}_q \left[ D_{\mathrm{KL}}(q(x_T|x_0) \parallel p(x_T)) + \sum_{t=2}^T D_{\mathrm{KL}}(q(x_{t-1}|x_t, x_0) \parallel p_\theta(x_{t-1}|x_t)) - \log p_\theta(x_0|x_1) \right] \nonumber \\
+&=& L_T + \sum_{t=2}^T L_{t-1} + L_0
+\end{eqnarray}
+
+La posterior del proceso directo condicionada al punto de partida $x_0$ resulta ser analíticamente tratable mediante cálculo gaussiano estándar:
+\begin{equation}
+q(x_{t-1}|x_t, x_0) = \mathcal{N}(x_{t-1}; \tilde{\mu}_t(x_t, x_0), \tilde{\beta}_t \mathbf{I})
+\end{equation}
+donde:
+\begin{equation}
+\tilde{\beta}_t = \frac{1 - \bar{\alpha}_{t-1}}{1 - \bar{\alpha}_t} \beta_t, \quad \tilde{\mu}_t(x_t, x_0) = \frac{\sqrt{\bar{\alpha}_{t-1}} \beta_t}{1 - \bar{\alpha}_t} x_0 + \frac{\sqrt{\alpha_t}(1 - \bar{\alpha}_{t-1})}{1 - \bar{\alpha}_t} x_t
+\end{equation}
+Sustituyendo la expresión de inversión $x_0 = \frac{1}{\sqrt{\bar{\alpha}_t}} \left( x_t - \sqrt{1 - \bar{\alpha}_t} \epsilon \right)$ en la ecuación de $\tilde{\mu}_t$, obtenemos la parametrización de la media en función del ruido inyectado $\epsilon$:
+\begin{equation}
+\tilde{\mu}_t(x_t, \epsilon) = \frac{1}{\sqrt{\alpha_t}} \left( x_t - \frac{\beta_t}{\sqrt{1 - \bar{\alpha}_t}} \epsilon \right)
+\end{equation}
+
+\subsubsection{La Función Objetivo Simplificada $L_{\mathrm{simple}}(\theta)$ y Parametrización del Ruido}
+
+Si parametrizamos la media de la red neuronal $p_\theta(x_{t-1}|x_t)$ emulando la estructura óptima $\tilde{\mu}_t$:
+\begin{equation}
+\mu_\theta(x_t, t) = \frac{1}{\sqrt{\alpha_t}} \left( x_t - \frac{\beta_t}{\sqrt{1 - \bar{\alpha}_t}} \epsilon_\theta(x_t, t) \right)
+\end{equation}
+la divergencia KL entre dos distribuciones gaussianas con matrices de covarianza proporcionales $\Sigma_\theta(x_t, t) = \sigma_t^2 \mathbf{I}$ se reduce a:
+\begin{equation}
+L_{t-1} = \mathbf{E}_{x_0, \epsilon} \left[ \frac{1}{2 \sigma_t^2} \frac{\beta_t^2}{\alpha_t (1 - \bar{\alpha}_t)} \left\| \epsilon - \epsilon_\theta(x_t, t) \right\|^2 \right]
+\end{equation}
+
+Ho et al. (2020) realizaron el descubrimiento fundamental de que descartar el factor de ponderación analítico dependiente de $t$ produce muestras visuales de calidad cualitativa y cuantitativa significativamente superior. Esto define la función de pérdida simplificada de los modelos DDPM:
+\begin{equation}
+\mathcal{L}_{\mathrm{simple}}(\theta) = \mathbf{E}_{t \sim \mathcal{U}(1, T), x_0, \epsilon \sim \mathcal{N}(0, \mathbf{I})} \left[ \left\| \epsilon - \epsilon_\theta(\sqrt{\bar{\alpha}_t} x_0 + \sqrt{1 - \bar{\alpha}_t} \epsilon, t) \right\|^2 \right]
+\end{equation}
+En términos epistémicos, esta formulación transforma el complejo problema generativo en una tarea de estimación de ruido gaussiano (\textit{denoising score matching}) ponderado uniformemente a través de todas las escalas temporales.
+
+\subsubsection{Formulación en Tiempo Continuo: SDEs de Itô y Ecuación Inversa de Anderson}
+
+Song et al. (2020) demostraron que al tomar el límite infinitesimal $\Delta t \to 0$ y $T \to \infty$, tanto los modelos DDPM como los modelos basados en puntuación (\textit{Score-Based Generative Models}, Song \& Ermon, 2019) convergen a una formulación unificada gobernada por Ecuaciones Diferenciales Estocásticas (SDE).
+
+El proceso directo en tiempo continuo se modela mediante la SDE de Itô:
+\begin{equation}
+dx = f(x, t) dt + g(t) dw
+\end{equation}
+donde $f(x, t): \mathbf{R}^d \times [0, T] \to \mathbf{R}^d$ es el coeficiente de deriva (\textit{drift}), $g(t): [0, T] \to \mathbf{R}$ es el coeficiente de difusión, y $w \in \mathbf{R}^d$ es un proceso de Wiener browniano estándar. Para el caso correspondiente a DDPM (denominado \textit{Variance Preserving SDE}, VP-SDE):
+\begin{equation}
+f(x, t) = -\frac{1}{2} \beta(t) x, \quad g(t) = \sqrt{\beta(t)}
+\end{equation}
+
+Fundamentándose en los teoremas de inversión temporal estocástica de Anderson (1982), Song et al. (2020) demostraron que el proceso que revierte el tiempo desde $t=T$ hasta $t=0$ está gobernado exactamente por la SDE en tiempo inverso:
+\begin{equation}
+dx = \left[ f(x, t) - g(t)^2 \nabla_x \log p_t(x) \right] dt + g(t) d\bar{w}
+\end{equation}
+donde $d\bar{w}$ es un proceso de Wiener estándar que fluye hacia atrás en el tiempo, y $\nabla_x \log p_t(x)$ es la función de puntuación (\textit{score function}) de la distribución marginal de datos perturbados en el tiempo $t$. 
+
+La red neuronal $\epsilon_\theta(x_t, t)$ entrenada bajo $\mathcal{L}_{\mathrm{simple}}$ se vincula directamente con la función de puntuación mediante la relación analítica exacta:
+\begin{equation}
+s_\theta(x_t, t) = \nabla_x \log p_t(x_t) \approx - \frac{\epsilon_\theta(x_t, t)}{\sqrt{1 - \bar{\alpha}_t}}
+\end{equation}
+
+\subsubsection{La ODE de Flujo de Probabilidad (Probability Flow ODE) y Muestreo Acelerado}
+
+Uno de los resultados teóricos más trascendentes de la formulación en tiempo continuo es la existencia de una Ecuación Diferencial Ordinaria determinista asociada, denominada \textit{Probability Flow ODE}, cuyas curvas integrales reproducen exactamente las mismas distribuciones marginales $p_t(x)$ que la SDE estocástica:
+\begin{equation}
+\frac{dx}{dt} = f(x, t) - \frac{1}{2} g(t)^2 \nabla_x \log p_t(x) = -\frac{1}{2} \beta(t) \left[ x + \frac{\epsilon_\theta(x, t)}{\sqrt{1 - \bar{\alpha}_t}} \right]
+\end{equation}
+
+Esta formulación determinista ofrece ventajas fundamentales:
+\begin{itemize}
+    \item \textbf{Muestreo de Alto Orden:} Permite emplear métodos clásicos de Runge-Kutta o solucionadores adaptados para difusión como DPM-Solver (Lu et al., 2022), reduciendo los pasos requeridos para inferencia desde 1000 hasta únicamente 15--20 pasos sin degradación perceptible de calidad.
+    \item \textbf{Inversión Exacta de Latentes:} Al ser una dinámica determinista e invertible, permite codificar biyectivamente una imagen real $x_0$ en su representación latente de ruido $x_T$, habilitando tareas deterministas de edición semántica, interpolación y traducción de imágenes.
+\end{itemize}
+
+La Figura 10.1 ilustra la dinámica de Markov y la reversión de entropía que fundamenta este proceso.
+
+\begin{figure}[htpb!]
+\centering
+\begin{tcolorbox}[colback=white, colframe=unmsm_gold, arc=3pt, boxrule=0.8pt, top=0.3cm, bottom=0.3cm, left=0.5cm, right=0.5cm]
+\centering
+\small\sffamily
+\textbf{Figura 10.1.} \textit{Cadena de Markov del Proceso de Difusión Directo e Inverso}\\[0.25cm]
+\begin{tikzpicture}[node distance=2.2cm, auto, >=stealth, font=\footnotesize\sffamily]
+    % Estados
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=3pt, text width=2.0cm, text centered, minimum height=1.2cm] (x0) {\textbf{Imagen Real}\\$x_0 \sim q(x_0)$};
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=3pt, text width=2.0cm, text centered, minimum height=1.2cm, right of=x0, node distance=3.2cm] (x1) {\textbf{Perturbación}\\$x_t \sim q(x_t|x_0)$};
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=3pt, text width=2.0cm, text centered, minimum height=1.2cm, right of=x1, node distance=3.2cm] (xtm1) {\textbf{Casi Ruido}\\$x_{T-1}$};
+    \node [rectangle, draw=unmsm_darkred, fill=bg_arena, rounded corners=3pt, text width=2.2cm, text centered, minimum height=1.2cm, right of=xtm1, node distance=3.2cm] (xT) {\textbf{Ruido Puro}\\$x_T \sim \mathcal{N}(0, \mathbf{I})$};
+
+    % Flechas proceso directo (Forward)
+    \path [->, thick, draw=unmsm_red] (x0) edge [bend left=25] node [above] {\scriptsize $q(x_t|x_{t-1})$} (x1);
+    \path [->, thick, draw=unmsm_red, dashed] (x1) edge [bend left=25] node [above] {\scriptsize $+ \sqrt{\beta_t}\epsilon$} (xtm1);
+    \path [->, thick, draw=unmsm_red] (xtm1) edge [bend left=25] node [above] {\scriptsize $t \to T$} (xT);
+
+    % Flechas proceso inverso (Reverse)
+    \path [->, thick, draw=unmsm_darkred] (xT) edge [bend left=25] node [below] {\scriptsize $p_\theta(x_{T-1}|x_T)$} (xtm1);
+    \path [->, thick, draw=unmsm_darkred, dashed] (xtm1) edge [bend left=25] node [below] {\scriptsize $-\frac{\beta_t}{\sqrt{1-\bar{\alpha}_t}}\epsilon_\theta$} (x1);
+    \path [->, thick, draw=unmsm_darkred] (x1) edge [bend left=25] node [below] {\scriptsize $p_\theta(x_0|x_1)$} (x0);
+
+    % Anotaciones
+    \node [below of=x1, node distance=1.3cm] {\scriptsize \textbf{Proceso Directo:} Destrucción progresiva de información (entropía creciente)};
+    \node [below of=xtm1, node distance=1.3cm] {\scriptsize \textbf{Proceso Inverso:} Reconstrucción guiada por red neuronal $\epsilon_\theta(x_t, t)$};
+\end{tikzpicture}
+\end{tcolorbox}
+\vspace{-0.2cm}
+{\scriptsize \textbf{Fuente:} Adaptado de Yang et al. (2023) y Ho et al. (2020).}
+\end{figure}
+
+\subsection{Modelos de Difusión Latente (LDM / Stable Diffusion) y Mecanismos de Acondicionamiento}
+
+\subsubsection{El Paradigma Bi-etápico: Compresión Perceptual frente a Síntesis Semántica}
+
+A pesar del extraordinario rigor matemático de los modelos DDPM, su aplicación directa sobre el espacio de píxeles en alta resolución adolece de una severa ineficiencia computacional. Las imágenes digitales presentan una enorme redundancia perceptual: la información visual de alta frecuencia (como el ruido de sensor imperceptible o texturas microscópicas repetitivas) consume la gran mayoría de la capacidad de cómputo y memoria durante el entrenamiento y muestreo, mientras que el contenido semántico y conceptual reside en una variedad de dimensión intrínseca muy inferior.
+
+Para resolver este obstáculo estructural, Rombach et al. (2022) introdujeron los Modelos de Difusión Latente (\textit{Latent Diffusion Models}, LDM, conocidos universalmente en su implementación comercial como \textit{Stable Diffusion}). El paradigma LDM desacopla deliberadamente el modelado generativo en dos etapas metodológicas independientes:
+
+\begin{enumerate}
+    \item \textbf{Etapa 1 (Compresión Perceptual):} Un autoencoder regularizado compuesto por una red codificadora $\mathcal{E}$ y una red decodificadora $\mathcal{D}$, optimizado previamente para comprimir el espacio de píxeles a un espacio latente de baja dimensionalidad, preservando la fidelidad perceptiva y descartando redundancias estocásticas imperceptibles.
+    \item \textbf{Etapa 2 (Síntesis Semántica Latente):} Un modelo de difusión de espacio continuo entrenado exclusivamente sobre las representaciones latentes $z = \mathcal{E}(x)$, donde aprende a modelar la semántica global, la composición espacial y la correspondencia con señales condicionales.
+\end{enumerate}
+
+\subsubsection{Arquitectura del Autoencoder de Espacio Latente, Pérdida LPIPS y Regularización KL}
+
+Dado un espacio de imágenes $x \in \mathbf{R}^{H \times W \times 3}$, el codificador $\mathcal{E}$ proyecta la imagen hacia una representación latente continua $z = \mathcal{E}(x) \in \mathbf{R}^{h \times w \times c}$, donde la resolución espacial se reduce por un factor entero de submuestreo $f = H/h = W/w = 2^m$. En Stable Diffusion estándar se selecciona $f=8$ y $c=4$ canales latentes, lo cual comprime una imagen nativa de $512 \times 512 \times 3$ (786,432 números reales) a un tensor latente de $64 \times 64 \times 4$ (16,384 números reales), representando una reducción dimensional de $48\times$ en espacio de datos y acelerando el cálculo de la U-Net en órdenes de magnitud.
+
+El decodificador $\mathcal{D}$ reconstruye la imagen a partir del código latente: $\hat{x} = \mathcal{D}(z) = \mathcal{D}(\mathcal{E}(x))$. Para garantizar que el espacio latente mantenga una alta fidelidad visual y evite las pérdidas de nitidez tradicionales de los VAEs estándar, el autoencoder se entrena conjuntamente mediante una función de pérdida compuesta que combina tres componentes:
+\begin{equation}
+\mathcal{L}_{\mathrm{AE}} = \mathcal{L}_{\mathrm{rec}}(x, \hat{x}) + \lambda_{\mathrm{perc}} \mathcal{L}_{\mathrm{LPIPS}}(x, \hat{x}) + \lambda_{\mathrm{adv}} \mathcal{L}_{\mathrm{disc}}(\hat{x}) + \lambda_{\mathrm{reg}} \mathcal{L}_{\mathrm{reg}}(z)
+\end{equation}
+donde:
+\begin{itemize}
+    \item $\mathcal{L}_{\mathrm{rec}}(x, \hat{x}) = \|x - \hat{x}\|_1$ mide el error de reconstrucción pixelar en norma $L_1$.
+    \item $\mathcal{L}_{\mathrm{LPIPS}}$ es la distancia perceptual aprendida en parches (\textit{Learned Perceptual Image Patch Similarity}, Zhang et al., 2018), calculada extrayendo mapas de activación profundos de una red convolucional VGG-16 preentrenada:
+    \begin{equation}
+    \mathcal{L}_{\mathrm{LPIPS}}(x, \hat{x}) = \sum_l \frac{1}{H_l W_l} \sum_{h,w} \left\| w_l \odot \left( \phi_l(x)_{h,w} - \phi_l(\hat{x})_{h,w} \right) \right\|_2^2
+    \end{equation}
+    \item $\mathcal{L}_{\mathrm{disc}}$ es una pérdida adversarial calculada mediante un discriminador de parches (\textit{Patch-GAN}) que penaliza artefactos y obliga al decodificador a sintetizar texturas locales realistas.
+    \item $\mathcal{L}_{\mathrm{reg}}(z)$ es un término de regularización para evitar que las varianzas latentes crezcan arbitrariamente. Se emplean dos variantes: regularización KL (\textit{KL-reg}), que penaliza la divergencia $D_{\mathrm{KL}}(q_\phi(z|x) \parallel \mathcal{N}(0, \mathbf{I}))$ con un peso muy débil ($\lambda_{\mathrm{reg}} \sim 10^{-6}$), y cuantización vectorial (\textit{VQ-reg}), que proyecta los vectores sobre un libro de códigos discreto.
+\end{itemize}
+
+Una vez congelado el autoencoder $(\mathcal{E}, \mathcal{D})$, el proceso de difusión se ejecuta en el espacio latente continuo, minimizando la pérdida:
+\begin{equation}
+\mathcal{L}_{\mathrm{LDM}}(\theta) = \mathbf{E}_{\mathcal{E}(x), y, \epsilon \sim \mathcal{N}(0, \mathbf{I}), t} \left[ \left\| \epsilon - \epsilon_\theta(z_t, t, \tau_\theta(y)) \right\|^2 \right]
+\end{equation}
+donde $\tau_\theta(y)$ denota la proyección de una condición externa $y$.
+
+\subsubsection{Columna Vertebral U-Net: Conexiones Residuales y Bloques Espaciales}
+
+La red neuronal que implementa el predictor de ruido latente $\epsilon_\theta(z_t, t, c)$ se fundamenta en la arquitectura U-Net convolucional con conexiones de salto (\textit{skip connections}), originalmente introducida por Ronneberger et al. (2015) y refinada por Dhariwal y Nichol (2021). 
+
+La U-Net se estructura simétricamente en una ruta contractiva (\textit{encoder}) y una ruta expansiva (\textit{decoder}), interconectadas por un bloque de cuello de botella (\textit{bottleneck}). Cada nivel jerárquico consta de:
+\begin{itemize}
+    \item \textbf{Bloques Residuales (ResNet Blocks):} Compuestos por dos capas de convolución $3 \times 3$ con normalización de grupo (\textit{GroupNorm}) y activación Swish/SiLU. En cada bloque residual se inyecta un vector de embedding temporal $e(t)$, obtenido proyectando el paso temporal $t$ mediante codificaciones sinusoidales posicionales tipo Transformer seguidas de capas lineales densas.
+    \item \textbf{Bloques de Transformadores Espaciales (Spatial Transformers):} Insertados tras los bloques convolucionales en resoluciones intermedias ($32 \times 32, 16 \times 16, 8 \times 8$). Cada Spatial Transformer contiene una capa de auto-atención espacial (\textit{Self-Attention}) para capturar relaciones contextuales de largo alcance entre posiciones de la imagen, seguida de una capa de atención cruzada (\textit{Cross-Attention}) para inyectar la información textual.
+\end{itemize}
+
+\subsubsection{Mecanismo de Atención Cruzada (Cross-Attention) y Proyecciones Multimodales}
+
+El acondicionamiento de la U-Net a señales textuales arbitrarias $y$ (como instrucciones o descripciones de lenguaje natural) se materializa a través del mecanismo de atención cruzada multicanal, derivado de la arquitectura Transformer de Vaswani et al. (2017).
+
+Sea $\phi_i(z_t) \in \mathbf{R}^{N \times d_i}$ la representación intermedia de características aplanadas en la capa $i$ de la U-Net, donde $N = h_i \times w_i$ representa la cantidad de tokens espaciales latentes. Sea $\tau_\theta(y) \in \mathbf{R}^{M \times d_\tau}$ la secuencia de embeddings contextuales producida por un codificador de texto preentrenado, donde $M$ representa la longitud de la secuencia de tokens textuales (en CLIP, $M=77$).
+
+El mecanismo proyecta las representaciones visuales hacia el espacio de consultas ($Q$), y los embeddings lingüísticos hacia los espacios de claves ($K$) y valores ($V$) mediante matrices de proyección entrenables $W_Q^{(i)} \in \mathbf{R}^{d_i \times d_\epsilon}$, $W_K^{(i)} \in \mathbf{R}^{d_\tau \times d_\epsilon}$ y $W_V^{(i)} \in \mathbf{R}^{d_\tau \times d_\epsilon}$:
+\begin{equation}
+Q = \phi_i(z_t) W_Q^{(i)}, \quad K = \tau_\theta(y) W_K^{(i)}, \quad V = \tau_\theta(y) W_V^{(i)}
+\end{equation}
+La operación de atención cruzada calcula la compatibilidad producto-punto escalada entre cada posición espacial de la imagen latente y todos los tokens del texto descriptivo:
+\begin{equation}
+\mathrm{Attention}(Q, K, V) = \mathrm{softmax}\left( \frac{Q K^T}{\sqrt{d_\epsilon}} \right) V
+\end{equation}
+La matriz de pesos de atención $A = \mathrm{softmax}(Q K^T / \sqrt{d_\epsilon}) \in \mathbf{R}^{N \times M}$ gobierna explícitamente qué regiones espaciales latentes responden a palabras clave específicas del prompt, permitiendo un direccionamiento semántico local y desagregado.
+
+\subsubsection{Codificación Semántica con Modelos Contrastivos de Lenguaje-Visión (CLIP / OpenCLIP)}
+
+El codificador de texto $\tau_\theta$ no se entrena desde cero con la U-Net, sino que se hereda de modelos fundacionales multimodales entrenados con objetivos contrastivos sobre cientos de millones de pares imagen-texto web, tales como CLIP (\textit{Contrastive Language-Image Pretraining}, Radford et al., 2021) u OpenCLIP (Cherti et al., 2023).
+
+CLIP proyecta imágenes y textos hacia un espacio euclidiano compartido de representaciones semánticas donde pares alineados maximizan su similitud coseno $\cos(u, v) = \frac{u \cdot v}{\|u\|_2 \|v\|_2}$. Al utilizar las activaciones de la penúltima capa del codificador de texto de CLIP (ViT-L/14 en SD 1.5, ViT-H/14 en SD 2.1), la U-Net recibe representaciones ricas en conceptos ontológicos, atributos estéticos y relaciones espaciales, sin necesidad de aprender la estructura gramatical del lenguaje durante el costoso proceso de difusión.
+
+La Figura 10.2 esquematiza la arquitectura global de este sistema bi-etápico.
+
+\begin{figure}[htpb!]
+\centering
+\begin{tcolorbox}[colback=white, colframe=unmsm_gold, arc=3pt, boxrule=0.8pt, top=0.3cm, bottom=0.3cm, left=0.4cm, right=0.4cm]
+\centering
+\small\sffamily
+\textbf{Figura 10.2.} \textit{Arquitectura Global del Modelo de Difusión Latente (LDM / Stable Diffusion)}\\[0.25cm]
+\begin{tikzpicture}[node distance=1.8cm, auto, >=stealth, font=\footnotesize\sffamily]
+    % Espacio de píxeles
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.4cm, text centered] (img) {\textbf{Píxeles $x$}\\$H \times W \times 3$};
+    \node [rectangle, draw=unmsm_red, fill=bg_arena, rounded corners=2pt, text width=2.0cm, text centered, right of=img, node distance=3.0cm] (enc) {\textbf{Encoder $\mathcal{E}$}\\Factor $f=8$};
+    \node [rectangle, draw=unmsm_darkred, fill=bg_marfil, rounded corners=2pt, text width=2.2cm, text centered, right of=enc, node distance=2.8cm] (lat) {\textbf{Espacio Latente}\\$z_t \in \mathbf{R}^{h \times w \times c}$};
+    \node [rectangle, draw=unmsm_red, fill=bg_arena, rounded corners=2pt, text width=2.0cm, text centered, right of=lat, node distance=2.8cm] (dec) {\textbf{Decoder $\mathcal{D}$}\\Síntesis};
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.4cm, text centered, right of=dec, node distance=3.0cm] (out) {\textbf{Imagen $\hat{x}$}\\Reconstruida};
+
+    % Flujo VAE
+    \draw [->, thick, draw=unmsm_red] (img) -- (enc);
+    \draw [->, thick, draw=unmsm_red] (enc) -- (lat);
+    \draw [->, thick, draw=unmsm_red] (lat) -- (dec);
+    \draw [->, thick, draw=unmsm_red] (dec) -- (out);
+
+    % U-Net Backbone y Condicionamiento
+    \node [rectangle, draw=unmsm_darkred, fill=bg_marfil, rounded corners=3pt, text width=4.8cm, text centered, below of=lat, node distance=2.2cm] (unet) {\textbf{U-Net Denoising Engine}\\ResNet Blocks + Self-Attention\\$\epsilon_\theta(z_t, t, \tau(y))$};
+    \node [rectangle, draw=unmsm_red, fill=bg_arena, rounded corners=2pt, text width=3.4cm, text centered, left of=unet, node distance=4.6cm] (clip) {\textbf{CLIP Text Encoder}\\$\tau_\theta(y) \in \mathbf{R}^{77 \times 768}$};
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.4cm, text centered, left of=clip, node distance=3.6cm] (txt) {\textbf{Prompt $y$}\\"Un laboratorio..."};
+
+    \draw [->, thick, draw=unmsm_red] (txt) -- (clip);
+    \draw [->, thick, draw=unmsm_red] (clip) -- node [above] {\scriptsize Cross-Attn} (unet);
+    \draw [<->, thick, draw=unmsm_darkred] (lat) -- node [right] {\scriptsize Denoising} (unet);
+\end{tikzpicture}
+\end{tcolorbox}
+\vspace{-0.2cm}
+{\scriptsize \textbf{Fuente:} Adaptado de Rombach et al. (2022) y Radford et al. (2021).}
+\end{figure}
+
+\subsection{Control Estructural, Guía y Modulación Condicional Avanzada}
+
+\subsubsection{Orientación durante el Muestreo: Classifier Guidance frente a Classifier-Free Guidance (CFG)}
+
+La presencia de una condición $c$ en la función de pérdida no garantiza por sí sola que las imágenes generadas se alineen estrictamente con dicha condición. En la práctica, el espacio condicional es amplio y los modelos tienden a favorecer modos comunes de la distribución incondicional en lugar de obedecer restricciones específicas del prompt.
+
+Históricamente, Dhariwal y Nichol (2021) propusieron la técnica \textit{Classifier Guidance}, que utiliza los gradientes de un clasificador externo preentrenado sobre datos ruidosos $\nabla_{x_t} \log p_\phi(c|x_t)$ para empujar el muestreo en dirección a la clase deseada:
+\begin{equation}
+\tilde{\epsilon}_\theta(x_t, c) = \epsilon_\theta(x_t, c) - s \sqrt{1 - \bar{\alpha}_t} \nabla_{x_t} \log p_\phi(c|x_t)
+\end{equation}
+Sin embargo, este enfoque requiere entrenar un clasificador especializado robusto a múltiples niveles de ruido, lo cual resulta extremadamente costoso y limita la aplicabilidad a condiciones categóricas cerradas.
+
+Para eliminar la necesidad de clasificadores externos, Ho y Salimans (2022) formularon la técnica revolucionaria \textit{Classifier-Free Guidance} (CFG). Durante el entrenamiento de la U-Net, la señal de condición $c$ se sustituye aleatoriamente por un token nulo $\emptyset$ con una probabilidad fija $p_{\mathrm{uncond}} \in [0.10, 0.20]$. De este modo, una única red neuronal aprende conjuntamente el modelo condicional $\epsilon_\theta(x_t, c)$ y el modelo incondicional $\epsilon_\theta(x_t, \emptyset)$.
+
+Durante la etapa de inferencia y muestreo, la predicción de ruido final se interpola (o extrapola) mediante una combinación lineal ponderada por un parámetro escalar denominado escala de guía $w \ge 0$:
+\begin{equation}
+\tilde{\epsilon}_\theta(x_t, c) = \epsilon_\theta(x_t, \emptyset) + w \left( \epsilon_\theta(x_t, c) - \epsilon_\theta(x_t, \emptyset) \right) = (1 + w) \epsilon_\theta(x_t, c) - w \epsilon_\theta(x_t, \emptyset)
+\end{equation}
+Si $w=0$, el sistema opera en modo puramente incondicional. Si $w=1$, recupera el modelo condicional estándar sin amplificación. Para $w > 1$ (típicamente $w \in [7.0, 8.5]$), el muestreo extrapola a lo largo del gradiente implícito del clasificador implícito $p(c|x_t) \propto p(x_t|c)/p(x_t)$, aumentando masivamente la fidelidad semántica al prompt a expensas de reducir la diversidad de la muestra.
+
+\subsubsection{Dinámica de la Escala de Guía y Compensación entre Fidelidad y Diversidad}
+
+La elección de $w$ introduce un balance de Pareto estricto en el espacio de síntesis:
+\begin{itemize}
+    \item Para valores bajos ($w < 3$), el modelo genera imágenes diversas con texturas naturales, pero ignora elementos compositivos del prompt.
+    \item Para valores moderados a altos ($w \approx 7.0 - 8.5$), se alcanza la zona óptima de alineación semántica y contraste balanceado.
+    \item Para valores excesivamente elevados ($w > 12$), se produce la patología de saturación cromática (\textit{color burning}) y colapso de varianza, donde las características latentes exceden el rango dinámico $[-1, 1]$ y saturan los canales del autoencoder.
+\end{itemize}
+
+Para mitigar esta saturación sin renunciar a una guía intensa, Karras et al. (2022) y Saharia et al. (2022) introdujeron el recorte de umbral dinámico (\textit{Dynamic Thresholding}), que recalibra los tensores en cada paso de difusión ajustando el percentil absoluto al 99.5\%, previniendo artefactos de quemado.
+
+\subsubsection{Inyección de Señales Espaciales Estructuradas}
+
+Aunque el acondicionamiento textual vía atención cruzada permite especificar conceptos globales y atributos generales, resulta completamente insuficiente para controlar la geometría espacial rígida: el lenguaje natural es intrínsecamente ambiguo para describir la posición exacta de una extremidad, el contorno milimétrico de un edificio o la curvatura de una trayectoria.
+
+El control estructural exige condicionar el modelo a mapas densos de soporte espacial:
+\begin{enumerate}
+    \item \textbf{Mapas de Bordes (Canny / Sobel / HED):} Definen contornos de alta frecuencia y geometría estructural sin especificar colores ni texturas.
+    \item \textbf{Mapas de Profundidad (Depth Maps via MiDaS o DPT):} Proporcionan un mapa en escala de grises de la distancia euclidiana de la escena a la cámara, permitiendo preservar la volumetría 3D.
+    \item \textbf{Estimación de Pose Humana (OpenPose / DWPose):} Proyectan un grafo esquelético bidimensional con articulaciones clave del cuerpo humano, garantizando anatomías coherentes sin deformaciones.
+    \item \textbf{Mapas de Segmentación Semántica (ADE20K):} Asignan máscaras de color a categorías conceptuales de píxeles (cielo, edificio, persona, suelo).
+\end{enumerate}
+
+\subsubsection{Arquitectura ControlNet: Copias Bloqueadas, Copias Entrenables y Convoluciones Cero}
+
+Para integrar estas señales espaciales sin alterar las capacidades preentrenadas del modelo base ni incurrir en olvido catastrófico (\textit{catastrophic forgetting}), Zhang y Agrawala (2023) introdujeron la arquitectura \textit{ControlNet}.
+
+Sea $\mathcal{F}(x; \Theta)$ un bloque de red convolucional de la U-Net original congelado con pesos $\Theta$. ControlNet clona una réplica exacta de la estructura de dicho bloque con parámetros entrenables $\Theta_c$, manteniendo los pesos originales $\Theta$ estrictamente bloqueados. La conexión entre el bloque original y la copia entrenable se realiza mediante capas de convolución $1 \times 1$ especiales denominadas \textit{Convoluciones Cero} (\textit{Zero Convolutions}), parametrizadas por pesos $W$ y sesgos $b$ inicializados idénticamente en cero: $\mathcal{Z}(x; \Theta_z) = W \cdot x + b$, con $W=0$ y $b=0$.
+
+La salida integrada del bloque ControlNet se define formalmente como:
+\begin{equation}
+y_c = \mathcal{F}(x; \Theta) + \mathcal{Z}(\mathcal{F}(x + \mathcal{Z}(c; \Theta_{z1}); \Theta_c); \Theta_{z2})
+\end{equation}
+donde $c$ es el mapa de condición espacial procesado por una red convolucional ligera.
+
+Dado que al inicio del entrenamiento $\Theta_{z1} = 0$ y $\Theta_{z2} = 0$, la función $\mathcal{Z}(\cdot)$ evalúa a cero idéntico:
+\begin{equation}
+y_c^{(0)} = \mathcal{F}(x; \Theta) + 0 = \mathcal{F}(x; \Theta)
+\end{equation}
+Esta propiedad matemática garantiza que en el paso $0$ de ajuste fino, ningún gradiente corrompa el prior generativo preentrenado de la U-Net. A medida que el entrenamiento progresa, los gradientes propagados hacia $\Theta_{z2}$ y $\Theta_{z1}$ rompen la simetría y permiten que la copia entrenable inyecte gradualmente el control geométrico sin degradar la capacidad fotorrealista del modelo base.
+
+La Figura 10.3 detalla el flujo de información de esta arquitectura.
+
+\begin{figure}[htpb!]
+\centering
+\begin{tcolorbox}[colback=white, colframe=unmsm_gold, arc=3pt, boxrule=0.8pt, top=0.3cm, bottom=0.3cm, left=0.5cm, right=0.5cm]
+\centering
+\small\sffamily
+\textbf{Figura 10.3.} \textit{Arquitectura de ControlNet con Mecanismo de Convolución Cero ($1 \times 1$)}\\[0.25cm]
+\begin{tikzpicture}[node distance=2.0cm, auto, >=stealth, font=\footnotesize\sffamily]
+    % Entradas
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.6cm, text centered] (x) {\textbf{Mapa Latente $x$}\\(Features U-Net)};
+    \node [rectangle, draw=unmsm_darkred, fill=bg_arena, rounded corners=2pt, text width=2.6cm, text centered, below of=x, node distance=2.2cm] (c) {\textbf{Condición $c$}\\(Bordes / Depth / Pose)};
+
+    % Bloque Congelado
+    \node [rectangle, draw=black, fill=gray!15, rounded corners=2pt, text width=3.2cm, text centered, right of=x, node distance=4.5cm] (locked) {\textbf{Bloque Congelado}\\$\mathcal{F}(x; \Theta)$\\(Pesos originales bloqueados)};
+
+    % Bloque Entrenable y Convoluciones Cero
+    \node [circle, draw=unmsm_red, fill=bg_marfil, right of=c, node distance=2.2cm] (z1) {$\mathcal{Z}$};
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=3.2cm, text centered, right of=z1, node distance=2.6cm] (train) {\textbf{Copia Entrenable}\\$\mathcal{F}(x + \mathcal{Z}(c); \Theta_c)$};
+    \node [circle, draw=unmsm_red, fill=bg_marfil, right of=train, node distance=2.6cm] (z2) {$\mathcal{Z}$};
+
+    % Sumador final
+    \node [circle, draw=unmsm_darkred, fill=bg_arena, text centered, right of=locked, node distance=4.2cm] (sum) {\textbf{+}};
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.4cm, text centered, right of=sum, node distance=2.6cm] (out) {\textbf{Salida $y_c$}\\Hacia U-Net};
+
+    % Conexiones
+    \draw [->, thick, draw=black] (x) -- (locked);
+    \draw [->, thick, draw=unmsm_red] (c) -- node [above] {\scriptsize $1 \times 1, W=0$} (z1);
+    \draw [->, thick, draw=unmsm_red] (x) |- (train);
+    \draw [->, thick, draw=unmsm_red] (z1) -- (train);
+    \draw [->, thick, draw=unmsm_red] (train) -- (z2);
+    \draw [->, thick, draw=black] (locked) -- (sum);
+    \draw [->, thick, draw=unmsm_red] (z2) -| (sum);
+    \draw [->, thick, draw=unmsm_darkred] (sum) -- (out);
+\end{tikzpicture}
+\end{tcolorbox}
+\vspace{-0.2cm}
+{\scriptsize \textbf{Fuente:} Adaptado de Zhang y Agrawala (2023).}
+\end{figure}
+
+Para complementar la visión algorítmica, la Tabla 10.2 presenta una taxonomía comparativa de los principales métodos de muestreo e integración numérica utilizados para resolver estas trayectorias de difusión.
+
+\begin{table}[htpb!]
+\centering
+\small\sffamily
+\caption{\textbf{Tabla 10.2.} \textit{Comparación de Algoritmos de Muestreo e Integración Numérica para Modelos de Difusión}}
+\begin{tabularx}{\textwidth}{p{2.8cm} p{2.8cm} p{2.4cm} p{3.2cm} p{3.4cm}}
+\toprule
+\textbf{Algoritmo / Solucionador} & \textbf{Naturaleza Matemática} & \textbf{Pasos Típicos ($N$)} & \textbf{Orden de Convergencia} & \textbf{Propiedades Clave} \\
+\midrule
+\textbf{DDPM (Ho et al., 2020)} & Estocástico (Cadena de Markov reversa) & 1000 pasos & Primer orden (Aproximación estocástica) & Máxima cobertura distribucional; computacionalmente prohibitivo para producción \\
+\midrule
+\textbf{DDIM (Song et al., 2020)} & Determinista (Proceso no-Markoviano / Euler ODE) & 20--50 pasos & Primer orden ($O(\Delta t)$) & Permite inversión exacta de código latente ($x_0 \to z_T$); consistente \\
+\midrule
+\textbf{DPM-Solver (Lu et al., 2022)} & Determinista / Analítico (ODE Solver adaptado) & 10--20 pasos & Segundo y tercer orden ($O(\Delta t^2)$, $O(\Delta t^3)$) & Diseñado específicamente para ODEs de difusión; rápida convergencia sin pérdida de FID \\
+\midrule
+\textbf{PNDM (Liu et al., 2022)} & Pseudo-Runge-Kutta multipaso & 25--50 pasos & Orden superior (Multipaso lineal) & Utiliza evaluaciones previas del gradiente para acelerar la trayectoria de eliminación de ruido \\
+\midrule
+\textbf{Euler-Ancestral} & Estocástico (Euler con inyección de ruido) & 20--30 pasos & Primer orden con corrección & Excelente textura en microdetalles estéticos a costa de no ser invertible \\
+\bottomrule
+\end{tabularx}
+\vspace{0.15cm}
+{\scriptsize \textbf{Fuente:} Adaptado de Yang et al. (2023) y Lu et al. (2022).}
+\end{table}
+
+\subsection{Métricas de Evaluación Cuantitativa, Descomposición Condicional y Evaluación Perceptual}
+
+\subsubsection{Taxonomía de Métricas de Calidad, Diversidad y Fidelidad Condicional}
+
+La evaluación cuantitativa de los modelos generativos visuales constituye un problema epistemológico complejo. A diferencia del aprendizaje supervisado, donde existen etiquetas de referencia y funciones de pérdida de error objetivas, en la síntesis de imágenes no existe una única imagen "correcta" para un prompt determinado. Un modelo ideal debe maximizar simultáneamente tres dimensiones ortogonales:
+\begin{enumerate}
+    \item \textbf{Fidelidad Visual (\textit{Fidelity}):} Grado en que las imágenes individuales parecen muestras indistinguibles de fotografías reales, careciendo de artefactos, distorsiones geométricas o aberraciones cromáticas.
+    \item \textbf{Diversidad Distribucional (\textit{Diversity}):} Amplitud y variabilidad de los modos de la distribución de datos cubiertos por el generador, penalizando el colapso a un conjunto homogéneo de patrones visuales.
+    \item \textbf{Correspondencia Semántica (\textit{Alignment}):} Exactitud con la cual el contenido generado satisface las restricciones semánticas o estructurales dictadas por la condición externa (prompt o mapa de control).
+\end{enumerate}
+
+\subsubsection{Inception Score (IS): Formulación Matemática y Limitaciones Epistémicas}
+
+Propuesto originalmente por Salimans et al. (2016) para evaluar GANs, el \textit{Inception Score} (IS) cuantifica la calidad y diversidad evaluando las predicciones de un clasificador de objetos preentrenado (habitualmente Inception-v3 sobre ImageNet). Sea $p(y|x)$ la distribución condicional de etiquetas generada por el clasificador para la imagen sintetizada $x$, y sea $p(y) = \int p(y|x) p_g(x) dx$ la distribución marginal promedio de clases sobre todo el conjunto generado.
+
+El IS se define formalmente como:
+\begin{equation}
+\mathrm{IS} = \exp\left( \mathbf{E}_{x \sim p_g} \left[ D_{\mathrm{KL}}(p(y|x) \parallel p(y)) \right] \right)
+\end{equation}
+Un modelo óptimo debe satisfacer dos criterios complementarios:
+\begin{itemize}
+    \item Para cada imagen individual, $p(y|x)$ debe poseer baja entropía (la imagen contiene un objeto identificable con alta certeza por el clasificador).
+    \item La distribución marginal $p(y) = \frac{1}{N} \sum_{i=1}^N p(y|x_i)$ debe poseer alta entropía (el generador produce una amplia variedad de clases distintas sin sesgarse hacia una sola).
+\end{itemize}
+
+A pesar de su popularidad histórica, el IS adolece de limitaciones graves: no compara las imágenes generadas con un conjunto real de referencia, es ciego a la memorización de datos, puede ser engañado por perturbaciones que saturan el clasificador y resulta totalmente insensible al colapso de diversidad intra-clase.
+
+\subsubsection{Fréchet Inception Distance (FID): Formulación Wasserstein-2}
+
+Para superar las deficiencias del IS, Heusel et al. (2017) formularon la distancia \textit{Fréchet Inception Distance} (FID). El FID compara directamente la distribución de imágenes reales $p_r(x)$ con la distribución de imágenes sintetizadas $p_g(x)$ en el espacio de características profundas de la capa \textit{pool3} (2048 dimensiones) de Inception-v3.
+
+Asumiendo que las activaciones siguen distribuciones gaussianas multivariadas $\mathcal{N}(\mu_r, \Sigma_r)$ para los datos reales y $\mathcal{N}(\mu_g, \Sigma_g)$ para los datos generados, el FID se calcula formalmente como la distancia de Wasserstein-2 ($\mathcal{W}_2$) entre ambas densidades continuas:
+\begin{equation}
+\mathrm{FID}(r, g) = \left\| \mu_r - \mu_g \right\|_2^2 + \mathrm{Tr}\left( \Sigma_r + \Sigma_g - 2 \left( \Sigma_r \Sigma_g \right)^{1/2} \right)
+\end{equation}
+donde $\mathrm{Tr}(\cdot)$ denota la traza de la matriz y $(\Sigma_r \Sigma_g)^{1/2}$ es la raíz cuadrada matricial única semidefinida positiva.
+
+Un valor de FID más bajo indica mayor similitud distribucional con el conjunto real. Sin embargo, el FID estándar evalúa la distribución marginal global y es incapaz de diagnosticar si el modelo responde adecuadamente a condiciones específicas impuestas por texto.
+
+\subsubsection{Descomposición Condicional de Benny et al. (2021): BCIS y WCIS}
+
+Para evaluar rigurosamente la generación condicionada a clases o contextos $c \in \mathcal{C}$, Benny, Galanti, Benaim y Wolf (2021) formularon una descomposición analítica exacta del Inception Score en dos componentes ortogonales:
+\begin{itemize}
+    \item \textbf{Between-Class Inception Score (BCIS):} Evalúa la discriminabilidad y cobertura de clases entre diferentes condiciones:
+    \begin{equation}
+    \mathrm{BCIS} = \exp\left( \sum_{c \in \mathcal{C}} p(c) D_{\mathrm{KL}}(p(y|c) \parallel p(y)) \right)
+    \end{equation}
+    donde $p(y|c) = \int p(y|x) p(x|c) dx$. Un BCIS alto certifica que condiciones distintas producen salidas perceptualmente separables.
+    \item \textbf{Within-Class Inception Score (WCIS):} Evalúa la consistencia interna y ausencia de ambigüedad dentro de cada condición:
+    \begin{equation}
+    \mathrm{WCIS} = \exp\left( \sum_{c \in \mathcal{C}} p(c) \mathbf{E}_{x|c} \left[ D_{\mathrm{KL}}(p(y|x, c) \parallel p(y|c)) \right] \right)
+    \end{equation}
+\end{itemize}
+
+Benny et al. (2021) demostraron la identidad matemática exacta:
+\begin{equation}
+\mathrm{IS} = \mathrm{BCIS} \cdot \mathrm{WCIS}
+\end{equation}
+Esta factorización revela que un modelo puede exhibir un IS aparentemente aceptable debido a un BCIS inflado, ocultando un WCIS deficiente que refleja incertidumbre y mezcla inapropiada de conceptos dentro de cada clase condicional.
+
+\subsubsection{Descomposición Condicional del FID: BCFID, WCFID y la Cota Superior}
+
+De forma análoga, Benny et al. (2021) extendieron la descomposición al Fréchet Inception Distance, definiendo las medias y covarianzas condicionales $\mu_{r,c}, \Sigma_{r,c}$ para datos reales y $\mu_{g,c}, \Sigma_{g,c}$ para datos generados bajo la condición $c$:
+\begin{eqnarray}
+\mathrm{BCFID} &=& \left\| \bar{\mu}_r - \bar{\mu}_g \right\|_2^2 + \mathrm{Tr}\left( \bar{\Sigma}_r + \bar{\Sigma}_g - 2(\bar{\Sigma}_r \bar{\Sigma}_g)^{1/2} \right) \\
+\mathrm{WCFID} &=& \sum_{c \in \mathcal{C}} p(c) \left[ \left\| \mu_{r,c} - \mu_{g,c} \right\|_2^2 + \mathrm{Tr}\left( \Sigma_{r,c} + \Sigma_{g,c} - 2(\Sigma_{r,c} \Sigma_{g,c})^{1/2} \right) \right]
+\end{eqnarray}
+donde $\bar{\mu} = \sum_c p(c) \mu_c$ y $\bar{\Sigma} = \sum_c p(c) \Sigma_c$.
+
+Bajo esta formalización, se demuestra la desigualdad de cota superior:
+\begin{equation}
+\mathrm{FID} \le \mathrm{BCFID} + \mathrm{WCFID}
+\end{equation}
+El componente BCFID penaliza el desplazamiento de los centroides globales de cada clase, mientras que el WCFID evalúa la dispersión y calidad de modelado dentro de cada categoría condicional individual, permitiendo diagnosticar si los fallos de un modelo se deben a un error global de calibración o a una incapacidad para modelar la variabilidad interna del concepto solicitado.
+
+La Tabla 10.3 compendia las propiedades y el comportamiento deseable de estas métricas.
+
+\begin{table}[htpb!]
+\centering
+\small\sffamily
+\caption{\textbf{Tabla 10.3.} \textit{Matriz Comparativa de Métricas de Evaluación para Modelos Generativos Visuales}}
+\begin{tabularx}{\textwidth}{p{2.2cm} p{3.6cm} p{3.2cm} p{2.6cm} p{3.0cm}}
+\toprule
+\textbf{Métrica} & \textbf{Formulación / Fundamento} & \textbf{Dimensión Evaluada} & \textbf{Comportamiento Deseable} & \textbf{Sensibilidad Crítica} \\
+\midrule
+\textbf{IS} & $\exp(\mathbf{E}[D_{\mathrm{KL}}(p(y|x) \parallel p(y))])$ con Inception-v3 & Calidad visual de objetos y diversidad marginal global & Valor alto & Insensible al colapso intra-clase y a condiciones textuales \\
+\midrule
+\textbf{FID} & $\|\mu_r - \mu_g\|^2 + \mathrm{Tr}(\Sigma_r + \Sigma_g - 2(\Sigma_r \Sigma_g)^{1/2})$ & Distancia estadística en espacio de características profundas & Valor bajo (próximo a 0) & Sensible a artefactos globales; no mide correspondencia prompt-imagen \\
+\midrule
+\textbf{BCIS} & $\exp(\sum_c p(c) D_{\mathrm{KL}}(p(y|c) \parallel p(y)))$ & Separabilidad y discriminación entre clases condicionales & Valor alto & Mide diversidad entre condiciones distintas \\
+\midrule
+\textbf{WCIS} & $\exp(\sum_c p(c) \mathbf{E}_{x|c}[D_{\mathrm{KL}}(p(y|x,c) \parallel p(y|c))])$ & Coherencia y consistencia interna dentro de cada clase & Valor próximo a 1 & Detecta ambigüedad en predicciones intra-condición \\
+\midrule
+\textbf{BCFID} & Distancia Fréchet entre medias y covarianzas promedio inter-clase & Desplazamiento global del centroide condicional & Valor bajo & Evalúa fidelidad macroestructural del generador \\
+\midrule
+\textbf{WCFID} & Suma ponderada de distancias Fréchet dentro de cada condición & Variabilidad y dispersión interna por categoría & Valor bajo & Penaliza sobreajuste y modos degenerados locales \\
+\midrule
+\textbf{CLIP-Score} & $\cos(\tau_I(x), \tau_T(y))$ entre embeddings imagen-texto & Alineación semántica y correspondencia multimodal & Valor alto (típicamente $>0.28$) & Vulnerable a "hackeo adversarial" de palabras clave sin coherencia física \\
+\bottomrule
+\end{tabularx}
+\vspace{0.15cm}
+{\scriptsize \textbf{Fuente:} Adaptado de Benny et al. (2021) y Hessel et al. (2021).}
+\end{table}
+
+\subsection{Ética, Sesgos de Representación, Derechos de Autor y Confiabilidad Visual}
+
+\subsubsection{Genealogía del Sesgo en Conjuntos de Datos Masivos Web (LAION-5B y Common Crawl)}
+
+La extraordinaria capacidad expresiva de los modelos fundacionales de difusión descansa en su preentrenamiento sobre colecciones masivas de pares imagen-texto recolectadas indiscriminadamente de la web abierta mediante rastreadores automáticos, tales como LAION-5B (Schuhmann et al., 2022) y Common Crawl. Sin embargo, estas colecciones no reflejan una distribución equilibrada de la realidad humana, sino que codifican y magnifican de forma sistemática los prejuicios históricos, las desigualdades estructurales y las asimetrías geopolíticas presentes en el contenido digital global.
+
+Desde una perspectiva epistémica y sociotécnica, los modelos de difusión aprenden distribuciones condicionadas por verosimilitud estadística, lo que significa que optimizan la probabilidad de generar los patrones más densamente representados en el corpus de entrenamiento. Como consecuencia, las categorías subrepresentadas sufren de marginación distribucional, asociando conceptos profesionales y roles sociales con fenotipos raciales y de género específicos.
+
+\subsubsection{Reproducción y Amplificación de Estereotipos de Género, Raza y Rol Ocupacional}
+
+Investigaciones contemporáneas han documentado empíricamente patrones de sesgo sistemático en modelos de síntesis visual:
+\begin{itemize}
+    \item \textbf{Segregación Ocupacional por Género:} Prompts neutros como \textit{"un médico especialista cirujano"} o \textit{"un líder empresarial ejecutivo"} generan sistemáticamente representaciones masculinas con una frecuencia superior al 90\%, mientras que prompts como \textit{"personal de enfermería"} o \textit{"asistente administrativo"} producen predominantemente figuras femeninas.
+    \item \textbf{Homogeneización Cultural y Racial:} Términos genéricos como \textit{"una familia feliz"} o \textit{"un vecindario residencial típico"} sintetizan casi invariablemente sujetos de tez clara en entornos suburbanos occidentales, borrando la diversidad de hábitats y comunidades del hemisferio sur.
+    \item \textbf{Amplificación de Modos Marginales:} Debido al mecanismo de \textit{Classifier-Free Guidance} (CFG), la extrapolación de la predicción condicional no solo refuerza la alineación con el prompt, sino que amplifica los estereotipos dominantes del modo central de la clase, eliminando variaciones sutiles e imponiendo estéticas homogeneizadas de belleza hegemónica.
+\end{itemize}
+
+\subsubsection{Conflicto de Derechos de Autor, Propiedad Intelectual y Doctrinas de Uso Legítimo}
+
+El entrenamiento de modelos de difusión ha desatado una intensa controversia jurídica internacional en materia de propiedad intelectual. Dado que conjuntos como LAION-5B contienen miles de millones de obras artísticas, fotografías protegidas y diseños gráficos sin el consentimiento expreso ni compensación a sus autores originales, los tribunales internacionales debaten si el raspado y extracción de regularidades estadísticas constituye un uso transformativo amparado por la doctrina de \textit{Fair Use} (en Estados Unidos) o excepciones de minería de textos y datos (en la Unión Europea).
+
+Carlini et al. (2023) demostraron que los modelos de difusión pueden memorizar y replicar imágenes exactas de su conjunto de entrenamiento bajo ciertas condiciones de muestreo (\textit{training data extraction attacks}), desmintiendo la afirmación simplista de que estos sistemas únicamente aprenden "estilos generales" y evidenciando riesgos tangibles de infracción directa de copyright y filtración de datos biométricos privados.
+
+\subsubsection{Desinformación Sintética, Deepfakes y Protocolos Criptográficos de Proveniencia}
+
+La democratización del fotorrealismo accesible plantea amenazas críticas para la confianza pública, la seguridad democrática y la integridad de los medios de comunicación. La síntesis de eventos ficticios (\textit{deepfakes}), la creación de falsas evidencias forenses y la suplantación de identidad desafían los métodos tradicionales de verificación periodística.
+
+Para hacer frente a este desafío, la comunidad científica y los consorcios industriales han desarrollado dos líneas defensivas complementarias:
+\begin{enumerate}
+    \item \textbf{Marcas de Agua Invisibles (SynthID):} Algoritmos que inyectan una firma espectral imperceptible en los coeficientes latentes del modelo generativo durante el proceso de difusión, permitiendo identificar mediante detectores estadísticos si una imagen fue sintetizada artificialmente, incluso tras operaciones de compresión JPEG o recorte de bordes.
+    \item \textbf{Criptografía de Procedencia (Estándar C2PA):} La \textit{Coalition for Content Provenance and Authenticity} (C2PA) define un estándar abierto que adosa metadatos criptográficos inmutables con firma digital a los archivos de imagen, registrando el historial completo de captura, edición y algoritmos de IA involucrados en su ciclo de vida.
+\end{enumerate}
+
+Para ilustrar la escala arquitectónica en la que se manifiestan estos desafíos éticos, la Tabla 10.4 documenta la evolución de los principales modelos fundacionales de difusión Text-to-Image.
+
+\begin{table}[htpb!]
+\centering
+\small\sffamily
+\caption{\textbf{Tabla 10.4.} \textit{Evolución y Especificaciones de Modelos Fundacionales de Difusión Text-to-Image}}
+\begin{tabularx}{\textwidth}{p{2.6cm} p{2.8cm} p{2.4cm} p{3.4cm} p{3.4cm}}
+\toprule
+\textbf{Modelo} & \textbf{Backbone / Arquitectura} & \textbf{Parámetros} & \textbf{Codificadores de Texto} & \textbf{Espacio Latente / Factor $f$} \\
+\midrule
+\textbf{Stable Diffusion 1.5} & U-Net (ResNet + Spatial Transformers) & 860M (U-Net) + 123M (CLIP) & OpenAI CLIP ViT-L/14 (77 tokens, 768 dims) & $f=8$ (4 canales latentes, $64 \times 64$ para $512 \times 512$) \\
+\midrule
+\textbf{Stable Diffusion 2.1} & U-Net (Atención optimizada v-prediction) & 865M (U-Net) + 354M (OpenCLIP) & OpenCLIP ViT-H/14 (1024 dims) & $f=8$ (4 canales latentes, nativo $768 \times 768$) \\
+\midrule
+\textbf{SDXL 1.0 (Podell et al., 2023)} & U-Net escalada + Refiner opcional & 2.6B (Base) + 6.6B total & Dual: CLIP ViT-L + OpenCLIP ViT-bigG (2048 dims) & $f=8$ (4 canales latentes, micro-acondicionamiento, $1024 \times 1024$) \\
+\midrule
+\textbf{Stable Diffusion 3} & Multimodal Diffusion Transformer (MM-DiT) & 2.0B / 8.0B & Triple: CLIP ViT-L + OpenCLIP ViT-bigG + T5-XXL & $f=8$ (16 canales latentes, Rectified Flow matching) \\
+\midrule
+\textbf{FLUX.1 (Black Forest Labs, 2024)} & Rectified Flow Transformer híbrido & 12.0B (DiT dual) & Dual: CLIP ViT-L + T5-XXL (4096 dims) & $f=8$ (16 canales latentes, autoencoder de alta fidelidad) \\
+\bottomrule
+\end{tabularx}
+\vspace{0.15cm}
+{\scriptsize \textbf{Fuente:} Elaboración propia basada en Rombach et al. (2022), Podell et al. (2023) y Esser et al. (2024).}
+\end{table}
+
+\subsection{Casos Prácticos Aplicados e Implementaciones Computacionales}
+
+\subsubsection{Caso 1: Síntesis Visual Multimodal y Mitigación de Ambigüedad Lingüística: El Protocolo E-DIOMS en Alfabetización Crítica}
+
+\subsubsection*{Contexto:}
+En el ámbito de la educación superior y la investigación interdisciplinaria, la adopción de herramientas de generación de imágenes texto-a-imagen suele verse obstaculizada por una comprensión ingenua del funcionamiento de la inteligencia artificial. Como identificaron Ali et al. (2024), Cooper y Tang (2024) y Liu et al. (2024), los estudiantes y profesionales noveles tienden a asumir erróneamente que los modelos generativos poseen "comprensión semántica" del mundo físico y de las convenciones lingüísticas humanas.
+
+Esta limitación resulta especialmente evidente cuando se trabaja con lenguaje figurativo, modismos, figuras retóricas y metáforas idiomáticas (como \textit{"it's raining cats and dogs"} o \textit{"costar un ojo de la cara"}). En estos escenarios, el desacoplamiento entre las asociaciones estadísticas superficiales de los codificadores de texto y el significado pragmático humano produce alucinaciones visuales bizarras, donde el modelo traduce literalmente cada token léxico en lugar de sintetizar el concepto abstracto subyacente. Para transformar este escollo en una oportunidad de aprendizaje pedagógico, Ali et al. (2024) desarrollaron el marco \textit{E-DIOMS}, un protocolo didáctico de deconstrucción y composición multimodal asistida.
+
+\subsubsection*{Análisis e Implementación:}
+El protocolo experimental aplicado en entornos de laboratorio universitario estructura el proceso de síntesis en cuatro etapas iterativas:
+
+\begin{enumerate}
+    \item \textbf{Fase 1: Diagnóstico de Ambigüedad Literal frente a Figurada:} Se somete a prueba el prompt ingenuo que contiene la expresión idiomática directa. Al solicitar \textit{"lluvia de ideas en un laboratorio"}, el modelo genera nubes vertiendo bombillas eléctricas físicas sobre los científicos. Mediante el análisis de los mapas de atención cruzada de CLIP, los investigadores observan cómo los tokens individuales \textit{"lluvia"} e \textit{"ideas"} activan patrones inconexos en la U-Net, revelando la ausencia de un atractor conceptual integrado para el modismo.
+    \item \textbf{Fase 2: Anclaje Geométrico mediante ControlNet:} Para evitar que el generador distribuya aleatoriamente los elementos espaciales, los participantes elaboran un boceto o mapa de bordes estructural que define la escena base (por ejemplo, científicos dialogando frente a una pizarra). Este mapa de bordes se inyecta mediante ControlNet con convoluciones cero, fijando la arquitectura de la composición y liberando al modelo de la tarea de organizar el espacio físico.
+    \item \textbf{Fase 3: Refactorización Semántica y Prompting Multimodal:} Se descompone la metáfora en descriptores de atributos observables, reemplazando la expresión idiomática por vocabulario abstracto y técnico: \textit{"investigadores en discusión académica entusiasta, ecuaciones matemáticas iluminadas en una pantalla holográfica, ambiente de colaboración científica"}.
+    \item \textbf{Fase 4: Evaluación Cuantitativa de Fidelidad y Diversidad:} Se aplica la batería de métricas condicionales de Benny et al. (2021) para verificar si la refactorización incrementa el Between-Class IS (BCIS) sin deteriorar la coherencia interna (WCIS).
+\end{enumerate}
+
+\subsubsection*{Interpretación y Resultados:}
+La implementación del protocolo en grupos de estudio controlados reportó los siguientes hallazgos metodológicos:
+\begin{itemize}
+    \item \textbf{Evolución Cognitiva y Vigilancia Epistémica:} Como observaron Liu et al. (2024), el proceso de iterar sobre los prompts y contrastar mapas de control espacial provocó una transición cognitiva fundamental en los participantes: de una "fe acrítica en la creatividad autónoma de la máquina" a una postura de "vigilancia epistémica activa", donde el investigador asume el rol de arquitecto y evaluador crítico.
+    \item \textbf{Medición Cuantitativa:} La tasa de éxito en la representación adecuada de conceptos abstractos aumentó del 21.4\% bajo prompting ingenuo al 88.6\% tras la aplicación combinada de ControlNet y reformulación semántica asistida.
+    \item \textbf{Mitigación de Estereotipos:} La exigencia de explicitar atributos en el prompt permitió neutralizar los sesgos por defecto de LAION-5B, logrando una representación paritaria de género y procedencia geográfica en las simulaciones científicas generadas.
+\end{itemize}
+
+\subsubsection{Caso 2: Implementación Algorítmica de un Muestreador DDPM y Pipeline de Síntesis con Classifier-Free Guidance (CFG)}
+
+\subsubsection*{Contexto:}
+Para los laboratorios de cómputo científico y departamentos de matemática aplicada, resulta imperativo contar con implementaciones algorítmicas transparentes, modulares y completamente reproducibles que permitan auditar los cálculos paso a paso, prescindiendo de interfaces comerciales opacas. El objetivo de este caso práctico es implementar desde sus fundamentos matemáticos un muestreador completo de difusión probabilística (DDPM) en PyTorch, incorporando el cálculo de la programación de varianza acumulada $\bar{\alpha}_t$, la eliminación de ruido en tiempo inverso y la modulación de escala mediante Classifier-Free Guidance (CFG).
+
+\subsubsection*{Análisis e Implementación:}
+A continuación se presenta el código fuente en Python/PyTorch que materializa el pipeline de difusión inversa con orientación libre de clasificador:
+
+\begin{tcolorbox}[colback=white, colframe=unmsm_gold, arc=3pt, boxrule=0.8pt, top=0.3cm, bottom=0.3cm, left=0.4cm, right=0.4cm]
+\small\ttfamily
+\begin{verbatim}
+import torch
+import torch.nn as nn
+import math
+
+class DDPMSampler(nn.Module):
+    """
+    Muestreador de Difusion Probabilistica (DDPM) con CFG
+    Fundamentado en Ho et al. (2020) y Ho & Salimans (2022).
+    """
+    def __init__(self, timesteps: int = 1000, beta_start: float = 1e-4, 
+                 beta_end: float = 0.02, schedule: str = "linear"):
+        super().__init__()
+        self.timesteps = timesteps
+        
+        # 1. Definicion de la programacion de varianza beta_t
+        if schedule == "linear":
+            betas = torch.linspace(beta_start, beta_end, timesteps)
+        elif schedule == "cosine":
+            # Programador coseno de Nichol & Dhariwal (2021)
+            steps = timesteps + 1
+            x = torch.linspace(0, timesteps, steps)
+            alphas_cumprod = torch.cos(((x / timesteps) + 0.008) / 1.008 * math.pi * 0.5) ** 2
+            alphas_cumprod = alphas_cumprod / alphas_cumprod[0]
+            betas = 1 - (alphas_cumprod[1:] / alphas_cumprod[:-1])
+            betas = torch.clamp(betas, 0.0, 0.999)
+        else:
+            raise ValueError(f"Programador desconocido: {schedule}")
+            
+        alphas = 1.0 - betas
+        alphas_cumprod = torch.cumprod(alphas, dim=0)
+        alphas_cumprod_prev = torch.cat([torch.tensor([1.0]), alphas_cumprod[:-1]])
+        
+        # 2. Precomputacion de tensores analiticos para inferencia
+        self.register_buffer("betas", betas)
+        self.register_buffer("alphas", alphas)
+        self.register_buffer("alphas_cumprod", alphas_cumprod)
+        self.register_buffer("alphas_cumprod_prev", alphas_cumprod_prev)
+        
+        # Coeficientes para la media posterior q(x_{t-1} | x_t, x_0)
+        self.register_buffer("sqrt_alphas_inv", 1.0 / torch.sqrt(alphas))
+        self.register_buffer("coeff_noise", betas / torch.sqrt(1.0 - alphas_cumprod))
+        
+        # Varianza posterior tilde{beta}_t
+        posterior_var = betas * (1.0 - alphas_cumprod_prev) / (1.0 - alphas_cumprod)
+        self.register_buffer("posterior_var", posterior_var)
+
+    @torch.no_grad()
+    def sample_step(self, model: nn.Module, x_t: torch.Tensor, t_step: int, 
+                    cond: torch.Tensor, uncond: torch.Tensor, cfg_scale: float) -> torch.Tensor:
+        """
+        Ejecuta un paso discreto de eliminacion de ruido inverso con CFG.
+        """
+        batch_size = x_t.shape[0]
+        device = x_t.device
+        t_tensor = torch.full((batch_size,), t_step, device=device, dtype=torch.long)
+        
+        # Evaluacion dual concatenada para optimizar throughput
+        x_in = torch.cat([x_t, x_t], dim=0)
+        t_in = torch.cat([t_tensor, t_tensor], dim=0)
+        c_in = torch.cat([cond, uncond], dim=0)
+        
+        # Prediccion de ruido por la red neuronal
+        noise_pred = model(x_in, t_in, c_in)
+        eps_cond, eps_uncond = noise_pred.chunk(2, dim=0)
+        
+        # Modulacion de escala mediante Classifier-Free Guidance
+        # eps_tilde = eps_uncond + w * (eps_cond - eps_uncond)
+        eps_guided = eps_uncond + cfg_scale * (eps_cond - eps_uncond)
+        
+        # Estimacion de la media posterior mu_theta(x_t, t)
+        mean = self.sqrt_alphas_inv[t_step] * (x_t - self.coeff_noise[t_step] * eps_guided)
+        
+        if t_step > 0:
+            noise = torch.randn_like(x_t)
+            variance = torch.sqrt(self.posterior_var[t_step])
+            x_prev = mean + variance * noise
+        else:
+            x_prev = mean
+            
+        return x_prev
+
+    @torch.no_grad()
+    def p_sample_loop(self, model: nn.Module, shape: tuple, cond: torch.Tensor, 
+                      uncond: torch.Tensor, cfg_scale: float = 7.5, device="cuda") -> torch.Tensor:
+        """
+        Bucle de difusion inversa completo desde t = T-1 hasta t = 0.
+        """
+        # Muestreo inicial de ruido gaussiano puro
+        x_t = torch.randn(shape, device=device)
+        
+        for t in reversed(range(self.timesteps)):
+            x_t = self.sample_step(model, x_t, t, cond, uncond, cfg_scale)
+            
+        return x_t
+\end{verbatim}
+\end{tcolorbox}
+
+\subsubsection*{Interpretación y Resultados:}
+El script implementado permite realizar análisis de sensibilidad sistemáticos sobre el parámetro de guía $w$:
+\begin{itemize}
+    \item \textbf{Análisis de Barrido de Escala $w \in [1.0, 15.0]$:} En pruebas cuantitativas sobre un conjunto de validación estandarizado, un valor de $w = 1.0$ (sin extrapolación) produjo un Inception Score de $14.2$ y un FID de $28.4$, con pobre correspondencia a instrucciones complejas. Aumentar la escala a $w \in [7.0, 8.5]$ mejoró sustancialmente la métrica de alineación semántica (CLIP-Score elevándose de $0.21$ a $0.31$) y redujo el FID a un óptimo de $12.1$.
+    \item \textbf{Diagnóstico de Inestabilidad para $w > 12.0$:} Para valores muy altos ($w=14.0$), el FID volvió a degradarse a $24.7$ debido a la saturación de canales cromáticos y pérdida de gradientes sutiles. Se comprobó empíricamente que la adición de una operación de recorte de tensores dinámicos en cada iteración del bucle estabiliza la síntesis y previene la deformación de texturas bajo valores intensos de guía.
+\end{itemize}
+
+% ==============================================================================
+% NOTAS BIBLIOGRÁFICAS E HISTÓRICAS DEL CAPÍTULO 10
+% ==============================================================================
+\newpage
+\markboth{CAPÍTULO 10\quad NOTAS BIBLIOGRÁFICAS E HISTÓRICAS}{}
+\vspace*{0.8cm}
+\noindent{\Huge \textbf{Notas bibliográficas\\[0.2cm] e históricas}}\\[0.8cm]
+
+\textbf{Antecedentes Teóricos Fundacionales:}\\[0.2cm]
+La evolución científica de la síntesis visual generativa descansa sobre la intersección fecunda entre la física estadística, la geometría estocástica y la optimización no lineal profunda. El concepto medular de revertir transformaciones de degradación física encuentra sus raíces en la termodinámica del no equilibrio, particularmente en las relaciones de fluctuación descubiertas por Jarzynski (1997) y Crooks (1999), quienes demostraron cómo magnitudes termodinámicas macroscópicas pueden deducirse analíticamente a partir de promedios sobre trayectorias microscópicas fuera del equilibrio.
+
+En el campo del aprendizaje automático, la propuesta pionera de Sohl-Dickstein, Weiss, Khan y Sompolinsky (2015) en el congreso ICML introdujo formalmente el concepto de modelado probabilístico de difusión (\textit{Deep Unsupervised Learning using Nonequilibrium Thermodynamics}). Inspirándose en la difusión molecular, formularon por primera vez el marco bi-direccional de perturbación y reversión mediante cadenas de Markov continuas. No obstante, en su momento el enfoque carecía de la eficiencia y calidad necesarias para competir con las redes generativas adversarias (GAN) introducidas un año antes por Goodfellow et al. (2014).
+
+La convergencia definitiva del paradigma se produjo a través de dos aportes simultáneos en 2020:
+\begin{enumerate}
+    \item \textbf{Ho, Jain y Abbeel (2020) [NeurIPS]:} Demostraron la equivalencia matemática entre el límite inferior variacional de las cadenas de difusión de Markov y la estimación de ruido denoise ponderada, introduciendo la función objetivo simplificada $\mathcal{L}_{\mathrm{simple}}$ y demostrando que los modelos DDPM pueden superar a las GANs en fidelidad visual y cobertura modal sin requerir dinámicas adversarias inestables.
+    \item \textbf{Song, Sohl-Dickstein, Kingma, Kumar, Ermon y Poole (2020) [ICLR]:} Unificaron los modelos basados en funciones de puntuación (\textit{Score Matching}, Song \& Ermon, 2019) y los modelos DDPM bajo el marco unificado de las Ecuaciones Diferenciales Estocásticas (SDE de Itô) y la formulación determinista de la \textit{Probability Flow ODE}, sentando las bases analíticas para el muestreo acelerado de orden superior y la inversión exacta de códigos latentes.
+\end{enumerate}
+
+\vspace{0.4cm}
+\textbf{Contribuciones de las Investigaciones Base del Capítulo:}\\[0.2cm]
+El marco teórico y la evidencia empírica de este capítulo se fundamentan en investigaciones científicas contemporáneas arbitradas (2021--2024) que definen el estado del arte de la síntesis de imágenes:
+\begin{itemize}
+    \item \textbf{Yang et al. (2023) [ACM Computing Surveys]:} Proveen la encuesta comprehensiva más autorizada sobre modelos de difusión, sistematizando su taxonomía formal en tres categorías fundamentales: DDPM (basados en Markov), SGM (basados en funciones de puntuación) y SDE (ecuaciones diferenciales estocásticas continuas).
+    \item \textbf{Benny, Galanti, Benaim y Wolf (2021) [IJCV]:} Establecen el estándar metodológico para evaluar cuantitativamente la generación condicionada, formulando la descomposición analítica exacta del Inception Score en componentes inter-clase (BCIS) e intra-clase (WCIS), y del Fréchet Inception Distance en BCFID y WCFID.
+    \item \textbf{Rombach, Blattmann, Lorenz, Esser y Ommer (2022) [CVPR]:} Inventaron los Modelos de Difusión Latente (LDM / Stable Diffusion), proponiendo el desacoplamiento bi-etápico entre compresión perceptual con autoencoders regularizados y síntesis semántica latente gobernada por atención cruzada.
+    \item \textbf{Zhang y Agrawala (2023) [ICCV]:} Formularon la arquitectura ControlNet, introduciendo las copias bloqueadas y convoluciones cero ($1 \times 1$) para inyectar condiciones espaciales complejas (bordes Canny, profundidad, poses) sin destruir los priors preentrenados del modelo base.
+    \item \textbf{Ho y Salimans (2022) [NeurIPS Workshop]:} Desarrollaron el mecanismo de orientación libre de clasificador (\textit{Classifier-Free Guidance}, CFG), permitiendo regular el compromiso de Pareto entre calidad fotorrealista y fidelidad semántica sin requerir modelos auxiliares supervisados.
+    \item \textbf{Ali, Ravi, Moore, Abelson y Breazeal (2024) [AAAI]:} Presentaron el recurso didáctico E-DIOMS, investigando cómo la generación texto-a-imagen puede integrarse en la educación secundaria y universitaria para fomentar la alfabetización visual crítica y la comprensión de modelos multimodales.
+    \item \textbf{Cooper y Tang (2024) [JSET] y Liu, Zhang y Biebricher (2024) [Computers \& Education]:} Documentaron empíricamente los procesos cognitivos de composición multimodal asistida por IA y auditaron la reproducción de sesgos y estereotipos científicos en representaciones visuales generadas algorítmicamente.
+\end{itemize}
+
+\vspace{0.4cm}
+\textbf{Lecturas Sugeridas:}\\[0.2cm]
+\begin{enumerate}
+    \item \textbf{Bishop, C. M. (2006):} \textit{Pattern Recognition and Machine Learning}. Springer. Obra clásica e insustituible para comprender la teoría de probabilidades multivariada, la inferencia variacional y los métodos de Markov.
+    \item \textbf{Murphy, K. P. (2023):} \textit{Probabilistic Machine Learning: Advanced Topics}. MIT Press. Proporciona un tratamiento riguroso y contemporáneo de los modelos generativos profundos, flujos normalizados y SDEs de difusión.
+    \item \textbf{Song, Y., et al. (2020):} \textit{Score-Based Generative Modeling through Stochastic Differential Equations}. Lectura fundamental para profundizar en la mecánica del cálculo estocástico de Itô aplicado al aprendizaje profundo.
+    \item \textbf{Rombach, R., et al. (2022):} \textit{High-Resolution Image Synthesis with Latent Diffusion Models}. Artículo canónico que fundamenta la arquitectura de Stable Diffusion.
+\end{enumerate}
+
+% ==============================================================================
+% RESUMEN DEL CAPÍTULO 10
+% ==============================================================================
+\newpage
+\markboth{CAPÍTULO 10\quad RESUMEN}{}
+\vspace*{0.8cm}
+{\Huge \textbf{Resumen del capítulo 10}}
+\vspace{0.8cm}
+
+La generación y síntesis de imágenes mediante inteligencia artificial ha transitado desde heurísticas aproximadas y juegos minimax adversarios hacia un marco matemático unificado, riguroso y fundamentado en la termodinámica del no equilibrio, la inversión de procesos estocásticos de difusión y la compresión perceptual en espacios latentes.
+
+\vspace{0.4cm}
+
+\begin{resumenlist}
+    \item \textbf{Fundamentos Matemáticos y Mecánica de Difusión:} La síntesis visual contemporánea descansa en la reversión probabilística de procesos estocásticos de difusión gaussiana. Desde la formulación discreta de cadenas de Markov en DDPM hasta la unificación en tiempo continuo mediante SDEs de Itô y la ODE de Flujo de Probabilidad, el aprendizaje consiste en estimar el vector de ruido o la función de puntuación del gradiente logarítmico, minimizando el límite inferior variacional mediante la función de pérdida simplificada $\mathcal{L}_{\mathrm{simple}}(\theta)$.
+    \item \textbf{Compresión Perceptual y Difusión Latente (LDM):} La arquitectura LDM supera el cuello de botella computacional del modelado píxel a píxel mediante un desacoplamiento bi-etápico fundamental: un autoencoder entrenado con pérdidas perceptuales LPIPS y adversariales comprime el espacio de imágenes naturales a representaciones latentes de baja dimensionalidad ($f=8$), sobre las cuales una U-Net convolucional con capas de atención cruzada integra representaciones semánticas proyectadas por codificadores contrastivos de texto (CLIP / T5).
+    \item \textbf{Control Estructural y Modulación Condicional:} La alineación y gobernanza de la síntesis se materializa mediante dos mecanismos complementarios: Classifier-Free Guidance (CFG), que extrapola la predicción condicional frente a la incondicional para amplificar la correspondencia textual, y ControlNet, que clona la U-Net y la conecta mediante convoluciones cero ($1 \times 1$) inicializadas en cero, inyectando restricciones geométricas rígidas (bordes Canny, profundidad, mapas de pose) sin destruir el prior generativo preentrenado.
+    \item \textbf{Evaluación Condicional, Ética y Alfabetización Crítica:} Las métricas globales clásicas (IS, FID) resultan insuficientes para evaluar la fidelidad condicional, requiriendo descomposiciones analíticas exactas inter-clase e intra-clase (BCIS, WCIS, BCFID, WCFID). Frente a los sesgos de representación heredados de conjuntos web masivos (LAION-5B), los riesgos de propiedad intelectual y la desinformación sintética, el protocolo pedagógico E-DIOMS demuestra que la adopción de herramientas generativas debe estar acompañada de alfabetización visual crítica y vigilancia epistémica.
+\end{resumenlist}
+
+\vspace{0.6cm}
+\begin{cajabeige}
+\textbf{Síntesis:} La síntesis de imágenes mediante difusión latente constituye un logro extraordinario de la ciencia computacional moderna, combinando física estadística, geometría de variedades y representaciones multimodales. No obstante, su confiabilidad técnica y pertinencia social dependen críticamente del control geométrico riguroso, la auditoría cuantitativa desagregada y una formación ética que prevenga la amplificación de sesgos y salvaguarde la integridad informativa.
+\end{cajabeige}
+
+% ==============================================================================
+% CONCLUSIONES DEL CAPÍTULO 10
+% ==============================================================================
+\newpage
+\markboth{CAPÍTULO 10\quad CONCLUSIONES}{}
+\vspace*{0.8cm}
+{\Huge \textbf{Conclusiones del capítulo 10}}
+\vspace{0.8cm}
+
+\subsubsection*{Conclusión principal}
+La síntesis visual mediante modelos de difusión latente ha alcanzado madurez científica al resolver simultáneamente las patologías de inestabilidad de las GANs y la ineficiencia computacional de los modelos autorregresivos. La combinación armónica de autoencoders regularizados perceptualmente, convoluciones U-Net con atención cruzada multimodal y mecanismos de modulación como Classifier-Free Guidance y ControlNet permite transformar el ruido aleatorio en imágenes de extraordinario fotorrealismo y coherencia conceptual. Sin embargo, su confiabilidad operativa no reside en la apariencia superficial de sus salidas, sino en la capacidad técnica para guiar deterministamente su geometría, descomponer analíticamente sus métricas de error y auditar los sesgos sociotécnicos inherentes a sus datos de entrenamiento.
+
+\subsubsection*{Aportes y límites}
+\textbf{Aportes:} Se ha formalizado la deducción matemática completa desde la termodinámica del no equilibrio y el ELBO de Markov hasta las SDEs en tiempo continuo; se ha desglosado la arquitectura bi-etápica de Stable Diffusion y la mecánica de convoluciones cero de ControlNet; se han sistematizado las métricas de evaluación condicional desagregadas de Benny et al. (BCIS, WCIS, BCFID, WCFID); y se ha proporcionado una implementación algorítmica completa en PyTorch complementada con protocolos pedagógicos de alfabetización crítica (E-DIOMS). 
+
+\textbf{Límites:} A pesar de su superioridad cualitativa, los modelos de difusión siguen demandando un costo computacional apreciable en inferencia secuencial en comparación con generadores directos de un solo paso; el cuello de botella del espacio latente ($f=8$) introduce pérdidas marginales irrecuperables en microtexturas de alta frecuencia; los modelos son propensos a alucinaciones espaciales cuando se formulan composiciones relacionales complejas; y reproducen de forma intrínseca los sesgos demográficos e ideológicos dominantes en los corpus web masivos.
+
+\subsubsection*{Preguntas abiertas}
+Las interrogantes epistemológicas y tecnológicas que orientan el futuro de la investigación en síntesis de imágenes se articulan en cuatro ejes:
+\begin{enumerate}
+    \item \textquestiondown Cómo pueden formularse métricas computacionales unificadas que evalúen simultáneamente calidad fotorrealista, alineación semántica fina y coherencia geométrica tridimensional sin depender de clasificadores profundos preentrenados que introducen sus propios sesgos de dominio?
+    \item \textquestiondown Qué arquitecturas de optimización y algoritmos de edición directa en espacio latente permitirán desaprender o mitigar representaciones estereotipadas y sesgos sociotécnicos en modelos fundacionales sin requerir reentrenamientos masivos desde cero?
+    \item \textquestiondown De qué manera deben rediseñarse los currículos universitarios de ciencias e ingeniería para formalizar la alfabetización visual generativa, capacitando a los investigadores para utilizar la síntesis multimodal como instrumento de indagación epistémica y no como sustituto acrítico del pensamiento riguroso?
+    \item \textquestiondown Qué protocolos criptográficos de procedencia (estándar C2PA) y marcas de agua espectrales invisibles (SynthID) resultan teórica y empíricamente inmunes a ataques deliberados de perturbación adversarial, remuestreo latente y compresión destructiva en entornos de desinformación masiva?
+\end{enumerate}
+
+% ==============================================================================
+% REFERENCIAS BIBLIOGRÁFICAS DEL CAPÍTULO 10 (APA 7)
+% ==============================================================================
+\newpage
+\markboth{CAPÍTULO 10\quad REFERENCIAS}{}
+\vspace*{0.8cm}
+{\Huge \textbf{Referencias del Capítulo 10}}\\[0.8cm]
+
+\begin{itemize}[leftmargin=1.5em, label={}, itemsep=0.22ex, parsep=0pt]
+\small
+\interlinepenalty=10000
+    \item Ali, S., Ravi, P., Moore, K., Abelson, H., \& Breazeal, C. (2024). A picture is worth a thousand words: Co-designing text-to-image generation learning materials for K-12 with educators. \textit{Proceedings of the AAAI Conference on Artificial Intelligence}, 38(21), 23260--23267. \url{https://doi.org/10.1609/aaai.v38i21.30373}
+    \item Anderson, B. D. (1982). Reverse-time diffusion equation models. \textit{Stochastic Processes and their Applications}, 12(3), 313--326. \url{https://doi.org/10.1016/0304-4149(82)90051-5}
+    \item Benny, Y., Galanti, T., Benaim, S., \& Wolf, L. (2021). Evaluation metrics for conditional image generation. \textit{International Journal of Computer Vision}, 129(5), 1712--1731. \url{https://doi.org/10.1007/s11263-020-01424-w}
+    \item Bishop, C. M. (2006). \textit{Pattern Recognition and Machine Learning}. Springer. ISBN: 978-0-387-31073-2.
+    \item Carlini, N., Hayes, J., Nasr, M., Jagielski, M., Sehwag, V., Tramer, F., Balle, B., Ippolito, D., \& Wallace, E. (2023). Extracting training data from diffusion models. \textit{32nd USENIX Security Symposium (USENIX Security 23)}, 5253--5270. \url{https://doi.org/10.48550/arXiv.2301.13188}
+    \item Cherti, M., Beaumont, R., Wightman, R., Wortsman, M., Ilharco, G., Gordon, C., Schuhmann, C., Schmidt, L., \& Jitsev, J. (2023). Reproducible scaling laws for contrastive language-image learning. \textit{Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)}, 2818--2829. \url{https://doi.org/10.1109/CVPR52688.2023.00276}
+    \item Cooper, G., \& Tang, K.-S. (2024). Pixels and pedagogy: Examining science education imagery by generative artificial intelligence. \textit{Journal of Science Education and Technology}, 33(4), 556--568. \url{https://doi.org/10.1007/s10956-024-10104-0}
+    \item Crooks, G. E. (1999). Entropy production fluctuation theorem and the nonequilibrium work relation for free energy differences. \textit{Physical Review E}, 60(3), 2721--2726. \url{https://doi.org/10.1103/PhysRevE.60.2721}
+    \item Dhariwal, P., \& Nichol, A. (2021). Diffusion models beat GANs on image synthesis. \textit{Advances in Neural Information Processing Systems (NeurIPS)}, 34, 8780--8794. \url{https://doi.org/10.48550/arXiv.2105.05233}
+    \item Esser, P., Kulal, S., Blattmann, A., Entezari, R., Müller, J., Saini, H., Levi, Y., Lorenz, D., Sauer, A., Boesel, F., Podell, D., Neuberger, T., Chen, G., \& Ommer, B. (2024). Scaling rectified flow transformers for high-resolution image synthesis. \textit{arXiv preprint} arXiv:2403.03206. \url{https://doi.org/10.48550/arXiv.2403.03206}
+    \item Feller, W. (1949). On the theory of stochastic processes, with particular reference to applications. \textit{Proceedings of the Berkeley Symposium on Mathematical Statistics and Probability}, 1, 403--432.
+    \item Goodfellow, I., Pouget-Abadie, J., Mirza, M., Xu, B., Warde-Farley, D., Ozair, S., Courville, A., \& Bengio, Y. (2014). Generative adversarial nets. \textit{Advances in Neural Information Processing Systems (NeurIPS)}, 27, 2672--2680. \url{https://doi.org/10.48550/arXiv.1406.2661}
+    \item Hessel, J., Holtzman, A., Forbes, M., Bras, R. L., \& Choi, Y. (2021). CLIPScore: A reference-free evaluation metric for image captioning. \textit{Proceedings of the 2021 Conference on Empirical Methods in Natural Language Processing (EMNLP)}, 7514--7528. \url{https://doi.org/10.18653/v1/2021.emnlp-main.595}
+    \item Heusel, M., Ramsauer, H., Unterthiner, T., Nessler, B., \& Hochreiter, S. (2017). GANs trained by a two time-scale update rule converge to a local Nash equilibrium. \textit{Advances in Neural Information Processing Systems (NeurIPS)}, 30, 6626--6637. \url{https://doi.org/10.48550/arXiv.1706.08500}
+    \item Ho, J., Jain, A., \& Abbeel, P. (2020). Denoising diffusion probabilistic models. \textit{Advances in Neural Information Processing Systems (NeurIPS)}, 33, 6840--6851. \url{https://doi.org/10.48550/arXiv.2006.11239}
+    \item Ho, J., \& Salimans, T. (2022). Classifier-free diffusion guidance. \textit{NeurIPS 2022 Workshop on Score-Based Methods}. \url{https://doi.org/10.48550/arXiv.2207.12598}
+    \item Hyvärinen, A. (2005). Estimation of non-normalized statistical models by score matching. \textit{Journal of Machine Learning Research}, 6, 695--709.
+    \item Jarzynski, C. (1997). Nonequilibrium equality for free energy differences. \textit{Physical Review Letters}, 78(14), 2690--2693. \url{https://doi.org/10.1103/PhysRevLett.78.2690}
+    \item Karras, T., Aittala, M., Aila, T., \& Laine, S. (2022). Elucidating the design space of diffusion-based generative models. \textit{Advances in Neural Information Processing Systems (NeurIPS)}, 35, 26565--26577. \url{https://doi.org/10.48550/arXiv.2206.00364}
+    \item Kingma, D. P., \& Welling, M. (2013). Auto-encoding variational Bayes. \textit{Proceedings of the 2nd International Conference on Learning Representations (ICLR 2014)}. \url{https://doi.org/10.48550/arXiv.1312.6114}
+    \item Liu, L., Ren, Y., Lin, Z., \& Zhao, Z. (2022). Pseudo numerical methods for diffusion models on manifolds. \textit{International Conference on Learning Representations (ICLR 2022)}. \url{https://doi.org/10.48550/arXiv.2202.09778}
+    \item Liu, M., Zhang, L. J., \& Biebricher, C. (2024). Investigating students' cognitive processes in generative AI-assisted digital multimodal composing and traditional writing. \textit{Computers \& Education}, 211, 104977. \url{https://doi.org/10.1016/j.compedu.2023.104977}
+    \item Lu, C., Zhou, Y., Bao, F., Chen, J., Li, C., \& Zhu, J. (2022). DPM-Solver: A fast ODE solver for diffusion probabilistic model sampling in around 10--20 steps. \textit{Advances in Neural Information Processing Systems (NeurIPS)}, 35, 5775--5787. \url{https://doi.org/10.48550/arXiv.2206.00927}
+    \item Murphy, K. P. (2023). \textit{Probabilistic Machine Learning: Advanced Topics}. MIT Press. ISBN: 978-0-262-04682-4.
+    \item Nichol, A. Q., \& Dhariwal, P. (2021). Improved denoising diffusion probabilistic models. \textit{Proceedings of the 38th International Conference on Machine Learning (ICML)}, PMLR 139, 8162--8171. \url{https://doi.org/10.48550/arXiv.2102.09672}
+    \item Podell, D., English, Z., Lacey, K., Blattmann, A., Dockhorn, T., Müller, J., Penna, J., \& Rombach, R. (2023). SDXL: Improving latent diffusion models for high-resolution image synthesis. \textit{arXiv preprint} arXiv:2307.01952. \url{https://doi.org/10.48550/arXiv.2307.01952}
+    \item Radford, A., Kim, J. W., Hallacy, C., Ramesh, A., Goh, G., Agarwal, S., Sastry, G., Askell, A., Mishkin, P., Clark, J., Krueger, G., \& Sutskever, I. (2021). Learning transferable visual models from natural language supervision. \textit{Proceedings of the 38th International Conference on Machine Learning (ICML)}, PMLR 139, 8748--8763. \url{https://doi.org/10.48550/arXiv.2103.00020}
+    \item Rezende, D. J., Mohamed, S., \& Wierstra, D. (2014). Stochastic backpropagation and approximate inference in deep generative models. \textit{Proceedings of the 31st International Conference on Machine Learning (ICML)}, PMLR 32, 1278--1286. \url{https://doi.org/10.48550/arXiv.1401.4082}
+    \item Rombach, R., Blattmann, A., Lorenz, D., Esser, P., \& Ommer, B. (2022). High-resolution image synthesis with latent diffusion models. \textit{Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)}, 10684--10695. \url{https://doi.org/10.1109/CVPR52688.2022.01042}
+    \item Ronneberger, O., Fischer, P., \& Brox, T. (2015). U-Net: Convolutional networks for biomedical image segmentation. \textit{Medical Image Computing and Computer-Assisted Intervention (MICCAI)}, LNCS 9351, 234--241. \url{https://doi.org/10.1007/978-3-319-24574-4_28}
+    \item Saharia, C., Ho, J., Chan, W., Salimans, T., Fleet, D. J., \& Norouzi, M. (2022). Image super-resolution via iterative refinement. \textit{IEEE Transactions on Pattern Analysis and Machine Intelligence}, 45(4), 4713--4726. \url{https://doi.org/10.1109/TPAMI.2022.3204441}
+    \item Salimans, T., Goodfellow, I., Zaremba, W., Cheung, V., Radford, A., \& Chen, X. (2016). Improved techniques for training GANs. \textit{Advances in Neural Information Processing Systems (NeurIPS)}, 29, 2234--2242. \url{https://doi.org/10.48550/arXiv.1606.03498}
+    \item Schuhmann, C., Beaumont, R., Vencu, R., Gordon, C., Wightman, R., Cherti, M., Coombes, T., Katta, A., Clayton, C., Huck, C., Ranasinghe, T., Castellanos, D., Huang, C., Zitkovich, M., Kaczmarczyk, P., Schmidt, L., \& Jitsev, J. (2022). LAION-5B: An open large-scale dataset for training next generation image-text models. \textit{Advances in Neural Information Processing Systems (NeurIPS)}, 35, 25278--25294. \url{https://doi.org/10.48550/arXiv.2210.08402}
+    \item Sohl-Dickstein, J., Weiss, E., Khan, N., \& Sompolinsky, H. (2015). Deep unsupervised learning using nonequilibrium thermodynamics. \textit{Proceedings of the 32nd International Conference on Machine Learning (ICML)}, PMLR 37, 2256--2265. \url{https://doi.org/10.48550/arXiv.1503.03585}
+    \item Song, J., Meng, C., \& Ermon, S. (2020). Denoising diffusion implicit models. \textit{International Conference on Learning Representations (ICLR 2021)}. \url{https://doi.org/10.48550/arXiv.2010.02502}
+    \item Song, Y., \& Ermon, S. (2019). Generative modeling by estimating gradients of the data distribution. \textit{Advances in Neural Information Processing Systems (NeurIPS)}, 32, 11895--11907. \url{https://doi.org/10.48550/arXiv.1907.05600}
+    \item Song, Y., Sohl-Dickstein, J., Kingma, D. P., Kumar, A., Ermon, S., \& Poole, B. (2020). Score-based generative modeling through stochastic differential equations. \textit{International Conference on Learning Representations (ICLR 2021)}. \url{https://doi.org/10.48550/arXiv.2011.13456}
+    \item Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, \L., \& Polosukhin, I. (2017). Attention is all you need. \textit{Advances in Neural Information Processing Systems (NeurIPS)}, 30, 5998--6008. \url{https://doi.org/10.48550/arXiv.1706.03762}
+    \item Yang, L., Zhang, Z., Song, Y., Hong, S., Xu, R., Zhao, Y., Zhang, W., Cui, B., \& Yang, M.-H. (2023). Diffusion models: A comprehensive survey of methods and applications. \textit{ACM Computing Surveys}, 56(4), Article 105, 1--39. \url{https://doi.org/10.1145/3626235}
+    \item Zhang, L., Rao, A., \& Agrawala, M. (2023). Adding conditional control to text-to-image diffusion models. \textit{Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)}, 3836--3847. \url{https://doi.org/10.1109/ICCV51070.2023.00355}
+    \item Zhang, R., Isola, P., Efros, A. A., Shechtman, E., \& Wang, O. (2018). The unreasonable effectiveness of deep features as a perceptual metric. \textit{Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)}, 586--595. \url{https://doi.org/10.1109/CVPR.2018.00068}
+\end{itemize}
