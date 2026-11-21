@@ -135,6 +135,7 @@ La articulación entre los marcos ciudadanos y pedagógicos descritos se sinteti
 \centering
 \small\sffamily
 \textbf{Figura 2.1.} Matriz Arquitectónica Integrada de Competencias Digitales e Inteligencia Artificial en Educación Superior\\[0.3cm]
+\resizebox{\linewidth}{!}{%
 \begin{tikzpicture}[node distance=1.3cm, auto, >=stealth, font=\footnotesize\sffamily]
     % Bloque Central IA Transversal
     \node [rectangle, draw=unmsm_red, fill=bg_arena, rounded corners=3pt, text width=12cm, text centered, inner sep=6pt] (ia_layer) {
@@ -180,7 +181,8 @@ La articulación entre los marcos ciudadanos y pedagógicos descritos se sinteti
     \draw [->, thick, draw=unmsm_red] (ia_layer) -- (digcompedu);
     \draw [->, thick, draw=unmsm_darkred] (digcomp) -- (praxis);
     \draw [->, thick, draw=unmsm_darkred] (digcompedu) -- (praxis);
-\end{tikzpicture}\\[0.2cm]
+\end{tikzpicture}%
+}\\[0.2cm]
 \scriptsize \textbf{Fuente:} Elaboración propia basada en Cosgrove y Cachia (2025), Vuorikari et al. (2022) y Redecker (2017).
 \end{tcolorbox}
 \caption{Interacción jerárquica de los marcos globales de competencia tecnológica.}
@@ -233,7 +235,7 @@ La anatomía formal de un DOI consta invariablemente de dos segmentos separados 
 \[
 \underbrace{\texttt{10.1038}}_{\text{Prefijo (Agencia y Editorial)}} \Big/ \underbrace{\texttt{s41467-022-30073-5}}_{\text{Sufijo (Objeto Específico e ISSN/Artículo)}}
 \]
-La resolución del DOI a través de su protocolo estándar (\texttt{https://doi.org/10.1038/s41467-022-30073-5}) garantiza el acceso instantáneo a los metadatos oficiales del artículo en el servidor de la editorial, lo que permite a los investigadores contrastar la autenticidad del manuscrito y protegerse frente al fenómeno del secuestro de revistas (\textit{journal hijacking}) y la proliferación de sitios clonados que suplantan publicaciones prestigiosas para capturar pagos ilegítimos.
+La resolución del DOI a través de su protocolo estándar (\url{https://doi.org/10.1038/s41467-022-30073-5}) garantiza el acceso instantáneo a los metadatos oficiales del artículo en el servidor de la editorial, lo que permite a los investigadores contrastar la autenticidad del manuscrito y protegerse frente al fenómeno del secuestro de revistas (\textit{journal hijacking}) y la proliferación de sitios clonados que suplantan publicaciones prestigiosas para capturar pagos ilegítimos.
 
 \subsubsection{Psicología Cognitiva de la Desinformación: Pausas de Precisión (Accuracy Prompts)}
 
@@ -489,7 +491,7 @@ El mensaje contiene un enlace acortado (\texttt{https://bit.ly/taller-reserva-20
 En lugar de ceder a la urgencia emocional inducida por el mensaje (una manifestación arquetípica de manipulación afectiva para desactivar la deliberación analítica), Rosa activa el protocolo de curaduría crítica y seguridad digital estructurado en cuatro etapas:
 
 \begin{enumerate}
-    \item \textbf{Inspección Técnica de la URL y del Canal de Envío:} Rosa examina el enlace acortado en un entorno seguro antes de interactuar con él. Al resolver la redirección en un expansor de enlaces, constata que la URL de destino no pertenece al dominio oficial \texttt{unmsm.edu.pe}, sino a un servidor gratuito alojado en un dominio comercial sospechoso (\texttt{formulario-acreditaciones-peru.net}).
+    \item \textbf{Inspección Técnica de la URL y del Canal de Envío:} Rosa examina el enlace acortado en un entorno seguro antes de interactuar con él. Al resolver la redirección en un expansor de enlaces, constata que la URL de destino no pertenece al dominio oficial \texttt{unmsm.edu.pe}, sino a un servidor gratuito alojado en un dominio comercial sospechoso (\url{formulario-acreditaciones-peru.net}).
     \item \textbf{Contraste en Canales Oficiales Primarios:} Rosa accede directamente al portal web oficial de la Facultad de Ciencias Matemáticas de la UNMSM y al Sistema Único de Matrícula (SUM). En los canales formales constata que el taller existe como iniciativa de proyección social comunitaria, pero con condiciones diametralmente distintas: la inscripción es completamente gratuita, el único requisito es registrar el código de estudiante y correo institucional, y en ninguna circunstancia la universidad solicita contraseñas ni depósitos a cuentas individuales.
     \item \textbf{Contención y Alerta Comunitaria:} Rosa descarta de inmediato el enlace fraudulento. Acto seguido, redacta una advertencia respetuosa y precisa para el grupo de mensajería estudiantil, explicando con capturas de pantalla la discrepancia entre el enlace malicioso y el canal oficial de la universidad, evitando que sus compañeros entreguen datos personales o dinero. Asimismo, remite el incidente a la Oficina General de Tecnologías de Información (OGTI) de la UNMSM para el bloqueo perimetral del dominio falso.
     \item \textbf{Aseguramiento Criptográfico de la Identidad Digital:} Para blindar su propia cuenta ante futuros ataques de ingeniería social, Rosa ingresa a la configuración de seguridad de su cuenta institucional e implementa las directrices de NIST SP 800-63B-4: actualiza su contraseña por una frase de paso de 18 caracteres de alta entropía y activa la autenticación de doble factor mediante una clave criptográfica FIDO2 registrada en su dispositivo móvil.
@@ -526,7 +528,8 @@ La Tabla 2.5 expone los resultados cuantitativos comparativos obtenidos entre am
 \label{tab:mails_resultados_unmsm}
 \footnotesize
 \setlength{\tabcolsep}{3.2pt}
-\begin{tabularx}{\textwidth}{p{3.1cm} *{6}{>{\centering\arraybackslash}X}}
+\resizebox{\textwidth}{!}{%
+\begin{tabularx}{\textwidth}{p{3.2cm} *{6}{>{\centering\arraybackslash}X}}
 \toprule
 \textbf{Dimensión / Variable} & \multicolumn{2}{c}{\textbf{Grupo Control ($n=120$)}} & \multicolumn{2}{c}{\textbf{Grupo Experimental ($n=120$)}} & \textbf{Estadístico $t$} & \textbf{Efecto $d$} \\
 \cmidrule(lr){2-3} \cmidrule(lr){4-5}
@@ -540,7 +543,8 @@ La Tabla 2.5 expone los resultados cuantitativos comparativos obtenidos entre am
 Tasa Detección Alucinaciones (\%) & $31.2\% \pm 8.4$ & $34.5\% \pm 7.9$ & $32.0\% \pm 8.6$ & $\mathbf{84.2\% \pm 6.1}$ & $54.12^{***}$ & $7.02$ (Excepcional) \\
 Pausas de Exactitud Registradas & $1.2 \pm 0.4$ & $1.4 \pm 0.5$ & $1.3 \pm 0.4$ & $\mathbf{4.8 \pm 0.6}$ & $47.38^{***}$ & $6.15$ (Excepcional) \\
 \bottomrule
-\end{tabularx}
+\end{tabularx}%
+}
 \vspace{0.2cm}
 \begin{flushleft}
 \scriptsize \textbf{Nota.} Datos empíricos recabados en la Facultad de Ciencias Matemáticas (UNMSM, ciclo 2026-I). $^{***}\; p < 0.001$. Escala Likert de 1 a 6.
@@ -690,7 +694,7 @@ La alfabetización digital y en inteligencia artificial constituye el fundamento
 {\Huge \textbf{Referencias del Capítulo 2}}\\[0.8cm]
 
 \begin{itemize}[leftmargin=1.5em, label={}, itemsep=0.22ex, parsep=0pt]
-\small
+\small\raggedright
 \interlinepenalty=10000
     \item Anderson, J. R. (1985). \textit{Cognitive psychology and its implications} (2nd ed.). W. H. Freeman. ISBN: 978-0-716-71686-0.
     \item Ara, J., Sik-Lanyi, C., \& Kelemen, A. (2024). Accessibility engineering in web evaluation process: A systematic literature review. \textit{Universal Access in the Information Society}, 23(3), 1165--1189. \url{https://doi.org/10.1007/s10209-023-00967-2}

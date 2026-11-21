@@ -184,12 +184,13 @@ La Figura \ref{fig:conformidad_ai_act} ilustra la ruta metodológica y los punto
 
 \begin{figure}[htbp]
 \centering
+\resizebox{0.95\linewidth}{!}{%
 \begin{tikzpicture}[
     node distance=1.2cm and 0.8cm,
     font=\small\sffamily,
     base/.style={rectangle, rounded corners=2mm, draw=unmsm_red, line width=1pt, align=center, fill=bg_marfil, inner sep=6pt, text width=4.0cm},
-    decision/.style={diamond, aspect=1.8, draw=unmsm_darkred, line width=1.2pt, fill=bg_arena!70, align=center, inner sep=2pt, text width=2.8cm, font=ootnotesize\sffamily},
-    action/.style={rectangle, rounded corners=2mm, draw=unmsm_gray, line width=1pt, fill=white, align=center, inner sep=5pt, text width=3.8cm, font=ootnotesize\sffamily},
+    decision/.style={diamond, aspect=1.8, draw=unmsm_darkred, line width=1.2pt, fill=bg_arena!70, align=center, inner sep=2pt, text width=2.8cm, font=\footnotesize\sffamily},
+    action/.style={rectangle, rounded corners=2mm, draw=unmsm_gray, line width=1pt, fill=white, align=center, inner sep=5pt, text width=3.8cm, font=\footnotesize\sffamily},
     arrow/.style={-{Latex[length=2.5mm, width=1.5mm]}, line width=1pt, draw=unmsm_red}
 ]
     \node (start) [base, fill=unmsm_red!10] {\textbf{Inicio del Ciclo de Vida}\\Concepción y Diseño del Sistema de IA};
@@ -209,7 +210,8 @@ La Figura \ref{fig:conformidad_ai_act} ilustra la ruta metodológica y los punto
     \draw [arrow] (audit) -- node[above, font=\scriptsize\bfseries] {Sí (Biometría)} (notified);
     \draw [arrow] (internal) |- (cert);
     \draw [arrow] (notified) |- (cert);
-\end{tikzpicture}
+\end{tikzpicture}%
+}
 \caption{\textit{Procedimiento de Evaluación de la Conformidad y Certificación CE bajo el EU AI Act.}}
 \label{fig:conformidad_ai_act}
 \begin{center}
@@ -237,6 +239,7 @@ El AI Act no opera de manera aislada, sino que se articula en una infraestructur
 
 \begin{figure}[htbp]
 \centering
+\resizebox{0.95\linewidth}{!}{%
 \begin{tikzpicture}[
     node distance=1.6cm,
     bloque/.style={rectangle, draw=unmsm_red, fill=bg_marfil, thick, rounded corners=3pt, minimum width=4.5cm, minimum height=1.1cm, align=center, font=\small\sffamily},
@@ -252,7 +255,8 @@ El AI Act no opera de manera aislada, sino que se articula en una infraestructur
 \draw[enlace] (aioffice) -- (autoridades);
 \draw[enlace] (aiboard) -- (aioffice);
 \draw[enlace] (panel) -- (aioffice);
-\end{tikzpicture}
+\end{tikzpicture}%
+}
 \caption{\textit{Estructura Institucional de Gobernanza de la Inteligencia Artificial en la UE}}
 \label{fig:gobernanza_ue}
 \begin{center}
@@ -604,6 +608,8 @@ La confrontación dialéctica entre el modelo estadounidense y el modelo europeo
 \subsection*{Referencias del Capítulo 3}
 
 \begin{list}{}{\setlength{\leftmargin}{1.5em}\setlength{\itemindent}{-1.5em}\setlength{\itemsep}{0.35ex}\setlength{\parsep}{0pt}}
+\small\raggedright
+\interlinepenalty=10000
 \item Black, J. (2002). Critical reflections on regulation. \textit{Australian Journal of Legal Philosophy}, \textit{27}, 1--35. \url{https://doi.org/10.2139/ssrn.297423}
 
 \item Bradford, A. (2020). \textit{The Brussels Effect: How the European Union rules the world}. Oxford University Press. \url{https://doi.org/10.1093/oso/9780190088583.001.0001}

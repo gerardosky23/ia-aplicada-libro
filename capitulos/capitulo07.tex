@@ -181,7 +181,11 @@ Idéntica propiedad algebraica se aplica a la acumulación de los vectores de va
 \mathbf{o}_{t,i} = \sum_{s \le t} a_{t,s,i} \mathbf{v}_{s,i}^C = \sum_{s \le t} a_{t,s,i} \left( W^{UV}_i \mathbf{c}_s^{KV} \right) = W^{UV}_i \left( \sum_{s \le t} a_{t,s,i} \mathbf{c}_s^{KV} \right)
 \end{equation}
 
-el motor de inferencia calcula en primer lugar la combinación lineal de los vectores latentes comprimidos en memoria $\mathbf{c}_{accum} = \sum_{s \le t} a_{t,s,i} \mathbf{c}_s^{KV} \in \mathbb{R}^{d_c}$, y posteriormente aplica una única proyección matricial ascendente $W^{UV}_i$ sobre el resultado acumulado. De este modo, los valores $\mathbf{v}_{s,i}^C$ tampoco son instanciados individualmente en la memoria HBM.
+el motor de inferencia calcula en primer lugar la combinación lineal de los vectores latentes comprimidos:
+\begin{equation}
+\mathbf{c}_{\text{accum}} = \sum_{s \le t} a_{t,s,i} \mathbf{c}_s^{KV} \in \mathbb{R}^{d_c}
+\end{equation}
+y posteriormente aplica una única proyección ascendente $W^{UV}_i$ sobre el resultado acumulado. De este modo, los valores $\mathbf{v}_{s,i}^C$ tampoco son instanciados individualmente en memoria HBM.
 
 \subsubsection{Desacoplamiento de Posicionamiento Rotatorio (Decoupled RoPE)}
 
@@ -936,13 +940,13 @@ La comprensión de los modelos fundacionales contemporáneos exige rastrear su g
     \item \textbf{Las Leyes Empíricas de Escalado (Kaplan et al., 2020; Hoffmann et al., 2022):} El establecimiento formal de leyes de potencia que rigen el rendimiento en función del cómputo, parámetros y tokens definió el marco de referencia industrial de la década de 2020.
     \item \textbf{Evolución del Alineamiento y la Crítica Materialista (Ouyang et al., 2022; Crawford, 2023):} La transición desde el aprendizaje por refuerzo con supervisores humanos hacia sistemas de auto-alineamiento y verificación determinista, contrastada con la crítica exhaustiva de Kate Crawford sobre los costos ecológicos, laborales y extractivos del complejo tecno-industrial.
 \end{itemize}
-\vspace{0.4cm}
+\newpage
 
 \textbf{Contribuciones de las Investigaciones Base del Capítulo:}\\[0.2cm]
 El contenido y la evidencia empírica de este capítulo se fundamentan en un conjunto riguroso de fuentes primarias y secundarias arbitradas:
-\begin{itemize}
-    \item \textbf{DeepSeek-AI (2024) [DeepSeek-V3 Technical Report]:} Reporte fundacional que establece la formulación de MLA con absorción matricial en inferencia, DeepSeekMoE de grano fino (256 expertos enrutados + expertos compartidos), balanceo libre de pérdidas auxiliares, paralelismo DualPipe y cuantización FP8 tile-wise sobre 14.8 billones de tokens.
-    \item \textbf{DeepSeek-AI (2025) [DeepSeek-R1 Technical Report]:} Documento canónico que formaliza el algoritmo GRPO, la emergencia del razonamiento autónomo sin supervisión en DeepSeek-R1-Zero, y la metodología de destilación en arquitecturas abiertas densas de 1.5B a 70B.
+\begin{itemize}[leftmargin=1.5em, itemsep=0.25em]
+    \item \textbf{DeepSeek-AI (2024):} Reporte de DeepSeek-V3 que formaliza la atención MLA con absorción matricial, la red MoE (256 expertos), el balanceo sin pérdidas y la cuantización FP8 por bloques.
+    \item \textbf{DeepSeek-AI (2025):} Documento canónico sobre DeepSeek-R1 que formaliza el algoritmo GRPO, la emergencia del razonamiento autónomo en R1-Zero y la destilación en arquitecturas abiertas de 1.5B a 70B.
     \item \textbf{Yang et al. (2024, 2025) [Alibaba Qwen2.5 y Qwen3 Technical Reports]:} Investigaciones de vanguardia del laboratorio de Alibaba Cloud que demuestran la viabilidad de modelos MoE de pesos abiertos altamente competitivos y la integración de arquitecturas de pensamiento híbrido.
     \item \textbf{Patel, Nishball y Ontiveros (2024) [SemiAnalysis]:} Auditoría técnica e industrial de centros de datos que cuantifica los márgenes monopolistas de Nvidia, la crisis energética de los gigavatios y las limitaciones de interconexión NVLink.
     \item \textbf{Miller (2022) [Chip War] y Asianometry (2023):} Investigaciones geopolíticas e históricas sobre el monopolio litográfico de ASML, el papel de TSMC y las estrategias de multipatrón SAQP de la fundición china SMIC frente al bloqueo tecnológico.
@@ -953,7 +957,7 @@ El contenido y la evidencia empírica de este capítulo se fundamentan en un con
 
 \textbf{Lecturas Sugeridas:}\\[0.2cm]
 \begin{enumerate}
-    \item \textbf{Crawford, K. (2023):} \textit{Atlas de inteligencia artificial: Poder, política y costes planetarios de la inteligencia artificial}. Obra indispensable para desmitificar la inmaterialidad de los modelos fundacionales y comprender sus impactos en la Tierra, el Trabajo y los Datos.
+    \item \textbf{Crawford (2023):} \textit{Atlas de inteligencia artificial}. Obra indispensable sobre los costes planetarios de los modelos fundacionales (Tierra, Trabajo y Datos).
     \item \textbf{Miller, C. (2022):} \textit{Chip War: The Fight for the World's Most Critical Technology}. Investigación histórica fundamental sobre la geopolítica de los semiconductores y la litografía avanzada.
     \item \textbf{Pasquinelli, M. (2023):} \textit{The Eye of the Master: A Social History of Artificial Intelligence}. Análisis histórico y filosófico sobre la mecanización del trabajo mental y el origen de las redes neuronales.
     \item \textbf{Sutton, R. (2019):} \textit{The Bitter Lesson}. Ensayo clásico sobre la primacía del cómputo y el aprendizaje sobre el conocimiento estructurado manualmente.
@@ -1015,7 +1019,7 @@ La evolución técnica y conceptual analizada a lo largo de este capítulo demue
 {\Huge \textbf{Referencias del Capítulo 07}}\\[0.8cm]
 
 \begin{itemize}[leftmargin=1.5em, label={}, itemsep=0.22ex, parsep=0pt]
-\small
+\small\raggedright
 \interlinepenalty=10000
     \item Asianometry. (2023). \textit{How SMIC makes 7nm chips without EUV} [Video]. YouTube. \url{https://www.youtube.com/@Asianometry}
     \item Babbage, C. (1832). \textit{On the economy of machinery and manufactures}. Charles Knight.

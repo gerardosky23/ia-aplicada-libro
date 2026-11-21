@@ -128,7 +128,7 @@ Una de las distinciones axiales en la teoría de la computación es la delimitac
 \raggedright\scriptsize \textbf{Fuente:} Elaboración propia basada en Russell y Norvig (2020) y Bommasani et al. (2021).
 \end{table}
 
-Entre ambos extremos ha surgido el concepto de \textit{Modelos Fundacionales} (Foundation Models), formulado por Bommasani et al. (2021) en la Universidad de Stanford. Estos modelos ---entrenados sobre corpus masivos de datos multimodales mediante objetivos de aprendizaje autosupervisado a gran escala--- pueden adaptarse mediante ajuste fino (\textit{fine-tuning}) o ingeniería de instrucciones a una multiplicidad asombrosa de tareas sin reestructurar su arquitectura básica, actuando como infraestructura transversal para el ecosistema informático contemporáneo.
+Entre ambos extremos ha surgido el concepto de \textit{Modelos Fundacionales} (Foundation Models), formulado por Bommasani et al. (2021) en la Universidad de Stanford. Estos modelos, entrenados sobre corpus masivos mediante aprendizaje autosupervisado a gran escala, pueden adaptarse a través de ajuste fino (\textit{fine-tuning}) o ingeniería de instrucciones a una multiplicidad de tareas sin alterar su arquitectura base, operando como infraestructura transversal para el ecosistema informático contemporáneo.
 
 \begin{figure}[htpb!]
 \centering
@@ -148,14 +148,14 @@ Entre ambos extremos ha surgido el concepto de \textit{Modelos Fundacionales} (F
     \node[anchor=north west, text=unmsm_gray, text width=5.5cm] at (-6.0,1.1) {Algoritmos que aprenden representaciones y parámetros predictivos a partir de datos empíricos.};
 
     % Middle Inner Box: DL
-    \draw[rounded corners=4pt, fill=white, draw=unmsm_red, line width=0.9pt] (-5.8,-2.8) rectangle (5.8,-0.2);
-    \node[anchor=north west, text=unmsm_red, font=\footnotesize\sffamily\bfseries] at (-5.5,-0.3) {APRENDIZAJE PROFUNDO (DEEP LEARNING, DL)};
-    \node[anchor=north west, text=unmsm_gray, text width=5.2cm] at (-5.5,-0.7) {Redes neuronales artificiales jerárquicas con múltiples capas de transformaciones no lineales.};
+    \draw[rounded corners=4pt, fill=white, draw=unmsm_red, line width=0.9pt] (-5.8,-3.1) rectangle (5.8,0.2);
+    \node[anchor=north west, text=unmsm_red, font=\footnotesize\sffamily\bfseries] at (-5.5,0.0) {APRENDIZAJE PROFUNDO (DEEP LEARNING, DL)};
+    \node[anchor=north west, text=unmsm_gray, text width=10.5cm] at (-5.5,-0.4) {Redes neuronales artificiales jerárquicas con múltiples capas de transformaciones no lineales.};
 
     % Innermost Box: GenAI
-    \draw[rounded corners=3pt, fill=unmsm_red!10, draw=unmsm_darkred, line width=0.8pt] (-5.3,-2.5) rectangle (5.3,-1.2);
+    \draw[rounded corners=3pt, fill=unmsm_red!10, draw=unmsm_darkred, line width=0.8pt] (-5.3,-2.8) rectangle (5.3,-1.2);
     \node[anchor=center, text=unmsm_darkred, font=\footnotesize\sffamily\bfseries] at (0,-1.5) {INTELIGENCIA ARTIFICIAL GENERATIVA (GenAI)};
-    \node[anchor=center, text=unmsm_gray, text width=9.8cm, text centered] at (0,-2.0) {Modelos probabilísticos entrenados para aproximar $p(\mathbf{x})$ y sintetizar contenido inédito: texto, código, audio, imágenes y simulaciones científicas complejas.};
+    \node[anchor=center, text=unmsm_gray, text width=9.8cm, text centered] at (0,-2.1) {Modelos probabilísticos entrenados para aproximar $p(\mathbf{x})$ y sintetizar contenido inédito: texto, código, audio, imágenes y simulaciones científicas complejas.};
 \end{tikzpicture}
 \end{tcolorbox}
 \vspace{0.15cm}
@@ -271,6 +271,7 @@ El periodo comprendido entre mediados de los años setenta y comienzos de los no
 \centering
 \small\sffamily
 \textbf{Figura 1.3.} Curva Histórica de Expectativas, Inversión y los Dos Inviernos de la IA\\[0.2cm]
+\resizebox{0.95\linewidth}{!}{%
 \begin{tikzpicture}[xscale=0.95, yscale=0.8, font=\scriptsize\sffamily]
     % Axes
     \draw[->, thick, draw=unmsm_gray] (0,0) -- (12.5,0) node[right] {Tiempo (1950--2026)};
@@ -293,7 +294,8 @@ El periodo comprendido entre mediados de los años setenta y comienzos de los no
     % Highlight zones
     \fill[unmsm_gold, opacity=0.25] (2.4,0) rectangle (4.0,2.0);
     \fill[unmsm_gold, opacity=0.25] (6.2,0) rectangle (7.8,2.0);
-\end{tikzpicture}
+\end{tikzpicture}%
+}
 \end{tcolorbox}
 \vspace{0.15cm}
 \raggedright\scriptsize \textbf{Fuente:} Elaboración propia basada en la cronología crítica de Russell y Norvig (2020).
@@ -383,6 +385,7 @@ El aprendizaje automático invierte el flujo clásico de la computación tradici
 \centering
 \small\sffamily
 \textbf{Figura 1.4.} Contraste de Paradigmas: Programación Tradicional vs. Aprendizaje Automático\\[0.2cm]
+\resizebox{0.95\linewidth}{!}{%
 \begin{tikzpicture}[node distance=1.1cm, auto, >=stealth, font=\scriptsize\sffamily]
     % Traditional Programming
     \node[anchor=west, font=\small\sffamily\bfseries, text=unmsm_red] at (-6, 1.6) {A. Programación Tradicional (Simbólica)} ;
@@ -403,7 +406,8 @@ El aprendizaje automático invierte el flujo clásico de la computación tradici
     \draw[->, thick, draw=unmsm_darkred] (d2) -| (c2);
     \draw[->, thick, draw=unmsm_darkred] (r2) -| (c2);
     \draw[->, thick, draw=unmsm_darkred] (c2) -- (s2);
-\end{tikzpicture}
+\end{tikzpicture}%
+}
 \end{tcolorbox}
 \vspace{0.15cm}
 \raggedright\scriptsize \textbf{Fuente:} Adaptado de Russell y Norvig (2020).
@@ -482,7 +486,11 @@ La articulación de neuronas artificiales da origen a diversas topologías de pr
     \begin{equation}
     \mathbf{a}^{(l)} = f^{(l)}\left(\mathbf{W}^{(l)} \mathbf{a}^{(l-1)} + \mathbf{b}^{(l)}\right)
     \end{equation}
-    \item \textbf{Redes Neuronales Convolucionales (CNN):} Diseñadas por Yann LeCun para datos con estructura de cuadrícula espacial (imágenes). Reemplazan la multiplicación matricial densa por la operación de convolución con kernels compartidos ($S(i,j) = (I * K)(i,j) = \sum \sum I(i-m, j-n) K(m,n)$), garantizando invariancia traslacional y reduciendo exponencialmente el número de parámetros libres.
+    \item \textbf{Redes Neuronales Convolucionales (CNN):} Diseñadas por Yann LeCun para datos con estructura de cuadrícula espacial (imágenes). Reemplazan la multiplicación matricial densa por la operación de convolución bidimensional con filtros compartidos:
+    \begin{equation}
+    S(i,j) = (I * K)(i,j) = \sum_m \sum_n I(i-m, j-n) K(m,n)
+    \end{equation}
+    garantizando invariancia traslacional y reduciendo exponencialmente el número de parámetros libres.
     \item \textbf{Redes Neuronales Recurrentes (RNN/LSTM/GRU):} Diseñadas para secuencias temporales. Mantienen un estado oculto recurrente $\mathbf{h}_t = f(\mathbf{W}_{hh}\mathbf{h}_{t-1} + \mathbf{W}_{xh}\mathbf{x}_t + \mathbf{b})$. Aunque capturan dependencias secuenciales, sufren de desvanecimiento o explosión del gradiente al propagarse a través de horizontes temporales prolongados, limitación que motivó el surgimiento del Transformer.
 \end{itemize}
 
@@ -726,7 +734,7 @@ La formulación analítica de la autoatención es:
 \text{Attention}(Q, K, V) = \text{Softmax}\left(\frac{Q K^T}{\sqrt{d_k}}\right) V
 \end{equation}
 
-El factor de escalado $\frac{1}{\sqrt{d_k}}$ cumple una función matemática fundamental: a medida que la dimensión $d_k$ del espacio de proyección se incrementa, el producto punto de dos vectores independientes con varianza unitaria crece en magnitud hacia una varianza de $d_k$. Sin el escalado por $\sqrt{d_k}$, los valores de la matriz de compatibilidad $Q K^T$ alcanzarían amplitudes excesivamente grandes, desplazando a la función Softmax hacia regiones asintóticas donde sus derivadas son infinitesimales, provocando la saturación inmediata y el desvanecimiento de gradientes durante la retropropagación.
+El factor de escalado $1/\sqrt{d_k}$ cumple una función matemática fundamental: a medida que la dimensión $d_k$ del espacio de proyección se incrementa, el producto punto de dos vectores independientes con varianza unitaria crece en magnitud hacia una varianza proporcional a la dimensión. En ausencia de esta normalización dimensional, los valores del producto de compatibilidad $Q K^T$ alcanzarían amplitudes excesivamente grandes, desplazando a la función Softmax hacia regiones asintóticas donde sus derivadas son infinitesimales, provocando la saturación inmediata y el desvanecimiento de gradientes durante la retropropagación.
 
 \begin{figure}[htpb!]
 \centering
@@ -937,7 +945,11 @@ El preentrenamiento sobre textos de la web optimiza la verosimilitud estadístic
 
 Más recientemente, Rafailov et al. (2023) introdujeron la **Optimización Directa de Preferencias** (Direct Preference Optimization, DPO). Demostraron analíticamente que la función de política óptima puede reparametrizarse para derivar directamente el gradiente de preferencias a partir de los datos pareados sin requerir el entrenamiento explícito e inestable de un modelo de recompensa independiente ni bucles de aprendizaje por refuerzo en línea:
 \begin{equation}
-\mathcal{L}_{\text{DPO}}(\theta; \pi_{\text{ref}}) = -\mathbb{E}_{(x, y_w, y_l)}\left[\log \sigma\left(\beta \log \frac{\pi_\theta(y_w|x)}{\pi_{\text{ref}}(y_w|x)} - \beta \log \frac{\pi_\theta(y_l|x)}{\pi_{\text{ref}}(y_l|x)}\right)\right]
+\mathcal{L}_{\text{DPO}}(\theta; \pi_{\text{ref}}) = -\mathbb{E}_{(x, y_w, y_l)}\left[\log \sigma\left( r_\theta(x, y_w) - r_\theta(x, y_l) \right)\right]
+\end{equation}
+donde la función de recompensa implícita inducida por el modelo de lenguaje se define como:
+\begin{equation}
+r_\theta(x, y) = \beta \log \frac{\pi_\theta(y \mid x)}{\pi_{\text{ref}}(y \mid x)}
 \end{equation}
 
 % ==============================================================================
@@ -1135,10 +1147,11 @@ def scaled_dot_product_attention(Q, K, V, mask=None, temperature=1.0):
     if mask is not None:
         scaled_scores = np.where(mask == 0, -1e9, scaled_scores)
     
-    # 4. Normalizacion probabilistica mediante Softmax numericamente estable
-    max_scores = np.max(scaled_scores, axis=-1, keepdims=True)
-    exp_scores = np.exp(scaled_scores - max_scores)
-    attention_weights = exp_scores / np.sum(exp_scores, axis=-1, keepdims=True)
+    # 4. Normalizacion Softmax estable
+    max_s = np.max(scaled_scores, axis=-1, keepdims=True)
+    exp_scores = np.exp(scaled_scores - max_s)
+    sum_s = np.sum(exp_scores, axis=-1, keepdims=True)
+    attention_weights = exp_scores / sum_s
     
     # 5. Agregacion ponderada de los vectores de Valores
     output = np.matmul(attention_weights, V)
@@ -1175,7 +1188,7 @@ A = \begin{bmatrix}
 
 El análisis analítico de esta estructura permite extraer tres conclusiones fundamentales:
 \begin{enumerate}
-    \item \textbf{Conservación de la Medida de Probabilidad:} Cada fila de la matriz suma idénticamente $1.0$ ($\sum_{j=1}^3 A_{ij} = 1.0$), garantizando que la salida $out_i = \sum_{j=1}^3 A_{ij} V_j$ sea una combinación convexa válida de los vectores de valores del corpus.
+    \item \textbf{Conservación de la Medida de Probabilidad:} Cada fila de la matriz de atención suma la unidad, asegurando que el vector de salida $\mathbf{o}_i$ constituya una combinación convexa válida de los vectores de valores $\mathbf{v}_j$ ponderados por $A_{ij}$.
     \item \textbf{Efecto del Escalado Dimensional:} Si se elimina el término $\sqrt{d_k} = \sqrt{4} = 2.0$, la dispersión de las puntuaciones se duplica; en dimensiones industriales típicas ($d_k = 128$), la varianza sin escalado alcanzaría $128$, forzando a la función Softmax a concentrar prácticamente el 100\% del peso en un solo token, imposibilitando que el modelo aprenda a correlacionar múltiples fuentes de contexto simultáneamente.
     \item \textbf{Rol de la Temperatura de Muestreo ($\tau$):} Para valores de temperatura reducidos ($\tau \to 0$), la distribución colapsa hacia la función argmax determinista (\textit{greedy decoding}); para valores elevados ($\tau > 1.5$), la distribución converge hacia la distribución uniforme discreta, incrementando la entropía y la variabilidad de las muestras pero aumentando exponencialmente el riesgo de alucinaciones incoherentes.
 \end{enumerate}
@@ -1197,7 +1210,7 @@ El bautismo institucional de la disciplina acaeció en el verano de 1956 en Dart
 El marco teórico, las derivaciones analíticas y la evidencia técnica desarrolladas en este capítulo se sustentan en las investigaciones primarias arbitradas que articularon el surgimiento del aprendizaje profundo y la eclosión de la IA generativa moderna:
 \begin{itemize}
     \item \textbf{LeCun, Bengio y Hinton (2015) [Nature]:} Publicaron la síntesis epistemológica definitiva sobre el aprendizaje profundo, formalizando cómo las redes neuronales multicapa aprenden representaciones jerárquicas abstractas directamente a partir de datos en bruto, superando la ingeniería manual de características.
-    \item \textbf{Vaswani et al. (2017) [Google Brain / NeurIPS]:} Introdujeron la arquitectura Transformer en el célebre trabajo \textit{Attention Is All You Need}, prescindiendo por completo de la recurrencia y estableciendo el mecanismo de autoatención escalada ($QK^T/\sqrt{d_k}$) como el estándar universal del procesamiento de secuencias.
+    \item \textbf{Vaswani et al. (2017) [Google Brain / NeurIPS]:} Introdujeron la arquitectura Transformer en el célebre trabajo \textit{Attention Is All You Need}, prescindiendo por completo de la recurrencia y estableciendo el mecanismo de autoatención escalada como el estándar universal del procesamiento de secuencias.
     \item \textbf{Goodfellow et al. (2014) [Université de Montréal / NeurIPS]:} Formularon las Redes Generativas Antagónicas (GANs), modelando la síntesis generativa como un juego minimax de suma cero entre un generador y un discriminador fundamentado en la convergencia hacia la divergencia Jensen-Shannon.
     \item \textbf{Ho, Jain y Abbeel (2020) [UC Berkeley / NeurIPS]:} Sistematizaron los Modelos Probabilísticos de Difusión con Eliminación de Ruido (DDPMs), conectando la termodinámica estocástica con el aprendizaje profundo mediante cadenas de Markov y derivando la función simplificada de predicción de ruido $L_{\text{simple}}$.
     \item \textbf{Brown et al. (2020) [OpenAI / NeurIPS]:} Demostraron con GPT-3 el poder de las leyes de escalado en modelos de lenguaje autoregresivos con 175 mil millones de parámetros, evidenciando capacidades emergentes de aprendizaje en contexto y razonamiento pocos disparos (\textit{few-shot learning}).
@@ -1271,7 +1284,7 @@ La evolución histórica y algorítmica de la inteligencia artificial demuestra 
 {\Huge \textbf{Referencias del Capítulo 1}}\\[0.8cm]
 
 \begin{itemize}[leftmargin=1.5em, label={}, itemsep=0.22ex, parsep=0pt]
-\small
+\small\raggedright
 \interlinepenalty=10000
     \item Artopoulos, A., \& Lliteras, F. (2024). Alfabetizaciones algorítmicas y descajanegrización en la educación superior. \textit{Revista de Educación y Sociedad}, 45(2), 112--128. \url{https://doi.org/10.1590/es.2024.31845}
     \item Bender, E. M., Gebru, T., McMillan-Major, A., \& Shmitchell, S. (2021). On the dangers of stochastic parrots: Can language models be too big? En \textit{Proceedings of the 2021 ACM Conference on Fairness, Accountability, and Transparency (FAccT \'21)} (pp. 610--623). Association for Computing Machinery. \url{https://doi.org/10.1145/3442188.3445922}

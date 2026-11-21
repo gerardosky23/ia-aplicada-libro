@@ -47,7 +47,8 @@
 \lstset{
     basicstyle=\ttfamily\small,
     breaklines=true,
-    breakatwhitespace=true,
+    breakatwhitespace=false,
+    columns=fullflexible,
     frame=single,
     rulecolor=\color{unmsm_gold},
     backgroundcolor=\color{bg_marfil},
@@ -71,7 +72,7 @@
 
 % Formato para CAPÍTULO
 \titleformat{\section}[display]
-  {\normalfont\huge\bfseries\color{black}}
+  {\normalfont\huge\bfseries\color{black}\raggedright}
   {\vspace*{0.1cm}
    \colorbox{unmsm_red}{\textcolor{white}{\textsf{\textbf{CAPÍTULO}}}} \hspace{0.2cm} \textcolor{unmsm_red}{\fontsize{60}{60}\selectfont\thesection}}
   {1ex}
@@ -79,19 +80,24 @@
 
 % Formato para Subtemas X.1, X.2
 \titleformat{\subsection}
-  {\normalfont\Large\sffamily\bfseries\color{black}}
+  {\normalfont\Large\sffamily\bfseries\color{black}\raggedright}
   {\thesubsection}
-  {0.5em}
+  {0.6em}
   {#1}
-  [\vspace{0.1cm}\textcolor{black}{\rule{\textwidth}{0.8pt}}]
+  [\vspace{0.12cm}{\color{unmsm_gray}\hrule height 0.8pt}\vspace{0.15cm}]
 
 % Formato para Apartados específicos X.1.1
 \titleformat{\subsubsection}
-  {\normalfont\large\sffamily\bfseries\color{black}}
+  {\normalfont\large\sffamily\bfseries\color{black}\raggedright}
   {}
   {0em}
   {#1}
-  [\vspace{0.1cm}\textcolor{black}{\rule{\textwidth}{0.4pt}}]
+  [\vspace{0.10cm}{\color{unmsm_gold}\hrule height 0.5pt}\vspace{0.12cm}]
+
+% Espaciado explícito para títulos (elimina solapamiento con texto y reglas)
+\titlespacing*{\section}{0pt}{15pt plus 4pt minus 2pt}{20pt plus 3pt minus 2pt}
+\titlespacing*{\subsection}{0pt}{18pt plus 4pt minus 2pt}{14pt plus 2pt minus 2pt}
+\titlespacing*{\subsubsection}{0pt}{14pt plus 3pt minus 2pt}{10pt plus 2pt minus 1pt}
 
 % ==========================================
 % COMANDOS PERSONALIZADOS (Cajas, Notas y Listas)
@@ -105,19 +111,19 @@
 }
 
 \newcommand{\textoside}[2]{
-    \vspace{0.25cm}
-    \noindent
+    \par\vspace{0.25cm}\noindent
     \begin{minipage}[t]{0.68\textwidth}
         #1
     \end{minipage}%
     \hfill%
     \begin{minipage}[t]{0.28\textwidth}
+        \vspace{0pt}%
         \begin{tcolorbox}[colback=bg_arena, colframe=unmsm_gold, arc=3pt, boxrule=0.6pt, top=0.3cm, bottom=0.3cm, left=0.35cm, right=0.35cm]
             \raggedright
             \textcolor{unmsm_red}{\scriptsize\sffamily\textbf{#2}}
         \end{tcolorbox}
     \end{minipage}
-    \vspace{0.35cm}
+    \par\vspace{0.35cm}
 }
 
 \newlist{resumenlist}{enumerate}{1}

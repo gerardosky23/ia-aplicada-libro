@@ -62,6 +62,7 @@ La Figura \ref{fig:cuatro_ecosistemas_chinos} ilustra esquemáticamente la distr
 
 \begin{figure}[htbp]
 \centering
+\resizebox{0.95\linewidth}{!}{%
 \begin{tikzpicture}[
     node distance=1.5cm and 1.2cm,
     font=\small\sffamily,
@@ -83,7 +84,8 @@ La Figura \ref{fig:cuatro_ecosistemas_chinos} ilustra esquemáticamente la distr
     \draw [link] (hub) -- (kimi);
     \draw [link] (hub) -- (ernie);
     \draw [link] (hub) -- (zhipu);
-\end{tikzpicture}
+\end{tikzpicture}%
+}
 \caption{\textit{Vectores de Especialización Tecnológica del Ecosistema Chino de Inteligencia Artificial.}}
 \label{fig:cuatro_ecosistemas_chinos}
 \begin{center}
@@ -131,8 +133,12 @@ A diferencia de los métodos canónicos de optimización de políticas proximale
 donde $r_i$ representa la recompensa escalar otorgada a la $i$-ésima respuesta candidata, $A_i$ es la ventaja relativa estimada, y $\epsilon$ es una constante de estabilidad numérica. La función objetivo de optimización de GRPO se formaliza como:
 
 \begin{equation}
-    \mathcal{J}_{\text{GRPO}}(\theta) = \mathbb{E}_{\substack{q \sim P(Q) \\ \{o_i\}_{i=1}^G \sim \pi_{\theta_{\text{old}}}(O \mid q)}} \left[ \frac{1}{G} \sum_{i=1}^G \left( \min\left( \frac{\pi_\theta(o_i \mid q)}{\pi_{\theta_{\text{old}}}(o_i \mid q)} A_i, \operatorname{clip}\left( \frac{\pi_\theta(o_i \mid q)}{\pi_{\theta_{\text{old}}}(o_i \mid q)}, 1-\varepsilon, 1+\varepsilon \right) A_i \right) - \beta \, \mathbb{D}_{\text{KL}}(\pi_\theta \parallel \pi_{\text{ref}}) \right) \right]
-    \label{eq:grpo_objective}
+\begin{split}
+    \mathcal{J}_{\text{GRPO}}(\theta) = \mathbb{E}_{\substack{q \sim P(Q) \\ \{o_i\}_{i=1}^G \sim \pi_{\theta_{\text{old}}}(O \mid q)}} \Bigg[ \frac{1}{G} \sum_{i=1}^G \bigg( & \min\bigg( \frac{\pi_\theta(o_i \mid q)}{\pi_{\theta_{\text{old}}}(o_i \mid q)} A_i, \\
+    & \operatorname{clip}\left( \frac{\pi_\theta(o_i \mid q)}{\pi_{\theta_{\text{old}}}(o_i \mid q)}, 1-\varepsilon, 1+\varepsilon \right) A_i \bigg) \\
+    & - \beta \, \mathbb{D}_{\text{KL}}(\pi_\theta \parallel \pi_{\text{ref}}) \bigg) \Bigg]
+\end{split}
+\label{eq:grpo_objective}
 \end{equation}
 
 donde $\pi_{\text{ref}}$ es el modelo base de referencia, $\mathbb{D}_{\text{KL}}$ es la divergencia de Kullback-Leibler que previene que la política actualizada se desvíe excesivamente de la distribución de origen, y $\beta$ es el coeficiente de regularización.
@@ -346,7 +352,7 @@ En la investigación científica y la formulación de modelos matemáticos, los 
 \subsubsection*{Análisis e Implementación:}
 Se introdujo en DeepSeek-R1 el siguiente enunciado deliberadamente incompleto:
 \begin{quote}
-\small\texttt{Calcula el tiempo mínimo requerido para transferir un volumen de 10 Terabytes de datos entre dos centros de cómputo distribuidos, considerando una tasa de pérdida de paquetes del 2\% y un protocolo de transporte basado en ventanas deslizantes.}
+\small\slshape ``Calcula el tiempo mínimo requerido para transferir un volumen de 10 Terabytes de datos entre dos centros de cómputo distribuidos, considerando una tasa de pérdida de paquetes del 2\% y un protocolo de transporte basado en ventanas deslizantes.''
 \end{quote}
 Nótese que el problema no especifica el ancho de banda efectivo del enlace de red ni la latencia de ida y vuelta (RTT), dos parámetros físicos matemáticamente indispensables para resolver la ecuación.
 
@@ -411,7 +417,7 @@ Uno de los factores que impulsaron la atención internacional hacia los ecosiste
 \subsubsection*{Análisis e Implementación:}
 Se compararon las especificaciones reportadas de entrenamiento e inferencia para modelos de capacidades comparables en el benchmark MMLU y MATH:
 \begin{itemize}
-    \item \textbf{Modelo Propietario Occidental Canónico:} Entrenamiento sobre clústeres de $16.000$ a $24.000$ GPUs de última generación durante varios meses, con un costo estimado de capital y energía superior a los $100$ millones de dólares.
+    \item \textbf{Modelo Occidental Canónico:} Entrenamiento sobre clústeres de $16.000$ a $24.000$ GPUs de última generación durante varios meses, con un costo estimado de capital y energía superior a los $100$ millones de dólares.
     \item \textbf{DeepSeek-V3 / R1 (MoE con 671B parámetros totales, 37B activos por token):} Entrenamiento sobre un clúster de $2.048$ GPUs NVIDIA H800 durante aproximadamente dos meses, con un costo computacional directo reportado de menos de $6$ millones de dólares (DeepSeek-AI, 2024).
 \end{itemize}
 
@@ -548,13 +554,16 @@ class ReasoningTraceAnalyzer:
         ]
         
         backtracking_events = sum(
-            len(re.findall(r'\b' + re.escape(m) + r'\b', self.think_content, re.IGNORECASE))
+            len(re.findall(r'\b' + re.escape(m) + r'\b',
+                           self.think_content, re.IGNORECASE))
             for m in backtracking_markers
         )
         
         # Evaluacion de presencia de hipotesis condicionales
-        hypotheses_count = len(re.findall(r'\b(si|if|asumiendo|assuming|caso|case)\b', 
-                                          self.think_content, re.IGNORECASE))
+        patron_hip = r'\b(si|if|asumiendo|assuming|caso|case)\b'
+        hypotheses_count = len(re.findall(
+            patron_hip, self.think_content, re.IGNORECASE
+        ))
 
         return {
             "has_think_tags": bool(self.think_content),
@@ -650,6 +659,8 @@ Este capítulo aporta una cartografía sistemática y empíricamente sustentada 
 \subsection*{Referencias del Capítulo 4}
 
 \begin{enumerate}[leftmargin=1.5em, label={}, itemsep=0.35ex, parsep=0pt]
+\small\raggedright
+\interlinepenalty=10000
     \item Baidu. (2024). \textit{ERNIE Bot 4.0: Knowledge-Enhanced Large Language Model and Industrial Applications}. Baidu AI Research. \url{https://yiyan.baidu.com}
 
     \item Carolus, A., Koch, M. J., Straka, S., Latoschik, M. E., \& Wienrich, C. (2023). MAILS --- Meta AI literacy scale: Development and testing of an instrument to measure perceived AI literacy. \textit{Computers in Human Behavior: Artificial Humans}, \textit{1}(2), Artículo 100014. \url{https://doi.org/10.1016/j.chbah.2023.100014}

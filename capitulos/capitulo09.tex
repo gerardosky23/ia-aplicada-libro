@@ -406,7 +406,7 @@ La transparencia declarativa adquiere rigor operativo mediante la preservación 
 
 En la práctica científica contemporánea, las instrucciones enviadas a un modelo generativo equivalen a reactivos químicos en un ensayo biológico o a parámetros de malla en simulaciones físicas. En consecuencia, deben registrarse en una **Bitácora Estructurada de Prompts e Interacciones**. Dicha bitácora debe almacenarse como anexo reproducible y consignar cuatro dimensiones obligatorias:
 \begin{itemize}
-    \item \textbf{Metadatos del Sistema:} Versión exacta del modelo (ejemplo: \texttt{gpt-4o-mini}, \texttt{claude-3-opus}), temperatura de decodificación fijada, valor de top-$p$, fecha y hora UTC de la consulta.
+    \item \textbf{Metadatos del Sistema:} Versión exacta del modelo (por ejemplo, GPT-4o o Claude 3.5 Sonnet), temperatura fijada, valor de top-$p$, fecha y hora UTC de la consulta.
     \item \textbf{Instrucción Primitiva (System Prompt):} Texto verbatim que delimita el rol asignado al modelo, las restricciones de contexto y las fuentes autorizadas.
     \item \textbf{Entrada y Salida Cruda:} Registro del texto suministrado por el usuario y de la respuesta textual exacta devuelta por la API sin procesar.
     \item \textbf{Matriz de Modificación Humana:} Registro analítico de los párrafos aceptados, las secciones modificadas por imprecisiones conceptuales y las citas añadidas manualmente tras verificación con bases arbitradas.
@@ -698,7 +698,7 @@ La inteligencia artificial potencia de forma inédita la capacidad exploratoria 
 {\Huge \textbf{Referencias del Capítulo 09}}\\[0.8cm]
 
 \begin{itemize}[leftmargin=1.5em, label={}, itemsep=0.22ex, parsep=0pt]
-\small
+\small\raggedright
 \interlinepenalty=10000
     \item Agora Dialnet. (2023). Usos de la inteligencia artificial en la investigación académica. \textit{Revista Agora Dialnet}, 15(2), 45--61. \url{https://agora.edu.es/servlet/articulo?codigo=9075001}
     \item Bender, E. M., Gebru, T., McMillan-Major, A., \& Shmitchell, S. (2021). On the dangers of stochastic parrots: Can language models be too big? \textit{Proceedings of the 2021 ACM FAccT Conference}, 610--623. \url{https://doi.org/10.1145/3442188.3445922}

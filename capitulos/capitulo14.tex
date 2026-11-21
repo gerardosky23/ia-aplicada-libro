@@ -551,7 +551,7 @@ Para neutralizar este vector de contaminación epistémica, Palacios Carrasco et
 \subsubsection{Caso Práctico 11.3: Detección y Auditoría Forense de Alucinaciones Bibliográficas}
 
 \subsubsection*{Contexto:}
-Un estudiante de maestría presenta el primer borrador de su proyecto de tesis en ciencias exactas. En el apartado de antecedentes internacionales, incluye tres citas bibliográficas que sustentan la superioridad cuantitativa de un nuevo algoritmo de regularización estocástica. Las citas presentan la siguiente estructura de simulación docente: \textsl{\guillemotleft Martínez-Sánchez et al. (2025; ejemplo hipotético de alucinación sintética). High-dimensional stochastic regularization in convex optimization. Journal of Applied Mathematics and Computation, 412, 108--125. DOI: 10.1016/j.amc.2025.10892\guillemotright}.
+Un estudiante de maestría presenta el primer borrador de su proyecto de tesis en ciencias exactas. En el apartado de antecedentes internacionales, incluye tres citas bibliográficas que sustentan la superioridad cuantitativa de un nuevo algoritmo de regularización estocástica. Las citas presentan la siguiente estructura de simulación docente: \textsl{\guillemotleft Martínez-Sánchez et al. (2025; ejemplo hipotético de alucinación sintética). High-dimensional stochastic regularization in convex optimization. Journal of Applied Mathematics and Computation, 412, 108--125. DOI: \url{10.1016/j.amc.2025.10892}\guillemotright}.
 
 \subsubsection*{Análisis e Implementación:}
 El docente supervisor realiza una auditoría forense rápida consultando la API pública de \textit{Crossref} mediante un script de validación en Python:
@@ -566,7 +566,8 @@ doi = "10.1016/j.amc.2025.10892"
 url = f"https://api.crossref.org/works/{doi}"
 
 try:
-    req = urllib.request.Request(url, headers={'User-Agent': 'UNMSM_Audit/1.0'})
+    headers = {'User-Agent': 'UNMSM_Audit/1.0'}
+    req = urllib.request.Request(url, headers=headers)
     with urllib.request.urlopen(req) as response:
         data = json.loads(response.read().decode())
         print("Auténtico:", data['message']['title'][0])
@@ -713,7 +714,7 @@ En las últimas dos décadas, un número considerable de instituciones universit
 
 Como demuestran Palacios Carrasco et al. (2026), estas plataformas operan mediante algoritmos deterministas de búsqueda de subcadenas comunes ($k$-gramas y distancia de Levenshtein) contra bases de datos indexadas. Su único producto técnico es un \textbf{reporte cuantitativo de coincidencias porcentuales}, el cual resulta ciego a la semántica y a la naturaleza del discurso científico:
 \begin{itemize}
-    \item \textbf{Falsos Positivos Inevitables:} El software resalta mecánicamente como supuestas coincidencias las listas bibliográficas estructuradas según normativas obligatorias (APA, IEEE), las fórmulas y expresiones algebraicas estándar ($\int_{-\infty}^{\infty} e^{-x^2} dx = \sqrt{\pi}$), la carátula institucional reglamentaria de la universidad y la fraseología metodológica recurrente (\textsl{\guillemotleft para contrastar la hipótesis nula se aplicó una prueba t de Student\guillemotright}).
+    \item \textbf{Falsos Positivos Inevitables:} El software resalta mecánicamente como supuestas coincidencias las listas bibliográficas estructuradas según normativas obligatorias (APA, IEEE), las fórmulas matemáticas estándar (como la integral gaussiana de Poisson), la carátula institucional reglamentaria de la universidad y la fraseología metodológica recurrente (\textsl{\guillemotleft para contrastar la hipótesis nula se aplicó una prueba t de Student\guillemotright}).
     \item \textbf{Falsos Negativos Críticos:} Las herramientas tradicionales son incapaces de advertir el plagio mosaico con sustitución hábil de sinónimos, la traducción translingüística de artículos en inglés o ruso, la apropiación de ideas no publicadas y el texto generado sintéticamente por modelos fundacionales de IA.
     \item \textbf{Inestabilidad Radical de los Detectores de Texto Sintético:} Los detectores de IA generativa (basados en métricas de perplejidad y variabilidad léxica o \textit{burstiness}) presentan tasas de falsos positivos inaceptables, las cuales se disparan dramáticamente contra estudiantes cuya lengua materna no es el inglés o que redactan con estilos formales muy estructurados.
 \end{itemize}
@@ -740,6 +741,7 @@ La estrategia propuesta por el Grupo 9 (Palacios Carrasco et al., 2026) consiste
 \renewcommand{\arraystretch}{1.2}
 \textbf{Tabla 14.13}\\[0.15cm]
 \textit{Cronograma Semestral de 16 Semanas para la Gestión Procesual de la Integridad Académica}\\[0.25cm]
+\resizebox{\textwidth}{!}{%
 \begin{tabularx}{\textwidth}{p{1.8cm}p{4.2cm}X p{3.2cm}}
 \toprule
 \textbf{Semana} & \textbf{Hito Académico Exigido} & \textbf{Evidencia Trazable en el Repositorio} & \textbf{Mecanismo Docente de Supervisión} \\
@@ -751,7 +753,8 @@ La estrategia propuesta por el Grupo 9 (Palacios Carrasco et al., 2026) consiste
 \textbf{Semana 15} & Hito 4: Informe final refinado, matriz CRediT y declaración de IA. & Manuscrito final, repositorio reproducible y plantilla de transparencia. & Análisis contextual del reporte de similitud y verificación. \\
 \textbf{Semana 16} & Defensa oral pública y examen individual de código en pizarra. & Registro de preguntas orales y evaluación de solvencia cognitiva. & Calificación definitiva basada en la rúbrica de proceso. \\
 \bottomrule
-\end{tabularx}
+\end{tabularx}%
+}
 \vspace{0.15cm}
 \raggedright \scriptsize \textbf{Nota.} Cronograma formativo formulado por Palacios Carrasco et al. (2026).
 \end{table}
@@ -996,7 +999,7 @@ La universidad contemporánea sólo podrá integrar de manera fecunda las herram
 {\Huge \textbf{Referencias del Capítulo 14}}\\[0.8cm]
 
 \begin{itemize}[leftmargin=1.5em, label={}, itemsep=0.22ex, parsep=0pt]
-\small
+\small\raggedright
 \interlinepenalty=10000
 \item American Psychological Association. (2020). \textit{Publication manual of the American Psychological Association} (7.ª ed.). American Psychological Association. \url{https://doi.org/10.1037/0000165-000}
 \item American Psychological Association. (2022). \textit{Plagiarism and academic integrity guidelines: Direct quotes, paraphrasing, and copyright permissions}. APA Style Guidelines. \url{https://apastyle.apa.org/style-grammar-guidelines/citations/plagiarism}

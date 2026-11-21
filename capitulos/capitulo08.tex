@@ -68,7 +68,11 @@ Históricamente, cuatro grandes paradigmas han precedido y enriquecido el surgim
     \end{equation}
     Bajo condiciones ideales de capacidad no paramétrica, este juego minimiza la divergencia de Jensen-Shannon. Si bien las GAN producen imágenes de extraordinaria nitidez perceptual y permiten inferencia ultrarrápida en un único paso hacia adelante, adolecen de severas patologías: inestabilidad durante el entrenamiento, gradientes evanescentes y colapso de modos (\textit{mode collapse}), donde el generador concentra su masa de probabilidad en un subconjunto restringido de la variedad de datos.
     
-    \item \textbf{Modelos Autorregresivos (ARM):} Modelan la distribución conjunta factorizando la densidad mediante la regla de la cadena de probabilidades: $p_\theta(x) = \prod_{i=1}^{N} p_\theta(x_i | x_{<i})$, utilizando redes recurrentes o Transformers visuales (Image Transformer, VQ-GAN autorregresivo). Si bien proporcionan un cálculo exacto y tractable de la verosimilitud sin aproximaciones variacionales ni juegos minimax, su proceso de generación es estrictamente secuencial píxel a píxel o token a token, volviendo la inferencia computacionalmente prohibitiva para resoluciones medianas y altas.
+    \item \textbf{Modelos Autorregresivos (ARM):} Factorizan la densidad conjunta de los datos mediante la regla de la cadena de probabilidades:
+    \begin{equation}
+    p_\theta(x) = \prod_{i=1}^N p_\theta(x_i \mid x_{<i})
+    \end{equation}
+    utilizando redes recurrentes o Transformers visuales (Image Transformer, VQ-GAN autorregresivo). Si bien proporcionan un cálculo exacto y tractable de la verosimilitud sin aproximaciones variacionales ni juegos minimax, su proceso de generación es estrictamente secuencial píxel a píxel o token a token, volviendo la inferencia computacionalmente prohibitiva para resoluciones medianas y altas.
     
     \item \textbf{Modelos Basados en Flujos Normalizados (\textit{Normalizing Flows}):} Transforman una densidad base analítica simple $p_Z(z)$ (como una gaussiana estándar) en una densidad compleja $p_X(x)$ mediante una secuencia de mapeos invertibles y diferenciables $f_\theta = f_K \circ \dots \circ f_1$. Mediante la fórmula del cambio de variables multivariado:
     \begin{equation}
@@ -85,6 +89,7 @@ La tensión fundamental entre fidelidad perceptual, cobertura modal, estabilidad
 \centering
 \small\sffamily
 \caption{\textbf{Tabla 8.1.} \textit{Comparación Arquitectónica y Epistémica de las Principales Familias de Modelos Generativos Visuales}}
+\resizebox{0.93\linewidth}{!}{%
 \begin{tabularx}{\textwidth}{p{2.6cm} p{3.2cm} p{3.2cm} p{3.2cm} p{2.2cm}}
 \toprule
 \textbf{Familia / Modelo} & \textbf{Principio Matemático} & \textbf{Ventajas Destacadas} & \textbf{Limitaciones Críticas} & \textbf{Costo de Muestreo} \\
@@ -99,7 +104,8 @@ La tensión fundamental entre fidelidad perceptual, cobertura modal, estabilidad
 \midrule
 \textbf{Modelos de Difusión (DDPM / LDM)} & Eliminación progresiva de perturbaciones gaussianas guiada por estimación de ruido o función de puntuación & Máxima diversidad muestral; estabilidad de entrenamiento sin juegos minimax; fácil acondicionamiento & Requiere múltiples evaluaciones secuenciales de la red neuronal durante el muestreo & Moderado a Alto ($O(T)$, 15--50 pasos con DDIM/DPM-Solver) \\
 \bottomrule
-\end{tabularx}
+\end{tabularx}%
+}
 \vspace{0.15cm}
 {\scriptsize \textbf{Fuente:} Adaptado de Yang et al. (2023) y Rombach et al. (2022).}
 \end{table}
@@ -131,11 +137,15 @@ q(x_t | x_{t-1}) = \mathcal{N}\left( x_t; \sqrt{1 - \beta_t} x_{t-1}, \beta_t \m
 
 Una propiedad algebraica decisiva de este proceso de Markov es que permite muestrear el estado ruidoso $x_t$ en cualquier instante arbitrario $t$ en un único paso cerrado a partir de $x_0$, sin necesidad de simular inductivamente los estados intermedios $x_1, \dots, x_{t-1}$. 
 
-Definiendo $\alpha_t = 1 - \beta_t$ y el producto acumulado $\bar{\alpha}_t = \prod_{s=1}^t \alpha_s$, aplicamos la regla de reparametrización sucesiva. Si $x_t = \sqrt{\alpha_t} x_{t-1} + \sqrt{1 - \alpha_t} \epsilon_{t-1}$, donde $\epsilon_{t-1} \sim \mathcal{N}(0, \mathbf{I})$, entonces:
-\begin{eqnarray}
-x_t &=& \sqrt{\alpha_t} \left( \sqrt{\alpha_{t-1}} x_{t-2} + \sqrt{1 - \alpha_{t-1}} \epsilon_{t-2} \right) + \sqrt{1 - \alpha_t} \epsilon_{t-1} \nonumber \\
-    &=& \sqrt{\alpha_t \alpha_{t-1}} x_{t-2} + \sqrt{\alpha_t (1 - \alpha_{t-1})} \epsilon_{t-2} + \sqrt{1 - \alpha_t} \epsilon_{t-1}
-\end{eqnarray}
+Definiendo $\alpha_t = 1 - \beta_t$ y el producto acumulado $\bar{\alpha}_t = \prod_{s=1}^t \alpha_s$, aplicamos la regla de reparametrización sucesiva con $\epsilon_{t-1} \sim \mathcal{N}(0, \mathbf{I})$:
+\begin{equation}
+x_t = \sqrt{\alpha_t} x_{t-1} + \sqrt{1 - \alpha_t} \epsilon_{t-1}
+\end{equation}
+donde sustituyendo recursivamente hacia $x_0$:
+\begin{align}
+x_t &= \sqrt{\alpha_t} \left( \sqrt{\alpha_{t-1}} x_{t-2} + \sqrt{1 - \alpha_{t-1}} \epsilon_{t-2} \right) + \sqrt{1 - \alpha_t} \epsilon_{t-1} \nonumber \\
+    &= \sqrt{\alpha_t \alpha_{t-1}} x_{t-2} + \sqrt{\alpha_t (1 - \alpha_{t-1})} \epsilon_{t-2} + \sqrt{1 - \alpha_t} \epsilon_{t-1}
+\end{align}
 Dado que la combinación lineal de dos variables aleatorias gaussianas independientes $\mathcal{N}(0, \sigma_1^2 \mathbf{I})$ y $\mathcal{N}(0, \sigma_2^2 \mathbf{I})$ es una nueva variable gaussiana $\mathcal{N}(0, (\sigma_1^2 + \sigma_2^2)\mathbf{I})$, la varianza combinada resulta:
 \begin{equation}
 \alpha_t (1 - \alpha_{t-1}) + (1 - \alpha_t) = \alpha_t - \alpha_t \alpha_{t-1} + 1 - \alpha_t = 1 - \alpha_t \alpha_{t-1}
@@ -189,10 +199,11 @@ Para entrenar $\theta$, construimos el Límite Inferior Variacional (ELBO) de la
 \log p_\theta(x_0) \ge \mathbf{E}_{q(x_{1:T}|x_0)} \left[ \log \frac{p_\theta(x_{0:T})}{q(x_{1:T}|x_0)} \right] = - \mathcal{L}_{\mathrm{VLB}}
 \end{equation}
 Expandiendo las productoras de Markov y aplicando la regla de Bayes sobre las transiciones directas, Sohl-Dickstein et al. (2015) y Ho et al. (2020) descomponen $\mathcal{L}_{\mathrm{VLB}}$ en términos analíticos tratables:
-\begin{eqnarray}
-\mathcal{L}_{\mathrm{VLB}} &=& \mathbf{E}_q \left[ D_{\mathrm{KL}}(q(x_T|x_0) \parallel p(x_T)) + \sum_{t=2}^T D_{\mathrm{KL}}(q(x_{t-1}|x_t, x_0) \parallel p_\theta(x_{t-1}|x_t)) - \log p_\theta(x_0|x_1) \right] \nonumber \\
-&=& L_T + \sum_{t=2}^T L_{t-1} + L_0
-\end{eqnarray}
+\begin{align}
+\mathcal{L}_{\mathrm{VLB}} &= \mathbf{E}_q \Big[ D_{\mathrm{KL}}(q(x_T|x_0) \parallel p(x_T)) \nonumber \\
+&\quad + \sum_{t=2}^T D_{\mathrm{KL}}(q(x_{t-1}|x_t, x_0) \parallel p_\theta(x_{t-1}|x_t)) - \log p_\theta(x_0|x_1) \Big] \nonumber \\
+&= L_T + \sum_{t=2}^T L_{t-1} + L_0
+\end{align}
 
 La posterior del proceso directo condicionada al punto de partida $x_0$ resulta ser analíticamente tratable mediante cálculo gaussiano estándar:
 \begin{equation}
@@ -269,6 +280,7 @@ La Figura 8.1 ilustra la dinámica de Markov y la reversión de entropía que fu
 \centering
 \small\sffamily
 \textbf{Figura 8.1.} \textit{Cadena de Markov del Proceso de Difusión Directo e Inverso}\\[0.25cm]
+\resizebox{\linewidth}{!}{%
 \begin{tikzpicture}[node distance=2.2cm, auto, >=stealth, font=\footnotesize\sffamily]
     % Estados
     \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=3pt, text width=2.0cm, text centered, minimum height=1.2cm] (x0) {\textbf{Imagen Real}\\$x_0 \sim q(x_0)$};
@@ -286,10 +298,11 @@ La Figura 8.1 ilustra la dinámica de Markov y la reversión de entropía que fu
     \path [->, thick, draw=unmsm_darkred, dashed] (xtm1) edge [bend left=25] node [below] {\scriptsize $-\frac{\beta_t}{\sqrt{1-\bar{\alpha}_t}}\epsilon_\theta$} (x1);
     \path [->, thick, draw=unmsm_darkred] (x1) edge [bend left=25] node [below] {\scriptsize $p_\theta(x_0|x_1)$} (x0);
 
-    % Anotaciones
-    \node [below of=x1, node distance=1.3cm] {\scriptsize \textbf{Proceso Directo:} Destrucción progresiva de información (entropía creciente)};
-    \node [below of=xtm1, node distance=1.3cm] {\scriptsize \textbf{Proceso Inverso:} Reconstrucción guiada por red neuronal $\epsilon_\theta(x_t, t)$};
-\end{tikzpicture}
+    % Anotaciones separadas verticalmente
+    \node [above of=x1, node distance=1.3cm, xshift=1.6cm, text=unmsm_red] {\scriptsize \textbf{Proceso Directo (Forward):} Destrucción progresiva de información (entropía creciente)};
+    \node [below of=x1, node distance=1.3cm, xshift=1.6cm, text=unmsm_darkred] {\scriptsize \textbf{Proceso Inverso (Reverse):} Reconstrucción guiada por red neuronal $\epsilon_\theta(x_t, t)$};
+\end{tikzpicture}%
+}
 \end{tcolorbox}
 \vspace{-0.2cm}
 {\scriptsize \textbf{Fuente:} Adaptado de Yang et al. (2023) y Ho et al. (2020).}
@@ -373,6 +386,7 @@ La Figura 8.2 esquematiza la arquitectura global de este sistema bi-etápico.
 \centering
 \small\sffamily
 \textbf{Figura 8.2.} \textit{Arquitectura Global del Modelo de Difusión Latente (LDM / Stable Diffusion)}\\[0.25cm]
+\resizebox{\linewidth}{!}{%
 \begin{tikzpicture}[node distance=1.8cm, auto, >=stealth, font=\footnotesize\sffamily]
     % Espacio de píxeles
     \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.4cm, text centered] (img) {\textbf{Píxeles $x$}\\$H \times W \times 3$};
@@ -395,7 +409,8 @@ La Figura 8.2 esquematiza la arquitectura global de este sistema bi-etápico.
     \draw [->, thick, draw=unmsm_red] (txt) -- (clip);
     \draw [->, thick, draw=unmsm_red] (clip) -- node [above] {\scriptsize Cross-Attn} (unet);
     \draw [<->, thick, draw=unmsm_darkred] (lat) -- node [right] {\scriptsize Denoising} (unet);
-\end{tikzpicture}
+\end{tikzpicture}%
+}
 \end{tcolorbox}
 \vspace{-0.2cm}
 {\scriptsize \textbf{Fuente:} Adaptado de Rombach et al. (2022) y Radford et al. (2021).}
@@ -470,6 +485,7 @@ La Figura 8.3 detalla el flujo de información de esta arquitectura.
 \centering
 \small\sffamily
 \textbf{Figura 8.3.} \textit{Arquitectura de ControlNet con Mecanismo de Convolución Cero ($1 \times 1$)}\\[0.25cm]
+\resizebox{\linewidth}{!}{%
 \begin{tikzpicture}[node distance=2.0cm, auto, >=stealth, font=\footnotesize\sffamily]
     % Entradas
     \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.6cm, text centered] (x) {\textbf{Mapa Latente $x$}\\(Features U-Net)};
@@ -496,7 +512,8 @@ La Figura 8.3 detalla el flujo de información de esta arquitectura.
     \draw [->, thick, draw=black] (locked) -- (sum);
     \draw [->, thick, draw=unmsm_red] (z2) -| (sum);
     \draw [->, thick, draw=unmsm_darkred] (sum) -- (out);
-\end{tikzpicture}
+\end{tikzpicture}%
+}
 \end{tcolorbox}
 \vspace{-0.2cm}
 {\scriptsize \textbf{Fuente:} Adaptado de Zhang y Agrawala (2023).}
@@ -508,6 +525,7 @@ Para complementar la visión algorítmica, la Tabla 8.2 presenta una taxonomía 
 \centering
 \small\sffamily
 \caption{\textbf{Tabla 8.2.} \textit{Comparación de Algoritmos de Muestreo e Integración Numérica para Modelos de Difusión}}
+\resizebox{0.93\linewidth}{!}{%
 \begin{tabularx}{\textwidth}{p{2.8cm} p{2.8cm} p{2.4cm} p{3.2cm} p{3.4cm}}
 \toprule
 \textbf{Algoritmo / Solucionador} & \textbf{Naturaleza Matemática} & \textbf{Pasos Típicos ($N$)} & \textbf{Orden de Convergencia} & \textbf{Propiedades Clave} \\
@@ -522,7 +540,8 @@ Para complementar la visión algorítmica, la Tabla 8.2 presenta una taxonomía 
 \midrule
 \textbf{Euler-Ancestral} & Estocástico (Euler con inyección de ruido) & 20--30 pasos & Primer orden con corrección & Excelente textura en microdetalles estéticos a costa de no ser invertible \\
 \bottomrule
-\end{tabularx}
+\end{tabularx}%
+}
 \vspace{0.15cm}
 {\scriptsize \textbf{Fuente:} Adaptado de Yang et al. (2023) y Lu et al. (2022).}
 \end{table}
@@ -608,6 +627,7 @@ La Tabla 8.3 compendia las propiedades y el comportamiento deseable de estas mé
 \centering
 \small\sffamily
 \caption{\textbf{Tabla 8.3.} \textit{Matriz Comparativa de Métricas de Evaluación para Modelos Generativos Visuales}}
+\resizebox{0.93\linewidth}{!}{%
 \begin{tabularx}{\textwidth}{p{2.2cm} p{3.6cm} p{3.2cm} p{2.6cm} p{3.0cm}}
 \toprule
 \textbf{Métrica} & \textbf{Formulación / Fundamento} & \textbf{Dimensión Evaluada} & \textbf{Comportamiento Deseable} & \textbf{Sensibilidad Crítica} \\
@@ -626,7 +646,8 @@ La Tabla 8.3 compendia las propiedades y el comportamiento deseable de estas mé
 \midrule
 \textbf{CLIP-Score} & $\cos(\tau_I(x), \tau_T(y))$ entre embeddings imagen-texto & Alineación semántica y correspondencia multimodal & Valor alto (típicamente $>0.28$) & Vulnerable a "hackeo adversarial" de palabras clave sin coherencia física \\
 \bottomrule
-\end{tabularx}
+\end{tabularx}%
+}
 \vspace{0.15cm}
 {\scriptsize \textbf{Fuente:} Adaptado de Benny et al. (2021) y Hessel et al. (2021).}
 \end{table}
@@ -670,6 +691,7 @@ Para ilustrar la escala arquitectónica en la que se manifiestan estos desafíos
 \centering
 \small\sffamily
 \caption{\textbf{Tabla 8.4.} \textit{Evolución y Especificaciones de Modelos Fundacionales de Difusión Text-to-Image}}
+\resizebox{0.93\linewidth}{!}{%
 \begin{tabularx}{\textwidth}{p{2.6cm} p{2.8cm} p{2.4cm} p{3.4cm} p{3.4cm}}
 \toprule
 \textbf{Modelo} & \textbf{Backbone / Arquitectura} & \textbf{Parámetros} & \textbf{Codificadores de Texto} & \textbf{Espacio Latente / Factor $f$} \\
@@ -684,7 +706,8 @@ Para ilustrar la escala arquitectónica en la que se manifiestan estos desafíos
 \midrule
 \textbf{FLUX.1 (Black Forest Labs, 2024)} & Rectified Flow Transformer híbrido & 12.0B (DiT dual) & Dual: CLIP ViT-L + T5-XXL (4096 dims) & $f=8$ (16 canales latentes, autoencoder de alta fidelidad) \\
 \bottomrule
-\end{tabularx}
+\end{tabularx}%
+}
 \vspace{0.15cm}
 {\scriptsize \textbf{Fuente:} Elaboración propia basada en Rombach et al. (2022), Podell et al. (2023) y Esser et al. (2024).}
 \end{table}
@@ -748,7 +771,8 @@ class DDPMSampler(nn.Module):
             # Programador coseno de Nichol & Dhariwal (2021)
             steps = timesteps + 1
             x = torch.linspace(0, timesteps, steps)
-            alphas_cumprod = torch.cos(((x / timesteps) + 0.008) / 1.008 * math.pi * 0.5) ** 2
+            arg = ((x / timesteps) + 0.008) / 1.008 * math.pi * 0.5
+            alphas_cumprod = torch.cos(arg) ** 2
             alphas_cumprod = alphas_cumprod / alphas_cumprod[0]
             betas = 1 - (alphas_cumprod[1:] / alphas_cumprod[:-1])
             betas = torch.clamp(betas, 0.0, 0.999)
@@ -765,23 +789,28 @@ class DDPMSampler(nn.Module):
         self.register_buffer("alphas_cumprod", alphas_cumprod)
         self.register_buffer("alphas_cumprod_prev", alphas_cumprod_prev)
         
-        # Coeficientes para la media posterior q(x_{t-1} | x_t, x_0)
-        self.register_buffer("sqrt_alphas_inv", 1.0 / torch.sqrt(alphas))
-        self.register_buffer("coeff_noise", betas / torch.sqrt(1.0 - alphas_cumprod))
+        # Media posterior
+        inv_sa = 1.0 / torch.sqrt(alphas)
+        self.register_buffer("sqrt_alphas_inv", inv_sa)
+        c_noise = betas / torch.sqrt(1.0 - alphas_cumprod)
+        self.register_buffer("coeff_noise", c_noise)
         
         # Varianza posterior tilde{beta}_t
-        posterior_var = betas * (1.0 - alphas_cumprod_prev) / (1.0 - alphas_cumprod)
-        self.register_buffer("posterior_var", posterior_var)
+        p_var = betas * (1.0 - alphas_cumprod_prev) / \
+                (1.0 - alphas_cumprod)
+        self.register_buffer("posterior_var", p_var)
 
     @torch.no_grad()
-    def sample_step(self, model: nn.Module, x_t: torch.Tensor, t_step: int, 
-                    cond: torch.Tensor, uncond: torch.Tensor, cfg_scale: float) -> torch.Tensor:
-        """
-        Ejecuta un paso discreto de eliminacion de ruido inverso con CFG.
-        """
+    def sample_step(
+        self, model: nn.Module, x_t: torch.Tensor,
+        t_step: int, cond: torch.Tensor,
+        uncond: torch.Tensor, cfg_scale: float
+    ) -> torch.Tensor:
+        """Paso discreto de difusion inversa con CFG."""
         batch_size = x_t.shape[0]
         device = x_t.device
-        t_tensor = torch.full((batch_size,), t_step, device=device, dtype=torch.long)
+        t_tensor = torch.full((batch_size,), t_step,
+                              device=device, dtype=torch.long)
         
         # Evaluacion dual concatenada para optimizar throughput
         x_in = torch.cat([x_t, x_t], dim=0)
@@ -794,10 +823,14 @@ class DDPMSampler(nn.Module):
         
         # Modulacion de escala mediante Classifier-Free Guidance
         # eps_tilde = eps_uncond + w * (eps_cond - eps_uncond)
-        eps_guided = eps_uncond + cfg_scale * (eps_cond - eps_uncond)
+        diff = eps_cond - eps_uncond
+        eps_guided = eps_uncond + cfg_scale * diff
         
         # Estimacion de la media posterior mu_theta(x_t, t)
-        mean = self.sqrt_alphas_inv[t_step] * (x_t - self.coeff_noise[t_step] * eps_guided)
+        # Estimacion de media posterior
+        c_eps = self.coeff_noise[t_step] * eps_guided
+        inv_a = self.sqrt_alphas_inv[t_step]
+        mean = inv_a * (x_t - c_eps)
         
         if t_step > 0:
             noise = torch.randn_like(x_t)
@@ -809,8 +842,11 @@ class DDPMSampler(nn.Module):
         return x_prev
 
     @torch.no_grad()
-    def p_sample_loop(self, model: nn.Module, shape: tuple, cond: torch.Tensor, 
-                      uncond: torch.Tensor, cfg_scale: float = 7.5, device="cuda") -> torch.Tensor:
+    def p_sample_loop(self, model: nn.Module,
+                      shape: tuple, cond: torch.Tensor, 
+                      uncond: torch.Tensor,
+                      cfg_scale: float = 7.5,
+                      device="cuda") -> torch.Tensor:
         """
         Bucle de difusion inversa completo desde t = T-1 hasta t = 0.
         """
@@ -932,7 +968,7 @@ Las interrogantes epistemológicas y tecnológicas que orientan el futuro de la 
 {\Huge \textbf{Referencias del Capítulo 8}}\\[0.8cm]
 
 \begin{itemize}[leftmargin=1.5em, label={}, itemsep=0.22ex, parsep=0pt]
-\small
+\small\raggedright
 \interlinepenalty=10000
     \item Ali, S., Ravi, P., Moore, K., Abelson, H., \& Breazeal, C. (2024). A picture is worth a thousand words: Co-designing text-to-image generation learning materials for K-12 with educators. \textit{Proceedings of the AAAI Conference on Artificial Intelligence}, 38(21), 23260--23267. \url{https://doi.org/10.1609/aaai.v38i21.30373}
     \item Anderson, B. D. (1982). Reverse-time diffusion equation models. \textit{Stochastic Processes and their Applications}, 12(3), 313--326. \url{https://doi.org/10.1016/0304-4149(82)90051-5}
