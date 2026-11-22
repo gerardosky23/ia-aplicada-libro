@@ -747,9 +747,7 @@ Para los laboratorios de cómputo científico y departamentos de matemática apl
 \subsubsection*{Análisis e Implementación:}
 A continuación se presenta el código fuente en Python/PyTorch que materializa el pipeline de difusión inversa con orientación libre de clasificador:
 
-\begin{tcolorbox}[colback=white, colframe=unmsm_gold, arc=3pt, boxrule=0.8pt, top=0.3cm, bottom=0.3cm, left=0.4cm, right=0.4cm]
-\footnotesize\ttfamily
-\begin{verbatim}
+\begin{lstlisting}[language=Python, caption={Muestreador de Difusión Probabilística (DDPM) con Orientación Libre de Clasificador (CFG)}, label={lst:ddpm_sampler}]
 import torch
 import torch.nn as nn
 import math
@@ -857,8 +855,7 @@ class DDPMSampler(nn.Module):
             x_t = self.sample_step(model, x_t, t, cond, uncond, cfg_scale)
             
         return x_t
-\end{verbatim}
-\end{tcolorbox}
+\end{lstlisting}
 
 \subsubsection*{Interpretación y Resultados:}
 El script implementado permite realizar análisis de sensibilidad sistemáticos sobre el parámetro de guía $w$:

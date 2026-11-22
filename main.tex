@@ -12,7 +12,15 @@
 \usepackage[T1]{fontenc}
 \usepackage[spanish,es-tabla,es-noshorthands]{babel}
 \usepackage{geometry}
-\geometry{top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm}
+\geometry{
+    top=2.5cm,
+    bottom=2.8cm,
+    left=2.5cm,
+    right=2.5cm,
+    headheight=25pt,
+    headsep=12pt,
+    footskip=1.4cm
+}
 \usepackage{graphicx}
 \usepackage{tabularx}
 \usepackage{amsmath}
@@ -24,6 +32,7 @@
 \usepackage{enumitem}
 \usepackage{setspace}
 \usepackage{tcolorbox}
+\tcbuselibrary{breakable,listings}
 \usepackage{xcolor}
 \usepackage{tikz}
 \usetikzlibrary{babel,arrows.meta,positioning,shapes}
@@ -152,13 +161,11 @@
 % ==========================================
 % CONFIGURACIÓN DE ENCABEZADOS Y PIES (fancyhdr)
 % ==========================================
-\setlength{\headheight}{25pt}
-\addtolength{\topmargin}{-13pt}
 \pagestyle{fancy}
 \fancyhf{} 
-% Encabezado (Header institucional)
-\fancyhead[L]{\textcolor{unmsm_red}{\small\sffamily\textbf{\leftmark}}} 
-\fancyhead[R]{\textcolor{unmsm_red}{\small\sffamily Inteligencia Artificial Aplicada \quad\rule[-0.2ex]{0.5pt}{1.2ex}\quad \textbf{\thepage}}} 
+% Encabezado (Header institucional uniforme para prevenir colisiones)
+\fancyhead[L]{\textcolor{unmsm_red}{\small\sffamily\textbf{Inteligencia Artificial Aplicada}}} 
+\fancyhead[R]{\textcolor{unmsm_red}{\small\sffamily UNMSM \quad\rule[-0.2ex]{0.5pt}{1.2ex}\quad \textbf{\thepage}}} 
 \renewcommand{\headrule}{\hbox to\headwidth{\color{unmsm_red}\leaders\hrule height 0.6pt\hfill}}
 % Pie de página (Footer limpio sin duplicación)
 \fancyfoot[L]{\textcolor{unmsm_gray}{\scriptsize\sffamily Universidad Nacional Mayor de San Marcos}} 
@@ -167,8 +174,8 @@
 
 \fancypagestyle{plain}{
     \fancyhf{}
-    \fancyhead[L]{\textcolor{unmsm_red}{\small\sffamily\textbf{\leftmark}}}
-    \fancyhead[R]{\textcolor{unmsm_red}{\small\sffamily Inteligencia Artificial Aplicada \quad\rule[-0.2ex]{0.5pt}{1.2ex}\quad \textbf{\thepage}}}
+    \fancyhead[L]{\textcolor{unmsm_red}{\small\sffamily\textbf{Inteligencia Artificial Aplicada}}}
+    \fancyhead[R]{\textcolor{unmsm_red}{\small\sffamily UNMSM \quad\rule[-0.2ex]{0.5pt}{1.2ex}\quad \textbf{\thepage}}}
     \renewcommand{\headrule}{\hbox to\headwidth{\color{unmsm_red}\leaders\hrule height 0.6pt\hfill}}
     \fancyfoot[L]{\textcolor{unmsm_gray}{\scriptsize\sffamily Universidad Nacional Mayor de San Marcos}}
     \fancyfoot[R]{\textcolor{unmsm_gray}{\scriptsize\sffamily Facultad de Ciencias Matemáticas}}

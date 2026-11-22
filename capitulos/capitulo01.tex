@@ -130,7 +130,8 @@ Una de las distinciones axiales en la teoría de la computación es la delimitac
 
 Entre ambos extremos ha surgido el concepto de \textit{Modelos Fundacionales} (Foundation Models), formulado por Bommasani et al. (2021) en la Universidad de Stanford. Estos modelos, entrenados sobre corpus masivos mediante aprendizaje autosupervisado a gran escala, pueden adaptarse a través de ajuste fino (\textit{fine-tuning}) o ingeniería de instrucciones a una multiplicidad de tareas sin alterar su arquitectura base, operando como infraestructura transversal para el ecosistema informático contemporáneo.
 
-\begin{figure}[htpb!]
+\clearpage
+\begin{figure}[tbp]
 \centering
 \begin{tcolorbox}[colback=white, colframe=unmsm_gold, arc=3pt, boxrule=0.8pt, top=0.3cm, bottom=0.3cm, left=0.5cm, right=0.5cm]
 \centering
@@ -214,7 +215,8 @@ Paralelamente, en la vertiente conexionista, Frank Rosenblatt (1958) desarrolló
 
 Sin embargo, el optimismo se quebró abruptamente en 1969 con la publicación del libro \textit{Perceptrons} por parte de Marvin Minsky y Seymour Papert. En esta monografía matemática rigurosa, Minsky y Papert demostraron analíticamente las limitaciones intrínsecas de los perceptrones monocapa, destacando su incapacidad estructural para resolver problemas que no fueran linealmente separables en el espacio euclídeo, siendo el ejemplo paradigmático la función lógica XOR ($y = x_1 \oplus x_2$). 
 
-\begin{figure}[htpb!]
+\clearpage
+\begin{figure}[tbp]
 \centering
 \begin{tcolorbox}[colback=white, colframe=unmsm_gold, arc=3pt, boxrule=0.8pt, top=0.3cm, bottom=0.3cm, left=0.5cm, right=0.5cm]
 \centering
@@ -265,7 +267,8 @@ Aunque Minsky y Papert sugirieron en su obra que la incorporación de capas ocul
 
 El periodo comprendido entre mediados de los años setenta y comienzos de los noventa estuvo caracterizado por severas oscilaciones presupuestarias conocidas como los ``Inviernos de la IA''. En el Reino Unido, el célebre Informe Lighthill (1973) concluyó que las investigaciones en computación cognitiva no habían alcanzado ninguno de los objetivos prometidos, recomendando el cese masivo de subsidios públicos. En Estados Unidos, DARPA impuso recortes análogos tras constatar la ineficacia de los proyectos de traducción automática y comprensión del lenguaje de primera generación.
 
-\begin{figure}[htpb!]
+\clearpage
+\begin{figure}[tbp]
 \centering
 \begin{tcolorbox}[colback=white, colframe=unmsm_gold, arc=3pt, boxrule=0.8pt, top=0.3cm, bottom=0.3cm, left=0.5cm, right=0.5cm]
 \centering
@@ -379,7 +382,8 @@ El florecimiento contemporáneo de la inteligencia artificial generativa se cime
 
 El aprendizaje automático invierte el flujo clásico de la computación tradicional. Mientras que en la programación estructurada convencional un desarrollador codifica reglas explícitas de negocio e ingresa datos para computar respuestas computacionales, en el aprendizaje automático se alimentan simultáneamente datos de entrada y salidas observadas para que el algoritmo sintetice autónomamente las reglas estadísticas de mapeo (Goodfellow et al., 2016).
 
-\begin{figure}[htpb!]
+\clearpage
+\begin{figure}[tbp]
 \centering
 \begin{tcolorbox}[colback=white, colframe=unmsm_gold, arc=3pt, boxrule=0.8pt, top=0.3cm, bottom=0.3cm, left=0.5cm, right=0.5cm]
 \centering
@@ -494,7 +498,8 @@ La articulación de neuronas artificiales da origen a diversas topologías de pr
     \item \textbf{Redes Neuronales Recurrentes (RNN/LSTM/GRU):} Diseñadas para secuencias temporales. Mantienen un estado oculto recurrente $\mathbf{h}_t = f(\mathbf{W}_{hh}\mathbf{h}_{t-1} + \mathbf{W}_{xh}\mathbf{x}_t + \mathbf{b})$. Aunque capturan dependencias secuenciales, sufren de desvanecimiento o explosión del gradiente al propagarse a través de horizontes temporales prolongados, limitación que motivó el surgimiento del Transformer.
 \end{itemize}
 
-\begin{figure}[htpb!]
+\clearpage
+\begin{figure}[tbp]
 \centering
 \begin{tcolorbox}[colback=white, colframe=unmsm_gold, arc=3pt, boxrule=0.8pt, top=0.3cm, bottom=0.3cm, left=0.5cm, right=0.5cm]
 \centering
@@ -616,7 +621,8 @@ Un algoritmo de aprendizaje no busca memorizar mecánicamente los datos de entre
     \item \textbf{Conjunto de Prueba (15\%):} Reservado para evaluar objetivamente el desempeño final del modelo sobre una distribución no vista.
 \end{itemize}
 
-\begin{figure}[htpb!]
+\clearpage
+\begin{figure}[tbp]
 \centering
 \begin{tcolorbox}[colback=white, colframe=unmsm_gold, arc=3pt, boxrule=0.8pt, top=0.3cm, bottom=0.3cm, left=0.5cm, right=0.5cm]
 \centering
@@ -736,7 +742,8 @@ La formulación analítica de la autoatención es:
 
 El factor de escalado $1/\sqrt{d_k}$ cumple una función matemática fundamental: a medida que la dimensión $d_k$ del espacio de proyección se incrementa, el producto punto de dos vectores independientes con varianza unitaria crece en magnitud hacia una varianza proporcional a la dimensión. En ausencia de esta normalización dimensional, los valores del producto de compatibilidad $Q K^T$ alcanzarían amplitudes excesivamente grandes, desplazando a la función Softmax hacia regiones asintóticas donde sus derivadas son infinitesimales, provocando la saturación inmediata y el desvanecimiento de gradientes durante la retropropagación.
 
-\begin{figure}[htpb!]
+\clearpage
+\begin{figure}[tbp]
 \centering
 \begin{tcolorbox}[colback=white, colframe=unmsm_gold, arc=3pt, boxrule=0.8pt, top=0.3cm, bottom=0.3cm, left=0.5cm, right=0.5cm]
 \centering
@@ -833,7 +840,8 @@ Los modelos de difusión (Sohl-Dickstein et al., 2015; Ho et al., 2020) modelan 
     \end{equation}
 \end{enumerate}
 
-\begin{figure}[htpb!]
+\clearpage
+\begin{figure}[tbp]
 \centering
 \begin{tcolorbox}[colback=white, colframe=unmsm_gold, arc=3pt, boxrule=0.8pt, top=0.3cm, bottom=0.3cm, left=0.5cm, right=0.5cm]
 \centering
@@ -909,7 +917,8 @@ El preentrenamiento sobre textos de la web optimiza la verosimilitud estadístic
     \end{equation}
 \end{enumerate}
 
-\begin{figure}[htpb!]
+\clearpage
+\begin{figure}[tbp]
 \centering
 \begin{tcolorbox}[colback=white, colframe=unmsm_gold, arc=3pt, boxrule=0.8pt, top=0.3cm, bottom=0.3cm, left=0.5cm, right=0.5cm]
 \centering
@@ -1054,7 +1063,8 @@ El modelo generó en cuestión de segundos un texto con una elocuencia gramatica
 \subsubsection*{Análisis e Implementación:}
 Para mitigar este riesgo epistémico y operacionalizar una política de interacción responsable, se implementó el **Protocolo de Verificación Humana en el Bucle** (\textit{Human-in-the-Loop Verification Protocol}), compuesto por cuatro etapas metodológicas consecutivas:
 
-\begin{figure}[htpb!]
+\clearpage
+\begin{figure}[tbp]
 \centering
 \begin{tcolorbox}[colback=white, colframe=unmsm_gold, arc=3pt, boxrule=0.8pt, top=0.3cm, bottom=0.3cm, left=0.5cm, right=0.5cm]
 \centering
@@ -1114,10 +1124,7 @@ Para desmitificar el funcionamiento de los modelos de lenguaje tipo Transformer 
 \subsubsection*{Análisis e Implementación:}
 A continuación se presenta una implementación algorítmica reproducible en Python puro con NumPy, detallando paso a paso el cálculo de productos punto, escalado dimensional, normalización de probabilidades y suma ponderada de valores:
 
-\begin{tcolorbox}[colback=bg_marfil, colframe=unmsm_gold, arc=3pt, boxrule=0.8pt, top=0.3cm, bottom=0.3cm, left=0.4cm, right=0.4cm]
-\small\sffamily
-\textbf{Listado 1.1.} Implementación Vectorizada del Mecanismo de Autoatención Escalada
-\begin{verbatim}
+\begin{lstlisting}[language=Python, caption={Implementación Vectorizada del Mecanismo de Autoatención Escalada}, label={lst:autoatencion_vectorizada}]
 import numpy as np
 
 def scaled_dot_product_attention(Q, K, V, mask=None, temperature=1.0):
@@ -1173,8 +1180,7 @@ V = np.matmul(X, W_V)
 out, weights = scaled_dot_product_attention(Q, K, V)
 print("Matriz de Pesos de Atencion (filas suman 1.0):")
 print(np.round(weights, 4))
-\end{verbatim}
-\end{tcolorbox}
+\end{lstlisting}
 
 \subsubsection*{Interpretación y Resultados:}
 Al ejecutar el Listado 1.1 con la semilla aleatoria fijada, la matriz de pesos de atención resultante adopta la forma estocástica:
