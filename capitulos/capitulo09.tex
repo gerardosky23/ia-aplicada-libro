@@ -276,7 +276,7 @@ Los detectores comerciales combinan ambas métricas proyectando cada documento e
 
 A pesar de la aparente sofisticación de estas métricas, su validez descansa en el supuesto de que el texto sintético se mantiene intacto y no sufre modificaciones posteriores a su generación. Sin embargo, investigaciones recientes en robustez adversarial de modelos probabilísticos (Weber \& Smith, 2024; Zhao, Chen \& Liu, 2025; Sankar et al., 2023) demuestran que las firmas estadísticas de perplejidad y variabilidad son sumamente frágiles y pueden manipularse deliberadamente mediante perturbaciones lingüísticas mínimas.
 
-El ataque adversarial más devastador y rigurosamente documentado contra los clasificadores de IA fue formalizado por Krishna, Song, Karpinska, Wieting e Iyyer (2023) mediante el desarrollo del modelo **DIPPER** (\textit{Discourse-Level Paraphraser}). DIPPER es un modelo generativo basado en T5-XXL (11 mil millones de parámetros) reentrenado específicamente sobre corpus de parafraseo a nivel de discurso y diseñado con dos hiperparámetros de control continuo accesibles al usuario:
+El ataque adversarial más devastador y rigurosamente documentado contra los clasificadores de IA fue formalizado por Krishna, Song, Karpinska, Wieting e Iyyer (2023) mediante el desarrollo del modelo \textbf{DIPPER} (\textit{Discourse-Level Paraphraser}). DIPPER es un modelo generativo basado en T5-XXL (11 mil millones de parámetros) reentrenado específicamente sobre corpus de parafraseo a nivel de discurso y diseñado con dos hiperparámetros de control continuo accesibles al usuario:
 \begin{enumerate}
     \item \textbf{Diversidad Léxica ($L \in [0, 100]$):} Controla el grado de sustitución sinonímica y la reformulación frásica respecto al texto de entrada. Valores altos ($L \ge 60$) obligan al modelo a descartar los términos más probables y utilizar sinónimos de menor frecuencia.
     \item \textbf{Reordenamiento de Oraciones ($O \in [0, 100]$):} Controla el nivel de reestructuración de cláusulas y la alteración de la secuencia discursiva a escala de párrafo, transformando oraciones simples en pasivas, combinando enunciados o invirtiendo causas y consecuencias.
@@ -305,7 +305,7 @@ El impacto empírico es demoledor. En la evaluación conducida por Krishna et al
     \draw [->, thick, draw=unmsm_red] (raw) -- (dipper);
     \draw [->, thick, draw=unmsm_darkred] (dipper) -- (mod);
     
-    \node [rectangle, draw=unmsm_gold, fill=white, rounded corners=2pt, text width=11.2cm, text centered, below of=raw, node distance=1.6cm, xshift=1.7cm] (adv_note) {\scriptsize \textbf{Mecanismo de Falla:} La sustitución sinonímica incrementa artificialmente la perplejidad y el reordenamiento clausular eleva el burstiness, desplazando el vector del texto fuera del hiperplano de decisión del clasificador sin alterar la semántica del mensaje.};
+    \node [rectangle, draw=unmsm_gold, fill=white, rounded corners=2pt, text width=11.2cm, text centered, below of=raw, node distance=2.2cm, xshift=1.7cm] (adv_note) {\scriptsize \textbf{Mecanismo de Falla:} La sustitución sinonímica incrementa artificialmente la perplejidad y el reordenamiento clausular eleva el burstiness, desplazando el vector del texto fuera del hiperplano de decisión del clasificador sin alterar la semántica del mensaje.};
     \draw [->, dashed, draw=unmsm_gray] (dipper.south) |- (adv_note.north);
 \end{tikzpicture}\\[0.15cm]
 \scriptsize \textbf{Fuente:} Adaptado de Krishna et al. (2023), Weber y Smith (2024) y Zhao et al. (2025).
@@ -325,7 +325,7 @@ En un estudio de referencia publicado en la prestigiosa revista \textit{Cell Pat
 Los resultados cuantitativos documentados por Liang et al. (2023) revelaron una disparidad estadística escandalosa:
 \begin{itemize}
     \item En los ensayos de estudiantes nativos estadounidenses, la tasa de falsos positivos ($\text{FPR}$, textos humanos clasificados erróneamente como IA) osciló entre el $1.2\%$ y el $3.8\%$, con una especificidad superior al $96\%$.
-    \item En contraste absoluto, en los ensayos de autores no nativos (TOEFL), la tasa de falsos positivos se disparó a un rango de entre el **$61.2\%$ y el $97.8\%$**. En más de la mitad de los modelos analizados, la totalidad de los ensayos auténticos de autores internacionales fue categorizada como 100\% generada por inteligencia artificial.
+    \item En contraste absoluto, en los ensayos de autores no nativos (TOEFL), la tasa de falsos positivos se disparó a un rango de entre el \textbf{$61.2\%$ y el $97.8\%$}. En más de la mitad de los modelos analizados, la totalidad de los ensayos auténticos de autores internacionales fue categorizada como 100\% generada por inteligencia artificial.
 \end{itemize}
 
 La causa matemática subyacente es transparente: los escritores que redactan en una segunda lengua tienden a utilizar un vocabulario más común, recurren a sinónimos de alta frecuencia y emplean estructuras gramaticales directas y estandarizadas aprendidas en la instrucción formal. En términos probabilísticos, este estilo de redacción presenta una perplejidad intrínsecamente baja y una baja variabilidad sintáctica, coincidiendo exactamente con el perfil de distribución que los detectores comerciales atribuyen de manera simplista a las máquinas.
@@ -380,9 +380,9 @@ La Tabla 9.3 consolida el desempeño empírico documentado por Liang et al. (202
 
 \subsubsection{Hacia un Paradigma de Transparencia Declarativa e Integridad Abierta}
 
-La evidencia técnica expuesta en las secciones anteriores demuestra de manera concluyente que la fiscalización mediante software detector es epistemológicamente inviable y éticamente contraproducente. La comunidad académica internacional debe abandonar el modelo punitivo-policial ---basado en la cacería de brujas algorítmica y en la fe ciega en clasificadores de caja negra--- y transitar resueltamente hacia un **Paradigma de Transparencia Declarativa** (Toribio \& Morales, 2025; UNESCO, 2023; European Commission, 2024).
+La evidencia técnica expuesta en las secciones anteriores demuestra de manera concluyente que la fiscalización mediante software detector es epistemológicamente inviable y éticamente contraproducente. La comunidad académica internacional debe abandonar el modelo punitivo-policial ---basado en la cacería de brujas algorítmica y en la fe ciega en clasificadores de caja negra--- y transitar resueltamente hacia un \textbf{Paradigma de Transparencia Declarativa} (Toribio \& Morales, 2025; UNESCO, 2023; European Commission, 2024).
 
-Bajo este enfoque, el uso de herramientas de inteligencia artificial no se criminaliza ni se oculta, sino que se documenta formalmente como una técnica metodológica más dentro del proceso de investigación. Para operativizar esta transparencia, se propone adaptar la taxonomía estándar **CRediT** (\textit{Contributor Roles Taxonomy}), que reconoce habitualmente 14 roles en la autoría de artículos científicos, incorporando una dimensión específica de asistencia tecnológica:
+Bajo este enfoque, el uso de herramientas de inteligencia artificial no se criminaliza ni se oculta, sino que se documenta formalmente como una técnica metodológica más dentro del proceso de investigación. Para operativizar esta transparencia, se propone adaptar la taxonomía estándar \textbf{CRediT} (\textit{Contributor Roles Taxonomy}), que reconoce habitualmente 14 roles en la autoría de artículos científicos, incorporando una dimensión específica de asistencia tecnológica:
 \begin{itemize}
     \item \textbf{CRediT-IA Conceptualización:} Declaración explícita sobre el uso de asistentes para mapeo de vacíos de investigación, análisis relacional de literatura o generación exploratoria de preguntas científicas.
     \item \textbf{CRediT-IA Metodología y Software:} Especificación de scripts, modelos de embeddings (como Specter o Sentence-BERT) y pipelines de active learning utilizados en el cribado y filtrado sistemático de datos bibliográficos.
@@ -405,9 +405,9 @@ La evaluación académica no puede contentarse con calificar productos finales e
 
 \subsubsection{Auditoría de Prompts, Trazabilidad Experimental y Gestión de Datos de Investigación}
 
-La transparencia declarativa adquiere rigor operativo mediante la preservación rigurosa de la **cadena de custodia metodológica digital** y la gestión abierta de datos de investigación (apartados 9.4.3 y 9.4.14 del Grupo 1).
+La transparencia declarativa adquiere rigor operativo mediante la preservación rigurosa de la \textbf{cadena de custodia metodológica digital} y la gestión abierta de datos de investigación (apartados 9.4.3 y 9.4.14 del Grupo 1).
 
-En la práctica científica contemporánea, las instrucciones enviadas a un modelo generativo equivalen a reactivos químicos en un ensayo biológico o a parámetros de malla en simulaciones físicas. En consecuencia, deben registrarse en una **Bitácora Estructurada de Prompts e Interacciones**. Dicha bitácora debe almacenarse como anexo reproducible y consignar cuatro dimensiones obligatorias:
+En la práctica científica contemporánea, las instrucciones enviadas a un modelo generativo equivalen a reactivos químicos en un ensayo biológico o a parámetros de malla en simulaciones físicas. En consecuencia, deben registrarse en una \textbf{Bitácora Estructurada de Prompts e Interacciones}. Dicha bitácora debe almacenarse como anexo reproducible y consignar cuatro dimensiones obligatorias:
 \begin{itemize}
     \item \textbf{Metadatos del Sistema:} Versión exacta del modelo (por ejemplo, GPT-4o o Claude 3.5 Sonnet), temperatura fijada, valor de top-$p$, fecha y hora UTC de la consulta.
     \item \textbf{Instrucción Primitiva (System Prompt):} Texto verbatim que delimita el rol asignado al modelo, las restricciones de contexto y las fuentes autorizadas.
@@ -434,16 +434,18 @@ La institucionalización de esta gobernanza debe consagrarse en reglamentos form
 \centering
 \small\sffamily
 \textbf{Figura 9.3.} Ecosistema de Gobernanza de Integridad Académica Universitaria\\[0.25cm]
-\begin{tikzpicture}[node distance=1.3cm, auto, >=stealth, font=\footnotesize\sffamily]
-    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=3pt, text width=3.3cm, text centered] (autor) {\textbf{Investigador / Autor}\\Bitácora de Prompts\\Declaración CRediT-IA\\Custodia de Datos};
-    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=3pt, text width=3.3cm, text centered, right of=autor, node distance=4.6cm] (comite) {\textbf{Comités y Evaluadores}\\Evaluación cualitativa\\Presunción de inocencia\\Auditoría sin detectores ciegos};
-    \node [rectangle, draw=unmsm_darkred, fill=bg_arena, rounded corners=3pt, text width=3.3cm, text centered, below of=autor, node distance=2.2cm, xshift=2.3cm] (repo) {\textbf{Repositorio Institucional}\\Ciencia Abierta (FAIR)\\Scripts reproducibles\\Trazabilidad metodológica};
+\begin{tikzpicture}[auto, >=stealth, font=\footnotesize\sffamily]
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=3pt, text width=3.4cm, text centered] (autor) at (-2.6, 0) {\textbf{Investigador / Autor}\\Bitácora de Prompts\\Declaración CRediT-IA\\Custodia de Datos};
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=3pt, text width=3.4cm, text centered] (comite) at (2.6, 0) {\textbf{Comités y Evaluadores}\\Evaluación cualitativa\\Presunción de inocencia\\Auditoría sin detectores};
+    \node [rectangle, draw=unmsm_darkred, fill=bg_arena, rounded corners=3pt, text width=3.6cm, text centered] (repo) at (0, -3.0) {\textbf{Repositorio Institucional}\\Ciencia Abierta (FAIR)\\Scripts reproducibles\\Trazabilidad metodológica};
     
     \draw [<->, thick, draw=unmsm_red] (autor) -- node[above, font=\scriptsize\sffamily] {Declaración} (comite);
-    \draw [->, thick, draw=unmsm_red] (autor) -- node[left, font=\scriptsize\sffamily] {Depósito} (repo);
-    \draw [->, thick, draw=unmsm_darkred] (comite) -- node[right, font=\scriptsize\sffamily] {Verificación} (repo);
-\end{tikzpicture}\\[0.15cm]
-\scriptsize \textbf{Fuente:} Elaboración propia basada en UNESCO (2023), Toribio y Morales (2025) y European Commission (2024).
+    \draw [->, thick, draw=unmsm_red] (autor.south) -- node[left=6pt, font=\scriptsize\sffamily] {Depósito} (repo.north west);
+    \draw [->, thick, draw=unmsm_darkred] (comite.south) -- node[right=6pt, font=\scriptsize\sffamily] {Verificación} (repo.north east);
+\end{tikzpicture}
+
+\vspace{0.35cm}
+{\scriptsize \textbf{Fuente:} Elaboración propia basada en UNESCO (2023), Toribio y Morales (2025) y European Commission (2024).\par}
 \end{tcolorbox}
 \end{figure}
 
@@ -612,7 +614,7 @@ La ejecución del script experimental produce la salida sistemática resumida en
 Los resultados confirman con precisión las hipótesis teóricas:
 \begin{enumerate}
     \item \textbf{Colapso de la Detección por Evasión Adversarial (Grupo 2):} La reescritura mediante DIPPER incrementó la perplejidad de 19.2 a 66.8 y la variabilidad de $-0.11$ a $+0.29$. Al reordenar las cláusulas y seleccionar sinónimos de menor probabilidad condicional, el texto cruzó ambos umbrales de detección, logrando que el 87\% del contenido generado por IA fuera catalogado erróneamente como humano.
-    \item \textbf{Sesgo Catastrófico contra Autores No Nativos (Grupo 3):} Los textos auténticamente humanos elaborados por investigadores que redactan en una segunda lengua arrojaron una perplejidad media de 33.4 ($<40.0$) y un burstiness de $+0.07$ ($<0.15$). Como consecuencia directa de su vocabulario controlado y longitud de frase regular, el clasificador incurrió en un **89\% de falsos positivos**, acusando falsamente de plagio y generación por IA a autores humanos legítimos.
+    \item \textbf{Sesgo Catastrófico contra Autores No Nativos (Grupo 3):} Los textos auténticamente humanos elaborados por investigadores que redactan en una segunda lengua arrojaron una perplejidad media de 33.4 ($<40.0$) y un burstiness de $+0.07$ ($<0.15$). Como consecuencia directa de su vocabulario controlado y longitud de frase regular, el clasificador incurrió en un \textbf{89\% de falsos positivos}, acusando falsamente de plagio y generación por IA a autores humanos legítimos.
 \end{enumerate}
 
 Este caso práctico demuestra en términos computacionales incontrovertibles que los detectores basados en perplejidad y burstiness no son herramientas científicas confiables para certificar la integridad académica, respaldando plenamente el mandato de avanzar hacia auditorías metodológicas basadas en la transparencia declarativa y la reproducibilidad abierta.

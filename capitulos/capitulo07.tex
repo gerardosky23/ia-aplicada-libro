@@ -545,32 +545,33 @@ El combustible sobre el cual se entrenan los 14.8 billones de tokens de DeepSeek
 \centering
 \small\sffamily
 \textbf{Figura 7.1.} \textit{Arquitectura de Multi-Head Latent Attention (MLA) y Absorción Matricial}\\[0.25cm]
-\begin{tikzpicture}[node distance=1.0cm, auto, >=stealth, font=\footnotesize\sffamily]
+\begin{tikzpicture}[auto, >=stealth, font=\footnotesize\sffamily]
     % Entrada
-    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=3.0cm, text centered] (input) {\textbf{Estado Oculto $\mathbf{h}_t$}\\($d = 7168$)};
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=3.0cm, text centered] (input) at (0, 0) {\textbf{Estado Oculto $\mathbf{h}_t$}\\($d = 7168$)};
     
     % Proyecciones descendentes
-    \node [rectangle, draw=unmsm_darkred, fill=bg_arena, rounded corners=2pt, text width=3.2cm, text centered, above left of=input, node distance=2.4cm, xshift=-1.0cm] (ckv) {\textbf{Caché KV Latente $\mathbf{c}_t^{KV}$}\\($d_c = 512$) \textcolor{unmsm_red}{\textbf{[En Memoria]}}};
-    \node [rectangle, draw=unmsm_darkred, fill=bg_arena, rounded corners=2pt, text width=2.8cm, text centered, above of=input, node distance=2.2cm] (rope) {\textbf{RoPE Desacoplado $\mathbf{k}_t^R$}\\($d_R = 64$) \textcolor{unmsm_red}{\textbf{[En Memoria]}}};
-    \node [rectangle, draw=unmsm_gray, fill=bg_marfil, rounded corners=2pt, text width=2.8cm, text centered, above right of=input, node distance=2.4cm, xshift=1.0cm] (cq) {\textbf{Latente Consulta $\mathbf{c}_t^Q$}\\($d_c' = 1536$)};
+    \node [rectangle, draw=unmsm_darkred, fill=bg_arena, rounded corners=2pt, text width=3.4cm, text centered] (ckv) at (-4.2, 2.0) {\textbf{Caché KV Latente $\mathbf{c}_t^{KV}$}\\($d_c = 512$) \textcolor{unmsm_red}{\textbf{[En Memoria]}}};
+    \node [rectangle, draw=unmsm_darkred, fill=bg_arena, rounded corners=2pt, text width=2.8cm, text centered] (rope) at (0, 2.0) {\textbf{RoPE Desacoplado $\mathbf{k}_t^R$}\\($d_R = 64$) \textcolor{unmsm_red}{\textbf{[En Memoria]}}};
+    \node [rectangle, draw=unmsm_gray, fill=bg_marfil, rounded corners=2pt, text width=3.0cm, text centered] (cq) at (4.2, 2.0) {\textbf{Latente Consulta $\mathbf{c}_t^Q$}\\($d_c' = 1536$)};
     
     % Flechas de entrada
     \draw [->, thick, draw=unmsm_red] (input) -- node[left, font=\scriptsize] {$W^{DKV}$} (ckv);
     \draw [->, thick, draw=unmsm_red] (input) -- node[right, font=\scriptsize] {$W^{KR}$} (rope);
     \draw [->, thick, draw=unmsm_gray] (input) -- node[right, font=\scriptsize] {$W^{DQ}$} (cq);
     
-    % Fase de inferencia / absorción
-    \node [rectangle, draw=unmsm_red, fill=bg_arena, rounded corners=2pt, text width=4.0cm, text centered, above of=cq, node distance=2.0cm] (q_abs) {\textbf{Consultas Absorbidas}\\$\tilde{\mathbf{q}}_{t,i} = (W^{UK}_i)^T \mathbf{q}_{t,i}^C \in \mathbb{R}^{512}$\\$\mathbf{q}_{t,i}^R = \mathrm{RoPE}(W^{QR}_i \mathbf{c}_t^Q) \in \mathbb{R}^{64}$};
+    % Fase de inferencia / absorción (lado derecho, despejado)
+    \node [rectangle, draw=unmsm_red, fill=bg_arena, rounded corners=2pt, text width=3.8cm, text centered] (q_abs) at (4.2, 4.0) {\textbf{Consultas Absorbidas}\\$\tilde{\mathbf{q}}_{t,i} = (W^{UK}_i)^T \mathbf{q}_{t,i}^C \in \mathbb{R}^{512}$\\$\mathbf{q}_{t,i}^R = \mathrm{RoPE}(W^{QR}_i \mathbf{c}_t^Q) \in \mathbb{R}^{64}$};
+    \draw [->, thick, draw=unmsm_gray] (cq) -- (q_abs);
     
-    \node [rectangle, draw=unmsm_darkred, fill=white, rounded corners=2pt, text width=6.2cm, text centered, above of=rope, node distance=2.8cm, xshift=-0.5cm] (attn) {\textbf{Cálculo de Atención Directo sin Descompresión}\\$\mathrm{Score}_{t,s,i} = \frac{\tilde{\mathbf{q}}_{t,i}^T \mathbf{c}_s^{KV} + (\mathbf{q}_{t,i}^R)^T \mathbf{k}_s^R}{\sqrt{d_{head} + d_R}}$\\[0.1cm]\textcolor{unmsm_red}{\textbf{Ahorro de Caché KV: 576 escalares/token vs 32.768}}};
+    % Bloque central de atención (elevado y espaciado)
+    \node [rectangle, draw=unmsm_darkred, fill=white, rounded corners=2pt, text width=7.2cm, text centered] (attn) at (-0.8, 5.8) {\textbf{Cálculo de Atención Directo sin Descompresión}\\$\mathrm{Score}_{t,s,i} = \frac{\tilde{\mathbf{q}}_{t,i}^T \mathbf{c}_s^{KV} + (\mathbf{q}_{t,i}^R)^T \mathbf{k}_s^R}{\sqrt{d_{head} + d_R}}$\\[0.1cm]\textcolor{unmsm_red}{\textbf{Ahorro de Caché KV: 576 escalares/token vs 32.768}}};
     
     \draw [->, thick, draw=unmsm_darkred] (ckv) -- (attn);
     \draw [->, thick, draw=unmsm_darkred] (rope) -- (attn);
-    \draw [->, thick, draw=unmsm_gray] (cq) -- (q_abs);
     \draw [->, thick, draw=unmsm_darkred] (q_abs) -- (attn);
     
     % Salida
-    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=4.5cm, text centered, above of=attn, node distance=1.8cm] (out) {\textbf{Proyección de Salida $\mathbf{o}_{t,i}$}\\$\mathbf{o}_{t,i} = W^{UV}_i \left( \sum_s a_{t,s,i} \mathbf{c}_s^{KV} \right)$};
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=4.8cm, text centered] (out) at (-0.8, 7.8) {\textbf{Proyección de Salida $\mathbf{o}_{t,i}$}\\$\mathbf{o}_{t,i} = W^{UV}_i \left( \sum_s a_{t,s,i} \mathbf{c}_s^{KV} \right)$};
     \draw [->, thick, draw=unmsm_red] (attn) -- (out);
 \end{tikzpicture}\\[0.25cm]
 \raggedright

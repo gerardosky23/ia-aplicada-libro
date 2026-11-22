@@ -138,25 +138,25 @@ Entre ambos extremos ha surgido el concepto de \textit{Modelos Fundacionales} (F
 \small\sffamily
 \textbf{Figura 1.1.} Taxonomía Jerárquica e Inclusión de Disciplinas en la Computación Inteligente\\[0.2cm]
 \begin{tikzpicture}[font=\footnotesize\sffamily]
-    % Outer Box: IA
-    \draw[rounded corners=6pt, fill=bg_marfil, draw=unmsm_red, line width=1.2pt] (-6.8,-3.8) rectangle (6.8,3.8);
-    \node[anchor=north west, text=unmsm_red, font=\normalsize\sffamily\bfseries] at (-6.5,3.6) {INTELIGENCIA ARTIFICIAL (IA)};
-    \node[anchor=north west, text=unmsm_gray, text width=5.5cm] at (-6.5,3.1) {Sistemas de cómputo que emulan facultades de percepción, razonamiento, planificación y optimización racional.};
+    % Outer Box: IA (Alto total 9.0cm, de y=-4.6 a y=4.4)
+    \draw[rounded corners=6pt, fill=bg_marfil, draw=unmsm_red, line width=1.2pt] (-6.8,-4.6) rectangle (6.8,4.4);
+    \node[anchor=north west, text=unmsm_red, font=\normalsize\sffamily\bfseries] at (-6.4,4.0) {INTELIGENCIA ARTIFICIAL (IA)};
+    \node[anchor=north west, text=unmsm_gray, text width=12.8cm] at (-6.4,3.4) {Sistemas de cómputo que emulan facultades de percepción, razonamiento, planificación y optimización racional.};
 
-    % Middle Outer Box: ML
-    \draw[rounded corners=5pt, fill=bg_arena!60, draw=unmsm_darkred, line width=1.0pt] (-6.3,-3.3) rectangle (6.3,1.8);
-    \node[anchor=north west, text=unmsm_darkred, font=\small\sffamily\bfseries] at (-6.0,1.6) {APRENDIZAJE AUTOMÁTICO (MACHINE LEARNING, ML)};
-    \node[anchor=north west, text=unmsm_gray, text width=5.5cm] at (-6.0,1.1) {Algoritmos que aprenden representaciones y parámetros predictivos a partir de datos empíricos.};
+    % Middle Outer Box: ML (Alto total 6.6cm, de y=-4.2 a y=2.4)
+    \draw[rounded corners=5pt, fill=bg_arena!60, draw=unmsm_darkred, line width=1.0pt] (-6.3,-4.2) rectangle (6.3,2.4);
+    \node[anchor=north west, text=unmsm_darkred, font=\small\sffamily\bfseries] at (-5.9,2.0) {APRENDIZAJE AUTOMÁTICO (MACHINE LEARNING, ML)};
+    \node[anchor=north west, text=unmsm_gray, text width=11.8cm] at (-5.9,1.5) {Algoritmos que aprenden representaciones latentes y parámetros predictivos a partir de datos empíricos.};
 
-    % Middle Inner Box: DL
-    \draw[rounded corners=4pt, fill=white, draw=unmsm_red, line width=0.9pt] (-5.8,-3.1) rectangle (5.8,0.2);
-    \node[anchor=north west, text=unmsm_red, font=\footnotesize\sffamily\bfseries] at (-5.5,0.0) {APRENDIZAJE PROFUNDO (DEEP LEARNING, DL)};
-    \node[anchor=north west, text=unmsm_gray, text width=10.5cm] at (-5.5,-0.4) {Redes neuronales artificiales jerárquicas con múltiples capas de transformaciones no lineales.};
+    % Middle Inner Box: DL (Alto total 4.3cm, de y=-3.8 a y=0.5)
+    \draw[rounded corners=4pt, fill=white, draw=unmsm_red, line width=0.9pt] (-5.8,-3.8) rectangle (5.8,0.5);
+    \node[anchor=north west, text=unmsm_red, font=\footnotesize\sffamily\bfseries] at (-5.4,0.1) {APRENDIZAJE PROFUNDO (DEEP LEARNING, DL)};
+    \node[anchor=north west, text=unmsm_gray, text width=10.8cm] at (-5.4,-0.3) {Redes neuronales artificiales jerárquicas con múltiples capas de transformaciones no lineales.};
 
-    % Innermost Box: GenAI
-    \draw[rounded corners=3pt, fill=unmsm_red!10, draw=unmsm_darkred, line width=0.8pt] (-5.3,-2.8) rectangle (5.3,-1.2);
-    \node[anchor=center, text=unmsm_darkred, font=\footnotesize\sffamily\bfseries] at (0,-1.5) {INTELIGENCIA ARTIFICIAL GENERATIVA (GenAI)};
-    \node[anchor=center, text=unmsm_gray, text width=9.8cm, text centered] at (0,-2.1) {Modelos probabilísticos entrenados para aproximar $p(\mathbf{x})$ y sintetizar contenido inédito: texto, código, audio, imágenes y simulaciones científicas complejas.};
+    % Innermost Box: GenAI (Alto total 2.0cm, de y=-3.4 a y=-1.4)
+    \draw[rounded corners=3pt, fill=unmsm_red!10, draw=unmsm_darkred, line width=0.8pt] (-5.3,-3.4) rectangle (5.3,-1.4);
+    \node[anchor=center, text=unmsm_darkred, font=\footnotesize\sffamily\bfseries] at (0,-1.8) {INTELIGENCIA ARTIFICIAL GENERATIVA (GenAI)};
+    \node[anchor=center, text=unmsm_gray, text width=9.8cm, text centered] at (0,-2.5) {Modelos probabilísticos entrenados para aproximar $p(\mathbf{x})$ y sintetizar contenido inédito: texto, código, audio, imágenes y simulaciones científicas complejas.};
 \end{tikzpicture}
 \end{tcolorbox}
 \vspace{0.15cm}
@@ -244,10 +244,10 @@ Sin embargo, el optimismo se quebró abruptamente en 1969 con la publicación de
 
     % (1,0) -> 1 (Square)
     \filldraw[fill=unmsm_red, draw=unmsm_darkred, line width=1.2pt] (1.84,-0.16) rectangle (2.16,0.16);
-    \node[below right=2pt, text=unmsm_darkred] at (2,0) {$(1,0) \to 1$};
+    \node[above right=4pt, text=unmsm_darkred] at (2,0.1) {$(1,0) \to 1$};
 
     % Impossible hyperplane attempt
-    \draw[dashed, line width=1.0pt, draw=unmsm_gray] (-0.3,2.5) -- (2.5,-0.3) node[below, text width=3.0cm, text centered] {\scriptsize Separador lineal fallido $w_1 x_1 + w_2 x_2 = b$};
+    \draw[dashed, line width=1.0pt, draw=unmsm_gray] (-0.3,2.5) -- (2.5,-0.3) node[below right=2pt, text width=3.0cm, text centered] {\scriptsize Separador lineal fallido $w_1 x_1 + w_2 x_2 = b$};
     \draw[dotted, line width=1.0pt, draw=unmsm_darkred] (0.8,3.0) -- (3.0,0.8);
 
     % Caption in box
@@ -312,9 +312,9 @@ Mientras tanto, en el submundo conexionista se gestaba el descubrimiento que cam
 
 A pesar del avance teórico de la retropropagación, las redes neuronales continuaban siendo difíciles de entrenar a gran escala durante los años noventa debido a la escasez de datos digitalizados, la lentitud del hardware computacional y el problema patológico del desvanecimiento del gradiente (\textit{vanishing gradient problem}).
 
-El punto de inflexión definitivo aconteció en el año 2012 durante la competencia internacional ImageNet Large Scale Visual Recognition Challenge (ILSVRC). Alex Krizhevsky, Ilya Sutskever y Geoffrey Hinton (2012) presentaron **AlexNet**, una red neuronal convolucional profunda de 8 capas entrenada sobre dos GPUs comerciales Nvidia GTX 580. AlexNet aplastó a los métodos tradicionales de visión por computadora basados en características artesanales (como SIFT y HOG), reduciendo la tasa de error del 26.2\% al 15.3\%.
+El punto de inflexión definitivo aconteció en el año 2012 durante la competencia internacional ImageNet Large Scale Visual Recognition Challenge (ILSVRC). Alex Krizhevsky, Ilya Sutskever y Geoffrey Hinton (2012) presentaron \textbf{AlexNet}, una red neuronal convolucional profunda de 8 capas entrenada sobre dos GPUs comerciales Nvidia GTX 580. AlexNet aplastó a los métodos tradicionales de visión por computadora basados en características artesanales (como SIFT y HOG), reduciendo la tasa de error del 26.2\% al 15.3\%.
 
-Este hito histórico consolidó la denominada **Tríada del Aprendizaje Profundo**, analizada en la Tabla 1.4:
+Este hito histórico consolidó la denominada \textbf{Tríada del Aprendizaje Profundo}, analizada en la Tabla 1.4:
 
 \begin{table}[htpb!]
 \centering
@@ -336,7 +336,7 @@ Este hito histórico consolidó la denominada **Tríada del Aprendizaje Profundo
 \raggedright\scriptsize \textbf{Fuente:} Síntesis formal basada en LeCun, Bengio y Hinton (2015).
 \end{table}
 
-En 2015, Yann LeCun, Yoshua Bengio y Geoffrey Hinton publicaron en \textit{Nature} la revisión canónica que formalizó el aprendizaje profundo como un paradigma maduro. Ese mismo año, Kaiming He et al. (2016) introdujeron las Redes Residuales (**ResNet**), incorporando conexiones de salto (\textit{skip connections}) que permitieron entrenar con éxito redes neuronales de más de 150 capas sin degradación del gradiente, superando por primera vez el desempeño humano en la clasificación visual de ImageNet.
+En 2015, Yann LeCun, Yoshua Bengio y Geoffrey Hinton publicaron en \textit{Nature} la revisión canónica que formalizó el aprendizaje profundo como un paradigma maduro. Ese mismo año, Kaiming He et al. (2016) introdujeron las Redes Residuales (\textbf{ResNet}), incorporando conexiones de salto (\textit{skip connections}) que permitieron entrenar con éxito redes neuronales de más de 150 capas sin degradación del gradiente, superando por primera vez el desempeño humano en la clasificación visual de ImageNet.
 
 \subsubsection{Etapa 5: La Era de la IA Generativa y los Modelos Fundacionales (2017--Presente)}
 
@@ -390,23 +390,23 @@ El aprendizaje automático invierte el flujo clásico de la computación tradici
 \small\sffamily
 \textbf{Figura 1.4.} Contraste de Paradigmas: Programación Tradicional vs. Aprendizaje Automático\\[0.2cm]
 \resizebox{0.95\linewidth}{!}{%
-\begin{tikzpicture}[node distance=1.1cm, auto, >=stealth, font=\scriptsize\sffamily]
+\begin{tikzpicture}[>=stealth, font=\scriptsize\sffamily]
     % Traditional Programming
-    \node[anchor=west, font=\small\sffamily\bfseries, text=unmsm_red] at (-6, 1.6) {A. Programación Tradicional (Simbólica)} ;
-    \node[rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.2cm, text centered] (d1) at (-5.5, 0.7) {Datos $\mathbf{x}$};
-    \node[rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.2cm, text centered] (r1) at (-5.5, -0.7) {Reglas Manuales};
-    \node[rectangle, draw=unmsm_darkred, fill=bg_arena, rounded corners=2pt, text width=2.6cm, text centered, right=1.2cm of r1, yshift=0.7cm] (c1) {\textbf{Computador}\\Ejecución Determinista};
-    \node[rectangle, draw=unmsm_red, fill=white, rounded corners=2pt, text width=2.2cm, text centered, right=1.2cm of c1] (s1) {Respuestas $y$};
+    \node[anchor=west, font=\small\sffamily\bfseries, text=unmsm_red] at (-7.0, 1.8) {A. Programación Tradicional (Simbólica)};
+    \node[rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.1cm, text centered] (d1) at (-6.0, 0.8) {Datos $\mathbf{x}$};
+    \node[rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.1cm, text centered] (r1) at (-6.0, -0.8) {Reglas Manuales};
+    \node[rectangle, draw=unmsm_darkred, fill=bg_arena, rounded corners=2pt, text width=2.5cm, text centered] (c1) at (-3.4, 0.0) {\textbf{Computador}\\Ejecución Determinista};
+    \node[rectangle, draw=unmsm_red, fill=white, rounded corners=2pt, text width=2.1cm, text centered] (s1) at (-0.9, 0.0) {Respuestas $y$};
     \draw[->, thick, draw=unmsm_red] (d1) -| (c1);
     \draw[->, thick, draw=unmsm_red] (r1) -| (c1);
     \draw[->, thick, draw=unmsm_red] (c1) -- (s1);
 
     % Machine Learning
-    \node[anchor=west, font=\small\sffamily\bfseries, text=unmsm_darkred] at (0.5, 1.6) {B. Aprendizaje Automático (Estadístico)};
-    \node[rectangle, draw=unmsm_darkred, fill=bg_marfil, rounded corners=2pt, text width=2.2cm, text centered] (d2) at (1.0, 0.7) {Datos $\mathbf{x}$};
-    \node[rectangle, draw=unmsm_darkred, fill=bg_marfil, rounded corners=2pt, text width=2.2cm, text centered] (r2) at (1.0, -0.7) {Respuestas $y$};
-    \node[rectangle, draw=unmsm_darkred, fill=bg_arena, rounded corners=2pt, text width=2.6cm, text centered, right=1.2cm of r2, yshift=0.7cm] (c2) {\textbf{Algoritmo}\\Ajuste de Pesos $\theta$};
-    \node[rectangle, draw=unmsm_darkred, fill=white, rounded corners=2pt, text width=2.2cm, text centered, right=1.2cm of c2] (s2) {Reglas / Modelo $f_\theta$};
+    \node[anchor=west, font=\small\sffamily\bfseries, text=unmsm_darkred] at (0.7, 1.8) {B. Aprendizaje Automático (Estadístico)};
+    \node[rectangle, draw=unmsm_darkred, fill=bg_marfil, rounded corners=2pt, text width=2.1cm, text centered] (d2) at (1.7, 0.8) {Datos $\mathbf{x}$};
+    \node[rectangle, draw=unmsm_darkred, fill=bg_marfil, rounded corners=2pt, text width=2.1cm, text centered] (r2) at (1.7, -0.8) {Respuestas $y$};
+    \node[rectangle, draw=unmsm_darkred, fill=bg_arena, rounded corners=2pt, text width=2.5cm, text centered] (c2) at (4.3, 0.0) {\textbf{Algoritmo}\\Ajuste de Pesos $\theta$};
+    \node[rectangle, draw=unmsm_darkred, fill=white, rounded corners=2pt, text width=2.1cm, text centered] (s2) at (6.8, 0.0) {Reglas / Modelo $f_\theta$};
     \draw[->, thick, draw=unmsm_darkred] (d2) -| (c2);
     \draw[->, thick, draw=unmsm_darkred] (r2) -| (c2);
     \draw[->, thick, draw=unmsm_darkred] (c2) -- (s2);
@@ -567,12 +567,12 @@ Las dos funciones de pérdida más utilizadas en la práctica son:
     \end{equation}
 \end{enumerate}
 
-Para minimizar la pérdida se utiliza el algoritmo de **Descenso del Gradiente**. El gradiente $\nabla_\theta J(\theta)$ representa el vector de derivadas parciales que apunta en la dirección de máximo crecimiento de la función de costo; en consecuencia, los parámetros se actualizan iterativamente en la dirección contraria, escalada por una tasa de aprendizaje $\eta > 0$:
+Para minimizar la pérdida se utiliza el algoritmo de \textbf{Descenso del Gradiente}. El gradiente $\nabla_\theta J(\theta)$ representa el vector de derivadas parciales que apunta en la dirección de máximo crecimiento de la función de costo; en consecuencia, los parámetros se actualizan iterativamente en la dirección contraria, escalada por una tasa de aprendizaje $\eta > 0$:
 \begin{equation}
 \theta^{(t+1)} \leftarrow \theta^{(t)} - \eta \nabla_\theta J(\theta^{(t)})
 \end{equation}
 
-El cálculo exacto de las derivadas parciales $\frac{\partial J}{\partial w_{ij}^{(l)}}$ en redes multicapa se ejecuta mediante la **regla de la cadena del cálculo multivariable**, núcleo del algoritmo de retropropagación:
+El cálculo exacto de las derivadas parciales $\frac{\partial J}{\partial w_{ij}^{(l)}}$ en redes multicapa se ejecuta mediante la \textbf{regla de la cadena del cálculo multivariable}, núcleo del algoritmo de retropropagación:
 \begin{equation}
 \frac{\partial L}{\partial w_{ij}^{(l)}} = \frac{\partial L}{\partial z_i^{(l)}} \frac{\partial z_i^{(l)}}{\partial w_{ij}^{(l)}} = \delta_i^{(l)} a_j^{(l-1)}
 \end{equation}
@@ -733,7 +733,7 @@ El entrenamiento se ejecuta optimizando la máxima verosimilitud (o minimizando 
 \mathcal{L}_{\text{LM}}(\theta) = -\sum_{i=1}^T \log p_\theta(t_i | t_{<i})
 \end{equation}
 
-La columna vertebral de este proceso es el mecanismo de **Autoatención Escalada** (\textit{Scaled Dot-Product Attention}), introducido por Vaswani et al. (2017). Cada elemento de entrada se proyecta linealmente en tres matrices semánticas mediante pesos entrenables: Consultas ($Q = X W_Q$), Claves ($K = X W_K$) y Valores ($V = X W_V$), donde $Q, K \in \mathbb{R}^{T \times d_k}$ y $V \in \mathbb{R}^{T \times d_v}$.
+La columna vertebral de este proceso es el mecanismo de \textbf{Autoatención Escalada} (\textit{Scaled Dot-Product Attention}), introducido por Vaswani et al. (2017). Cada elemento de entrada se proyecta linealmente en tres matrices semánticas mediante pesos entrenables: Consultas ($Q = X W_Q$), Claves ($K = X W_K$) y Valores ($V = X W_V$), donde $Q, K \in \mathbb{R}^{T \times d_k}$ y $V \in \mathbb{R}^{T \times d_v}$.
 
 La formulación analítica de la autoatención es:
 \begin{equation}
@@ -786,7 +786,7 @@ El factor de escalado $1/\sqrt{d_k}$ cumple una función matemática fundamental
 \raggedright\scriptsize \textbf{Fuente:} Adaptado de Vaswani et al. (2017).
 \end{figure}
 
-Para permitir que el modelo atienda simultáneamente a información procedente de distintos subespacios de representación en distintas posiciones, Vaswani et al. (2017) extendieron la formulación a la **Atención Multicabeza** (\textit{Multi-Head Attention}, MHA):
+Para permitir que el modelo atienda simultáneamente a información procedente de distintos subespacios de representación en distintas posiciones, Vaswani et al. (2017) extendieron la formulación a la \textbf{Atención Multicabeza} (\textit{Multi-Head Attention}, MHA):
 \begin{equation}
 \text{MultiHead}(Q, K, V) = \text{Concat}(\text{head}_1, \dots, \text{head}_h) W^O
 \end{equation}
@@ -809,7 +809,7 @@ Goodfellow et al. (2014) demostraron que, para un generador fijo $G$, el discrim
 \begin{equation}
 D^*_G(\mathbf{x}) = \frac{p_{\text{data}}(\mathbf{x})}{p_{\text{data}}(\mathbf{x}) + p_g(\mathbf{x})}
 \end{equation}
-Al sustituir este discriminador óptimo en la función de valor, el objetivo del juego se reduce a minimizar la **Divergencia Jensen-Shannon** ($D_{\text{JS}}$) entre la distribución de datos reales y la generada:
+Al sustituir este discriminador óptimo en la función de valor, el objetivo del juego se reduce a minimizar la \textbf{Divergencia Jensen-Shannon} ($D_{\text{JS}}$) entre la distribución de datos reales y la generada:
 \begin{equation}
 V(D^*_G, G) = -\log(4) + 2 \cdot D_{\text{JS}}(p_{\text{data}} \parallel p_g)
 \end{equation}
@@ -849,7 +849,7 @@ Los modelos de difusión (Sohl-Dickstein et al., 2015; Ho et al., 2020) modelan 
 \textbf{Figura 1.8.} Comparación Arquitectónica de las Tres Familias Canónicas de la IA Generativa\\[0.2cm]
 \begin{tikzpicture}[node distance=1.1cm, auto, >=stealth, font=\scriptsize\sffamily]
     % Panel A: Transformers
-    \node[anchor=west, font=\footnotesize\sffamily\bfseries, text=unmsm_red] at (-6, 2.5) {A. Transformers Autoregresivos};
+    \node[anchor=center, font=\footnotesize\sffamily\bfseries, text=unmsm_red] at (-5.0, 2.5) {A. Transformers Autoregresivos};
     \node[rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.6cm, text centered] (t_in) at (-5.0, 1.4) {Secuencia de Tokens\\$\mathbf{x} = (t_1, \dots, t_k)$};
     \node[rectangle, draw=unmsm_red, fill=bg_arena, rounded corners=2pt, text width=2.6cm, text centered] (t_att) at (-5.0, 0.0) {Autoatención\\Escalada $QK^T/\sqrt{d_k}$};
     \node[rectangle, draw=unmsm_red, fill=white, rounded corners=2pt, text width=2.6cm, text centered] (t_out) at (-5.0, -1.4) {Distribución Siguiente\\Token $p(t_{k+1}|t_{\le k})$};
@@ -857,7 +857,7 @@ Los modelos de difusión (Sohl-Dickstein et al., 2015; Ho et al., 2020) modelan 
     \draw[->, thick, draw=unmsm_red] (t_att) -- (t_out);
 
     % Panel B: GANs
-    \node[anchor=west, font=\footnotesize\sffamily\bfseries, text=unmsm_darkred] at (-1.5, 2.5) {B. Redes Antagónicas (GANs)};
+    \node[anchor=center, font=\footnotesize\sffamily\bfseries, text=unmsm_darkred] at (-0.2, 2.5) {B. Redes Antagónicas (GANs)};
     \node[rectangle, draw=unmsm_darkred, fill=bg_marfil, rounded corners=2pt, text width=2.6cm, text centered] (g_z) at (-0.2, 1.4) {Ruido Latente\\$\mathbf{z} \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$};
     \node[rectangle, draw=unmsm_darkred, fill=bg_arena, rounded corners=2pt, text width=2.6cm, text centered] (g_gen) at (-0.2, 0.0) {Generador $G(\mathbf{z})$ vs.\\Discriminador $D(\mathbf{x})$};
     \node[rectangle, draw=unmsm_darkred, fill=white, rounded corners=2pt, text width=2.6cm, text centered] (g_out) at (-0.2, -1.4) {Muestra Sintética\\Equilibrio Minimax};
@@ -865,7 +865,7 @@ Los modelos de difusión (Sohl-Dickstein et al., 2015; Ho et al., 2020) modelan 
     \draw[->, thick, draw=unmsm_darkred] (g_gen) -- (g_out);
 
     % Panel C: Difusión
-    \node[anchor=west, font=\footnotesize\sffamily\bfseries, text=unmsm_red] at (3.0, 2.5) {C. Modelos de Difusión};
+    \node[anchor=center, font=\footnotesize\sffamily\bfseries, text=unmsm_red] at (4.4, 2.5) {C. Modelos de Difusión};
     \node[rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.6cm, text centered] (d_x0) at (4.4, 1.4) {Datos $\mathbf{x}_0 \to$ Ruido $\mathbf{x}_T$\\(Proceso Directo $q$)};
     \node[rectangle, draw=unmsm_red, fill=bg_arena, rounded corners=2pt, text width=2.6cm, text centered] (d_net) at (4.4, 0.0) {U-Net Predicctora\\de Ruido $\boldsymbol{\epsilon}_\theta(\mathbf{x}_t, t)$};
     \node[rectangle, draw=unmsm_red, fill=white, rounded corners=2pt, text width=2.6cm, text centered] (d_out) at (4.4, -1.4) {Denoising Inverso\\$p_\theta(\mathbf{x}_{t-1}|\mathbf{x}_t)$};
@@ -903,7 +903,7 @@ Para complementar la evaluación de estas tecnologías, la Tabla 1.12 ofrece una
 
 \subsubsection{Alineación de Modelos con Preferencias Humanas: RLHF y DPO}
 
-El preentrenamiento sobre textos de la web optimiza la verosimilitud estadística, lo que induce al modelo a imitar la prosa humana pero no garantiza que sus respuestas sean veraces, útiles o seguras. Para cerrar la brecha entre la predicción estocástica y las expectativas de los usuarios, Ouyang et al. (2022) diseñaron el protocolo de **Aprendizaje por Refuerzo con Retroalimentación Humana** (RLHF), articulado en tres fases sucesivas:
+El preentrenamiento sobre textos de la web optimiza la verosimilitud estadística, lo que induce al modelo a imitar la prosa humana pero no garantiza que sus respuestas sean veraces, útiles o seguras. Para cerrar la brecha entre la predicción estocástica y las expectativas de los usuarios, Ouyang et al. (2022) diseñaron el protocolo de \textbf{Aprendizaje por Refuerzo con Retroalimentación Humana} (RLHF), articulado en tres fases sucesivas:
 
 \begin{enumerate}
     \item \textbf{Ajuste Fino Supervisado (SFT):} Se entrena el modelo base preentrenado sobre un conjunto depurado de pares instrucción-respuesta redactados por expertos humanos, aprendiendo la dinámica conversacional.
@@ -952,7 +952,7 @@ El preentrenamiento sobre textos de la web optimiza la verosimilitud estadístic
 \raggedright\scriptsize \textbf{Fuente:} Adaptado de Ouyang et al. (2022).
 \end{figure}
 
-Más recientemente, Rafailov et al. (2023) introdujeron la **Optimización Directa de Preferencias** (Direct Preference Optimization, DPO). Demostraron analíticamente que la función de política óptima puede reparametrizarse para derivar directamente el gradiente de preferencias a partir de los datos pareados sin requerir el entrenamiento explícito e inestable de un modelo de recompensa independiente ni bucles de aprendizaje por refuerzo en línea:
+Más recientemente, Rafailov et al. (2023) introdujeron la \textbf{Optimización Directa de Preferencias} (Direct Preference Optimization, DPO). Demostraron analíticamente que la función de política óptima puede reparametrizarse para derivar directamente el gradiente de preferencias a partir de los datos pareados sin requerir el entrenamiento explícito e inestable de un modelo de recompensa independiente ni bucles de aprendizaje por refuerzo en línea:
 \begin{equation}
 \mathcal{L}_{\text{DPO}}(\theta; \pi_{\text{ref}}) = -\mathbb{E}_{(x, y_w, y_l)}\left[\log \sigma\left( r_\theta(x, y_w) - r_\theta(x, y_l) \right)\right]
 \end{equation}
@@ -988,7 +988,7 @@ En consecuencia, los modelos generativos exhiben una marcada asimetría epistém
 
 El entrenamiento y la inferencia de modelos con cientos de miles de millones de parámetros imponen una huella ambiental sustancial. De acuerdo con estudios de sostenibilidad computacional citados por Bommasani et al. (2021), entrenar un modelo fundacional denso de gran escala demanda millones de kilovatios-hora de energía eléctrica, generando emisiones equivalentes a cientos de toneladas métricas de dióxido de carbono ($\text{CO}_2$).
 
-Asimismo, la inferencia masiva y recurrente genera un consumo hídrico y eléctrico continuo en los centros de datos encargados de refrigerar los clusters de aceleradores de cómputo. Esta realidad ha motivado una vigorosa línea de investigación en **Modelos de Lenguaje Compactos** (Small Language Models, SLMs), destilación de conocimiento (\textit{knowledge distillation}), cuantización de pesos (de coma flotante FP16 a enteros INT8 o INT4) y arquitecturas eficientes como redes de mezclas de expertos dispersos (Mixture of Experts, MoE), las cuales activan selectivamente solo una fracción de sus parámetros para cada token procesado.
+Asimismo, la inferencia masiva y recurrente genera un consumo hídrico y eléctrico continuo en los centros de datos encargados de refrigerar los clusters de aceleradores de cómputo. Esta realidad ha motivado una vigorosa línea de investigación en \textbf{Modelos de Lenguaje Compactos} (Small Language Models, SLMs), destilación de conocimiento (\textit{knowledge distillation}), cuantización de pesos (de coma flotante FP16 a enteros INT8 o INT4) y arquitecturas eficientes como redes de mezclas de expertos dispersos (Mixture of Experts, MoE), las cuales activan selectivamente solo una fracción de sus parámetros para cada token procesado.
 
 \begin{table}[htpb!]
 \centering
@@ -1014,7 +1014,7 @@ Asimismo, la inferencia masiva y recurrente genera un consumo hídrico y eléctr
 
 \subsubsection{Gobernanza Universitaria y la Pedagogía de la Descajanegrización}
 
-Frente a la adopción impulsiva o las posturas de prohibición acrítica, las instituciones académicas de prestigio exigen una postura pedagógica informada. Como sostienen Artopoulos y Lliteras (2024) y García-Peñalvo (2024), la alfabetización en inteligencia artificial no consiste en aprender trucos cosméticos de interacción, sino en desarrollar competencias de **descajanegrización** (\textit{unblackboxing}): comprender la arquitectura interna, los supuestos epistemológicos y los márgenes de error de los modelos para cuestionar sus salidas de forma reflexiva y fundamentada.
+Frente a la adopción impulsiva o las posturas de prohibición acrítica, las instituciones académicas de prestigio exigen una postura pedagógica informada. Como sostienen Artopoulos y Lliteras (2024) y García-Peñalvo (2024), la alfabetización en inteligencia artificial no consiste en aprender trucos cosméticos de interacción, sino en desarrollar competencias de \textbf{descajanegrización} (\textit{unblackboxing}): comprender la arquitectura interna, los supuestos epistemológicos y los márgenes de error de los modelos para cuestionar sus salidas de forma reflexiva y fundamentada.
 
 La Tabla 1.14 formaliza la matriz institucional de señales de alerta epistémica que todo investigador o estudiante universitario debe activar al interactuar con asistentes generativos.
 
@@ -1061,7 +1061,7 @@ El modelo generó en cuestión de segundos un texto con una elocuencia gramatica
 \end{enumerate}
 
 \subsubsection*{Análisis e Implementación:}
-Para mitigar este riesgo epistémico y operacionalizar una política de interacción responsable, se implementó el **Protocolo de Verificación Humana en el Bucle** (\textit{Human-in-the-Loop Verification Protocol}), compuesto por cuatro etapas metodológicas consecutivas:
+Para mitigar este riesgo epistémico y operacionalizar una política de interacción responsable, se implementó el \textbf{Protocolo de Verificación Humana en el Bucle} (\textit{Human-in-the-Loop Verification Protocol}), compuesto por cuatro etapas metodológicas consecutivas:
 
 \clearpage
 \begin{figure}[tbp]
@@ -1193,7 +1193,7 @@ A = \begin{bmatrix}
 \end{equation}
 
 El análisis analítico de esta estructura permite extraer tres conclusiones fundamentales:
-\begin{enumerate}
+\begin{enumerate}[itemsep=0.45em]
     \item \textbf{Conservación de la Medida de Probabilidad:} Cada fila de la matriz de atención suma la unidad, asegurando que el vector de salida $\mathbf{o}_i$ constituya una combinación convexa válida de los vectores de valores $\mathbf{v}_j$ ponderados por $A_{ij}$.
     \item \textbf{Efecto del Escalado Dimensional:} Si se elimina el término $\sqrt{d_k} = \sqrt{4} = 2.0$, la dispersión de las puntuaciones se duplica; en dimensiones industriales típicas ($d_k = 128$), la varianza sin escalado alcanzaría $128$, forzando a la función Softmax a concentrar prácticamente el 100\% del peso en un solo token, imposibilitando que el modelo aprenda a correlacionar múltiples fuentes de contexto simultáneamente.
     \item \textbf{Rol de la Temperatura de Muestreo ($\tau$):} Para valores de temperatura reducidos ($\tau \to 0$), la distribución colapsa hacia la función argmax determinista (\textit{greedy decoding}); para valores elevados ($\tau > 1.5$), la distribución converge hacia la distribución uniforme discreta, incrementando la entropía y la variabilidad de las muestras pero aumentando exponencialmente el riesgo de alucinaciones incoherentes.

@@ -268,7 +268,7 @@ SummarizeBot (SummarizeBot, 2024) utiliza algoritmos de procesamiento de lenguaj
 \raggedright
 \scriptsize \textbf{Fuente:} Elaboración propia basada en la arquitectura RAG de Lewis et al. (2020) y los principios de contexto cerrado de NotebookLM (Google, 2024).
 \end{tcolorbox}
-\vspace{-0.3cm}
+\vspace{0.15cm}
 \end{figure}
 
 \subsubsection{Marco de Prompting Estructurado en Tres Niveles para Síntesis Crítica}
@@ -414,14 +414,13 @@ Para neutralizar este riesgo, todo flujo de trabajo basado en agentes inteligent
     \draw [->, thick, draw=unmsm_darkred] (llm) -- node [right, font=\tiny] {$\mathrm{Thought}_t \to \mathrm{Action}_t$} (tools);
     \draw [->, thick, draw=unmsm_red] (tools) -- (apis);
     \draw [->, thick, draw=unmsm_red] (tools) -- (exec);
-    \draw [->, dashed, thick, draw=unmsm_gray] (apis) |- node [near start, left, font=\tiny] {$\mathrm{Observation}_t$} (llm);
-    \draw [->, dashed, thick, draw=unmsm_gray] (exec) |- (llm);
+    \draw [->, dashed, thick, draw=unmsm_gray] (apis.west) -- ++(-0.6,0) |- node [pos=0.25, left, font=\tiny] {$\mathrm{Observation}_t$} (llm.north west);
+    \draw [->, dashed, thick, draw=unmsm_gray] (exec.east) -- ++(0.6,0) |- (llm.north east);
     \draw [->, very thick, draw=unmsm_darkred] (tools) -- (hitl);
 \end{tikzpicture}\\[0.25cm]
 \raggedright
-\scriptsize \textbf{Fuente:} Adaptación metodológica basada en Yao et al. (2023), Schick et al. (2023) y la taxonomía de agentes autónomos de Wang et al. (2024).
+{\scriptsize \textbf{Fuente:} Adaptación metodológica basada en Yao et al. (2023), Schick et al. (2023) y la taxonomía de agentes autónomos de Wang et al. (2024).\par}
 \end{tcolorbox}
-\vspace{-0.3cm}
 \end{figure}
 
 \subsection{Gestión Algorítmica del Tiempo, Optimización de Cronogramas y Fricciones Operativas}
@@ -464,9 +463,9 @@ Reclaim.ai (Reclaim.ai, 2024) adopta una filosofía centrada en la flexibilidad 
 
 \subsubsection{Metodologías de Concentración Profunda y Pomodoro Adaptativo}
 
-La ejecución eficaz de las tareas programadas requiere neutralizar la fragmentación cognitiva inducida por notificaciones y multitarea digital. En su influyente obra, Newport (2016) conceptualizó el **Trabajo Profundo** (\textit{Deep Work}) como el estado de concentración sin distracciones que impulsa las capacidades cognitivas al límite, condición indispensable para comprender teorías complejas y producir aportes científicos significativos.
+La ejecución eficaz de las tareas programadas requiere neutralizar la fragmentación cognitiva inducida por notificaciones y multitarea digital. En su influyente obra, Newport (2016) conceptualizó el \textbf{Trabajo Profundo} (\textit{Deep Work}) como el estado de concentración sin distracciones que impulsa las capacidades cognitivas al límite, condición indispensable para comprender teorías complejas y producir aportes científicos significativos.
 
-Para operativizar el trabajo profundo, los asistentes inteligentes se articulan con técnicas clásicas como el **Método Pomodoro**, originalmente formulado por Francesco Cirillo. Sin embargo, en lugar de adoptar intervalos rígidos arbitrarios (como 25 minutos de trabajo y 5 minutos de pausa, a menudo insuficientes para alcanzar estados de flujo matemático denso), las plataformas modernas permiten implementar un **Pomodoro Adaptativo**:
+Para operativizar el trabajo profundo, los asistentes inteligentes se articulan con técnicas clásicas como el \textbf{Método Pomodoro}, originalmente formulado por Francesco Cirillo. Sin embargo, en lugar de adoptar intervalos rígidos arbitrarios (como 25 minutos de trabajo y 5 minutos de pausa, a menudo insuficientes para alcanzar estados de flujo matemático denso), las plataformas modernas permiten implementar un \textbf{Pomodoro Adaptativo}:
 
 \begin{itemize}
     \item \textbf{Bloques Ultradianos (50/10 o 90/20):} Alineados con los ciclos biológicos de alerta y fatiga cerebral. Bloques de 50 minutos de trabajo ininterrumpido seguidos de 10 minutos de desconexión sensorial total, o sesiones de 90 minutos para demostraciones analíticas profundas.

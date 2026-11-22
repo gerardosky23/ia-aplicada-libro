@@ -106,7 +106,7 @@ La tensión fundamental entre fidelidad perceptual, cobertura modal, estabilidad
 \bottomrule
 \end{tabularx}%
 }
-\vspace{0.15cm}
+\par\vspace{0.25cm}
 {\scriptsize \textbf{Fuente:} Adaptado de Yang et al. (2023) y Rombach et al. (2022).}
 \end{table}
 
@@ -304,7 +304,7 @@ La Figura 8.1 ilustra la dinámica de Markov y la reversión de entropía que fu
 \end{tikzpicture}%
 }
 \end{tcolorbox}
-\vspace{-0.2cm}
+\vspace{0.25cm}
 {\scriptsize \textbf{Fuente:} Adaptado de Yang et al. (2023) y Ho et al. (2020).}
 \end{figure}
 
@@ -402,17 +402,17 @@ La Figura 8.2 esquematiza la arquitectura global de este sistema bi-etápico.
     \draw [->, thick, draw=unmsm_red] (dec) -- (out);
 
     % U-Net Backbone y Condicionamiento
-    \node [rectangle, draw=unmsm_darkred, fill=bg_marfil, rounded corners=3pt, text width=4.8cm, text centered, below of=lat, node distance=2.2cm] (unet) {\textbf{U-Net Denoising Engine}\\ResNet Blocks + Self-Attention\\$\epsilon_\theta(z_t, t, \tau(y))$};
-    \node [rectangle, draw=unmsm_red, fill=bg_arena, rounded corners=2pt, text width=3.4cm, text centered, left of=unet, node distance=4.6cm] (clip) {\textbf{CLIP Text Encoder}\\$\tau_\theta(y) \in \mathbf{R}^{77 \times 768}$};
+    \node [rectangle, draw=unmsm_darkred, fill=bg_marfil, rounded corners=3pt, text width=4.4cm, text centered, below of=lat, node distance=2.2cm] (unet) {\textbf{U-Net Denoising Engine}\\ResNet + Self-Attention\\$\epsilon_\theta(z_t, t, \tau(y))$};
+    \node [rectangle, draw=unmsm_red, fill=bg_arena, rounded corners=2pt, text width=3.4cm, text centered, left of=unet, node distance=5.0cm] (clip) {\textbf{CLIP Text Encoder}\\$\tau_\theta(y) \in \mathbf{R}^{77 \times 768}$};
     \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.4cm, text centered, left of=clip, node distance=3.6cm] (txt) {\textbf{Prompt $y$}\\"Un laboratorio..."};
 
     \draw [->, thick, draw=unmsm_red] (txt) -- (clip);
-    \draw [->, thick, draw=unmsm_red] (clip) -- node [above] {\scriptsize Cross-Attn} (unet);
+    \draw [->, thick, draw=unmsm_red] (clip.east) -- node [above=2pt, font=\tiny\sffamily] {Cross-Attn} (unet.west);
     \draw [<->, thick, draw=unmsm_darkred] (lat) -- node [right] {\scriptsize Denoising} (unet);
 \end{tikzpicture}%
 }
 \end{tcolorbox}
-\vspace{-0.2cm}
+\vspace{0.25cm}
 {\scriptsize \textbf{Fuente:} Adaptado de Rombach et al. (2022) y Radford et al. (2021).}
 \end{figure}
 
@@ -515,7 +515,7 @@ La Figura 8.3 detalla el flujo de información de esta arquitectura.
 \end{tikzpicture}%
 }
 \end{tcolorbox}
-\vspace{-0.2cm}
+\vspace{0.25cm}
 {\scriptsize \textbf{Fuente:} Adaptado de Zhang y Agrawala (2023).}
 \end{figure}
 
@@ -542,7 +542,7 @@ Para complementar la visión algorítmica, la Tabla 8.2 presenta una taxonomía 
 \bottomrule
 \end{tabularx}%
 }
-\vspace{0.15cm}
+\par\vspace{0.25cm}
 {\scriptsize \textbf{Fuente:} Adaptado de Yang et al. (2023) y Lu et al. (2022).}
 \end{table}
 
@@ -627,28 +627,27 @@ La Tabla 8.3 compendia las propiedades y el comportamiento deseable de estas mé
 \centering
 \small\sffamily
 \caption{\textbf{Tabla 8.3.} \textit{Matriz Comparativa de Métricas de Evaluación para Modelos Generativos Visuales}}
-\resizebox{0.93\linewidth}{!}{%
-\begin{tabularx}{\textwidth}{p{2.2cm} p{3.6cm} p{3.2cm} p{2.6cm} p{3.0cm}}
+\vspace{0.15cm}
+\begin{tabularx}{\textwidth}{>{\bfseries}p{1.4cm} >{\raggedright\arraybackslash}p{4.2cm} >{\raggedright\arraybackslash}p{2.8cm} >{\raggedright\arraybackslash}p{2.7cm} >{\raggedright\arraybackslash}X}
 \toprule
 \textbf{Métrica} & \textbf{Formulación / Fundamento} & \textbf{Dimensión Evaluada} & \textbf{Comportamiento Deseable} & \textbf{Sensibilidad Crítica} \\
 \midrule
-\textbf{IS} & $\exp(\mathbf{E}[D_{\mathrm{KL}}(p(y|x) \parallel p(y))])$ con Inception-v3 & Calidad visual de objetos y diversidad marginal global & Valor alto & Insensible al colapso intra-clase y a condiciones textuales \\
+IS & $\exp(\mathbf{E}[D_{\mathrm{KL}}(p(y|x) \parallel p(y))])$ con Inception-v3 & Calidad visual de objetos y diversidad marginal global & Valor alto & Insensible al colapso intra-clase y a condiciones textuales \\
 \midrule
-\textbf{FID} & $\|\mu_r - \mu_g\|^2 + \mathrm{Tr}(\Sigma_r + \Sigma_g - 2(\Sigma_r \Sigma_g)^{1/2})$ & Distancia estadística en espacio de características profundas & Valor bajo (próximo a 0) & Sensible a artefactos globales; no mide correspondencia prompt-imagen \\
+FID & $\|\mu_r - \mu_g\|^2 + \mathrm{Tr}(\Sigma_r + \Sigma_g - 2(\Sigma_r \Sigma_g)^{1/2})$ & Distancia estadística en espacio de características profundas & Valor bajo (próximo a 0) & Sensible a artefactos globales; no mide correspondencia prompt-imagen \\
 \midrule
-\textbf{BCIS} & $\exp(\sum_c p(c) D_{\mathrm{KL}}(p(y|c) \parallel p(y)))$ & Separabilidad y discriminación entre clases condicionales & Valor alto & Mide diversidad entre condiciones distintas \\
+BCIS & $\exp(\sum_c p(c) D_{\mathrm{KL}}(p(y|c) \parallel p(y)))$ & Separabilidad y discriminación entre clases condicionales & Valor alto & Mide diversidad entre condiciones distintas \\
 \midrule
-\textbf{WCIS} & $\exp(\sum_c p(c) \mathbf{E}_{x|c}[D_{\mathrm{KL}}(p(y|x,c) \parallel p(y|c))])$ & Coherencia y consistencia interna dentro de cada clase & Valor próximo a 1 & Detecta ambigüedad en predicciones intra-condición \\
+WCIS & $\exp(\sum_c p(c) \mathbf{E}_{x|c}[D_{\mathrm{KL}}(p(y|x,c) \parallel p(y|c))])$ & Coherencia y consistencia interna dentro de cada clase & Valor próximo a 1 & Detecta ambigüedad en predicciones intra-condición \\
 \midrule
-\textbf{BCFID} & Distancia Fréchet entre medias y covarianzas promedio inter-clase & Desplazamiento global del centroide condicional & Valor bajo & Evalúa fidelidad macroestructural del generador \\
+BCFID & Distancia Fréchet entre medias y covarianzas promedio inter-clase & Desplazamiento global del centroide condicional & Valor bajo & Evalúa fidelidad macroestructural del generador \\
 \midrule
-\textbf{WCFID} & Suma ponderada de distancias Fréchet dentro de cada condición & Variabilidad y dispersión interna por categoría & Valor bajo & Penaliza sobreajuste y modos degenerados locales \\
+WCFID & Suma ponderada de distancias Fréchet dentro de cada condición & Variabilidad y dispersión interna por categoría & Valor bajo & Penaliza sobreajuste y modos degenerados locales \\
 \midrule
-\textbf{CLIP-Score} & $\cos(\tau_I(x), \tau_T(y))$ entre embeddings imagen-texto & Alineación semántica y correspondencia multimodal & Valor alto (típicamente $>0.28$) & Vulnerable a "hackeo adversarial" de palabras clave sin coherencia física \\
+CLIP-Score & $\cos(\tau_I(x), \tau_T(y))$ entre embeddings imagen-texto & Alineación semántica y correspondencia multimodal & Valor alto (típicamente $>0.28$) & Vulnerable a "hackeo adversarial" de palabras clave sin coherencia física \\
 \bottomrule
-\end{tabularx}%
-}
-\vspace{0.15cm}
+\end{tabularx}
+\vspace{0.25cm}
 {\scriptsize \textbf{Fuente:} Adaptado de Benny et al. (2021) y Hessel et al. (2021).}
 \end{table}
 
@@ -708,7 +707,7 @@ Para ilustrar la escala arquitectónica en la que se manifiestan estos desafíos
 \bottomrule
 \end{tabularx}%
 }
-\vspace{0.15cm}
+\par\vspace{0.25cm}
 {\scriptsize \textbf{Fuente:} Elaboración propia basada en Rombach et al. (2022), Podell et al. (2023) y Esser et al. (2024).}
 \end{table}
 
