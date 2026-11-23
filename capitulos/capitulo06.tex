@@ -1,7 +1,7 @@
 % ==============================================================================
 % METADATOS DE AUDITORÍA EDITORIAL Y RIGOR CIENTÍFICO (PROTOCOLO AGENTS.md)
 % ==============================================================================
-% Capítulo: 06
+% Capítulo: 6
 % Título: Ingeniería de Prompts y Razonamiento Lógico en Modelos Fundacionales: Del Condicionamiento Contextual a las Arquitecturas de Pensamiento Autónomo
 % Grupo de Origen: Grupo 3 (Asignatura de Inteligencia Artificial Aplicada, UNMSM)
 % Archivo Fuente Analizado: Capitulos IA S2/Grupo 3/capitulo 6 , Arte del promting correccion .pdf (25 páginas)
@@ -17,15 +17,15 @@
 %   9. Perez, F., & Ribeiro, I. (2022). Ignore previous instructions: Attack techniques in LLMs.
 %   10. Zou, A., et al. (2023). Universal and transferable adversarial attacks on aligned LLMs.
 % Cláusula NotebookLM: Grounding estricto al 100%. Cero datos o métricas inventadas.
-% Parámetro de Extensión: ~28-30 páginas compiladas en formato oficial (Mínimo requerido: >= 25 páginas).
+% Parámetro de Extensión: Verificado >= 25 páginas compiladas en formato oficial A4 UNMSM.
 % Decisiones del Usuario: Expansión formal de los 3 casos prácticos del Grupo 3 y formalismo matemático de inferencia y búsqueda.
 % Cumplimiento Normativo: APA 7ma Edición + House Style UNMSM (7 secciones canónicas).
 % Estado de Auditoría: CONFORME / REVISADO POR CAPITULO-AUDITOR
-% Fecha de Auditoría: 2026-11-20
+% Fecha de Auditoría: 2026-11-23
 % ==============================================================================
 
 \section[Ingeniería de Prompts y Razonamiento]{Ingeniería de Prompts y Razonamiento Lógico en Modelos Fundacionales: Del Condicionamiento Contextual a las Arquitecturas de Pensamiento Autónomo}
-\markboth{CAPÍTULO 06\quad INGENIERÍA DE PROMPTS Y RAZONAMIENTO}{}
+\markboth{CAPÍTULO 6\quad INGENIERÍA DE PROMPTS Y RAZONAMIENTO}{}
 
 \begin{cajabeige}
 \textbf{Pregunta Central del Capítulo:} \textquestiondown Cómo puede una instrucción formalmente estructurada orientar la inferencia autorregresiva de un modelo fundacional para resolver tareas de razonamiento multietapa y toma de decisiones complejas, garantizando determinismo, verificabilidad y resistencia ante ataques adversarios sin alterar los pesos paramétricos del sistema?\\[0.3cm]
@@ -506,19 +506,15 @@ La evaluación de respuestas generadas por modelos fundacionales en tareas abier
 
 Para resolver este desafío, la literatura científica ha estandarizado el paradigma de \textbf{LLM-as-a-Judge} (Zheng et al., 2023), en el cual un modelo de lenguaje de máxima capacidad evaluadora (como GPT-4 o Claude 3.5 Sonnet) actúa como árbitro imparcial para puntuar la calidad de las respuestas emitidas por modelos bajo prueba, guiado por rúbricas analíticas estructuradas. No obstante, Zheng et al. (2023) identificaron y cuantificaron tres patologías inherentes al juicio de los modelos que deben ser sistemáticamente mitigadas:
 
-\begin{enumerate}
-    \item \textbf{Sesgo de Posición (\textit{Position Bias}):} Cuando se presentan dos respuestas competitivas (A y B) para una comparación por pares, el evaluador tiende sistemáticamente a favorecer la opción ubicada en la primera posición. La mitigación matemática exige ejecutar la evaluación en orden invertido ($A/B$ y $B/A$) y declarar empate si las decisiones divergen.
-    \item \textbf{Sesgo de Verbosidad (\textit{Verbosity Bias}):} Los modelos evaluadores muestran una predisposición desproporcionada a otorgar calificaciones más altas a respuestas excesivamente extensas y retóricas, incluso si contienen menor densidad informativa o divagaciones irrelevantes. Se corrige imponiendo penalizaciones explícitas por longitud innecesaria en la rúbrica del prompt de arbitraje.
-    \item \textbf{Sesgo de Auto-Preferencia (\textit{Self-Enhancement Bias}):} Cuando un modelo evalúa respuestas generadas anónimamente por múltiples sistemas, tiende a calificar con mayor puntuación las salidas originadas por su propia familia arquitectónica, reconociendo sutiles patrones estilísticos de su propio espacio latente.
+\begin{enumerate}[topsep=0.12cm, itemsep=0.12cm, parsep=0pt, leftmargin=1.5em]
+    \item \textbf{Sesgo de Posición (\textit{Position Bias}):} Tendencia a favorecer la primera opción ($A$ sobre $B$) en comparaciones por pares; se mitiga evaluando en orden permutado ($A/B$ y $B/A$) y computando consistencia simétrica.
+    \item \textbf{Sesgo de Verbosidad (\textit{Verbosity Bias}):} Predisposición a sobrecalificar respuestas extensas y retóricas con baja densidad informativa; se corrige con penalizaciones explícitas por longitud en la rúbrica de arbitraje.
+    \item \textbf{Sesgo de Auto-Preferencia (\textit{Self-Enhancement Bias}):} Preferencia sistemática hacia salidas generadas por la propia familia arquitectónica; exige arbitraje cruzado entre modelos de arquitecturas disjuntas.
 \end{enumerate}
 
 \subsubsection{Optimización Automática de Prompts (APO) y Compilación Declarativa}
 
-La formulación manual de prompts es un proceso artesanal, lento y propenso a sesgos subjetivos del investigador. En respuesta, la frontera de la disciplina se orienta hacia la \textbf{Optimización Automática de Prompts} (\textit{Automatic Prompt Optimization}, APO).
-
-El avance conceptual más representativo en esta dirección es el marco \textbf{DSPy} formulado por Khattab et al. (2023). DSPy traslada el paradigma de la compilación declarativa de software a las canalizaciones de LLMs. En lugar de ajustar manualmente cadenas textuales rígidas, el desarrollador define un programa modular compuesto por firmas tipadas abstractas (por ejemplo: \texttt{Pregunta -> Razonamiento, Respuesta}) y métricas de optimización cuantitativa. El compilador de DSPy analiza automáticamente el conjunto de entrenamiento y optimiza de forma iterativa tanto los prefijos de instrucción como la selección óptima de demostraciones Few-Shot para maximizar la métrica objetivo.
-
-Paralelamente, enfoques como \textbf{OPRO} (\textit{Optimization by PROmpting}, Yang et al., 2024) y algoritmos evolutivos como \textbf{Promptbreeder} emplean los propios modelos de lenguaje como operadores de mutación y cruce genético en el espacio del lenguaje natural. A partir de una población inicial de prompts, el sistema evalúa su desempeño en una tarea de prueba, genera variantes optimizadas guiadas por la descripción del error y converge hacia plantillas de control que superan con creces las formulaciones humanas convencionales.
+La formulación manual de prompts es artesanal y propensa a sesgos. En respuesta, la literatura ha avanzado hacia la \textbf{Optimización Automática de Prompts} (\textit{Automatic Prompt Optimization}, APO). El marco referencial es \textbf{DSPy} (Khattab et al., 2023), que traslada el paradigma de la compilación declarativa a canalizaciones de LLMs: en lugar de cadenas rígidas, define programas modulares con firmas tipadas abstractas (\texttt{Pregunta -> Razonamiento, Respuesta}) y optimiza prefijos y demostraciones Few-Shot iterativamente mediante métricas cuantitativas. En paralelo, enfoques como \textbf{OPRO} (\textit{Optimization by PROmpting}, Yang et al., 2024) y \textbf{Promptbreeder} emplean LLMs como operadores genéticos que mutan y recombinan prompts guiados por la descripción del error, superando formulaciones manuales convencionales.
 
 % ==========================================
 % SECCIÓN 4: CASOS PRÁCTICOS APLICADOS
@@ -534,40 +530,25 @@ La Dirección de Infraestructura Vial evaluó un corpus de 450 informes pericial
 \subsubsection*{Análisis e Implementación:}
 Se implementó una canalización de ingeniería de prompts basada en el Patrón de Persona de Ingeniero Patólogo Forense, combinada con delimitadores XML rigurosos y demostraciones de razonamiento Few-Shot CoT con descomposición procedural de daño estructural.
 
-\begin{tcolorbox}[colback=bg_marfil, colframe=unmsm_gold, arc=3pt, boxrule=0.6pt, top=0.3cm, bottom=0.3cm, left=0.4cm, right=0.4cm]
+\begin{tcolorbox}[colback=bg_marfil, colframe=unmsm_gold, arc=3pt, boxrule=0.6pt, top=0.2cm, bottom=0.2cm, left=0.35cm, right=0.35cm]
 \footnotesize\sffamily
-\textbf{Plantilla de Prompt Estructurado para Peritaje Estructural}\\[0.15cm]
+\textbf{Plantilla de Prompt Estructurado para Peritaje Estructural}\\[0.1cm]
 \begin{verbatim}
 <rol>
-Eres el Ingeniero Jefe de Patología Estructural de Puentes. Tu marco epistemológico
-se fundamenta en las normativas ACI 318-19, AASHTO LRFD y los manuales del FHWA.
-Tu objetivo es auditar informes de campo y determinar la severidad estructural.
+Ingeniero Patólogo Forense (normativas ACI 318-19, AASHTO LRFD, FHWA).
 </rol>
-
 <directrices_razonamiento>
-Debes aplicar Chain-of-Thought estructurado evaluando:
-1. Carbonatación frente a espesor de recubrimiento medido.
-2. Ancho y morfología de fisuras (> 0.3 mm: corrosión activa).
-3. Reducción de capacidad portante basada en esclerometría.
-4. Asignar severidad: LEVE, MODERADA, CRÍTICA o COLAPSO.
+1. Evaluar carbonatación frente a espesor de recubrimiento nominal.
+2. Caracterizar fisuración (> 0.3 mm: corrosión activa de armadura).
+3. Estimar pérdida de capacidad portante residual por esclerometría.
+4. Asignar severidad categórica: LEVE, MODERADA, CRÍTICA o COLAPSO.
 </directrices_razonamiento>
-
 <documento_inspeccion>
-Puente ID: P-402 (Viga Celosía Postensada - Estribo Sur).
-Ensayos: Carbonatación promedio de 38 mm frente a
-recubrimiento nominal de 30 mm.
-Fisuración longitudinal paralela a armadura principal
-de 0.65 mm con manchas de óxido de hierro.
-Ensayo esclerométrico: 21 MPa (diseño: 35 MPa).
+Puente ID: P-402 (Estribo Sur). Carbonatación: 38 mm (nominal: 30 mm).
+Fisura longitudinal: 0.65 mm con óxido. Esclerometría: 21 MPa (35 MPa).
 </documento_inspeccion>
-
 <esquema_salida>
-Genera exclusivamente un JSON con la traza de razonamiento y el veredicto:
-{
-  "analisis_cot": "string con deducción paso a paso",
-  "clasificacion_severidad": "CRÍTICA",
-  "intervencion_inmediata_requerida": true
-}
+JSON: {"analisis_cot": "...", "severidad": "CRÍTICA", "intervencion": true}
 </esquema_salida>
 \end{verbatim}
 \end{tcolorbox}
@@ -690,19 +671,18 @@ def clasificar_transaccion_segura(payload_cliente):
 El equipo de seguridad ejecutó un banco de pruebas de penetración automatizado con más de 1,200 cargas útiles maliciosas de jailbreak e inyecciones complejas (incluyendo payloads GCG y ataques cross-prompt). El sistema refactorizado neutralizó el \textbf{100\% de los intentos de inyección}, manteniendo cero ejecuciones no autorizadas y permitiendo reducir el tiempo de verificación manual de transacciones en un \textbf{70\%}, garantizando el cumplimiento pleno de la normativa de seguridad financiera y PCI-DSS.
 
 % ==============================================================================
-% NOTAS BIBLIOGRÁFICAS E HISTÓRICAS DEL CAPÍTULO 03
+% NOTAS BIBLIOGRÁFICAS E HISTÓRICAS DEL CAPÍTULO 6
 % ==============================================================================
 \newpage
-\markboth{CAPÍTULO 06\quad NOTAS BIBLIOGRÁFICAS E HISTÓRICAS}{}
-\vspace*{0.8cm}
-\noindent{\Huge \textbf{Notas bibliográficas\\[0.2cm] e históricas}}\\[0.8cm]
+\markboth{CAPÍTULO 6\quad NOTAS BIBLIOGRÁFICAS E HISTÓRICAS}{}
+\subsection*{Notas Bibliográficas e Históricas del Capítulo 6}
 
-\textbf{Antecedentes Teóricos Fundacionales:}\\[0.2cm]
+\subsubsection*{Antecedentes Teóricos Fundacionales}
 La ingeniería de prompts y el razonamiento en modelos fundacionales hunden sus raíces en los debates históricos más profundos de la ciencia cognitiva, la teoría de la información y la computación simbólica. La conceptualización de secuencias lingüísticas como procesos probabilísticos y cadenas markovianas fue formalizada por Claude Shannon (1948) en su obra seminal sobre la teoría matemática de la comunicación. Por su parte, la tensión entre las gramáticas generativas y la sintaxis formal postuladas por Noam Chomsky (1957) frente al paradigma conexionista de representaciones distribuidas y procesamiento distribuido en paralelo (PDP) defendido por Rumelhart y McClelland (1986) anticipó las dinámicas de representación interna en las capas de los modelos neuronales modernos.
 
-La transición de los modelos estadísticos de n-gramas hacia el condicionamiento continuo de contextos se consumó con la invención de la arquitectura Transformer por Vaswani et al. (2017). Sin embargo, fue la publicación del trabajo sobre GPT-3 por Brown et al. (2020) lo que reveló al mundo científico el fenómeno emergente de \textit{In-Context Learning}, transformando radicalmente la noción de programación en software: el lenguaje natural se convirtió formalmente en un código de control capaz de parametrizar la inferencia sin tocar un solo peso sináptico.\\[0.4cm]
+La transición de los modelos estadísticos de n-gramas hacia el condicionamiento continuo de contextos se consumó con la invención de la arquitectura Transformer por Vaswani et al. (2017). Sin embargo, fue la publicación del trabajo sobre GPT-3 por Brown et al. (2020) lo que reveló al mundo científico el fenómeno emergente de \textit{In-Context Learning}, transformando radicalmente la noción de programación en software: el lenguaje natural se convirtió formalmente en un código de control capaz de parametrizar la inferencia sin tocar un solo peso sináptico.
 
-\textbf{Contribuciones de las Investigaciones Base Cotejadas:}\\[0.2cm]
+\subsubsection*{Contribuciones de las Investigaciones Base Cotejadas}
 El marco teórico y los experimentos sistematizados en este capítulo se sustentan directamente en diez investigaciones científicas arbitradas fundamentales publicadas en los foros más rigurosos de la especialidad (NeurIPS, ICLR, AAAI, TACL):
 
 \begin{itemize}[leftmargin=1.5em, itemsep=0.25em]
@@ -717,48 +697,43 @@ El marco teórico y los experimentos sistematizados en este capítulo se sustent
     \item \textbf{Perez y Ribeiro (2022) [arXiv / Seminal]:} Sistematizan las primeras técnicas formales de inyección de instrucciones y jailbreaks, alertando sobre la ausencia de barreras de aislamiento entre metainstrucciones y datos.
     \item \textbf{Zou et al. (2023) [arXiv]:} Desarrollan el algoritmo GCG (\textit{Greedy Coordinate Gradient}), demostrando matemáticamente la existencia de sufijos adversarios universales transferibles capaces de eludir el alineamiento humano.
 \end{itemize}
-\vspace{0.4cm}
 
-\textbf{Lecturas Sugeridas:}\\[0.2cm]
-\begin{enumerate}
+\subsubsection*{Lecturas Sugeridas}
+\begin{enumerate}[leftmargin=1.5em, itemsep=0.2em]
     \item \textbf{Khattab, O., et al. (2023):} \textit{DSPy: Compiling Declarative Language Model Calls into State-of-the-Art Pipelines}. Obra imprescindible para la transición del prompting artesanal a la compilación declarativa de software.
     \item \textbf{Wang, X., et al. (2022):} \textit{Self-Consistency Improves Chain of Thought Reasoning in Language Models}. Estudio fundamental sobre la marginalización probabilística y el muestreo de múltiples rutas de razonamiento.
     \item \textbf{OWASP Foundation (2023):} \textit{OWASP Top 10 for Large Language Model Applications}. Documento de referencia industrial indispensable para la gobernanza, ciberseguridad y auditoría de agentes autónomos.
 \end{enumerate}
 
 % ==============================================================================
-% RESUMEN DEL CAPÍTULO 03
+% RESUMEN DEL CAPÍTULO 6
 % ==============================================================================
 \newpage
-\markboth{CAPÍTULO 06\quad RESUMEN}{}
-\vspace*{0.8cm}
-{\Huge \textbf{Resumen del capítulo 6}}
-\vspace{0.8cm}
+\markboth{CAPÍTULO 6\quad RESUMEN}{}
+\subsection*{Resumen del Capítulo 6}
 
 La ingeniería de prompts y el razonamiento lógico constituyen la columna vertebral de la interacción contemporánea con modelos fundacionales. Lejos de constituir un ejercicio de intuición retórica, la manipulación deliberada del contexto es una disciplina rigurosa fundamentada en el condicionamiento estocástico de la inferencia autorregresiva, permitiendo que sistemas con parámetros congelados resuelvan problemas científicos, clínicos y de ingeniería de software con alta fidelidad, auditabilidad y resistencia adversarial.
 
-\vspace{0.4cm}
+\vspace{0.3cm}
 
-\begin{resumenlist}
+\begin{resumenlist}[topsep=0.15cm, itemsep=0.15cm, parsep=0pt]
     \item \textbf{Condicionamiento Matemático e Invarianza Paramétrica:} La inferencia en Transformers autorregresivos opera bajo la regla de la cadena probabilística. El aprendizaje en contexto (\textit{In-Context Learning}) actúa como una optimización implícita de meta-gradiente en el pase hacia adelante, modulando la distribución de salida sin alterar los pesos sinápticos ($\Delta \theta = 0$).
     \item \textbf{Sintaxis Estructural, Delimitación y Esquemas Tipados:} La arquitectura canónica de un prompt industrial exige desacoplar las metainstrucciones del sistema de los datos no confiables mediante delimitadores semánticos (XML) y contratos tipados (JSON Schema / Pydantic), mitigando la ambigüedad sintáctica y garantizando interoperabilidad con software de backend.
     \item \textbf{Escalada Cognitiva del Razonamiento en LLMs:} La evolución desde la inferencia directa hacia Cadena de Pensamiento (CoT), Árbol de Pensamientos (ToT) y Grafo de Pensamientos (GoT) amplía el cómputo efectivo asignado a la resolución de problemas, permitiendo exploración heurística, poda de ramas inviables y convergencia dialéctica mediante bucles ReAct integrados con herramientas externas.
     \item \textbf{Robustez Adversarial y Gobernanza Operacional (PromptOps):} La contención de inyecciones de prompts directas e indirectas (OWASP LLM01) exige una defensa en profundidad basada en canarios criptográficos, sándwiches defensivos y guardrails deterministas, administrados bajo un ciclo de vida con control de versiones en Git y canalizaciones CI/CD de regresión continua.
 \end{resumenlist}
 
-\vspace{0.6cm}
+\vspace{0.4cm}
 \begin{cajabeige}
 \textbf{Síntesis:} La estructuración formal de instrucciones y la orquestación deliberada de topologías de pensamiento permiten transformar a los modelos fundacionales estocásticos en agentes de cálculo deterministas, explicables y seguros, aptos para asumir tareas de alta criticidad en la ciencia aplicada y la industria moderna.
 \end{cajabeige}
 
 % ==============================================================================
-% CONCLUSIONES DEL CAPÍTULO 03
+% CONCLUSIONES DEL CAPÍTULO 6
 % ==============================================================================
 \newpage
-\markboth{CAPÍTULO 06\quad CONCLUSIONES}{}
-\vspace*{0.8cm}
-{\Huge \textbf{Conclusiones del capítulo 6}}
-\vspace{0.8cm}
+\markboth{CAPÍTULO 6\quad CONCLUSIONES}{}
+\subsection*{Conclusiones del Capítulo 6}
 
 \subsubsection*{Conclusión principal}
 La formulación sistemática de prompts estructurados y la implementación de marcos de razonamiento multietapa (CoT, ToT, GoT y ReAct) permiten trascender las limitaciones reflexivas de la inferencia autorregresiva plana, dotando a los modelos fundacionales de una capacidad verificable de deducción lógica, exploración de alternativas y rectificación empírica. Este condicionamiento contextual riguroso convierte a los LLMs en componentes arquitectónicos deterministas capaces de resolver problemas complejos de ingeniería y medicina con niveles de precisión superiores al 96\%, siempre que se respalden en esquemas de tipado formal y defensas contra inyecciones adversarias.
@@ -767,15 +742,18 @@ La formulación sistemática de prompts estructurados y la implementación de ma
 \textbf{Aportes:} Este capítulo formaliza la anatomía de siete componentes del prompt industrial, sistematiza la calibración de hiperparámetros estocásticos de muestreo ($T, \mathrm{Top-}p$), expone la topología de la atención perimetral frente a la degradación \textit{"Lost in the Middle"}, y valida cuantitativamente la aplicación de ToT y ReAct en escenarios empíricos reales de ingeniería civil, diagnóstico clínico y ciberseguridad financiera. \textbf{Límites:} Las técnicas de razonamiento arborizado (ToT) y grafos (GoT) incrementan sustancialmente el consumo de tokens y la latencia computacional; asimismo, la persistencia de vulnerabilidades adversarias automatizadas por gradiente (ataques GCG) demuestra que el alineamiento semántico por sí solo es insuficiente, demandando capas externas de validación determinista que limitan la flexibilidad expresiva del modelo.
 
 \subsubsection*{Preguntas abiertas}
-\textquestiondown Hasta qué punto la internalización de mecanismos de búsqueda y autorreflexión dentro de los pesos sinápticos en las nuevas generaciones de modelos de razonamiento (como la serie OpenAI o1 o arquitecturas con computación en tiempo de inferencia nativa) reemplazará la necesidad de ingeniería de prompts explícita, o se consolidará una coexistencia donde el prompting formal se concentre en la especificación formal de restricciones y verificación criptográfica de interfaces?
+\begin{enumerate}[label=\arabic*., leftmargin=2em, itemsep=0.15cm]
+    \item \textquestiondown Hasta qué punto la internalización de mecanismos de búsqueda y autorreflexión dentro de los pesos sinápticos en modelos de razonamiento nativo (como la serie OpenAI o1) desplazará la necesidad de prompting explícito frente a una interfaz declarativa de restricciones?
+    \item \textquestiondown Cuáles son los límites teóricos del aprendizaje en contexto frente al ajuste fino (\textit{fine-tuning}) cuando se evalúa la retención de conocimiento procedimental altamente especializado en dominios con marcos normativos cambiantes?
+    \item \textquestiondown De qué manera pueden formalizarse garantías criptográficas o de verificación formal sobre las salidas de pipelines basados en LLM-as-a-Judge para evitar la propagación inadvertida de sesgos de auto-preferencia en entornos de auditoría crítica?
+\end{enumerate}
 
 % ==============================================================================
-% REFERENCIAS BIBLIOGRÁFICAS DEL CAPÍTULO 03 (APA 7)
+% REFERENCIAS BIBLIOGRÁFICAS DEL CAPÍTULO 6 (APA 7)
 % ==============================================================================
 \newpage
-\markboth{CAPÍTULO 06\quad REFERENCIAS}{}
-\vspace*{0.8cm}
-{\Huge \textbf{Referencias del Capítulo 6}}\\[0.8cm]
+\markboth{CAPÍTULO 6\quad REFERENCIAS}{}
+\subsection*{Referencias del Capítulo 6}
 
 \begin{itemize}[leftmargin=1.5em, label={}, itemsep=0.22ex, parsep=0pt]
 \small\raggedright
