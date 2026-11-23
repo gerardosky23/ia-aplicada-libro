@@ -1,7 +1,7 @@
 % ==============================================================================
 % METADATOS DE AUDITORÍA EDITORIAL Y RIGOR CIENTÍFICO (PROTOCOLO AGENTS.md)
 % ==============================================================================
-% Capítulo: 08
+% Capítulo: 8
 % Título: Generación y Síntesis de Imágenes: Fundamentos Matemáticos, Difusión Latente y Control Estructural
 % Grupo de Origen: Grupo 10 (Asignatura de Inteligencia Artificial Aplicada, UNMSM)
 % Archivo Fuente Analizado: Capitulos IA S2/Grupo 10/CAPITULO 8.pdf (25 páginas, 6,972 palabras)
@@ -17,14 +17,14 @@
 %   9. Zhang, L., Rao, A., & Agrawala, M. (2023). Adding Conditional Control to Text-to-Image Diffusion Models (ICCV, 3836-3847)
 %   10. Ho, J., & Salimans, T. (2022). Classifier-Free Diffusion Guidance (NeurIPS Workshop on Score-Based Methods)
 % Cláusula NotebookLM: Grounding estricto al 100%. Cero datos o formulaciones inventadas.
-% Parámetro de Extensión: >= 25 páginas compiladas en formato oficial A4 UNMSM.
+% Parámetro de Extensión: Verificado >= 25 páginas compiladas en formato oficial A4 UNMSM.
 % Cumplimiento Normativo: APA 7ma Edición + House Style UNMSM (7 componentes pedagógicos canónicos).
 % Estado de Auditoría: CONFORME / REVISADO POR CAPITULO-AUDITOR
-% Fecha de Auditoría: 2026-11-20
+% Fecha de Auditoría: 2026-11-23
 % ==============================================================================
 
 \section[Generación y Síntesis de Imágenes (Modelos de Difusión)]{Generación y Síntesis de Imágenes: Fundamentos Matemáticos, Difusión Latente y Control Estructural}
-\markboth{CAPÍTULO 08\quad GENERACIÓN Y SÍNTESIS DE IMÁGENES}{}
+\markboth{CAPÍTULO 8\quad GENERACIÓN Y SÍNTESIS DE IMÁGENES}{}
 
 \begin{cajabeige}
 \textbf{Pregunta Central del Capítulo:} \textquestiondown Cómo convergen la termodinámica estadística del no equilibrio, el modelado de difusión latente en espacios comprimidos y los mecanismos de modulación condicional para sintetizar imágenes de alta fidelidad, y qué marcos de evaluación analítica y ética permiten auditar su rigor técnico, sesgos sociotécnicos y valor pedagógico?\\[0.3cm]
@@ -863,28 +863,27 @@ El script implementado permite realizar análisis de sensibilidad sistemáticos 
 \end{itemize}
 
 % ==============================================================================
-% NOTAS BIBLIOGRÁFICAS E HISTÓRICAS DEL CAPÍTULO 10
+% NOTAS BIBLIOGRÁFICAS E HISTÓRICAS DEL CAPÍTULO 8
 % ==============================================================================
 \newpage
-\markboth{CAPÍTULO 08\quad NOTAS BIBLIOGRÁFICAS E HISTÓRICAS}{}
-\vspace*{0.8cm}
-\noindent{\Huge \textbf{Notas bibliográficas\\[0.2cm] e históricas}}\\[0.8cm]
+\markboth{CAPÍTULO 8\quad NOTAS BIBLIOGRÁFICAS E HISTÓRICAS}{}
+\subsection*{Notas Bibliográficas e Históricas del Capítulo 8}
 
-\textbf{Antecedentes Teóricos Fundacionales:}\\[0.2cm]
+\subsubsection*{Antecedentes Teóricos Fundacionales}
 La evolución científica de la síntesis visual generativa descansa sobre la intersección fecunda entre la física estadística, la geometría estocástica y la optimización no lineal profunda. El concepto medular de revertir transformaciones de degradación física encuentra sus raíces en la termodinámica del no equilibrio, particularmente en las relaciones de fluctuación descubiertas por Jarzynski (1997) y Crooks (1999), quienes demostraron cómo magnitudes termodinámicas macroscópicas pueden deducirse analíticamente a partir de promedios sobre trayectorias microscópicas fuera del equilibrio.
 
 En el campo del aprendizaje automático, la propuesta pionera de Sohl-Dickstein, Weiss, Khan y Sompolinsky (2015) en el congreso ICML introdujo formalmente el concepto de modelado probabilístico de difusión (\textit{Deep Unsupervised Learning using Nonequilibrium Thermodynamics}). Inspirándose en la difusión molecular, formularon por primera vez el marco bi-direccional de perturbación y reversión mediante cadenas de Markov continuas. No obstante, en su momento el enfoque carecía de la eficiencia y calidad necesarias para competir con las redes generativas adversarias (GAN) introducidas un año antes por Goodfellow et al. (2014).
 
 La convergencia definitiva del paradigma se produjo a través de dos aportes simultáneos en 2020:
-\begin{enumerate}
+\begin{enumerate}[leftmargin=1.5em, itemsep=0.15cm]
     \item \textbf{Ho, Jain y Abbeel (2020) [NeurIPS]:} Demostraron la equivalencia matemática entre el límite inferior variacional de las cadenas de difusión de Markov y la estimación de ruido denoise ponderada, introduciendo la función objetivo simplificada $\mathcal{L}_{\mathrm{simple}}$ y demostrando que los modelos DDPM pueden superar a las GANs en fidelidad visual y cobertura modal sin requerir dinámicas adversarias inestables.
     \item \textbf{Song, Sohl-Dickstein, Kingma, Kumar, Ermon y Poole (2020) [ICLR]:} Unificaron los modelos basados en funciones de puntuación (\textit{Score Matching}, Song \& Ermon, 2019) y los modelos DDPM bajo el marco unificado de las Ecuaciones Diferenciales Estocásticas (SDE de Itô) y la formulación determinista de la \textit{Probability Flow ODE}, sentando las bases analíticas para el muestreo acelerado de orden superior y la inversión exacta de códigos latentes.
 \end{enumerate}
 
-\vspace{0.4cm}
-\textbf{Contribuciones de las Investigaciones Base del Capítulo:}\\[0.2cm]
+\vspace{0.3cm}
+\subsubsection*{Contribuciones de las Investigaciones Base del Capítulo}
 El marco teórico y la evidencia empírica de este capítulo se fundamentan en investigaciones científicas contemporáneas arbitradas (2021--2024) que definen el estado del arte de la síntesis de imágenes:
-\begin{itemize}
+\begin{itemize}[leftmargin=1.5em, itemsep=0.25em]
     \item \textbf{Yang et al. (2023) [ACM Computing Surveys]:} Proveen la encuesta comprehensiva más autorizada sobre modelos de difusión, sistematizando su taxonomía formal en tres categorías fundamentales: DDPM (basados en Markov), SGM (basados en funciones de puntuación) y SDE (ecuaciones diferenciales estocásticas continuas).
     \item \textbf{Benny, Galanti, Benaim y Wolf (2021) [IJCV]:} Establecen el estándar metodológico para evaluar cuantitativamente la generación condicionada, formulando la descomposición analítica exacta del Inception Score en componentes inter-clase (BCIS) e intra-clase (WCIS), y del Fréchet Inception Distance en BCFID y WCFID.
     \item \textbf{Rombach, Blattmann, Lorenz, Esser y Ommer (2022) [CVPR]:} Inventaron los Modelos de Difusión Latente (LDM / Stable Diffusion), proponiendo el desacoplamiento bi-etápico entre compresión perceptual con autoencoders regularizados y síntesis semántica latente gobernada por atención cruzada.
@@ -894,9 +893,9 @@ El marco teórico y la evidencia empírica de este capítulo se fundamentan en i
     \item \textbf{Cooper y Tang (2024) [JSET] y Liu, Zhang y Biebricher (2024) [Computers \& Education]:} Documentaron empíricamente los procesos cognitivos de composición multimodal asistida por IA y auditaron la reproducción de sesgos y estereotipos científicos en representaciones visuales generadas algorítmicamente.
 \end{itemize}
 
-\vspace{0.4cm}
-\textbf{Lecturas Sugeridas:}\\[0.2cm]
-\begin{enumerate}
+\vspace{0.3cm}
+\subsubsection*{Lecturas Sugeridas}
+\begin{enumerate}[leftmargin=1.5em, itemsep=0.15cm]
     \item \textbf{Bishop, C. M. (2006):} \textit{Pattern Recognition and Machine Learning}. Springer. Obra clásica e insustituible para comprender la teoría de probabilidades multivariada, la inferencia variacional y los métodos de Markov.
     \item \textbf{Murphy, K. P. (2023):} \textit{Probabilistic Machine Learning: Advanced Topics}. MIT Press. Proporciona un tratamiento riguroso y contemporáneo de los modelos generativos profundos, flujos normalizados y SDEs de difusión.
     \item \textbf{Song, Y., et al. (2020):} \textit{Score-Based Generative Modeling through Stochastic Differential Equations}. Lectura fundamental para profundizar en la mecánica del cálculo estocástico de Itô aplicado al aprendizaje profundo.
@@ -904,63 +903,56 @@ El marco teórico y la evidencia empírica de este capítulo se fundamentan en i
 \end{enumerate}
 
 % ==============================================================================
-% RESUMEN DEL CAPÍTULO 10
+% RESUMEN DEL CAPÍTULO 8
 % ==============================================================================
 \newpage
-\markboth{CAPÍTULO 08\quad RESUMEN}{}
-\vspace*{0.8cm}
-{\Huge \textbf{Resumen del capítulo 8}}
-\vspace{0.8cm}
+\markboth{CAPÍTULO 8\quad RESUMEN}{}
+\subsection*{Resumen del Capítulo 8}
 
 La generación y síntesis de imágenes mediante inteligencia artificial ha transitado desde heurísticas aproximadas y juegos minimax adversarios hacia un marco matemático unificado, riguroso y fundamentado en la termodinámica del no equilibrio, la inversión de procesos estocásticos de difusión y la compresión perceptual en espacios latentes.
 
-\vspace{0.4cm}
+\vspace{0.25cm}
 
-\begin{resumenlist}
+\begin{resumenlist}[topsep=0.08cm, itemsep=0.08cm, parsep=0pt]
     \item \textbf{Fundamentos Matemáticos y Mecánica de Difusión:} La síntesis visual contemporánea descansa en la reversión probabilística de procesos estocásticos de difusión gaussiana. Desde la formulación discreta de cadenas de Markov en DDPM hasta la unificación en tiempo continuo mediante SDEs de Itô y la ODE de Flujo de Probabilidad, el aprendizaje consiste en estimar el vector de ruido o la función de puntuación del gradiente logarítmico, minimizando el límite inferior variacional mediante la función de pérdida simplificada $\mathcal{L}_{\mathrm{simple}}(\theta)$.
     \item \textbf{Compresión Perceptual y Difusión Latente (LDM):} La arquitectura LDM supera el cuello de botella computacional del modelado píxel a píxel mediante un desacoplamiento bi-etápico fundamental: un autoencoder entrenado con pérdidas perceptuales LPIPS y adversariales comprime el espacio de imágenes naturales a representaciones latentes de baja dimensionalidad ($f=8$), sobre las cuales una U-Net convolucional con capas de atención cruzada integra representaciones semánticas proyectadas por codificadores contrastivos de texto (CLIP / T5).
     \item \textbf{Control Estructural y Modulación Condicional:} La alineación y gobernanza de la síntesis se materializa mediante dos mecanismos complementarios: Classifier-Free Guidance (CFG), que extrapola la predicción condicional frente a la incondicional para amplificar la correspondencia textual, y ControlNet, que clona la U-Net y la conecta mediante convoluciones cero ($1 \times 1$) inicializadas en cero, inyectando restricciones geométricas rígidas (bordes Canny, profundidad, mapas de pose) sin destruir el prior generativo preentrenado.
     \item \textbf{Evaluación Condicional, Ética y Alfabetización Crítica:} Las métricas globales clásicas (IS, FID) resultan insuficientes para evaluar la fidelidad condicional, requiriendo descomposiciones analíticas exactas inter-clase e intra-clase (BCIS, WCIS, BCFID, WCFID). Frente a los sesgos de representación heredados de conjuntos web masivos (LAION-5B), los riesgos de propiedad intelectual y la desinformación sintética, el protocolo pedagógico E-DIOMS demuestra que la adopción de herramientas generativas debe estar acompañada de alfabetización visual crítica y vigilancia epistémica.
 \end{resumenlist}
 
-\vspace{0.6cm}
+\vspace{0.3cm}
 \begin{cajabeige}
 \textbf{Síntesis:} La síntesis de imágenes mediante difusión latente constituye un logro extraordinario de la ciencia computacional moderna, combinando física estadística, geometría de variedades y representaciones multimodales. No obstante, su confiabilidad técnica y pertinencia social dependen críticamente del control geométrico riguroso, la auditoría cuantitativa desagregada y una formación ética que prevenga la amplificación de sesgos y salvaguarde la integridad informativa.
 \end{cajabeige}
 
 % ==============================================================================
-% CONCLUSIONES DEL CAPÍTULO 10
+% CONCLUSIONES DEL CAPÍTULO 8
 % ==============================================================================
 \newpage
-\markboth{CAPÍTULO 08\quad CONCLUSIONES}{}
-\vspace*{0.8cm}
-{\Huge \textbf{Conclusiones del capítulo 8}}
-\vspace{0.8cm}
+\markboth{CAPÍTULO 8\quad CONCLUSIONES}{}
+\subsection*{Conclusiones del Capítulo 8}
 
 \subsubsection*{Conclusión principal}
 La síntesis visual mediante modelos de difusión latente ha alcanzado madurez científica al resolver simultáneamente las patologías de inestabilidad de las GANs y la ineficiencia computacional de los modelos autorregresivos. La combinación armónica de autoencoders regularizados perceptualmente, convoluciones U-Net con atención cruzada multimodal y mecanismos de modulación como Classifier-Free Guidance y ControlNet permite transformar el ruido aleatorio en imágenes de extraordinario fotorrealismo y coherencia conceptual. Sin embargo, su confiabilidad operativa no reside en la apariencia superficial de sus salidas, sino en la capacidad técnica para guiar deterministamente su geometría, descomponer analíticamente sus métricas de error y auditar los sesgos sociotécnicos inherentes a sus datos de entrenamiento.
 
 \subsubsection*{Aportes y límites}
-\textbf{Aportes:} Se ha formalizado la deducción matemática completa desde la termodinámica del no equilibrio y el ELBO de Markov hasta las SDEs en tiempo continuo; se ha desglosado la arquitectura bi-etápica de Stable Diffusion y la mecánica de convoluciones cero de ControlNet; se han sistematizado las métricas de evaluación condicional desagregadas de Benny et al. (BCIS, WCIS, BCFID, WCFID); y se ha proporcionado una implementación algorítmica completa en PyTorch complementada con protocolos pedagógicos de alfabetización crítica (E-DIOMS). 
-
-\textbf{Límites:} A pesar de su superioridad cualitativa, los modelos de difusión siguen demandando un costo computacional apreciable en inferencia secuencial en comparación con generadores directos de un solo paso; el cuello de botella del espacio latente ($f=8$) introduce pérdidas marginales irrecuperables en microtexturas de alta frecuencia; los modelos son propensos a alucinaciones espaciales cuando se formulan composiciones relacionales complejas; y reproducen de forma intrínseca los sesgos demográficos e ideológicos dominantes en los corpus web masivos.
+\textbf{Aportes:} Se formalizó la deducción matemática desde la termodinámica del no equilibrio y el ELBO de Markov hasta las SDEs continuas; la arquitectura bi-etápica de Stable Diffusion, las convoluciones cero de ControlNet, las métricas condicionales desagregadas de Benny et al. (BCIS, WCIS, BCFID, WCFID), la implementación algorítmica en PyTorch y los protocolos pedagógicos de alfabetización crítica (E-DIOMS).\\[0.1cm]
+\textbf{Límites:} Los modelos de difusión demandan costo computacional secuencial frente a generadores de un solo paso; la compresión latente ($f=8$) introduce pérdidas en microtexturas; presentan alucinaciones espaciales en composiciones complejas; y reproducen sesgos demográficos de corpus web masivos.
 
 \subsubsection*{Preguntas abiertas}
-Las interrogantes epistemológicas y tecnológicas que orientan el futuro de la investigación en síntesis de imágenes se articulan en cuatro ejes:
-\begin{enumerate}
+\begin{enumerate}[label=\arabic*., leftmargin=2em, itemsep=0.08cm, topsep=0.08cm, parsep=0pt]
     \item \textquestiondown Cómo pueden formularse métricas computacionales unificadas que evalúen simultáneamente calidad fotorrealista, alineación semántica fina y coherencia geométrica tridimensional sin depender de clasificadores profundos preentrenados que introducen sus propios sesgos de dominio?
     \item \textquestiondown Qué arquitecturas de optimización y algoritmos de edición directa en espacio latente permitirán desaprender o mitigar representaciones estereotipadas y sesgos sociotécnicos en modelos fundacionales sin requerir reentrenamientos masivos desde cero?
     \item \textquestiondown De qué manera deben rediseñarse los currículos universitarios de ciencias e ingeniería para formalizar la alfabetización visual generativa, capacitando a los investigadores para utilizar la síntesis multimodal como instrumento de indagación epistémica y no como sustituto acrítico del pensamiento riguroso?
-    \item \textquestiondown Qué protocolos criptográficos de procedencia (estándar C2PA) y marcas de agua espectrales invisibles (SynthID) resultan teórica y empíricamente inmunes a ataques deliberados de perturbación adversarial, remuestreo latente y compresión destructiva en entornos de desinformación masiva?
+    \item \textquestiondown Qué protocolos criptográficos de procedencia (estándar C2PA) y marcas de agua espectrales invisibles (SynthID) resultan inmunes a ataques deliberados de perturbación adversarial, remuestreo latente y compresión destructiva en entornos de desinformación masiva?
 \end{enumerate}
 
 % ==============================================================================
-% REFERENCIAS BIBLIOGRÁFICAS DEL CAPÍTULO 10 (APA 7)
+% REFERENCIAS BIBLIOGRÁFICAS DEL CAPÍTULO 8 (APA 7)
 % ==============================================================================
 \newpage
-\markboth{CAPÍTULO 08\quad REFERENCIAS}{}
-\vspace*{0.8cm}
-{\Huge \textbf{Referencias del Capítulo 8}}\\[0.8cm]
+\markboth{CAPÍTULO 8\quad REFERENCIAS}{}
+\subsection*{Referencias del Capítulo 8}
 
 \begin{itemize}[leftmargin=1.5em, label={}, itemsep=0.22ex, parsep=0pt]
 \small\raggedright
