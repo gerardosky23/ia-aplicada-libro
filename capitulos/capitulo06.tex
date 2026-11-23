@@ -61,7 +61,7 @@ P(Y \mid X; \theta) = \prod_{t=1}^T P(y_t \mid x_1, \dots, x_N, y_1, \dots, y_{t
 La computación central de cada capa de atención proyecta la secuencia de representaciones intermedias en matrices de Consulta ($Q$), Clave ($K$) y Valor ($V$) mediante transformaciones afines parametrizadas por $W_Q, W_K, W_V \in \mathbf{R}^{d \times d_k}$. La función de Atención Escalar Dot-Product se define formally como:
 
 \begin{equation}
-\mathrm{Attention}(Q, K, V) = \mathrm{softmax}\left(\frac{Q K^T}{\sqrt{d_k}} + M\right) V
+\mathrm{Attention}(Q, K, V) = \operatorname{softmax}\bigl( (Q K^T) / \sqrt{d_k} + M \bigr) V
 \end{equation}
 
 donde $d_k$ denota la dimensionalidad de las claves y $M$ representa la matriz de máscara causal triangular inferior ($M_{ij} = -\infty$ para $j > i$ y $0$ para $j \le i$), la cual garantiza que la predicción del token $y_t$ dependa únicamente de los tokens precedentes.
@@ -142,7 +142,7 @@ Ideación Creativa y Brainstorming & $0.7 - 0.9$ & $0.95$ & Explora el espacio l
 Complementariamente, los hiperparámetros de penalización de frecuencia (\textit{Frequency Penalty}) y presencia (\textit{Presence Penalty}) modifican los logits en función de la recurrencia histórica de los tokens generados:
 
 \begin{equation}
-z_{t, i}^{\mathrm{ajustado}} = z_{t, i} - \alpha_{\mathrm{freq}} \cdot c_i - \alpha_{\mathrm{pres}} \cdot \mathbf{1}(c_i > 0)
+\tilde{z}_{t, i} = z_{t, i} - \alpha_{\mathrm{freq}} \cdot c_i - \alpha_{\mathrm{pres}} \cdot \mathbf{1}(c_i > 0)
 \end{equation}
 
 donde $c_i$ representa el recuento de ocurrencias del token $w_i$ en la secuencia generada hasta el instante $t$, y $\mathbf{1}(\cdot)$ es la función indicatriz. La calibración precisa de estos parámetros impide que el modelo caiga en bucles degenerativos de repetición infinita sin distorsionar la terminología técnica necesaria.
@@ -253,7 +253,7 @@ Wei et al. (2022) formalizaron el \textbf{Few-Shot CoT}, demostrando que proporc
 
 Asimismo, Wang et al. (2022) introdujeron la técnica de \textbf{Auto-Consistencia (\textit{Self-Consistency CoT})}: en lugar de una decodificación codiciosa única, se muestrean múltiples cadenas de razonamiento independientes a temperatura moderada ($T \approx 0.7$) y se selecciona la respuesta final mediante votación mayoritaria marginalizada sobre las rutas de pensamiento:
 \begin{equation}
-y^* = \operatorname{arg\,max}_y \sum_{i=1}^M \mathbb{I}(y^{(i)} = y)
+y^* = \operatorname{arg\,max}_y \sum\nolimits_{i=1}^M \mathbf{1}(y^{(i)} = y)
 \end{equation}
 reduciendo drásticamente los errores aleatorios en pasos individuales.
 
@@ -267,7 +267,7 @@ Para abordar problemas que requieren exploración heurística, anticipación de 
     \item \textbf{Espacio de Estados:} Cada nodo o estado $s = [x, z_{1 \dots i}]$ representa una secuencia parcial de pensamientos construida a partir de la entrada $x$.
     \item \textbf{Generador de Pensamientos ($p_\theta^{\mathrm{gen}}$):} Dado el estado actual $s$, el modelo genera un conjunto discreto de candidatos para el siguiente paso de pensamiento $z_{i+1}$:
     \begin{equation}
-    \{z_{i+1}^{(1)}, z_{i+1}^{(2)}, \dots, z_{i+1}^{(k)}\} \sim p_\theta^{\mathrm{gen}}(z' \mid s)
+    \{z_{i+1, 1}, z_{i+1, 2}, \dots, z_{i+1, k}\} \sim p_\theta^{\mathrm{gen}}(z' \mid s)
     \end{equation}
     \item \textbf{Evaluador Heurístico de Estados ($V_\theta(s)$):} El modelo evalúa la viabilidad y calidad de un estado $s$, asignándole una puntuación cuantitativa $V_\theta(s) \in [0, 1]$ o una clasificación categórica (seguro, dudoso, inviable):
     \begin{equation}

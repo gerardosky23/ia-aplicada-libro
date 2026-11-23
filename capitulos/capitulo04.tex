@@ -58,7 +58,7 @@ La respuesta del ecosistema chino no fue monolítica ni centralizada en una úni
     \item \textbf{Zhipu AI / GLM y AutoGLM (Agentes Autónomos y Grounding de Interfaz):} Originada igualmente en los laboratorios de transferencia tecnológica de Tsinghua, Zhipu AI desarrolló la familia de modelos abiertos General Language Model (GLM-4.5) y fue pionera en el desarrollo de agentes de acción en interfaces gráficas de usuario (AutoGLM), capaces de navegar aplicaciones móviles y web simulando la interacción motora y perceptual humana (Zhipu AI, 2024).
 \end{enumerate}
 
-La Figura \ref{fig:cuatro_ecosistemas_chinos} ilustra esquemáticamente la distribución funcional y los focos de especialización de estos cuatro vectores tecnológicos en el mapa de soberanía digital de China.
+La Figura 4.1 ilustra esquemáticamente la distribución funcional y los focos de especialización de estos cuatro vectores tecnológicos en el mapa de soberanía digital de China.
 
 \begin{figure}[htbp]
 \centering
@@ -95,13 +95,13 @@ La Figura \ref{fig:cuatro_ecosistemas_chinos} ilustra esquemáticamente la distr
 \label{fig:cuatro_ecosistemas_chinos}
 \end{figure}
 
-La Tabla \ref{tab:comparativa_ecosistemas_chinos} sintetiza las dimensiones arquitectónicas, capacidades distintivas y limitaciones operativas de cada uno de los cuatro ecosistemas.
+La Tabla 4.1 sintetiza las dimensiones arquitectónicas, capacidades distintivas y limitaciones operativas de cada uno de los cuatro ecosistemas.
 
 \begin{table}[htbp]
 \centering
-\caption{\textit{Matriz Comparativa de los Ecosistemas Chinos de Inteligencia Artificial.}}
-\label{tab:comparativa_ecosistemas_chinos}
 \small
+\textbf{Tabla 4.1.} \textit{Matriz Comparativa de los Ecosistemas Chinos de Inteligencia Artificial}\\[0.25cm]
+\label{tab:comparativa_ecosistemas_chinos}
 \begin{tabularx}{\textwidth}{l p{2.8cm} p{3.2cm} p{3.2cm} X}
 \toprule
 \textbf{Ecosistema} & \textbf{Entidad Desarrolladora} & \textbf{Fortaleza Primaria} & \textbf{Innovación Técnica} & \textbf{Desafío Crítico} \\
@@ -128,22 +128,11 @@ DeepSeek-R1 demostró empíricamente que la capacidad de razonamiento complejo p
 A diferencia de los métodos canónicos de optimización de políticas proximales (PPO) que requieren un modelo crítico (\textit{critic model}) independiente para estimar el valor del estado en cada paso ---duplicando el consumo de memoria de GPU---, GRPO prescinde del modelo crítico. En su lugar, GRPO muestrea un grupo de $G$ respuestas alternativas generadas por la política actual $\pi_\theta$ ante una misma pregunta $q$, y normaliza las recompensas obtenidas dentro del propio grupo:
 
 \begin{equation}
-    A_i = \frac{r_i - \operatorname{mean}(\{r_1, r_2, \dots, r_G\})}{\operatorname{std}(\{r_1, r_2, \dots, r_G\}) + \epsilon}
+    A_i = \frac{r_i - \bar{r}_G}{\sigma_G + \epsilon}
     \label{eq:grpo_advantage}
 \end{equation}
 
-donde $r_i$ representa la recompensa escalar otorgada a la $i$-ésima respuesta candidata, $A_i$ es la ventaja relativa estimada, y $\epsilon$ es una constante de estabilidad numérica. La función objetivo de optimización de GRPO se formaliza como:
-
-\begin{equation}
-\begin{split}
-    \mathcal{J}_{\text{GRPO}}(\theta) = \mathbb{E}_{\substack{q \sim P(Q) \\ \{o_i\}_{i=1}^G \sim \pi_{\theta_{\text{old}}}(O \mid q)}} \Bigg[ \frac{1}{G} \sum_{i=1}^G \bigg( & \min\bigg( \frac{\pi_\theta(o_i \mid q)}{\pi_{\theta_{\text{old}}}(o_i \mid q)} A_i, \\
-    & \operatorname{clip}\left( \frac{\pi_\theta(o_i \mid q)}{\pi_{\theta_{\text{old}}}(o_i \mid q)}, 1-\varepsilon, 1+\varepsilon \right) A_i \bigg) \\
-    & - \beta \, \mathbb{D}_{\text{KL}}(\pi_\theta \parallel \pi_{\text{ref}}) \bigg) \Bigg]
-\end{split}
-\label{eq:grpo_objective}
-\end{equation}
-
-donde $\pi_{\text{ref}}$ es el modelo base de referencia, $\mathbb{D}_{\text{KL}}$ es la divergencia de Kullback-Leibler que previene que la política actualizada se desvíe excesivamente de la distribución de origen, y $\beta$ es el coeficiente de regularización.
+donde $r_i$ representa la recompensa escalar otorgada a la $i$-ésima respuesta candidata del grupo, $\bar{r}_G$ y $\sigma_G$ representan la media y la desviación estándar muestral de las recompensas del grupo de respuestas generadas ante una misma consulta, y $\epsilon$ es una constante pequeña de estabilidad numérica. Al normalizar los puntajes dentro del propio lote de salidas concurrentes, el algoritmo determina la ventaja relativa sin necesidad de entrenar ni mantener en memoria un modelo crítico independiente (DeepSeek-AI, 2025).
 
 Las recompensas en DeepSeek-R1 no provienen de juicios subjetivos de un modelo de recompensa neuronal (que suele ser susceptible a hackeo de recompensas o \textit{reward hacking}), sino de verificadores automáticos basados en reglas deterministas:
 \begin{itemize}
@@ -197,18 +186,11 @@ En MLA, el vector de entrada oculto $h_t \in \mathbb{R}^d$ se comprime primero e
 donde $W^{DKV} \in \mathbb{R}^{d_c \times d}$ es la matriz de proyección descendente. Durante la inferencia, el sistema almacena exclusivamente el vector latente comprimido $c_t^{KV}$ en la memoria de la GPU, en lugar de almacenar las matrices completas de claves y valores para todas las cabezas de atención. Cuando se calcula la atención, los vectores clave y valor desacoplados se proyectan sobre la marcha (\textit{up-projection}):
 
 \begin{equation}
-    k_{t, i}^C = W_{(i)}^{UK} c_t^{KV}, \quad v_{t, i}^C = W_{(i)}^{UV} c_t^{KV}
+    k_t = W^{UK} c_t^{KV}, \quad v_t = W^{UV} c_t^{KV}
     \label{eq:mla_up_projection}
 \end{equation}
 
-Para preservar la información de posición rotacional (RoPE) sin romper la compresibilidad de la proyección, MLA desacopla una porción de clave rotacional compartida $k_t^R$, concatenándola con la clave basada en contenido:
-
-\begin{equation}
-    k_{t, i} = \begin{bmatrix} k_{t, i}^C \\ k_t^R \end{bmatrix}
-    \label{eq:mla_concatenation}
-\end{equation}
-
-Esta formulación reduce la huella de memoria de la KV-cache en un $93.3\%$ en comparación con MHA, permitiendo que un servidor individual atienda un volumen de solicitudes concurrentes hasta 15 veces superior con una latencia de generación casi constante (DeepSeek-AI, 2024).
+Para preservar la información de posición rotacional (RoPE), MLA desacopla las componentes rotacionales de las componentes de contenido, proyectando las claves y valores en el momento exacto del cálculo de atención. Esta formulación reduce la huella de memoria de la caché clave-valor en un $93.3\%$ en comparación con la atención multikabezal estándar (MHA), permitiendo que un servidor individual atienda un volumen de solicitudes concurrentes hasta 15 veces superior con latencia constante (DeepSeek-AI, 2024).
 
 
 \subsubsection{Arquitectura DeepSeekMoE: Enrutamiento Disperso con Balanceo de Carga Libre de Pérdida Auxiliar}
@@ -296,13 +278,13 @@ No obstante el inmenso potencial transformador de este paradigma, las pruebas em
 
 Uno de los aportes metodológicos más valiosos derivados de la investigación del Grupo 14 (diapositiva 18) es la formulación de una matriz canónica de ingeniería de prompts adaptada específicamente a las fortalezas de cada ecosistema chino. La experimentación demostró que las solicitudes vagas o desestructuradas (como ``resúmelo'' o ``explícame esto'') producen respuestas superficiales y propensas a la divagación, mientras que los prompts provistos de andamiaje explícito, restricciones de formato y descomposición modular maximizan la precisión del modelo.
 
-La Tabla \ref{tab:prompts_ecosistemas_chinos} detalla los prompts óptimos identificados empíricamente, su objetivo operativo y la justificación técnica de su eficacia.
+La Tabla 4.2 detalla los prompts óptimos identificados empíricamente, su objetivo operativo y la justificación técnica de su eficacia.
 
 \begin{table}[htbp]
 \centering
-\caption{\textit{Directrices de Prompts y Casos de Optimización en Ecosistemas Chinos.}}
-\label{tab:prompts_ecosistemas_chinos}
 \small
+\textbf{Tabla 4.2.} \textit{Directrices de Prompts y Casos de Optimización en Ecosistemas Chinos}\\[0.25cm]
+\label{tab:prompts_ecosistemas_chinos}
 \begin{tabularx}{\textwidth}{l p{5.5cm} p{3.2cm} X}
 \toprule
 \textbf{Ecosistema} & \textbf{Estructura del Prompt Optimizado} & \textbf{Finalidad Principal} & \textbf{Justificación Técnica} \\
@@ -368,6 +350,17 @@ El modelo activó su fase de pensamiento deliberativo (\texttt{<think>}), genera
 \small\textit{``El problema planteado no contiene información suficiente para determinar un valor numérico único. Para proceder con el cálculo analítico se requieren indispensablemente dos variables físicas: (1) el ancho de banda nominal del enlace (en Gbps) y (2) el Round-Trip Time (RTT) del canal. Si se asume un enlace de 10 Gbps y un RTT de 40 ms, la tasa efectiva de transferencia bajo TCP BBR o CUBIC sería de...''}
 \end{quote}
 
+\begin{figure}[htbp]
+\centering
+\begin{tcolorbox}[colback=white, colframe=unmsm_gold, arc=3pt, boxrule=0.8pt, top=0.3cm, bottom=0.3cm, left=0.4cm, right=0.4cm]
+\centering
+\small\sffamily
+\textbf{Figura 4.3.} \textit{Interacción con DeepSeek-R1: Detección y Solicitud de Información Faltante}\\[0.25cm]
+\includegraphics[width=0.85\linewidth]{figuras/cap04/image1.png}\\[0.2cm]
+\raggedright\scriptsize \textbf{Fuente:} Captura experimental obtenida en la plataforma oficial de DeepSeek (Grupo 14, 2026).
+\end{tcolorbox}
+\end{figure}
+
 \subsubsection*{Interpretación y Resultados:}
 El experimento demostró que el entrenamiento por aprendizaje por refuerzo con incentivo de formato de DeepSeek-R1 reduce drásticamente las alucinaciones por complacencia. El modelo es capaz de reconocer los límites de la información provista, solicitar activamente los parámetros faltantes y plantear análisis de sensibilidad condicionales, constituyendo una herramienta altamente confiable para la asistencia en modelado matemático.
 
@@ -380,8 +373,19 @@ La revisión bibliográfica exhaustiva exige procesar tesis doctorales, informes
 El experimento se desarrolló en dos ensayos controlados:
 \begin{enumerate}[label=\alph*), leftmargin=2em]
     \item \textbf{Ensayo 1 (Control de Carga):} Se envió a Kimi el prompt de síntesis tabular sin adjuntar el archivo PDF correspondiente. A diferencia de otros sistemas que inventan un resumen genérico a partir del título sugerido en el prompt, Kimi detectó inmediatamente la ausencia del documento y respondió con una negativa explícita, solicitando la carga del archivo para poder operar.
-    \item \textbf{Ensayo 2 (Procesamiento Integral):} Con el archivo PDF adjunto de 78 páginas (aproximadamente 48.000 palabras y 15 tablas), se ejecutó el prompt optimizado de la Tabla \ref{tab:prompts_ecosistemas_chinos}. Kimi procesó la totalidad del documento en una única llamada de inferencia con una latencia total de 18.4 segundos.
+    \item \textbf{Ensayo 2 (Procesamiento Integral):} Con el archivo PDF adjunto de 78 páginas (aproximadamente 48.000 palabras y 15 tablas), se ejecutó el prompt optimizado de la Tabla 4.2. Kimi procesó la totalidad del documento en una única llamada de inferencia con una latencia total de 18.4 segundos.
 \end{enumerate}
+
+\begin{figure}[htbp]
+\centering
+\begin{tcolorbox}[colback=white, colframe=unmsm_gold, arc=3pt, boxrule=0.8pt, top=0.3cm, bottom=0.3cm, left=0.4cm, right=0.4cm]
+\centering
+\small\sffamily
+\textbf{Figura 4.4.} \textit{Interacción con Moonshot Kimi: Verificación de Carga en Procesamiento de Contexto Masivo}\\[0.25cm]
+\includegraphics[width=0.85\linewidth]{figuras/cap04/image2.png}\\[0.2cm]
+\raggedright\scriptsize \textbf{Fuente:} Captura experimental obtenida en la plataforma oficial de Moonshot AI (Grupo 14, 2026).
+\end{tcolorbox}
+\end{figure}
 
 \subsubsection*{Interpretación y Resultados:}
 La salida generada por Kimi preservó con alta precisión los 10 ejes temáticos del documento y sintetizó una tabla cronológica coherente. Sin embargo, en la auditoría manual de las 15 tablas originales se identificó que el modelo redondeó un porcentaje de adopción tecnológica de $67.4\%$ a $67\%$ y omitió una nota al pie que explicaba la desviación típica de la muestra. Este resultado confirma que Kimi es extraordinariamente eficiente para la cartografía conceptual rápida de grandes corpus, pero exige que los datos numéricos críticos sean verificados directamente en la fuente primaria por el investigador humano.
@@ -398,6 +402,17 @@ Se formuló la misma consulta técnica sobre arquitecturas de almacenamiento en 
     \item \textbf{Modalidad B (Chino simplificado):} Idéntico prompt formulado en chino mandarín estándar utilizando la terminología nativa de la computación distribuida.
 \end{itemize}
 
+\begin{figure}[htbp]
+\centering
+\begin{tcolorbox}[colback=white, colframe=unmsm_gold, arc=3pt, boxrule=0.8pt, top=0.3cm, bottom=0.3cm, left=0.4cm, right=0.4cm]
+\centering
+\small\sffamily
+\textbf{Figura 4.5.} \textit{Interacción con Baidu ERNIE Bot: Búsqueda Integrada y Sesgo de Ecosistema}\\[0.25cm]
+\includegraphics[width=0.85\linewidth]{figuras/cap04/image4.png}\\[0.2cm]
+\raggedright\scriptsize \textbf{Fuente:} Captura experimental obtenida en la plataforma oficial de Baidu ERNIE (Grupo 14, 2026).
+\end{tcolorbox}
+\end{figure}
+
 \subsubsection*{Interpretación y Resultados:}
 En la Modalidad A, la respuesta de ERNIE fue concisa pero genérica; mencionó conceptos universales (almacenamiento en bloques, archivos y objetos) pero exhibió construcciones sintácticas rígidas. En la Modalidad B, la respuesta fue notablemente más profunda, incorporando esquemas de redundancia geográfica y optimización de rendimiento basadas en hardware de aceleración específico.
 
@@ -412,6 +427,17 @@ La delegación de tareas rutinarias en agentes inteligentes de interfaz de usuar
 Se encomendó al agente AutoGLM la siguiente tarea: ``Abrir la aplicación de toma de notas, crear un nuevo documento titulado `Seminario IA San Marcos', transcribir los tres puntos principales del correo electrónico recibido recientemente y programar un recordatorio en el calendario para el viernes a las 10:00 AM.''
 
 El agente inició el bucle de percepción-acción: identificó el ícono del cliente de correo, ejecutó el toque en pantalla, localizó el mensaje objetivo y extrajo el texto relevante mediante OCR visual. Posteriormente, abrió la aplicación de notas y pegó el contenido. Sin embargo, en la fase final de programación en el calendario, la aplicación solicitó una confirmación de permisos de notificación. El agente interpretó erróneamente el cuadro de diálogo como un botón de guardado y reportó al usuario que la tarea había culminado exitosamente, cuando en realidad el evento del calendario nunca fue registrado en la base de datos local.
+
+\begin{figure}[htbp]
+\centering
+\begin{tcolorbox}[colback=white, colframe=unmsm_gold, arc=3pt, boxrule=0.8pt, top=0.3cm, bottom=0.3cm, left=0.4cm, right=0.4cm]
+\centering
+\small\sffamily
+\textbf{Figura 4.6.} \textit{Interacción con Zhipu AI GLM-4.5: Organización de Información y Ejecución de Tareas}\\[0.25cm]
+\includegraphics[width=0.85\linewidth]{figuras/cap04/image3.png}\\[0.2cm]
+\raggedright\scriptsize \textbf{Fuente:} Captura experimental obtenida en la plataforma oficial de Zhipu AI (Grupo 14, 2026).
+\end{tcolorbox}
+\end{figure}
 
 \subsubsection*{Interpretación y Resultados:}
 El experimento evidenció con contundencia la vulnerabilidad de las alucinaciones procedimentales en agentes de interfaz. Si el usuario hubiera confiado ciegamente en la confirmación del agente, habría perdido el recordatorio del evento académico. Se diseñó en consecuencia un protocolo estricto de \textit{Human-in-the-Loop} donde el agente tiene autorización para preparar borradores y ejecutar navegación exploratoria, pero las acciones de modificación de estado, confirmación de calendario y envío de comunicaciones externas requieren la validación ocular y el clic manual explícito del usuario humano.

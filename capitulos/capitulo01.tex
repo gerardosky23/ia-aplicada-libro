@@ -2,1329 +2,983 @@
 % METADATOS DE AUDITORÍA EDITORIAL Y RIGOR CIENTÍFICO (PROTOCOLO AGENTS.md)
 % ==============================================================================
 % Capítulo: 01
-% Título: Introducción a la Inteligencia Artificial: Fundamentos, Trayectoria Histórica y Modelos de la IA Generativa
+% Título: Introducción a la Inteligencia Artificial: IA Generativa
 % Grupo de Origen: Grupo 11 (Asignatura de Inteligencia Artificial Aplicada, UNMSM)
 % Archivo Fuente Analizado: Capitulos IA S2/Grupo 11/Capitulo1_IntroducciónIAG.pptx (24 diapositivas)
-% Fuentes Primarias Cotejadas y Verificadas:
-%   1. Turing, A. M. (1950). Computing machinery and intelligence. Mind, 59(236), 433-460.
-%   2. McCarthy, J., Minsky, M. L., Rochester, N., & Shannon, C. E. (2006/1955). A proposal for the Dartmouth Summer Research Project on Artificial Intelligence. AI Magazine, 27(4), 12-14.
-%   3. LeCun, Y., Bengio, Y., & Hinton, G. (2015). Deep learning. Nature, 521(7553), 436-444.
-%   4. Vaswani, A., Shazeer, N., Parmar, N., et al. (2017). Attention is all you need. NeurIPS, 30, 5998-6008.
-%   5. Goodfellow, I., Pouget-Abadie, J., Mirza, M., et al. (2014). Generative adversarial nets. NeurIPS, 27, 2672-2680.
-%   6. Ho, J., Jain, A., & Abbeel, P. (2020). Denoising diffusion probabilistic models. NeurIPS, 33, 6840-6851.
-%   7. Brown, T. B., Mann, B., Ryder, N., et al. (2020). Language models are few-shot learners. NeurIPS, 33, 1877-1901.
-%   8. Ouyang, L., Wu, J., Jiang, X., et al. (2022). Training language models to follow instructions with human feedback. NeurIPS, 35, 27730-27744.
-%   9. Bommasani, R., Hudson, D. A., Adeli, E., et al. (2021). On the opportunities and risks of foundation models. arXiv:2108.07258.
-%  10. Feuerriegel, S., Hartmann, J., Janiesch, C., & Zschech, P. (2024). Generative AI. Business & Information Systems Engineering, 66(1), 111-126.
-% Cláusula NotebookLM: Grounding estricto al 100%. Cero datos o métricas inventadas.
-% Parámetro de Extensión: ~26-28 páginas compiladas en formato oficial (Mínimo requerido: >= 25 páginas).
-% Decisiones del Usuario: Expansión académica profunda a partir del PPTX del Grupo 11 sustentada en literatura primaria arbitrada.
-% Cumplimiento Normativo: APA 7ma Edición + House Style UNMSM (7 secciones canónicas completas).
-% Estado de Auditoría: CONFORME / REVISADO POR CAPITULO-AUDITOR
-% Fecha de Auditoría: 2026-11-20
+% Enfoque: Inteligencia Artificial Aplicada (traslado fiel letra por letra e imagen por imagen)
+% Cumplimiento Normativo: APA 7ma Edición + House Style UNMSM (7 componentes pedagógicos canónicos).
 % ==============================================================================
 
-\section[Introducción a la IA e IA Generativa]{Introducción a la Inteligencia Artificial: Fundamentos, Trayectoria Histórica y Modelos de la IA Generativa}
-\markboth{CAPÍTULO 1\quad INTRODUCCIÓN A LA IA E IA GENERATIVA}{}
+\section[Introducción a la IA: IA Generativa]{Introducción a la Inteligencia Artificial: IA Generativa}
+\markboth{CAPÍTULO 1\quad INTRODUCCIÓN A LA IA: IA GENERATIVA}{}
 
 \begin{cajabeige}
-\textbf{Pregunta Central del Capítulo:} \textquestiondown Cómo evolucionaron los modelos y las arquitecturas de la inteligencia artificial hasta culminar en la IA generativa moderna (Transformers, redes generativas antagónicas y modelos de difusión probabilística), y cuáles son los principios matemáticos, capacidades emergentes y límites epistémicos que condicionan su aplicación rigurosa en el ámbito científico y universitario?\\[0.3cm]
-\textbf{Objetivo de Aprendizaje:} El lector comprenderá la evolución epistemológica y conceptual de la inteligencia artificial; analizará los fundamentos matemáticos del aprendizaje automático y las redes neuronales profundas; examinará en detalle los mecanismos de autoatención, competencia minimax y difusión estocástica en las arquitecturas generativas de vanguardia; y evaluará críticamente sus riesgos de alucinación, sesgo y opacidad algorítmica para articular protocolos de auditoría y uso ético en la investigación.
+\textbf{Pregunta Central del Capítulo:} \textquestiondown Cómo evolucionaron los modelos y las arquitecturas de la IA generativa (Transformers, redes generativas antagónicas y modelos de difusión) y qué capacidades y límites plantean para comprenderla y usarla en la práctica?\\[0.25cm]
+\textbf{Objetivo de Aprendizaje:} En este capítulo vas a descubrir qué es la IA y sus tipos, cómo se llegó a los sistemas generativos actuales, cómo aprende una máquina a partir de datos y por qué la IA generativa marca un antes y un después frente a la IA tradicional.
 \end{cajabeige}
 
 \textoside{
-La inteligencia artificial generativa marca un cambio de paradigma respecto al modelado discriminativo tradicional: en lugar de estimar la probabilidad condicional de una etiqueta $p(y|\mathbf{x})$, aproxima la distribución de probabilidad subyacente de los datos $p_{\text{data}}(\mathbf{x})$ para sintetizar muestras originales y verosímiles en espacios de alta dimensionalidad. Este avance descansa en la convergencia de la autoatención en secuencias, la optimización adversarial y la reversión estocástica de cadenas de Markov, configurando artefactos que potencian el trabajo intelectual pero exigen una supervisión epistémica continua para discernir entre fluidez sintáctica y veracidad fáctica.
-}{CONCEPTO CLAVE\\[0.1cm]Modelado Generativo y Distribuciones de Probabilidad}
+Durante décadas, las computadoras siguieron reglas fijas y ordenaron información que ya existía. Hoy, la inteligencia artificial generativa (GenAI) cambió el juego. Basta con escribir una orden en cualquier idioma para que un sistema cree un texto, un fragmento de código o una imagen que antes no existía. Eso abre preguntas interesantes: \textquestiondown puede una máquina ser creativa? \textquestiondown Hasta dónde llega esta tecnología? \textquestiondown Cómo conviene usarla para estudiar y trabajar sin perder el juicio crítico?
+}{CONCEPTO CLAVE\\[0.1cm]IA Generativa}
 
-\vspace{0.4cm}
-
-\subsection{Epistemología, Definiciones y Taxonomía de la Inteligencia Artificial}
-
-\subsubsection{Naturaleza Conceptual y Orígenes Epistemológicos}
-
-La pregunta sobre la posibilidad de reproducir computacionalmente facultades asociadas con la cognición humana constituye uno de los ejes intelectuales más fecundos de la ciencia moderna. Como expuso Alan Turing (1950) en su seminal artículo \textit{Computing Machinery and Intelligence}, la interrogante filosófica tradicional \textquestiondown pueden pensar las máquinas? resultaba intrínsecamente ambigua debido a la falta de consenso sobre el significado ontológico del verbo ``pensar''. En su lugar, Turing propuso un criterio operacional y empírico: el ``juego de imitación'' (conocido universalmente como la Prueba de Turing), en el cual un interrogador humano interactúa a ciegas mediante texto con un ser humano y un sistema computacional. Si el evaluador no logra discriminar sistemáticamente entre las respuestas biológicas y las artificiales, el sistema debe ser reconocido funcionalmente como poseedor de capacidades inteligentes.
-
-Seis años más tarde, durante el histórico seminario de verano celebrado en Dartmouth College, John McCarthy, Marvin Minsky, Nathaniel Rochester y Claude Shannon (1955/2006) acuñaron formalmente la disciplina bajo el término \textit{Artificial Intelligence}. En la propuesta original remitida a la Fundación Rockefeller, los autores postularon la conjetura fundacional del campo:
-\begin{quote}
-``El estudio se fundamenta en la conjetura de que cada aspecto del aprendizaje o cualquier otra manifestación de la inteligencia puede, en principio, describirse con tanta precisión que es posible programar una máquina para simularlo'' (McCarthy et al., 2006, p. 12).
-\end{quote}
-
-A lo largo de las décadas posteriores, la definición de inteligencia artificial transitó desde visiones puramente antropomórficas centradas en replicar el razonamiento humano hacia concepciones ingenieriles y matemáticas fundamentadas en el concepto de \textit{agente racional}. Como sistematizan Russell y Norvig (2020), un agente inteligente es cualquier entidad capaz de percibir su entorno mediante sensores y actuar sobre él a través de actuadores de tal forma que maximice la probabilidad esperada de éxito según una función de desempeño matemáticamente formalizada.
-
-\subsubsection{Los Tres Niveles de la Inteligencia Artificial según Feuerriegel et al. (2024)}
-
-Para superar visiones monolíticas que confunden la infraestructura algorítmica con las interfaces de usuario, Feuerriegel et al. (2024) proponen un marco analítico estructurado en tres niveles jerárquicos e interdependientes:
-
-\begin{enumerate}
-    \item \textbf{Nivel de Modelos (Model Level):} Constituye el núcleo matemático y algorítmico del sistema. Incluye las arquitecturas computacionales (redes neuronales convolucionales, grafos de atención, redes recurrentes, modelos de difusión), sus funciones de pérdida asociadas ($L(\theta)$), las formulaciones de optimización (descenso del gradiente estocástico, optimizadores adaptativos como AdamW) y los conjuntos de pesos sinápticos entrenados mediante preentrenamiento masivo o ajuste fino.
-    \item \textbf{Nivel de Sistemas (System Level):} Abarca la orquestación de software, la infraestructura de hardware y las canalizaciones de datos requeridas para desplegar los modelos de forma operacional. En este nivel residen los módulos de tokenización, las canalizaciones de generación aumentada por recuperación (Retrieval-Augmented Generation, RAG), los marcos de inferencia distribuida en clusters de unidades de procesamiento gráfico (GPU/TPU), las memorias de contexto, las herramientas de comprobación de hechos (\textit{fact-checking}) y las interfaces de programación de aplicaciones (API).
-    \item \textbf{Nivel de Aplicaciones (Application Level):} Representa la interacción directa del sistema con los usuarios finales y los procesos sociotécnicos de un dominio específico. Comprende los asistentes de código en ingeniería de software, las interfaces conversacionales en educación superior, las plataformas de cribado computacional en química farmacéutica y los entornos de análisis de series temporales en econometría.
-\end{enumerate}
-
-Esta distinción tridimensional es esencial en el ámbito universitario: evaluar un asistente generativo no se limita a medir la perplejidad del modelo base ($p_\theta$), sino que exige auditar la fiabilidad de su capa de recuperación contextual en el nivel de sistemas y la validez metodológica de su uso en el nivel de aplicaciones.
-
-\subsubsection{Taxonomía Funcional de Tareas de la Inteligencia Artificial}
-
-Desde una perspectiva funcional y de procesamiento de información, las tareas que desempeña la inteligencia artificial pueden clasificarse en cuatro grandes familias operativas, descritas en la Tabla 1.1.
-
-\begin{table}[htpb!]
-\centering
-\small\sffamily
-\caption{\textit{Familias funcionales de tareas en los sistemas de inteligencia artificial}}
-\label{tab:familias_tareas}
-\begin{tabularx}{\textwidth}{p{2.8cm}p{3.2cm}p{3.2cm}X}
-\toprule
-\textbf{Familia de Tarea} & \textbf{Espacio de Entrada} & \textbf{Mecanismo Central} & \textbf{Ejemplos Representativos} \\
-\midrule
-\textbf{Percepción Sensorial} & Imágenes, espectrogramas de audio, señales biomédicas. & Extracción de patrones jerárquicos espaciales y temporales mediante convoluciones y transformadas. & Clasificación histopatológica, reconocimiento de voz (\textit{speech-to-text}), visión robótica. \\
-\midrule
-\textbf{Comprensión del Lenguaje} & Secuencias discretas de texto, documentos semiestructurados. & Modelado de dependencias semánticas y sintácticas contextuales (Transformers bidireccionales). & Análisis de sentimiento, extracción de entidades nombradas (NER), clasificación de textos. \\
-\midrule
-\textbf{Predicción y Decisión} & Vectores de características tabulares, grafos, estados del entorno. & Estimación de funciones de regresión, clasificación y políticas de control (árboles, RL, MLPs). & Diagnóstico predictivo de fallas, sistemas de recomendación, vehículos autónomos. \\
-\midrule
-\textbf{Síntesis Generativa} & Prompts textuales, condiciones de contorno, vectores latentes. & Muestreo estocástico sobre distribuciones conjuntas $p(\mathbf{x})$ aprendidas de datos masivos. & Modelos de lenguaje autoregresivos (LLMs), síntesis molecular, difusión de imágenes. \\
-\bottomrule
-\end{tabularx}
-\vspace{0.15cm}
-\raggedright\scriptsize \textbf{Fuente:} Adaptado y expandido a partir de Feuerriegel et al. (2024) y Russell y Norvig (2020).
-\end{table}
-
-\subsubsection{Desmitificación Epistémica: Lo que la Inteligencia Artificial No Es}
-
-El debate público y académico sobre la inteligencia artificial suele verse distorsionado por analogías antropomórficas imprecisas. Para construir una comprensión científica rigurosa, resulta imprescindible delimitar con exactitud las fronteras operacionales de estos sistemas:
-
+\subsubsection*{Qué encontrarás en el capítulo}
 \begin{itemize}
-    \item \textbf{La IA no posee intencionalidad, consciencia ni comprensión ontológica:} Un modelo generativo de lenguaje procesa correlaciones estadísticas entre tokens; carece de modelos del mundo interiorizados, de experiencia fenomenológica (\textit{qualia}) y de intencionalidad semántica. Como advirtieron Bender et al. (2021), operar con modelos masivos tratándolos como mentes sintientes equivale a atribuir voluntad a un ``loro estocástico'' que reproduce secuencias lingüísticas sin acceso al significado referencial de los enunciados.
-    \item \textbf{La IA no es una base de datos relacional determinista:} Un modelo generativo no almacena documentos literales en tablas indexadas para su posterior consulta (salvo casos patológicos de sobreajuste memorístico). El conocimiento fáctico se encuentra implícito y difuso en las matrices de pesos ponderados ($\theta \in \mathbb{R}^d$), por lo que su recuperación es probabilística y susceptible a perturbaciones estocásticas.
-    \item \textbf{La IA no es inherentemente infalible ni neutral:} Las respuestas de un algoritmo reflejan las asimetrías, lagunas y prejuicios presentes en los corpus de entrenamiento. Si los datos históricos subrepresentan determinados colectivos o reproducen prácticas discriminatorias, el modelo codificará y proyectará dichas inequidades como patrones matemáticos legítimos.
-    \item \textbf{La IA no es magia impenetrable que deba aceptarse acríticamente:} Aunque las redes neuronales profundas exhiben comportamientos de caja negra debido a la interacción no lineal de miles de millones de coeficientes, existen herramientas rigurosas de interpretabilidad mecanística, análisis de atribución de gradientes y auditoría de datos que permiten ``descajanegrizar'' (\textit{unblackboxing}) su comportamiento (Artopoulos \& Lliteras, 2024).
+    \item \textbf{\textquestiondown Qué es la Inteligencia Artificial?:} Definición, usos cotidianos, IA estrecha y general.
+    \item \textbf{Breve historia de la IA:} Línea de tiempo, personajes e hitos por etapas.
+    \item \textbf{Cómo aprende una máquina:} Aprendizaje automático, redes neuronales, datos y entrenamiento.
+    \item \textbf{La IA generativa:} De clasificar a generar, modelos de lenguaje y un caso de aplicación.
 \end{itemize}
 
-\subsubsection{Dicotomía entre Inteligencia Artificial Estrecha (ANI) e Inteligencia Artificial General (AGI)}
+\vspace{0.3cm}
 
-Una de las distinciones axiales en la teoría de la computación es la delimitación entre Inteligencia Artificial Estrecha (Artificial Narrow Intelligence, ANI) e Inteligencia Artificial General (Artificial General Intelligence, AGI). Los sistemas implementados hasta la fecha pertenecen estrictamente a la categoría ANI: programas optimizados para resolver tareas delimitadas en dominios restringidos. 
+\subsection{¿Qué es la Inteligencia Artificial?}
+
+Es probable que hoy hayas desbloqueado tu teléfono con el rostro, recibido una sugerencia de video o usado un traductor automático sin detenerte a pensar que detrás hay inteligencia artificial. La expresión se volvió común, pero también ambigua: se usa para hablar de un filtro de correo, de un robot de película y de un asistente que redacta ensayos. Antes de estudiar la IA generativa conviene fijar con claridad de qué hablamos.
+
+\subsubsection{Una definición sencilla}
+La inteligencia artificial (IA) es el campo de la informática que diseña sistemas capaces de realizar tareas que, si las hiciera una persona, diríamos que requieren inteligencia: percibir su entorno, aprender de la experiencia, razonar, usar el lenguaje y tomar decisiones. 
+
+La idea es antigua. La propuesta que dio origen al taller de Dartmouth sostenía que el aprendizaje, el uso del lenguaje, la resolución de problemas y la creatividad podían describirse con tanta precisión que una máquina podría simularlos. Años antes, Turing (1950) había reemplazado la pregunta "\textquestiondown pueden pensar las máquinas?" por una prueba observable: el "juego de imitación".
+
+Importa notar que el término no tiene una definición única y universal. García-Peñalvo y Vázquez-Ingelmo (2023) lo constatan incluso para la IA generativa, tras revisar 631 soluciones publicadas en cinco años. Por eso Feuerriegel et al. (2024) proponen mirarla en tres niveles:
+\begin{enumerate}
+    \item \textbf{Los modelos:} Los algoritmos entrenados.
+    \item \textbf{Los sistemas:} Que los empaquetan con datos e interfaces.
+    \item \textbf{Las aplicaciones:} Los usos concretos en cada sector.
+\end{enumerate}
+
+\begin{cajagris}
+\textbf{CONCEPTO CLAVE: Inteligencia Artificial}\\
+Campo que busca construir sistemas capaces de realizar tareas que normalmente asociamos con la inteligencia humana.
+\end{cajagris}
+
+\subsubsection{Qué tipos de tareas aborda la IA}
+Más que una sola técnica, la IA es un conjunto de métodos que se aplican a distintas familias de tareas, resumidas en la Tabla 1.1.
 
 \begin{table}[htpb!]
 \centering
 \small\sffamily
-\caption{\textit{Comparación analítica entre Inteligencia Artificial Estrecha (ANI) e Inteligencia Artificial General (AGI)}}
-\label{tab:ani_agi}
-\begin{tabularx}{\textwidth}{p{3.2cm}p{4.8cm}X}
+\caption{\textbf{Tabla 1.1.} \textit{Familias de tareas de la IA}}
+\vspace{0.15cm}
+\begin{tabularx}{\textwidth}{>{\bfseries}p{3.2cm} >{\raggedright\arraybackslash}p{4.2cm} >{\raggedright\arraybackslash}p{4.2cm} >{\raggedright\arraybackslash}X}
 \toprule
-\textbf{Eje de Análisis} & \textbf{Inteligencia Artificial Estrecha (ANI)} & \textbf{Inteligencia Artificial General (AGI)} \\
+Tarea & Qué hace el sistema & Ejemplo & Datos de entrada \\
 \midrule
-\textbf{Alcance Operacional} & Confinado a tareas especializadas o dominios estrechamente definidos. & Polivalente y flexible; transferible a través de cualquier ámbito cognitivo humano. \\
+Percibir & Interpreta imágenes, sonidos u otras señales. & Reconocimiento facial, dictado por voz. & Imágenes, audio \\
 \midrule
-\textbf{Transferibilidad Cognitiva} & Extremadamente limitada; sufre de olvido catastrófico al reentrenar en dominios dispares. & Capacidad intrínseca de generalización cero disparos (\textit{zero-shot}) y razonamiento causal transversal. \\
+Comprender lenguaje & Analiza, clasifica o traduce texto. & Traductor automático, filtro de correo. & Texto \\
 \midrule
-\textbf{Estado Tecnológico} & Realidad técnica madura y desplegada a escala industrial global. & Hipótesis teórica y meta aspiracional no alcanzada en la actualidad científica. \\
+Predecir y decidir & Estima un valor o elige entre opciones. & Recomendaciones, detección de fraude. & Tablas, historiales \\
 \midrule
-\textbf{Paradigma de Aprendizaje} & Optimización guiada por objetivos específicos y funciones de recompensa acotadas. & Aprendizaje continuo, autónomo, adaptativo y contextualizado en entornos abiertos. \\
-\midrule
-\textbf{Riesgos Primarios} & Alucinaciones estocásticas, sesgos discriminatorios, opacidad y ciberseguridad. & Desalineación existencial, pérdida de control de agentes autónomos y quiebre institucional. \\
+Generar & Crea contenido nuevo a partir de lo aprendido. & Asistentes de redacción, imágenes sintéticas. & Texto, imagen, audio, código \\
 \bottomrule
 \end{tabularx}
 \vspace{0.15cm}
-\raggedright\scriptsize \textbf{Fuente:} Elaboración propia basada en Russell y Norvig (2020) y Bommasani et al. (2021).
+\raggedright\scriptsize \textbf{Fuente:} Elaboración propia a partir del material del Grupo 11.
 \end{table}
 
-Entre ambos extremos ha surgido el concepto de \textit{Modelos Fundacionales} (Foundation Models), formulado por Bommasani et al. (2021) en la Universidad de Stanford. Estos modelos, entrenados sobre corpus masivos mediante aprendizaje autosupervisado a gran escala, pueden adaptarse a través de ajuste fino (\textit{fine-tuning}) o ingeniería de instrucciones a una multiplicidad de tareas sin alterar su arquitectura base, operando como infraestructura transversal para el ecosistema informático contemporáneo.
+\subsubsection{Lo que la IA no es}
+Gran parte de los malentendidos nace de atribuirle a la IA cualidades que no tiene. Cinco ideas ayudan a corregirlos:
+\begin{itemize}
+    \item \textbf{No es una mente consciente:} Un modelo de lenguaje produce texto coherente, pero eso no significa que comprenda lo que dice.
+    \item \textbf{No es un buscador ni una base de datos:} Un sistema generativo no "recupera" respuestas guardadas: las construye a partir de patrones aprendidos.
+    \item \textbf{No es infalible:} Puede producir información falsa con aparente seguridad, fenómeno conocido como alucinación.
+    \item \textbf{No es neutral:} Hereda los sesgos de los datos con los que se entrenó y puede reproducirlos o amplificarlos.
+    \item \textbf{No es una caja mágica:} Entender cómo funciona permite evaluarla críticamente; por eso se habla de "descajanegrización".
+\end{itemize}
 
-\clearpage
-\begin{figure}[tbp]
+\subsubsection{Un ejemplo sencillo: el filtro de correo no deseado}
+El filtro de spam de tu correo es un buen ejemplo de IA que no genera nada, pero aprende. Su funcionamiento se puede resumir en cuatro pasos:
+\begin{enumerate}
+    \item Se reúnen miles de correos que personas ya clasificaron como "spam" o "no spam".
+    \item El sistema busca patrones: ciertas palabras, enlaces sospechosos, remitentes poco habituales.
+    \item Con lo aprendido, asigna a cada correo nuevo una probabilidad de ser spam.
+    \item Si la probabilidad supera un umbral, el correo va a la carpeta de spam; las correcciones del usuario sirven para mejorar el sistema.
+\end{enumerate}
+
+Este sistema clasifica. Un asistente generativo haría algo distinto: redactaría un correo nuevo. Esa diferencia se retoma en la sección 1.4.
+
+\begin{figure}[htpb!]
 \centering
 \begin{tcolorbox}[colback=white, colframe=unmsm_gold, arc=3pt, boxrule=0.8pt, top=0.3cm, bottom=0.3cm, left=0.4cm, right=0.4cm]
 \centering
 \small\sffamily
-\textbf{Figura 1.1.} Taxonomía Jerárquica e Inclusión de Disciplinas en la Computación Inteligente\\[0.25cm]
-\resizebox{0.96\linewidth}{!}{%
-\begin{tikzpicture}[font=\footnotesize\sffamily]
-    % Outer Box: IA (Alto total 10.4cm, de y=-5.2 a y=5.2)
-    \draw[rounded corners=6pt, fill=bg_marfil, draw=unmsm_red, line width=1.2pt] (-6.8,-5.2) rectangle (6.8,5.2);
-    \node[anchor=north west, text=unmsm_red, font=\normalsize\sffamily\bfseries] at (-6.4,4.8) {INTELIGENCIA ARTIFICIAL (IA)};
-    \node[anchor=north west, text=unmsm_gray, text width=12.8cm] at (-6.4,4.2) {Sistemas de cómputo que emulan facultades de percepción, razonamiento, planificación y optimización racional.};
+\textbf{Figura 1.1.} \textit{La IA y sus subcampos: de lo general a lo específico}\\[0.25cm]
+\resizebox{0.92\linewidth}{!}{%
+\begin{tikzpicture}[>=stealth, font=\small\sffamily]
+    % Caja IA
+    \draw[rounded corners=6pt, fill=bg_marfil, draw=unmsm_red, line width=1.2pt] (-6.5,-5.2) rectangle (6.5,5.2);
+    \node[anchor=north west, text=unmsm_red, font=\normalsize\bfseries] at (-6.1,4.8) {Inteligencia Artificial (IA)};
+    \node[anchor=north west, text=unmsm_gray, text width=12cm] at (-6.1,4.2) {Sistemas que realizan tareas que asociamos con la inteligencia humana.};
 
-    % Middle Outer Box: ML (Alto total 8.0cm, de y=-4.7 a y=3.3)
-    \draw[rounded corners=5pt, fill=bg_arena!60, draw=unmsm_darkred, line width=1.0pt] (-6.3,-4.7) rectangle (6.3,3.3);
-    \node[anchor=north west, text=unmsm_darkred, font=\small\sffamily\bfseries] at (-5.9,2.9) {APRENDIZAJE AUTOMÁTICO (MACHINE LEARNING, ML)};
-    \node[anchor=north west, text=unmsm_gray, text width=11.8cm] at (-5.9,2.4) {Algoritmos que aprenden representaciones latentes y parámetros predictivos a partir de datos empíricos.};
+    % Caja ML
+    \draw[rounded corners=5pt, fill=bg_arena, draw=unmsm_darkred, line width=1.0pt] (-5.8,-4.6) rectangle (5.8,3.2);
+    \node[anchor=north west, text=unmsm_darkred, font=\small\bfseries] at (-5.4,2.8) {Aprendizaje automático (ML)};
+    \node[anchor=north west, text=black, text width=10.8cm] at (-5.4,2.2) {Sistemas que aprenden patrones a partir de datos, sin reglas escritas a mano.};
 
-    % Middle Inner Box: DL (Alto total 5.7cm, de y=-4.2 a y=1.5)
-    \draw[rounded corners=4pt, fill=white, draw=unmsm_red, line width=0.9pt] (-5.8,-4.2) rectangle (5.8,1.5);
-    \node[anchor=north west, text=unmsm_red, font=\footnotesize\sffamily\bfseries] at (-5.4,1.1) {APRENDIZAJE PROFUNDO (DEEP LEARNING, DL)};
-    \node[anchor=north west, text=unmsm_gray, text width=10.8cm] at (-5.4,0.6) {Redes neuronales artificiales jerárquicas con múltiples capas de transformaciones no lineales.};
+    % Caja DL
+    \draw[rounded corners=4pt, fill=white, draw=unmsm_red, line width=0.8pt] (-5.1,-4.0) rectangle (5.1,0.9);
+    \node[anchor=north west, text=unmsm_red, font=\small\bfseries] at (-4.7,0.5) {Aprendizaje profundo (DL)};
+    \node[anchor=north west, text=black, text width=9.5cm] at (-4.7,-0.1) {Aprendizaje con redes neuronales de muchas capas.};
 
-    % Innermost Box: GenAI (Alto total 3.3cm, de y=-3.7 a y=-0.4)
-    \draw[rounded corners=3pt, fill=unmsm_red!10, draw=unmsm_darkred, line width=0.8pt] (-5.3,-3.7) rectangle (5.3,-0.4);
-    \node[anchor=center, text=unmsm_darkred, font=\footnotesize\sffamily\bfseries] at (0,-0.9) {INTELIGENCIA ARTIFICIAL GENERATIVA (GenAI)};
-    \node[anchor=center, text=unmsm_gray, text width=9.8cm, text centered] at (0,-2.1) {Modelos probabilísticos fundacionales entrenados para modelar $p(\mathbf{x})$ y sintetizar contenido multimodal inédito: texto, código, imágenes y simulaciones científicas complejas.};
+    % Caja GenAI
+    \draw[rounded corners=3pt, fill=bg_marfil, draw=unmsm_darkred, line width=0.8pt] (-4.4,-3.4) rectangle (4.4,-1.0);
+    \node[anchor=north west, text=unmsm_darkred, font=\small\bfseries] at (-4.0,-1.4) {IA generativa (GenAI)};
+    \node[anchor=north west, text=black, text width=8.2cm] at (-4.0,-2.0) {Modelos que producen contenido nuevo: texto, imagen, audio o código.};
 \end{tikzpicture}%
-}
+}\\[0.2cm]
+\raggedright\scriptsize \textbf{Fuente:} Elaboración propia a partir de LeCun, Bengio y Hinton (2015) y Feuerriegel et al. (2024).
 \end{tcolorbox}
-\vspace{0.15cm}
-\raggedright\scriptsize \textbf{Fuente:} Elaboración propia basada en la estructura taxonómica de Russell y Norvig (2020) y Bommasani et al. (2021).
 \end{figure}
 
-Para afianzar el vocabulario técnico utilizado a lo largo de este volumen monográfico, la Tabla 1.3 compendia los términos medulares que rigen la arquitectura y el análisis computacional de la disciplina.
+\subsubsection{La IA en la vida cotidiana}
+La IA ya forma parte de rutinas que casi no notamos. Algunos ejemplos habituales:
+\begin{itemize}
+    \item \textbf{En el teléfono:} Desbloqueo facial, teclado predictivo, dictado por voz y traducción instantánea.
+    \item \textbf{En plataformas digitales:} Recomendaciones de videos, música y productos según lo que ya consumiste.
+    \item \textbf{En el correo y la banca:} Filtros de correo no deseado y detección de operaciones sospechosas.
+    \item \textbf{En el transporte:} Rutas que se recalculan según el tráfico estimado.
+    \item \textbf{En la salud:} Apoyo al análisis de imágenes médicas, siempre bajo supervisión de especialistas.
+    \item \textbf{En la educación:} Asistentes conversacionales que explican, resumen o proponen ejercicios.
+\end{itemize}
+
+\subsubsection{IA estrecha frente a IA general}
+Se suele distinguir dos grandes niveles de ambición, resumidos en la Tabla 1.2.
 
 \begin{table}[htpb!]
 \centering
 \small\sffamily
-\caption{\textit{Glosario técnico fundamental de la inteligencia artificial y el aprendizaje profundo}}
-\label{tab:glosario}
-\begin{tabularx}{\textwidth}{p{3.0cm}p{3.2cm}X}
+\caption{\textbf{Tabla 1.2.} \textit{Comparación entre IA estrecha e IA general}}
+\vspace{0.15cm}
+\begin{tabularx}{\textwidth}{>{\bfseries}p{2.8cm} >{\raggedright\arraybackslash}p{6.0cm} >{\raggedright\arraybackslash}X}
 \toprule
-\textbf{Término Formal} & \textbf{Naturaleza Matemática} & \textbf{Definición Operativa en Modelos de Lenguaje} \\
+Criterio & IA estrecha (ANI) & IA general (AGI) \\
 \midrule
-\textbf{Dato (Data)} & Espacio muestral $\mathbf{x} \in \mathcal{X}$ & Representación codificada en bruto (texto, píxeles, señales) antes de cualquier procesamiento inferencial. \\
+Alcance & Resuelve tareas concretas para las que fue entrenada. & Resolvería cualquier tarea intelectual que pueda hacer una persona. \\
 \midrule
-\textbf{Parámetro (Weight)} & Coeficiente libre $\theta \in \mathbb{R}^d$ & Peso sináptico o sesgo interno que el modelo ajusta autónomamente durante la minimización de la pérdida. \\
+Ejemplos & Reconocer rostros, traducir, recomendar, jugar ajedrez, redactar textos. & Todavía no existe; es un objetivo de investigación y objeto de debate. \\
 \midrule
-\textbf{Hiperparámetro} & Configuración externa $\lambda$ & Valor estructural preestablecido por el ingeniero (tasa de aprendizaje $\eta$, dimensión del embedding $d_k$, tamaño de lote). \\
+Transferencia & Rinde mal fuera de su dominio sin reentrenamiento. & Aprendería una tarea nueva y aplicaría lo aprendido a otras. \\
 \midrule
-\textbf{Función de Pérdida} & Mapeo escalar $L(\theta) \in \mathbb{R}^+$ & Métrica de discrepancia matemática entre la predicción generada $\hat{y}$ y el valor observado $y$ del corpus. \\
-\midrule
-\textbf{Inferencia} & Evaluación $f_\theta(\mathbf{x})$ & Ejecución de la red neuronal hacia adelante sobre entradas inéditas para generar predicciones sin modificar pesos. \\
-\midrule
-\textbf{Token} & Elemento discreto $t \in \mathcal{V}$ & Fragmento atómico de texto (subpalabra, carácter o palabra completa) extraído mediante algoritmos como BPE. \\
-\midrule
-\textbf{Prompt} & Secuencia condicional $\mathbf{x}_{1:n}$ & Instrucción, contexto o estímulo textual provisto por el usuario para condicionar la probabilidad de salida $p(y|\mathbf{x})$. \\
+Estado actual & Es toda la IA que se usa hoy. & Hipotética; no hay consenso sobre cómo ni cuándo se lograría. \\
 \bottomrule
 \end{tabularx}
 \vspace{0.15cm}
-\raggedright\scriptsize \textbf{Fuente:} Compilación institucional basada en Goodfellow et al. (2016) y Vaswani et al. (2017).
+\raggedright\scriptsize \textbf{Fuente:} Elaboración propia a partir del material del Grupo 11.
 \end{table}
 
-% ==============================================================================
-% SUBTEMA 1.2: TRAYECTORIA HISTÓRICA
-% ==============================================================================
-\newpage
-\subsection{Trayectoria Histórica: De los Fundamentos Lógicos a los Inviernos y la Revolución del Aprendizaje Profundo}
+Los grandes modelos de lenguaje desdibujan un poco esta frontera, porque un mismo modelo puede traducir, resumir, programar y responder preguntas. Bommasani et al. (2021) destacan justamente que estos modelos se reutilizan en muchas aplicaciones. Sin embargo, esa versatilidad no equivale a inteligencia general: siguen dependiendo de los datos de entrenamiento y fallan de maneras que una persona no esperaría.
 
-\subsubsection{Etapa 1: Fundamentos Lógicos y Cibernéticos (1943--1955)}
+\subsubsection{Vocabulario necesario}
+Estos términos aparecerán a lo largo del libro. Conviene tenerlos presentes desde ahora (Tabla 1.3).
 
-La prehistoria computacional de la inteligencia artificial se sitúa en la confluencia entre la neurofisiología, la lógica matemática y la cibernética. En 1943, Warren McCulloch y Walter Pitts publicaron su célebre trabajo \textit{A Logical Calculus of the Ideas Immanent in Nervous Activity}. En este artículo seminal demostraron que una red simplificada de neuronas biológicas idealizadas ---capaces de operar en estados binarios discretos (encendido/apagado) gobernados por un umbral de activación lineal--- podía calcular cualquier función lógica proposicional concebible (como la conjunción lógica $\land$, la disyunción $\lor$ y la negación $\neg$). Esta formulación estableció la base teórica del conexionismo al demostrar que las operaciones computacionales complejas podían emerger de la interconexión de unidades básicas elementales.
-
-Poco después, Norbert Wiener (1948) formalizó los principios de la cibernética al estudiar los mecanismos de retroalimentación (\textit{feedback}), homeostasis y control teleológico en máquinas e integraciones biológicas. En el ámbito del diseño de hardware, John von Neumann conceptualizó la arquitectura de cómputo secuencial con almacenamiento conjunto de datos e instrucciones en memoria compartida, habilitando el soporte físico donde más tarde se ejecutarían las primeras simulaciones de redes neuronales artificiales.
-
-\subsubsection{Etapa 2: El Nacimiento Oficial y el Optimismo Desmedido (1956--1973)}
-
-Tras el bautismo fundacional de Dartmouth en 1956, la disciplina experimentó una etapa de extraordinario entusiasmo dominada por dos paradigmas conceptuales: la inteligencia artificial simbólica (o representacional) y el conexionismo emergente.
-
-En la vertiente simbólica, Allen Newell, Herbert Simon y Clifford Shaw diseñaron el \textit{Logic Theorist} y posteriormente el \textit{General Problem Solver} (GPS). Estos sistemas abordaban la resolución de problemas mediante la manipulación formal de símbolos y reglas heurísticas de búsqueda sobre árboles de decisiones lógicas. En el ámbito del procesamiento del lenguaje natural, Joseph Weizenbaum (1966) implementó en el MIT el programa ELIZA, un bot conversacional rudimentario que imitaba las intervenciones de un terapeuta rogeriano mediante sustitución léxica y emparejamiento de patrones de texto. A pesar de su simplicidad estructural, ELIZA causó un impacto psicológico notable en los usuarios, quienes tendían a atribuirle de manera antropomórfica empatía y discernimiento genuino, un fenómeno sociotécnico que la psicología moderna denomina ``Efecto ELIZA''.
-
-Paralelamente, en la vertiente conexionista, Frank Rosenblatt (1958) desarrolló en el Laboratorio Aeronáutico de Cornell el \textbf{Perceptrón Simple}, implementado físicamente sobre el computador analógico Mark I. El Perceptrón constituía un modelo matemático de clasificación lineal supervisada capaz de ajustar sus ponderaciones numéricas mediante una regla de aprendizaje iterativa impulsada por los errores observados. El potencial aparente del Perceptrón desató expectativas desproporcionadas en la prensa científica de la época, pronosticándose la inminente creación de máquinas capaces de percibir, hablar y autoprogramarse de forma autónoma.
-
-Sin embargo, el optimismo se quebró abruptamente en 1969 con la publicación del libro \textit{Perceptrons} por parte de Marvin Minsky y Seymour Papert. En esta monografía matemática rigurosa, Minsky y Papert demostraron analíticamente las limitaciones intrínsecas de los perceptrones monocapa, destacando su incapacidad estructural para resolver problemas que no fueran linealmente separables en el espacio euclídeo, siendo el ejemplo paradigmático la función lógica XOR ($y = x_1 \oplus x_2$). 
-
-\clearpage
-\begin{figure}[tbp]
-\centering
-\begin{tcolorbox}[colback=white, colframe=unmsm_gold, arc=3pt, boxrule=0.8pt, top=0.3cm, bottom=0.3cm, left=0.5cm, right=0.5cm]
+\begin{table}[htpb!]
 \centering
 \small\sffamily
-\textbf{Figura 1.2.} Demostración Geométrica de la No-Separabilidad Lineal del Operador XOR\\[0.2cm]
-\begin{tikzpicture}[scale=1.1, font=\footnotesize\sffamily]
-    % Cartesian Axes
-    \draw[->, thick, draw=unmsm_gray] (-0.5,0) -- (3.2,0) node[right] {$x_1$};
-    \draw[->, thick, draw=unmsm_gray] (0,-0.5) -- (0,3.2) node[above] {$x_2$};
-
-    % Grid ticks
-    \draw (2,0.05) -- (2,-0.05) node[below] {$1$};
-    \draw (0.05,2) -- (-0.05,2) node[left] {$1$};
-
-    % Points for XOR
-    % (0,0) -> 0 (Circle)
-    \filldraw[fill=bg_marfil, draw=unmsm_red, line width=1.2pt] (0,0) circle (0.16) node[below left=3pt, text=unmsm_red] {$(0,0) \to 0$};
-    % (1,1) -> 0 (Circle)
-    \filldraw[fill=bg_marfil, draw=unmsm_red, line width=1.2pt] (2,2) circle (0.16) node[above right=3pt, text=unmsm_red] {$(1,1) \to 0$};
-
-    % (0,1) -> 1 (Square)
-    \filldraw[fill=unmsm_red, draw=unmsm_darkred, line width=1.2pt] (-0.16,1.84) rectangle (0.16,2.16);
-    \node[above left=2pt, text=unmsm_darkred] at (0,2) {$(0,1) \to 1$};
-
-    % (1,0) -> 1 (Square)
-    \filldraw[fill=unmsm_red, draw=unmsm_darkred, line width=1.2pt] (1.84,-0.16) rectangle (2.16,0.16);
-    \node[above right=4pt, text=unmsm_darkred] at (2,0.1) {$(1,0) \to 1$};
-
-    % Impossible hyperplane attempt
-    \draw[dashed, line width=1.0pt, draw=unmsm_gray] (-0.3,2.5) -- (2.5,-0.3) node[below right=2pt, text width=3.0cm, text centered] {\scriptsize Separador lineal fallido $w_1 x_1 + w_2 x_2 = b$};
-    \draw[dotted, line width=1.0pt, draw=unmsm_darkred] (0.8,3.0) -- (3.0,0.8);
-
-    % Caption in box
-    \node[draw=unmsm_gold, fill=bg_arena, rounded corners=2pt, text width=6.2cm, anchor=west] at (3.8,1.5) {
-        \scriptsize \textbf{Patología Geométrica del Perceptrón Simple:}\\
-        El operador XOR exige que una sola recta separe simultáneamente los puntos $\{(0,1), (1,0)\}$ (salida 1) de $\{(0,0), (1,1)\}$ (salida 0). Ningún hiperplano en $\mathbb{R}^2$ puede lograrlo, demostrando la necesidad imperiosa de incorporar capas intermedias no lineales (\textit{Hidden Layers}).
-    };
-\end{tikzpicture}
-\end{tcolorbox}
+\caption{\textbf{Tabla 1.3.} \textit{Glosario básico de términos en Inteligencia Artificial}}
 \vspace{0.15cm}
-\raggedright\scriptsize \textbf{Fuente:} Elaboración propia basada en la derivación algebraica de Minsky y Papert (1969).
+\begin{tabularx}{\textwidth}{>{\bfseries}p{2.8cm} >{\raggedright\arraybackslash}X}
+\toprule
+Término & Significado \\
+\midrule
+Dato & Cada ejemplo con el que se entrena o se usa un sistema: un texto, una imagen, una fila de una tabla. \\
+\midrule
+Algoritmo & Procedimiento paso a paso para resolver un problema o ajustar un modelo. \\
+\midrule
+Modelo & Función con parámetros ajustados durante el entrenamiento, que transforma entradas en salidas. \\
+\midrule
+Entrenamiento & Proceso de ajustar los parámetros del modelo para reducir su error sobre los datos. \\
+\midrule
+Inferencia & Uso del modelo ya entrenado sobre datos nuevos. \\
+\midrule
+Token & Pieza mínima de texto que procesa un modelo de lenguaje: una palabra o un fragmento. \\
+\midrule
+Prompt & Instrucción o texto de entrada que se le da a un modelo generativo. \\
+\bottomrule
+\end{tabularx}
+\vspace{0.15cm}
+\raggedright\scriptsize \textbf{Fuente:} Elaboración propia.
+\end{table}
+
+\begin{cajabeige}
+\textbf{ACTIVIDAD PARA PENSAR:}\\
+\textquestiondown Qué tareas de tu día a día resuelve hoy una IA estrecha? \textquestiondown Cuál de ellas te sorprendería que dejara de funcionar, y por qué?
+\end{cajabeige}
+
+\vspace{0.3cm}
+
+\subsection{Breve historia de la IA}
+
+La IA no nació con ChatGPT. Su recorrido alterna épocas de entusiasmo con periodos de desilusión, los llamados "inviernos de la IA", y su desarrollo reciente en la IA generativa solo se entiende como resultado de esa historia. La Figura 1.2 resume los hitos en una línea de tiempo; en las páginas siguientes se explican por etapas.
+
+\subsubsection{Cómo leer esta sección}
+Dividiremos la historia en cinco etapas. Para cada una responderemos tres preguntas: \textquestiondown qué ideas la hicieron posible?, \textquestiondown quiénes fueron sus protagonistas? y \textquestiondown qué dejó para la etapa siguiente? La Tabla 1.4 ofrece un resumen que puedes consultar mientras avanzas.
+
+\begin{table}[htpb!]
+\centering
+\small\sffamily
+\caption{\textbf{Tabla 1.4.} \textit{Resumen de personajes e hitos por etapa histórica}}
+\vspace{0.15cm}
+\begin{tabularx}{\textwidth}{>{\bfseries}p{4.0cm} >{\raggedright\arraybackslash}p{4.5cm} >{\raggedright\arraybackslash}X}
+\toprule
+Etapa & Personajes & Hito principal \\
+\midrule
+1. Fundamentos (1943--1955) & McCulloch, Pitts, Turing & Neurona artificial; test de Turing. \\
+\midrule
+2. Nacimiento (1956--1973) & McCarthy, Minsky, Rochester, Shannon, Rosenblatt & Taller de Dartmouth; perceptrón. \\
+\midrule
+3. Inviernos (1974--1993) & Rumelhart, Hinton, Williams & Sistemas expertos; retropropagación. \\
+\midrule
+4. Aprendizaje profundo (1997--2016) & LeCun, Bengio, Hinton, Goodfellow & Redes profundas; GAN. \\
+\midrule
+5. Era generativa (2017--hoy) & Vaswani, Brown, Ho, Ouyang & Transformer; GPT-3; difusión; RLHF. \\
+\bottomrule
+\end{tabularx}
+\vspace{0.15cm}
+\raggedright\scriptsize \textbf{Fuente:} Elaboración propia a partir de Nasser-Eddine (2024).
+\end{table}
+
+\begin{cajagris}
+\textbf{LECCIÓN HISTÓRICA: Ciclos de entusiasmo y desilusión}\\
+Cada avance genera expectativas altas. Los inviernos ocurrieron cuando esas expectativas superaron lo que los métodos podían ofrecer; conviene recordarlo al evaluar la IA generativa actual.
+\end{cajagris}
+
+\subsubsection*{Preguntas guía}
+\begin{itemize}
+    \item \textquestiondown Qué diferencia hay entre "simular" la inteligencia y "tenerla"? \textquestiondown Cómo responde el test de Turing?
+    \item \textquestiondown Por qué los inviernos de la IA no detuvieron definitivamente el campo?
+    \item \textquestiondown Qué factores permitieron que el aprendizaje profundo despegara recién después de 2012?
+\end{itemize}
+
+\begin{figure}[htpb!]
+\centering
+\begin{tcolorbox}[colback=white, colframe=unmsm_gold, arc=3pt, boxrule=0.8pt, top=0.3cm, bottom=0.3cm, left=0.4cm, right=0.4cm]
+\centering
+\small\sffamily
+\textbf{Figura 1.2.} \textit{Línea de tiempo de la IA: de las primeras ideas a la era generativa}\\[0.25cm]
+\resizebox{0.95\linewidth}{!}{%
+\begin{tikzpicture}[>=stealth, font=\footnotesize\sffamily]
+    % Eje horizontal
+    \draw[->, very thick, draw=unmsm_red] (-6.8,0) -- (6.8,0);
+
+    % Hitos
+    \node[circle, fill=unmsm_red, inner sep=2.5pt] (p1) at (-5.5,0) {};
+    \node[above=0.2cm of p1, align=center] {\textbf{1943--1950}\\\scriptsize McCulloch, Pitts, Turing};
+
+    \node[circle, fill=unmsm_darkred, inner sep=2.5pt] (p2) at (-2.8,0) {};
+    \node[below=0.2cm of p2, align=center] {\textbf{1956}\\\scriptsize Dartmouth};
+
+    \node[circle, fill=unmsm_red, inner sep=2.5pt] (p3) at (-0.2,0) {};
+    \node[above=0.2cm of p3, align=center] {\textbf{1974--1986}\\\scriptsize Inviernos / Backprop};
+
+    \node[circle, fill=unmsm_darkred, inner sep=2.5pt] (p4) at (2.5,0) {};
+    \node[below=0.2cm of p4, align=center] {\textbf{2012--2014}\\\scriptsize AlexNet / GAN};
+
+    \node[circle, fill=unmsm_red, inner sep=2.5pt] (p5) at (5.5,0) {};
+    \node[above=0.2cm of p5, align=center] {\textbf{2017--hoy}\\\scriptsize Transformer / GenAI};
+\end{tikzpicture}%
+}\\[0.2cm]
+\raggedright\scriptsize \textbf{Fuente:} Elaboración propia a partir de Turing (1950), McCarthy et al. (2006) y Nasser-Eddine (2024).
+\end{tcolorbox}
 \end{figure}
 
-Aunque Minsky y Papert sugirieron en su obra que la incorporación de capas ocultas (\textit{multi-layer perceptrons}) podía superar esta barrera, señalaron pesimistamente que no existía ningún algoritmo computacionalmente eficiente para ajustar los pesos de las capas intermedias. La publicación tuvo un efecto fulminante: las agencias estatales suspendieron de inmediato la financiación del conexionismo, marcando el inicio del primer invierno de la disciplina.
+\subsubsection{Etapa 1. Fundamentos teóricos (1943--1955)}
+Antes de que existiera la palabra "inteligencia artificial" ya había ideas que la hacían pensable. En 1943, McCulloch y Pitts describieron una neurona artificial como una unidad lógica que suma señales y se activa al superar un umbral; es el germen de las redes neuronales actuales. En 1950, Turing publicó \textit{Computing machinery and intelligence}, donde propone el juego de imitación, discute las objeciones a la idea de máquinas pensantes y sugiere construir máquinas que aprendan mediante la experiencia y la educación.
 
-\subsubsection{Etapa 3: Inviernos de la IA y el Auge de los Sistemas Expertos (1974--1993)}
+En el juego de imitación, un interrogador conversa por escrito con una persona y con una máquina sin saber cuál es cuál. Si no puede distinguirlas, se considera que la máquina exhibe un comportamiento inteligente. Turing cambió así una pregunta filosófica por un criterio que se puede observar.
 
-El periodo comprendido entre mediados de los años setenta y comienzos de los noventa estuvo caracterizado por severas oscilaciones presupuestarias conocidas como los ``Inviernos de la IA''. En el Reino Unido, el célebre Informe Lighthill (1973) concluyó que las investigaciones en computación cognitiva no habían alcanzado ninguno de los objetivos prometidos, recomendando el cese masivo de subsidios públicos. En Estados Unidos, DARPA impuso recortes análogos tras constatar la ineficacia de los proyectos de traducción automática y comprensión del lenguaje de primera generación.
+\begin{cajabeige}
+\textbf{CONCEPTO CLAVE: Test de Turing}\\
+Prueba que evalúa si una máquina puede sostener una conversación indistinguible de la de un ser humano.
+\end{cajabeige}
 
-\clearpage
-\begin{figure}[tbp]
+\textbf{Personajes destacados:}
+\begin{itemize}
+    \item \textbf{Warren McCulloch y Walter Pitts:} Primer modelo matemático de neurona (1943).
+    \item \textbf{Alan Turing:} El test de Turing y la hipótesis de máquinas que aprenden (1950).
+\end{itemize}
+
+\subsubsection{Etapa 2. Nacimiento y optimismo (1956--1973)}
+En 1955, John McCarthy, Marvin Minsky, Nathaniel Rochester y Claude Shannon presentaron la propuesta de un taller de verano en Dartmouth College. Allí plantearon estudiar redes neuronales, formación de conceptos y la capacidad de las máquinas de mejorar por sí mismas. El taller de 1956 suele tomarse como el acta de nacimiento del campo. Siguieron años de entusiasmo: programas que demostraban teoremas, como el \textit{Logic Theorist} de Newell y Simon, el perceptrón de Rosenblatt (1958) y ELIZA (1966), que simulaba una conversación con reglas muy simples.
+
+El perceptrón es un clasificador lineal: separa los datos con una recta (o un plano). En 1969, Minsky y Papert mostraron que un perceptrón de una sola capa no puede resolver problemas que no son linealmente separables, como la función XOR, lo que enfrió el interés por las redes neuronales.
+
+Con entradas $(0,0)$, $(0,1)$, $(1,0)$ y $(1,1)$, la función XOR vale $0, 1, 1$ y $0$. Ninguna recta del plano deja los dos puntos de salida 1 de un lado y los dos de salida 0 del otro. Se necesitaban capas ocultas, y eso exigía un método para entrenarlas.
+
+\begin{cajagris}
+\textbf{CONCEPTO CLAVE: Separabilidad lineal}\\
+Un conjunto de puntos es linealmente separable si una recta (o un plano) deja cada clase de un lado distinto.
+\end{cajagris}
+
+\textbf{Personajes destacados:}
+\begin{itemize}
+    \item \textbf{John McCarthy:} Propuso el nombre "inteligencia artificial" y el taller de Dartmouth.
+    \item \textbf{Marvin Minsky, Nathaniel Rochester y Claude Shannon:} Coautores de la propuesta de 1955.
+    \item \textbf{Frank Rosenblatt:} Perceptrón (1958).
+    \item \textbf{Joseph Weizenbaum:} ELIZA (1966).
+\end{itemize}
+
+\subsubsection{Etapa 3. Inviernos y sistemas expertos (1974--1993)}
+Las expectativas superaron lo que la tecnología podía entregar. Hacia mediados de los años setenta la financiación se redujo: es el primer invierno de la IA. En los ochenta resurgió el interés con los sistemas expertos, programas que aplicaban reglas "si\dots entonces\dots" redactadas por especialistas, y se usaron en medicina y en la industria. Pero eran caros de mantener y poco flexibles, y a fines de esa década llegó el segundo invierno. En paralelo, Rumelhart, Hinton y Williams (1986) difundieron la retropropagación, el método que hoy permite entrenar redes profundas.
+
+Tres factores explican estos periodos:
+\begin{itemize}
+    \item \textbf{Promesas excesivas:} Se anunciaron logros cercanos que no llegaron.
+    \item \textbf{Límites técnicos:} Poca capacidad de cómputo y escasez de datos.
+    \item \textbf{Fragilidad:} Los sistemas de reglas fallaban fuera de los casos previstos y exigían un mantenimiento costoso.
+\end{itemize}
+
+\begin{figure}[htpb!]
 \centering
-\begin{tcolorbox}[colback=white, colframe=unmsm_gold, arc=3pt, boxrule=0.8pt, top=0.3cm, bottom=0.3cm, left=0.5cm, right=0.5cm]
+\begin{tcolorbox}[colback=white, colframe=unmsm_gold, arc=3pt, boxrule=0.8pt, top=0.3cm, bottom=0.3cm, left=0.4cm, right=0.4cm]
 \centering
 \small\sffamily
-\textbf{Figura 1.3.} Curva Histórica de Expectativas, Inversión y los Dos Inviernos de la IA\\[0.2cm]
-\resizebox{0.95\linewidth}{!}{%
+\textbf{Figura 1.3.} \textit{Ciclos de expectativas e inviernos de la IA (esquema conceptual)}\\[0.25cm]
+\resizebox{0.92\linewidth}{!}{%
 \begin{tikzpicture}[xscale=0.95, yscale=0.8, font=\scriptsize\sffamily]
-    % Axes
     \draw[->, thick, draw=unmsm_gray] (0,0) -- (12.5,0) node[right] {Tiempo (1950--2026)};
     \draw[->, thick, draw=unmsm_gray] (0,0) -- (0,5.5) node[above] {Expectativa e Inversión};
 
-    % Curve points
-    % 1956: Dartmouth peak
-    \draw[line width=1.2pt, draw=unmsm_red, smooth] plot coordinates {
-        (0.5,0.8) (1.8,3.8) (3.2,0.6) (5.2,4.2) (7.0,0.8) (9.0,3.2) (11.5,5.2)
+    \draw[thick, draw=unmsm_red, smooth] plot coordinates {
+        (0.5, 1.0) (1.5, 3.8) (3.0, 1.2) (4.5, 4.2) (6.0, 1.5) (8.5, 4.5) (11.5, 5.2)
     };
 
-    % Milestone annotations
-    \node[anchor=south, align=center] at (1.8,3.9) {\textbf{Pico Inicial}\\Dartmouth / Perceptrón (1958)};
-    \node[anchor=north, text=unmsm_darkred, align=center] at (3.2,0.5) {\textbf{Primer Invierno}\\Informe Lighthill (1973)\\XOR Minsky-Papert};
-    \node[anchor=south, align=center] at (5.2,4.3) {\textbf{Auge Sistemas Expertos}\\Máquinas LISP / XCON (1980s)};
-    \node[anchor=north, text=unmsm_darkred, align=center] at (7.0,0.7) {\textbf{Segundo Invierno}\\Colapso de Hardware LISP\\Fragilidad de Reglas (1987)};
-    \node[anchor=south, align=center] at (9.0,3.3) {\textbf{Renacimiento DL}\\AlexNet / GPUs (2012)};
-    \node[anchor=south, align=center, text=unmsm_red] at (11.5,5.2) {\textbf{Revolución GenAI}\\Transformers / LLMs (2017+)};
-
-    % Highlight zones
-    \fill[unmsm_gold, opacity=0.25] (2.4,0) rectangle (4.0,2.0);
-    \fill[unmsm_gold, opacity=0.25] (6.2,0) rectangle (7.8,2.0);
+    \node[anchor=south, font=\tiny\bfseries, text=unmsm_darkred] at (1.5, 3.8) {Dartmouth};
+    \node[anchor=north, font=\tiny, text=unmsm_gray] at (3.0, 1.2) {Primer invierno};
+    \node[anchor=south, font=\tiny\bfseries, text=unmsm_darkred] at (4.5, 4.2) {Sistemas expertos};
+    \node[anchor=north, font=\tiny, text=unmsm_gray] at (6.0, 1.5) {Segundo invierno};
+    \node[anchor=south, font=\tiny\bfseries, text=unmsm_darkred] at (8.5, 4.5) {AlexNet (2012)};
+    \node[anchor=south, font=\tiny\bfseries, text=unmsm_red] at (11.5, 5.2) {GenAI (ChatGPT)};
 \end{tikzpicture}%
-}
+}\\[0.2cm]
+\raggedright\scriptsize \textbf{Fuente:} Elaboración propia a partir de Nasser-Eddine (2024). Esquema ilustrativo.
 \end{tcolorbox}
-\vspace{0.15cm}
-\raggedright\scriptsize \textbf{Fuente:} Elaboración propia basada en la cronología crítica de Russell y Norvig (2020).
 \end{figure}
 
-Hacia 1980 sobrevino un renacimiento temporal impulsado por los \textbf{Sistemas Expertos} basados en reglas lógicas artesanales (\textit{if-then}). Sistemas como XCON (diseñado por Digital Equipment Corporation para configurar órdenes computacionales) y MYCIN (desarrollado en Stanford para diagnóstico bacteriemiológico) demostraron utilidad práctica en corporaciones industriales. Sin embargo, este paradigma sucumbió a finales de la década ante el denominado ``Segundo Invierno'': el mantenimiento de bases de conocimiento con decenas de miles de reglas manuales demostró ser insostenible, incapaz de gestionar la incertidumbre y extremadamente frágil ante casos no contemplados.
+\begin{cajabeige}
+\textbf{CONCEPTO CLAVE: Invierno de la IA}\\
+Periodo en que bajan la financiación y el interés en la IA porque los resultados no cumplen las expectativas generadas.
+\end{cajabeige}
 
-Mientras tanto, en el submundo conexionista se gestaba el descubrimiento que cambiaría la historia de la computación. En 1986, David Rumelhart, Geoffrey Hinton y Ronald Williams publicaron en \textit{Nature} su artículo \textit{Learning Representations by Back-Propagating Errors}. Aunque la regla de la cadena para optimizar funciones compuestas había sido formulada previamente por matemáticos como Seppo Linnainmaa y Paul Werbos, el equipo de Rumelhart demostró empíricamente que el algoritmo de \textbf{retropropagación del error} permitía ajustar de forma computacionalmente viable redes neuronales multicapa con funciones de activación sigmoideas, superando definitivamente el escollo formal planteado por Minsky y Papert diecisiete años antes.
-
-\subsubsection{Etapa 4: El Renacimiento del Aprendizaje Profundo (1997--2016)}
-
-A pesar del avance teórico de la retropropagación, las redes neuronales continuaban siendo difíciles de entrenar a gran escala durante los años noventa debido a la escasez de datos digitalizados, la lentitud del hardware computacional y el problema patológico del desvanecimiento del gradiente (\textit{vanishing gradient problem}).
-
-El punto de inflexión definitivo aconteció en el año 2012 durante la competencia internacional ImageNet Large Scale Visual Recognition Challenge (ILSVRC). Alex Krizhevsky, Ilya Sutskever y Geoffrey Hinton (2012) presentaron \textbf{AlexNet}, una red neuronal convolucional profunda de 8 capas entrenada sobre dos GPUs comerciales Nvidia GTX 580. AlexNet aplastó a los métodos tradicionales de visión por computadora basados en características artesanales (como SIFT y HOG), reduciendo la tasa de error del 26.2\% al 15.3\%.
-
-Este hito histórico consolidó la denominada \textbf{Tríada del Aprendizaje Profundo}, analizada en la Tabla 1.4:
+\subsubsection{Etapa 4. Aprendizaje profundo (1997--2016)}
+Tres factores cambiaron el panorama, resumidos en la Tabla 1.5. En 1997, Deep Blue derrotó a Kaspárov en ajedrez, aunque lo hizo sobre todo con búsqueda masiva y no con aprendizaje.
 
 \begin{table}[htpb!]
 \centering
 \small\sffamily
-\caption{\textit{Los tres pilares catalizadores de la revolución contemporánea del aprendizaje profundo}}
-\label{tab:triada_dl}
-\begin{tabularx}{\textwidth}{p{3.2cm}p{4.2cm}X}
+\caption{\textbf{Tabla 1.5.} \textit{Por qué despegó el aprendizaje profundo}}
+\vspace{0.15cm}
+\begin{tabularx}{\textwidth}{>{\bfseries}p{2.5cm} >{\raggedright\arraybackslash}p{6.5cm} >{\raggedright\arraybackslash}X}
 \toprule
-\textbf{Pilar Catalizador} & \textbf{Componentes Clave} & \textbf{Impacto Metodológico en el Rendimiento} \\
+Factor & Qué cambió & Efecto \\
 \midrule
-\textbf{1. Datos Masivos (Big Data)} & Digitalización global, ImageNet, Wikipedia, Common Crawl, repositorios GitHub. & Provee millones de muestras diversas requeridas para optimizar modelos de millones/miles de millones de parámetros sin sobreajuste destructivo. \\
+Datos & Internet y los dispositivos generaron enormes colecciones de texto, imágenes y audio. & Los modelos pudieron aprender patrones más ricos. \\
 \midrule
-\textbf{2. Aceleración de Cómputo} & Unidades de Procesamiento Gráfico (GPUs), TPUs, clusters paralelos de alta interconexión. & Permite paralelizar multiplicaciones masivas de matrices densas, reduciendo tiempos de entrenamiento de meses o años a días u horas. \\
+Cómputo & Los procesadores gráficos (GPU) permitieron entrenar redes con millones de parámetros. & El entrenamiento pasó de meses a días. \\
 \midrule
-\textbf{3. Maduración Algorítmica} & Unidades ReLU ($\max(0,z)$), inicializaciones Xavier/He, normalización por lotes, Dropout, Adam. & Resuelve el desvanecimiento del gradiente, estabiliza la dinámica estocástica y acelera drásticamente la convergencia del entrenamiento profundo. \\
+Algoritmos & Mejores funciones de activación, inicialización y técnicas de entrenamiento. & Las redes de muchas capas dejaron de ser inestables. \\
 \bottomrule
 \end{tabularx}
 \vspace{0.15cm}
-\raggedright\scriptsize \textbf{Fuente:} Síntesis formal basada en LeCun, Bengio y Hinton (2015).
+\raggedright\scriptsize \textbf{Fuente:} Elaboración propia a partir de LeCun, Bengio y Hinton (2015).
 \end{table}
 
-En 2015, Yann LeCun, Yoshua Bengio y Geoffrey Hinton publicaron en \textit{Nature} la revisión canónica que formalizó el aprendizaje profundo como un paradigma maduro. Ese mismo año, Kaiming He et al. (2016) introdujeron las Redes Residuales (\textbf{ResNet}), incorporando conexiones de salto (\textit{skip connections}) que permitieron entrenar con éxito redes neuronales de más de 150 capas sin degradación del gradiente, superando por primera vez el desempeño humano en la clasificación visual de ImageNet.
+El punto de quiebre llegó en 2012, cuando una red convolucional profunda, AlexNet, ganó el concurso ImageNet con una ventaja que sorprendió a la comunidad. En 2014, Goodfellow et al. introdujeron las redes generativas antagónicas; en 2016, el programa AlphaGo venció a un campeón de Go; y en 2015 LeCun, Bengio y Hinton resumieron en \textit{Nature} cómo el aprendizaje profundo aprende representaciones a partir de datos masivos.
 
-\subsubsection{Etapa 5: La Era de la IA Generativa y los Modelos Fundacionales (2017--Presente)}
-
-El florecimiento contemporáneo de la inteligencia artificial generativa se cimentó en tres innovaciones conceptuales sucesivas:
-
-\begin{enumerate}
-    \item \textbf{Redes Generativas Antagónicas (GANs):} Propuestas por Ian Goodfellow et al. (2014) en la Universidad de Montreal. Introdujeron la formulación de un juego minimax de suma cero entre dos redes rivales (un Generador y un Discriminador), permitiendo generar por primera vez imágenes sintéticas con una fidelidad visual fotorrealista.
-    \item \textbf{La Revolución del Transformer:} En junio de 2017, un equipo de investigadores de Google Brain publicó el célebre artículo \textit{Attention Is All You Need} (Vaswani et al., 2017). Al desechar por completo la recurrencia secuencial y las convoluciones espaciales en favor de un mecanismo de \textbf{autoatención escalada}, el Transformer posibilitó la paralelización total del procesamiento de secuencias textuales masivas. Esta arquitectura dio origen a modelos fundacionales bidireccionales como BERT (Devlin et al., 2019) y autoregresivos como GPT (Radford et al., 2019; Brown et al., 2020).
-    \item \textbf{Modelos de Difusión y Alineación Humana:} Hacia 2020, Jonathan Ho, Ajay Jain y Pieter Abbeel formalizaron los Modelos Probabilísticos de Difusión con Eliminación de Ruido (DDPMs), desplazando a las GANs en estabilidad y diversidad de síntesis multimodal. Paralelamente, Ouyang et al. (2022) demostraron en OpenAI que el ajuste de modelos masivos mediante Aprendizaje por Refuerzo a partir de Retroalimentación Humana (RLHF) permitía alinear el comportamiento estocástico de los LLMs con las directrices de veracidad y utilidad demandadas por los usuarios.
-\end{enumerate}
-
-\begin{table}[htpb!]
-\centering
-\small\sffamily
-\caption{\textit{Síntesis cronológica de etapas históricas, autores clave, hitos y lecciones legadas}}
-\label{tab:cronologia_hitos}
-\begin{tabularx}{\textwidth}{p{2.3cm}p{3.2cm}p{3.8cm}X}
-\toprule
-\textbf{Periodo} & \textbf{Pioneros Destacados} & \textbf{Hito o Contribución Central} & \textbf{Lección Metodológica Legada} \\
-\midrule
-\textbf{1943--1955} & McCulloch, Pitts, Turing, von Neumann, Wiener. & Neurona de umbral lógico (1943); Prueba empírica de Turing (1950). & La cognición compleja puede concebirse como procesamiento abstracto de información física. \\
-\midrule
-\textbf{1956--1973} & McCarthy, Minsky, Newell, Simon, Rosenblatt. & Seminario de Dartmouth (1956); Perceptrón (1958); Crítica XOR (1969). & Los modelos lineales son incapaces de resolver relaciones lógicas no separables. \\
-\midrule
-\textbf{1974--1993} & Lighthill, Feigenbaum, Rumelhart, Hinton, Williams. & Sistemas expertos (1980); Retropropagación formalizada (1986). & Las reglas manuales son frágiles; el aprendizaje por gradiente continuo resuelve redes multicapa. \\
-\midrule
-\textbf{1997--2016} & LeCun, Bengio, Hinton, Krizhevsky, Goodfellow, He. & AlexNet (2012); GANs (2014); Síntesis Nature (2015); ResNet (2016). & El cómputo en GPU y los datos masivos desatan el potencial de las representaciones profundas. \\
-\midrule
-\textbf{2017--Hoy} & Vaswani, Brown, Ho, Bommasani, Ouyang. & Transformer (2017); GPT-3 (2020); DDPM (2020); RLHF (2022). & La autoatención y el escalado permiten generalizar tareas; la alineación asegura gobernanza. \\
-\bottomrule
-\end{tabularx}
-\vspace{0.15cm}
-\raggedright\scriptsize \textbf{Fuente:} Elaboración propia basada en la literatura histórica analizada.
-\end{table}
-
-% ==============================================================================
-% SUBTEMA 1.3: MECANISMOS DEL APRENDIZAJE MÁQUINA
-% ==============================================================================
-\newpage
-\subsection{Mecanismos del Aprendizaje Máquina: Del Perceptrón a las Redes Neuronales Profundas}
-
-\subsubsection{Paradigmas Fundamentales del Aprendizaje Automático}
-
-El aprendizaje automático invierte el flujo clásico de la computación tradicional. Mientras que en la programación estructurada convencional un desarrollador codifica reglas explícitas de negocio e ingresa datos para computar respuestas computacionales, en el aprendizaje automático se alimentan simultáneamente datos de entrada y salidas observadas para que el algoritmo sintetice autónomamente las reglas estadísticas de mapeo (Goodfellow et al., 2016).
-
-\clearpage
-\begin{figure}[tbp]
-\centering
-\begin{tcolorbox}[colback=white, colframe=unmsm_gold, arc=3pt, boxrule=0.8pt, top=0.3cm, bottom=0.3cm, left=0.5cm, right=0.5cm]
-\centering
-\small\sffamily
-\textbf{Figura 1.4.} Contraste de Paradigmas: Programación Tradicional vs. Aprendizaje Automático\\[0.2cm]
-\resizebox{0.95\linewidth}{!}{%
-\begin{tikzpicture}[>=stealth, font=\scriptsize\sffamily]
-    % Traditional Programming
-    \node[anchor=west, font=\small\sffamily\bfseries, text=unmsm_red] at (-7.0, 1.8) {A. Programación Tradicional (Simbólica)};
-    \node[rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.1cm, text centered] (d1) at (-6.0, 0.8) {Datos $\mathbf{x}$};
-    \node[rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.1cm, text centered] (r1) at (-6.0, -0.8) {Reglas Manuales};
-    \node[rectangle, draw=unmsm_darkred, fill=bg_arena, rounded corners=2pt, text width=2.5cm, text centered] (c1) at (-3.4, 0.0) {\textbf{Computador}\\Ejecución Determinista};
-    \node[rectangle, draw=unmsm_red, fill=white, rounded corners=2pt, text width=2.1cm, text centered] (s1) at (-0.9, 0.0) {Respuestas $y$};
-    \draw[->, thick, draw=unmsm_red] (d1) -| (c1);
-    \draw[->, thick, draw=unmsm_red] (r1) -| (c1);
-    \draw[->, thick, draw=unmsm_red] (c1) -- (s1);
-
-    % Machine Learning
-    \node[anchor=west, font=\small\sffamily\bfseries, text=unmsm_darkred] at (0.7, 1.8) {B. Aprendizaje Automático (Estadístico)};
-    \node[rectangle, draw=unmsm_darkred, fill=bg_marfil, rounded corners=2pt, text width=2.1cm, text centered] (d2) at (1.7, 0.8) {Datos $\mathbf{x}$};
-    \node[rectangle, draw=unmsm_darkred, fill=bg_marfil, rounded corners=2pt, text width=2.1cm, text centered] (r2) at (1.7, -0.8) {Respuestas $y$};
-    \node[rectangle, draw=unmsm_darkred, fill=bg_arena, rounded corners=2pt, text width=2.5cm, text centered] (c2) at (4.3, 0.0) {\textbf{Algoritmo}\\Ajuste de Pesos $\theta$};
-    \node[rectangle, draw=unmsm_darkred, fill=white, rounded corners=2pt, text width=2.1cm, text centered] (s2) at (6.8, 0.0) {Reglas / Modelo $f_\theta$};
-    \draw[->, thick, draw=unmsm_darkred] (d2) -| (c2);
-    \draw[->, thick, draw=unmsm_darkred] (r2) -| (c2);
-    \draw[->, thick, draw=unmsm_darkred] (c2) -- (s2);
-\end{tikzpicture}%
-}
-\end{tcolorbox}
-\vspace{0.15cm}
-\raggedright\scriptsize \textbf{Fuente:} Adaptado de Russell y Norvig (2020).
-\end{figure}
-
-Formalmente, el aprendizaje automático se subdivide en cuatro paradigmas principales, sistematizados en la Tabla 1.6:
-
-\begin{table}[htpb!]
-\centering
-\small\sffamily
-\caption{\textit{Comparación analítica de los cuatro paradigmas canónicos del aprendizaje computacional}}
-\label{tab:paradigmas_ml}
-\begin{tabularx}{\textwidth}{>{\bfseries}p{2.4cm} >{\raggedright\arraybackslash}p{3.2cm} >{\raggedright\arraybackslash}p{4.2cm} >{\raggedright\arraybackslash}X}
-\toprule
-\textbf{Paradigma} & \textbf{Estructura de Datos} & \textbf{Función Objetivo Matemática} & \textbf{Aplicaciones Representativas} \\
-\midrule
-Supervisado & Pares etiqueta-entrada $\mathcal{D} = \{(\mathbf{x}_i, y_i)\}_{i=1}^N$ con $y_i$ conocida. & Minimizar el riesgo empírico $\frac{1}{N}\sum L(f_\theta(\mathbf{x}_i), y_i)$. & Regresión inmobiliaria, diagnóstico de patologías, detección de spam. \\
-\midrule
-No Supervisado & Datos no etiquetados $\mathcal{D} = \{\mathbf{x}_i\}_{i=1}^N$. & Estimar densidad $p(\mathbf{x})$, agrupar clusters o reducir dimensionalidad. & Segmentación de perfiles, reducción con PCA/t-SNE, detección de anomalías. \\
-\midrule
-Por Refuerzo (RL) & Tuplas de interacción $(s_t, a_t, r_t, s_{t+1})$ con el entorno. & Maximizar retorno acumulado esperado $\mathbb{E}[\sum \gamma^t r_t]$. & Navegación robótica, juegos complejos (AlphaGo), optimización de inventarios. \\
-\midrule
-Autosupervisado & Datos masivos sin etiquetas directas $\mathcal{D} = \{\mathbf{x}_i\}$. & Predecir partes ocultas de la entrada a partir del contexto visible. & Modelado de lenguaje autorregresivo (GPT), preentrenamiento contrastivo. \\
-\bottomrule
-\end{tabularx}
-\vspace{0.15cm}
-\raggedright\scriptsize \textbf{Fuente:} Compilación formal basada en Goodfellow et al. (2016) y Russell y Norvig (2020).
-\end{table}
-
-\subsubsection{Modelado Matemático de la Neurona Artificial y Funciones de Activación}
-
-La unidad atómica de una red neuronal artificial es el nodo o neurona artificial, inspirada en la formulación de McCulloch y Pitts pero generalizada a valores reales ponderados. Formalmente, una neurona recibe un vector de características de entrada $\mathbf{x} = [x_1, x_2, \dots, x_n]^T \in \mathbb{R}^n$, un vector de pesos sinápticos $\mathbf{w} = [w_1, w_2, \dots, w_n]^T \in \mathbb{R}^n$ y un escalar de sesgo (\textit{bias}) $b \in \mathbb{R}$.
-
-El procesamiento computacional consta de dos etapas sucesivas:
-\begin{enumerate}
-    \item \textbf{Combinación Lineal Afín (Potencial de Entrada):}
-    \begin{equation}
-    z = \mathbf{w}^T \mathbf{x} + b = \sum_{i=1}^n w_i x_i + b
-    \end{equation}
-    \item \textbf{Transformación No Lineal (Activación):}
-    \begin{equation}
-    a = f(z) = f\left(\mathbf{w}^T \mathbf{x} + b\right)
-    \end{equation}
-\end{enumerate}
-
-La introducción de la función de activación no lineal $f(\cdot)$ reviste una importancia matemática crítica: si las neuronas operaran únicamente con transformaciones lineales, una red de arbitraria profundidad (incluso de cientos de capas) colapsaría algebraicamente en una simple regresión lineal, dado que la composición sucesiva de funciones lineales es siempre otra función lineal ($W_2(W_1 \mathbf{x} + b_1) + b_2 = (W_2 W_1)\mathbf{x} + (W_2 b_1 + b_2)$).
-
-\begin{table}[htpb!]
-\centering
-\small\sffamily
-\caption{\textit{Propiedades analíticas y derivadas de las principales funciones de activación en redes neuronales}}
-\label{tab:funciones_activacion}
-\begin{tabularx}{\textwidth}{p{2.6cm}p{3.5cm}p{3.2cm}X}
-\toprule
-\textbf{Función} & \textbf{Formulación Analítica} & \textbf{Derivada Analítica $f'(z)$} & \textbf{Comportamiento y Límites de Gradiente} \\
-\midrule
-\textbf{Sigmoide} & $\sigma(z) = \frac{1}{1 + e^{-z}}$ & $\sigma(z)(1 - \sigma(z))$ & Rango $(0,1)$. Sufre de desvanecimiento severo de gradiente si $|z| \gg 0$; no centrada en cero. \\
-\midrule
-\textbf{Tanh} & $\tanh(z) = \frac{e^z - e^{-z}}{e^z + e^{-z}}$ & $1 - \tanh^2(z)$ & Rango $(-1,1)$. Centrada en cero, pero mantiene saturación de gradientes en colas asintóticas. \\
-\midrule
-\textbf{ReLU} & $f(z) = \max(0, z)$ & $\begin{cases} 1 & \text{si } z > 0 \\ 0 & \text{si } z < 0 \end{cases}$ & Derivada constante 1 para $z>0$; computacionalmente rápida. Riesgo de ``neuronas muertas'' si $z<0$. \\
-\midrule
-\textbf{GELU} & $z \Phi(z) \approx 0.5z(1 + \tanh(\dots))$ & No monotónica suave & Estándar de la industria en Transformers modernos (BERT, GPT); preserva curvatura probabilística. \\
-\bottomrule
-\end{tabularx}
-\vspace{0.15cm}
-\raggedright\scriptsize \textbf{Fuente:} Derivaciones basadas en Goodfellow et al. (2016).
-\end{table}
-
-\subsubsection{Arquitecturas Canónicas de Redes Profundas}
-
-La articulación de neuronas artificiales da origen a diversas topologías de procesamiento según la naturaleza estructural de los datos de entrada:
-
+\textbf{Personajes destacados:}
 \begin{itemize}
-    \item \textbf{Perceptrón Multicapa (MLP / Feedforward):} Red totalmente conectada (\textit{fully connected}) donde la información fluye estrictamente hacia adelante desde una capa de entrada pasando por capas ocultas hasta una capa de salida. Cada neurona de la capa $l$ conecta con todas las de la capa $l+1$:
-    \begin{equation}
-    \mathbf{a}^{(l)} = f^{(l)}\left(\mathbf{W}^{(l)} \mathbf{a}^{(l-1)} + \mathbf{b}^{(l)}\right)
-    \end{equation}
-    \item \textbf{Redes Neuronales Convolucionales (CNN):} Diseñadas por Yann LeCun para datos con estructura de cuadrícula espacial (imágenes). Reemplazan la multiplicación matricial densa por la operación de convolución bidimensional con filtros compartidos:
-    \begin{equation}
-    S(i,j) = (I * K)(i,j) = \sum_m \sum_n I(i-m, j-n) K(m,n)
-    \end{equation}
-    garantizando invariancia traslacional y reduciendo exponencialmente el número de parámetros libres.
-    \item \textbf{Redes Neuronales Recurrentes (RNN/LSTM/GRU):} Diseñadas para secuencias temporales. Mantienen un estado oculto recurrente $\mathbf{h}_t = f(\mathbf{W}_{hh}\mathbf{h}_{t-1} + \mathbf{W}_{xh}\mathbf{x}_t + \mathbf{b})$. Aunque capturan dependencias secuenciales, sufren de desvanecimiento o explosión del gradiente al propagarse a través de horizontes temporales prolongados, limitación que motivó el surgimiento del Transformer.
+    \item \textbf{Yann LeCun, Yoshua Bengio y Geoffrey Hinton:} Impulsores del aprendizaje profundo.
+    \item \textbf{Ian Goodfellow:} Redes generativas antagónicas, GAN (2014).
 \end{itemize}
 
-\clearpage
-\begin{figure}[tbp]
-\centering
-\begin{tcolorbox}[colback=white, colframe=unmsm_gold, arc=3pt, boxrule=0.8pt, top=0.3cm, bottom=0.3cm, left=0.5cm, right=0.5cm]
-\centering
-\small\sffamily
-\textbf{Figura 1.5.} Topología de Red Multicapa y Flujo de Propagación Directa y Retropropagación\\[0.2cm]
-\begin{tikzpicture}[xscale=1.2, yscale=0.9, font=\scriptsize\sffamily]
-    % Input nodes
-    \node[circle, draw=unmsm_red, fill=bg_marfil, line width=1pt] (x1) at (0,2) {$x_1$};
-    \node[circle, draw=unmsm_red, fill=bg_marfil, line width=1pt] (x2) at (0,0.8) {$x_2$};
-    \node[circle, draw=unmsm_red, fill=bg_marfil, line width=1pt] (x3) at (0,-0.4) {$x_3$};
-    \node[circle, draw=unmsm_red, fill=bg_marfil, line width=1pt] (x4) at (0,-1.6) {$x_4$};
-    \node[above=0.2cm of x1, font=\footnotesize\sffamily\bfseries, text=unmsm_red] {Entrada};
+\subsubsection{Etapa 5. Era generativa (2017--hoy)}
+En 2017, un equipo de Google presentó el Transformer, una arquitectura basada en "atención" que procesa secuencias en paralelo sin recurrir a redes recurrentes ni convolucionales, con mayor precisión y menor tiempo de entrenamiento en traducción automática. Sobre esa base creció la familia GPT. GPT-3, con 175 mil millones de parámetros, mostró que un modelo suficientemente grande puede resolver tareas nuevas con solo unos pocos ejemplos en la instrucción, sin reentrenarse. Ese mismo año, Ho, Jain y Abbeel (2020) propusieron los modelos de difusión, que generan imágenes de alta calidad eliminando ruido paso a paso.
 
-    % Hidden nodes Layer 1
-    \node[circle, draw=unmsm_darkred, fill=bg_arena, line width=1pt] (h1) at (3,2.4) {$h_1^{(1)}$};
-    \node[circle, draw=unmsm_darkred, fill=bg_arena, line width=1pt] (h2) at (3,1.2) {$h_2^{(1)}$};
-    \node[circle, draw=unmsm_darkred, fill=bg_arena, line width=1pt] (h3) at (3,0.0) {$h_3^{(1)}$};
-    \node[circle, draw=unmsm_darkred, fill=bg_arena, line width=1pt] (h4) at (3,-1.2) {$h_4^{(1)}$};
-    \node[circle, draw=unmsm_darkred, fill=bg_arena, line width=1pt] (h5) at (3,-2.4) {$h_5^{(1)}$};
-    \node[above=0.2cm of h1, font=\footnotesize\sffamily\bfseries, text=unmsm_darkred] {Capa Oculta};
+En 2021 se acuñó el término modelos fundacionales para describir sistemas entrenados con enormes cantidades de datos y adaptables a muchas tareas. En 2022, Ouyang et al. mostraron que la retroalimentación humana vuelve a los modelos más útiles y menos tóxicos que GPT-3, y poco después los asistentes conversacionales llegaron al público masivo. Zhao et al. (2023) ofrecen un panorama de cómo se entrenan y evalúan estos grandes modelos de lenguaje.
 
-    % Output nodes
-    \node[circle, draw=unmsm_red, fill=white, line width=1pt] (y1) at (6,1.4) {$\hat{y}_1$};
-    \node[circle, draw=unmsm_red, fill=white, line width=1pt] (y2) at (6,-0.6) {$\hat{y}_2$};
-    \node[above=0.2cm of y1, font=\footnotesize\sffamily\bfseries, text=unmsm_red] {Salida};
+La literatura reciente muestra además que el campo todavía busca consensos. García-Peñalvo y Vázquez-Ingelmo (2023) observan una diferencia entre la percepción del público, centrada en la creación de contenido, y la de la comunidad científica, que presta más atención a los modelos y técnicas. Nasser-Eddine (2024) añade que la IA generativa plantea desafíos de privacidad, sesgos, seguridad y propiedad intelectual.
 
-    % Forward connections
-    \foreach \i in {1,2,3,4}
-        \foreach \j in {1,2,3,4,5}
-            \draw[->, draw=unmsm_gold!80, line width=0.5pt] (x\i) -- (h\j);
+\textbf{Personajes destacados:}
+\begin{itemize}
+    \item \textbf{Ashish Vaswani y colegas:} El Transformer (2017).
+    \item \textbf{Tom Brown y colegas (OpenAI):} GPT-3 y el aprendizaje con pocos ejemplos (2020).
+    \item \textbf{Jonathan Ho, Ajay Jain y Pieter Abbeel:} Modelos de difusión probabilística (2020).
+    \item \textbf{Long Ouyang y colegas:} Entrenamiento con retroalimentación humana, RLHF (2022).
+\end{itemize}
 
-    \foreach \i in {1,2,3,4,5}
-        \foreach \j in {1,2}
-            \draw[->, draw=unmsm_gold!80, line width=0.5pt] (h\i) -- (y\j);
+\vspace{0.3cm}
 
-    % Forward and Backward banners
-    \draw[->, line width=1.5pt, draw=unmsm_red] (0.8, -3.2) -- (5.2, -3.2) node[midway, below=2pt, font=\footnotesize\sffamily\bfseries, text=unmsm_red] {Propagación Hacia Adelante (\textit{Forward Pass})};
-    \draw[<-, line width=1.5pt, draw=unmsm_darkred] (0.8, -4.0) -- (5.2, -4.0) node[midway, below=2pt, font=\footnotesize\sffamily\bfseries, text=unmsm_darkred] {Retropropagación de Gradientes $\frac{\partial L}{\partial \mathbf{W}}$ (\textit{Backpropagation})};
-\end{tikzpicture}
-\end{tcolorbox}
-\vspace{0.15cm}
-\raggedright\scriptsize \textbf{Fuente:} Adaptado de Goodfellow et al. (2016).
-\end{figure}
+\subsection{Cómo aprende una máquina}
 
-\subsubsection{Optimización, Funciones de Costo y Descenso del Gradiente}
+En la programación tradicional, una persona escribe las reglas y la computadora las aplica a los datos para dar una respuesta. En el aprendizaje automático (\textit{machine learning}) se invierte la lógica: se entregan datos y ejemplos de respuestas, y el sistema descubre las reglas por sí mismo. Esa diferencia explica por qué estos sistemas resuelven problemas para los que nadie sabría escribir reglas a mano, como reconocer un rostro o seguir una conversación.
 
-El entrenamiento de una red neuronal se formaliza como un problema de optimización matemática no convexa: encontrar la configuración de parámetros $\theta^* = \{\mathbf{W}, \mathbf{b}\}$ que minimice una función de costo $J(\theta)$ calculada sobre el conjunto de entrenamiento:
-\begin{equation}
-\theta^* = \arg\min_\theta J(\theta) = \arg\min_\theta \frac{1}{N}\sum_{i=1}^N L(f_\theta(\mathbf{x}_i), y_i)
-\end{equation}
+\subsubsection{Aprendizaje automático y sus tipos}
+El aprendizaje automático permite que un sistema mejore su desempeño en una tarea a partir de la experiencia, es decir, de los datos. Según el tipo de datos disponibles y la forma de "corregir" al sistema, se distinguen varios tipos de aprendizaje (Tabla 1.6).
 
-Las dos funciones de pérdida más utilizadas en la práctica son:
-\begin{enumerate}
-    \item \textbf{Error Cuadrático Medio (MSE) para Regresión:}
-    \begin{equation}
-    L_{\text{MSE}}(\hat{y}, y) = \frac{1}{2}(\hat{y} - y)^2
-    \end{equation}
-    \item \textbf{Entropía Cruzada Categórica para Clasificación Multinomial:}
-    \begin{equation}
-    L_{\text{CE}}(\hat{\mathbf{y}}, \mathbf{y}) = -\sum_{k=1}^K y_k \log \hat{y}_k
-    \end{equation}
-    donde las probabilidades predichas $\hat{y}_k$ se normalizan mediante la función Softmax:
-    \begin{equation}
-    \hat{y}_k = \text{Softmax}(\mathbf{z})_k = \frac{e^{z_k}}{\sum_{j=1}^K e^{z_j}}
-    \end{equation}
-\end{enumerate}
-
-Para minimizar la pérdida se utiliza el algoritmo de \textbf{Descenso del Gradiente}. El gradiente $\nabla_\theta J(\theta)$ representa el vector de derivadas parciales que apunta en la dirección de máximo crecimiento de la función de costo; en consecuencia, los parámetros se actualizan iterativamente en la dirección contraria, escalada por una tasa de aprendizaje $\eta > 0$:
-\begin{equation}
-\theta^{(t+1)} \leftarrow \theta^{(t)} - \eta \nabla_\theta J(\theta^{(t)})
-\end{equation}
-
-El cálculo exacto de las derivadas parciales $\frac{\partial J}{\partial w_{ij}^{(l)}}$ en redes multicapa se ejecuta mediante la \textbf{regla de la cadena del cálculo multivariable}, núcleo del algoritmo de retropropagación:
-\begin{equation}
-\frac{\partial L}{\partial w_{ij}^{(l)}} = \frac{\partial L}{\partial z_i^{(l)}} \frac{\partial z_i^{(l)}}{\partial w_{ij}^{(l)}} = \delta_i^{(l)} a_j^{(l-1)}
-\end{equation}
-donde el término de error local $\delta_i^{(l)} = \frac{\partial L}{\partial z_i^{(l)}}$ se propaga recursivamente de la capa de salida hacia las capas anteriores:
-\begin{equation}
-\delta_i^{(l)} = \left(\sum_k \delta_k^{(l+1)} w_{ki}^{(l+1)}\right) f'(z_i^{(l)})
-\end{equation}
-
-Para ilustrar de forma tangible este procedimiento, la Tabla 1.8 documenta la trazabilidad aritmética paso a paso de un ciclo de actualización para un modelo neuronal simple.
+\begin{cajagris}
+\textbf{CONCEPTO CLAVE: Aprendizaje Automático}\\
+Conjunto de métodos que permiten a un sistema aprender patrones a partir de datos para hacer predicciones o tomar decisiones.
+\end{cajagris}
 
 \begin{table}[htpb!]
 \centering
 \small\sffamily
-\caption{\textit{Trazabilidad numérica paso a paso de un ciclo de descenso del gradiente sobre un modelo unidimensional}}
-\label{tab:sgd_traza}
-\begin{tabularx}{\textwidth}{p{2.6cm}p{3.2cm}p{4.2cm}X}
+\caption{\textbf{Tabla 1.6.} \textit{Principales tipos de aprendizaje automático}}
+\vspace{0.15cm}
+\begin{tabularx}{\textwidth}{>{\bfseries}p{3.0cm} >{\raggedright\arraybackslash}p{3.8cm} >{\raggedright\arraybackslash}p{4.2cm} >{\raggedright\arraybackslash}X}
 \toprule
-\textbf{Fase del Ciclo} & \textbf{Expresión Analítica} & \textbf{Sustitución de Valores} & \textbf{Resultado Numérico} \\
+Tipo & Datos que usa & Cómo aprende & Ejemplo \\
 \midrule
-\textbf{1. Entrada y Pesos} & $x = 2.0$, $y = 5.0$, $\eta = 0.1$ & Pesos iniciales: $w = 1.5$, $b = 0.5$ & Estado inicial $(\mathbf{x}, y, \theta)$. \\
+Supervisado & Ejemplos con respuesta conocida (etiquetas). & Reduce la diferencia entre su predicción y la etiqueta. & Clasificar correos como spam o no spam. \\
 \midrule
-\textbf{2. Forward Pass} & $z = w \cdot x + b$ & $z = 1.5 \cdot 2.0 + 0.5$ & $z = 3.5$ (salida lineal $\hat{y}$). \\
+No supervisado & Datos sin etiquetas. & Busca estructura: grupos, similitudes, patrones. & Agrupar clientes con hábitos parecidos. \\
 \midrule
-\textbf{3. Pérdida Cuadrática} & $L = \frac{1}{2}(\hat{y} - y)^2$ & $L = \frac{1}{2}(3.5 - 5.0)^2 = \frac{1}{2}(-1.5)^2$ & $L = 1.125$ (error escalar). \\
+Por refuerzo & Interacción con un entorno. & Prueba acciones y recibe recompensas o castigos. & Un programa que aprende a jugar ajedrez o Go. \\
 \midrule
-\textbf{4. Gradiente del Peso} & $\frac{\partial L}{\partial w} = (\hat{y} - y) \cdot x$ & $\frac{\partial L}{\partial w} = (3.5 - 5.0) \cdot 2.0 = -1.5 \cdot 2.0$ & $\nabla_w L = -3.0$ \\
-\midrule
-\textbf{5. Gradiente del Sesgo} & $\frac{\partial L}{\partial b} = (\hat{y} - y)$ & $\frac{\partial L}{\partial b} = 3.5 - 5.0$ & $\nabla_b L = -1.5$ \\
-\midrule
-\textbf{6. Actualización $w$} & $w \leftarrow w - \eta \frac{\partial L}{\partial w}$ & $w \leftarrow 1.5 - (0.1 \cdot (-3.0)) = 1.5 + 0.3$ & $w_{\text{nuevo}} = 1.80$ \\
-\midrule
-\textbf{7. Actualización $b$} & $b \leftarrow b - \eta \frac{\partial L}{\partial b}$ & $b \leftarrow 0.5 - (0.1 \cdot (-1.5)) = 0.5 + 0.15$ & $b_{\text{nuevo}} = 0.65$ \\
+Autosupervisado & Datos sin etiquetar de forma manual. & Genera sus propias etiquetas a partir de los datos. & Predecir la palabra siguiente en un texto. \\
 \bottomrule
 \end{tabularx}
 \vspace{0.15cm}
-\raggedright\scriptsize \textbf{Fuente:} Elaboración propia demostrativa. Con los nuevos pesos, la nueva predicción es $\hat{y} = 1.80(2.0) + 0.65 = 4.25$, reduciendo el error a $L = \frac{1}{2}(4.25-5.0)^2 = 0.281$ (reducción del 75\% del error en una sola iteración).
+\raggedright\scriptsize \textbf{Fuente:} Elaboración propia.
 \end{table}
 
-\subsubsection{Dinámica de Generalización, Sobreajuste y Métricas de Validación}
+El aprendizaje autosupervisado es la base de los modelos de lenguaje: el propio texto proporciona la "respuesta correcta", lo que permite entrenar con cantidades enormes de datos sin etiquetarlos a mano.
 
-Un algoritmo de aprendizaje no busca memorizar mecánicamente los datos de entrenamiento, sino alcanzar una alta capacidad de \textbf{generalización} ante muestras nunca antes observadas. Para auditar esta propiedad, los datos se particionan habitualmente en tres subconjuntos disjuntos:
-
-\begin{itemize}
-    \item \textbf{Conjunto de Entrenamiento (70\%):} Utilizado por el optimizador para ajustar directamente los pesos sinápticos $\theta$.
-    \item \textbf{Conjunto de Validación (15\%):} Empleado para calibrar hiperparámetros (tasa de aprendizaje, profundidad) y detener el entrenamiento tempranamente (\textit{early stopping}) cuando el error de validación comienza a crecer.
-    \item \textbf{Conjunto de Prueba (15\%):} Reservado para evaluar objetivamente el desempeño final del modelo sobre una distribución no vista.
-\end{itemize}
-
-\clearpage
-\begin{figure}[tbp]
-\centering
-\begin{tcolorbox}[colback=white, colframe=unmsm_gold, arc=3pt, boxrule=0.8pt, top=0.3cm, bottom=0.3cm, left=0.5cm, right=0.5cm]
-\centering
-\small\sffamily
-\textbf{Figura 1.6.} Curvas de Aprendizaje: Pérdida de Entrenamiento vs. Validación y Frontera de Sobreajuste\\[0.2cm]
-\begin{tikzpicture}[scale=0.9, font=\scriptsize\sffamily]
-    % Axes
-    \draw[->, thick, draw=unmsm_gray] (0,0) -- (9.5,0) node[right] {Épocas de Entrenamiento};
-    \draw[->, thick, draw=unmsm_gray] (0,0) -- (0,5.0) node[above] {Función de Pérdida $J(\theta)$};
-
-    % Training loss curve (monotonically decreasing)
-    \draw[line width=1.2pt, draw=unmsm_darkred, smooth] plot coordinates {
-        (0.5,4.5) (1.5,2.4) (3.0,1.2) (5.0,0.6) (7.0,0.3) (9.0,0.15)
-    };
-    \node[anchor=west, text=unmsm_darkred] at (9.0,0.3) {$L_{\text{train}}$ (Entrenamiento)};
-
-    % Validation loss curve (U-shaped)
-    \draw[line width=1.2pt, draw=unmsm_red, smooth] plot coordinates {
-        (0.5,4.7) (1.5,2.7) (3.0,1.5) (5.0,1.1) (7.0,1.8) (9.0,3.2)
-    };
-    \node[anchor=west, text=unmsm_red] at (9.0,3.2) {$L_{\text{val}}$ (Validación)};
-
-    % Optimal stopping line
-    \draw[dashed, line width=1pt, draw=unmsm_gray] (5.0,0) -- (5.0,4.8);
-    \node[anchor=south, font=\footnotesize\sffamily\bfseries, text=unmsm_gray] at (5.0,4.8) {Punto Óptimo};
-
-    % Zones
-    \node[text=unmsm_gray] at (2.5,3.6) {Zona de Subajuste};
-    \node[text=unmsm_red, align=center] at (7.5,4.2) {\textbf{Zona de Sobreajuste}\\(\textit{Overfitting})};
-\end{tikzpicture}
-\end{tcolorbox}
-\vspace{0.15cm}
-\raggedright\scriptsize \textbf{Fuente:} Adaptado de Goodfellow et al. (2016).
-\end{figure}
-
-Para clasificaciones discretas, el rendimiento se cuantifica mediante la matriz de confusión y las métricas derivadas sintetizadas en la Tabla 1.9.
+\subsubsection{Redes neuronales y aprendizaje profundo}
+Una red neuronal artificial está formada por capas de unidades sencillas, las "neuronas". Cada neurona recibe números, los multiplica por pesos, los suma, añade un sesgo y aplica una función de activación:
+\begin{equation}
+y = f\left( w_1 x_1 + w_2 x_2 + \dots + w_n x_n + b \right)
+\end{equation}
+La función de activación $f$ introduce no linealidad; sin ella, apilar capas equivaldría a una sola operación lineal. La Tabla 1.7 presenta las más usadas.
 
 \begin{table}[htpb!]
 \centering
 \small\sffamily
-\caption{\textit{Matriz de confusión y formulaciones matemáticas de métricas de clasificación}}
-\label{tab:matriz_confusion}
-\begin{tabularx}{\textwidth}{p{3.0cm}p{3.5cm}X}
+\caption{\textbf{Tabla 1.7.} \textit{Funciones de activación frecuentes en redes neuronales}}
+\vspace{0.15cm}
+\begin{tabularx}{\textwidth}{>{\bfseries}p{3.2cm} >{\raggedright\arraybackslash}p{4.0cm} >{\raggedright\arraybackslash}p{3.0cm} >{\raggedright\arraybackslash}X}
 \toprule
-\textbf{Métrica Formal} & \textbf{Expresión Matemática} & \textbf{Interpretación Epistémica en Clasificación} \\
+Función & Fórmula & Rango & Ejemplo \\
 \midrule
-\textbf{Exactitud (Accuracy)} & $\frac{VP + VN}{VP + VN + FP + FN}$ & Fracción total de predicciones correctas sobre el universo muestral evaluado. Engañosa ante clases severamente desbalanceadas. \\
+ReLU & $f(z) = \max(0, z)$ & $[0, \infty)$ & $f(-2) = 0$; $f(3) = 3$ \\
 \midrule
-\textbf{Precisión (Precision)} & $\frac{VP}{VP + FP}$ & De todos los casos clasificados como positivos, qué porcentaje fue verdaderamente positivo. Mide fidelidad y minimiza falsas alarmas. \\
+Sigmoide & $\sigma(z) = \frac{1}{1 + e^{-z}}$ & $(0, 1)$ & $\sigma(0) = 0.5$ \\
 \midrule
-\textbf{Sensibilidad (Recall)} & $\frac{VP}{VP + FN}$ & De todos los casos reales positivos existentes, qué porcentaje logró capturar el algoritmo. Mide exhaustividad y minimiza omisiones. \\
-\midrule
-\textbf{Puntuación $F_1$} & $2 \cdot \frac{\text{Precisión} \cdot \text{Recall}}{\text{Precisión} + \text{Recall}}$ & Media armónica entre Precisión y Sensibilidad; equilibra ambos trade-offs en distribuciones de datos con clases asimétricas. \\
+Tangente hiperbólica & $\tanh(z) = \frac{e^z - e^{-z}}{e^z + e^{-z}}$ & $(-1, 1)$ & $\tanh(0) = 0$ \\
 \bottomrule
 \end{tabularx}
 \vspace{0.15cm}
-\raggedright\scriptsize \textbf{Fuente:} Fórmulas canónicas según Russell y Norvig (2020). $VP$: Verdaderos Positivos; $VN$: Verdaderos Negativos; $FP$: Falsos Positivos; $FN$: Falsos Negativos.
+\raggedright\scriptsize \textbf{Fuente:} Elaboración propia.
 \end{table}
 
-% ==============================================================================
-% SUBTEMA 1.4: FUNDAMENTOS Y ARQUITECTURAS DE LA IA GENERATIVA
-% ==============================================================================
-\newpage
-\subsection{Fundamentos Matemáticos y Arquitecturas Canónicas de la IA Generativa}
+Al apilar muchas capas se obtiene una red profunda, de ahí el nombre aprendizaje profundo. LeCun, Bengio y Hinton (2015) explican que cada capa transforma la representación de la anterior en otra algo más abstracta: en una imagen, los píxeles dan lugar a bordes, luego a formas y finalmente a objetos.
 
-\subsubsection{Diferenciación Teórica: Modelado Discriminativo frente a Generativo}
-
-La frontera fundamental de la modelización estadística contemporánea radica en la distinción matemática entre enfoques discriminativos y generativos:
-
-\begin{itemize}
-    \item \textbf{Modelos Discriminativos:} Aprenden la distribución condicional $p(y|\mathbf{x})$, modelando directamente la frontera de decisión entre clases. No requieren comprender la estructura estocástica interna de la entrada $\mathbf{x}$, limitándose a clasificarla o predecir un valor de respuesta (e.g., regresión logística, SVM, clasificadores CNN).
-    \item \textbf{Modelos Generativos:} Modelan la distribución conjunta $p(\mathbf{x}, y)$ o la densidad marginal de probabilidad $p_{\text{data}}(\mathbf{x})$. Al aprender la variedad de alta dimensionalidad sobre la que residen los datos reales, un modelo generativo es capaz de muestrear nuevas instancias sintéticas $\mathbf{x}_{\text{gen}} \sim p_\theta(\mathbf{x})$ que preservan las propiedades estadísticas del dominio de estudio.
-\end{itemize}
-
-\begin{table}[htpb!]
-\centering
-\small\sffamily
-\caption{\textit{Matriz comparativa exhaustiva entre modelado discriminativo y modelado generativo}}
-\label{tab:discriminativo_generativo}
-\begin{tabularx}{\textwidth}{p{3.0cm}p{4.2cm}X}
-\toprule
-\textbf{Criterio Comparativo} & \textbf{Modelado Discriminativo} & \textbf{Modelado Generativo} \\
-\midrule
-\textbf{Objetivo Probabilístico} & Estimar la probabilidad condicional de etiqueta $p(y|\mathbf{x})$. & Estimar la densidad de los datos $p_{\text{data}}(\mathbf{x})$ o la conjunta $p(\mathbf{x}, y)$. \\
-\midrule
-\textbf{Operación Principal} & Segmentar, clasificar o predecir valores dados $\mathbf{x}$. & Muestrear, sintetizar e imputar nuevas instancias completas en $\mathcal{X}$. \\
-\midrule
-\textbf{Complejidad Matemática} & Relativamente baja; acotada a parametrizar una frontera de partición. & Muy elevada; exige aproximar variedades estocásticas en espacios $\mathbb{R}^D$ ($D \gg 10^6$). \\
-\midrule
-\textbf{Patologías Críticas} & Vulnerabilidad a ataques adversariales y fragilidad ante traslación de dominio. & Alucinaciones factuales, colapso de modo (\textit{mode collapse}), inestabilidad de muestreo. \\
-\midrule
-\textbf{Arquitecturas Clave} & Regresión logística, Random Forest, ResNet, XGBoost. & Transformers autoregresivos (GPT), GANs, DDPMs, VAEs. \\
-\bottomrule
-\end{tabularx}
-\vspace{0.15cm}
-\raggedright\scriptsize \textbf{Fuente:} Síntesis formal basada en Feuerriegel et al. (2024).
-\end{table}
-
-\subsubsection{Modelos de Lenguaje Autoregresivos y la Arquitectura Transformer}
-
-Un modelo de lenguaje autoregresivo factoriza la distribución de probabilidad conjunta de una secuencia de tokens $\mathbf{x} = (t_1, t_2, \dots, t_T)$ aplicando la regla de la cadena de probabilidades:
-\begin{equation}
-p(\mathbf{x}) = \prod_{i=1}^T p(t_i | t_1, t_2, \dots, t_{i-1}; \theta)
-\end{equation}
-
-El entrenamiento se ejecuta optimizando la máxima verosimilitud (o minimizando la entropía cruzada) para predecir el siguiente token sobre corpus textuales de miles de millones de tokens:
-\begin{equation}
-\mathcal{L}_{\text{LM}}(\theta) = -\sum_{i=1}^T \log p_\theta(t_i | t_{<i})
-\end{equation}
-
-La columna vertebral de este proceso es el mecanismo de \textbf{Autoatención Escalada} (\textit{Scaled Dot-Product Attention}), introducido por Vaswani et al. (2017). Cada elemento de entrada se proyecta linealmente en tres matrices semánticas mediante pesos entrenables: Consultas ($Q = X W_Q$), Claves ($K = X W_K$) y Valores ($V = X W_V$), donde $Q, K \in \mathbb{R}^{T \times d_k}$ y $V \in \mathbb{R}^{T \times d_v}$.
-
-La formulación analítica de la autoatención es:
-\begin{equation}
-\text{Attention}(Q, K, V) = \text{Softmax}\left(\frac{Q K^T}{\sqrt{d_k}}\right) V
-\end{equation}
-
-El factor de escalado $1/\sqrt{d_k}$ cumple una función matemática fundamental: a medida que la dimensión $d_k$ del espacio de proyección se incrementa, el producto punto de dos vectores independientes con varianza unitaria crece en magnitud hacia una varianza proporcional a la dimensión. En ausencia de esta normalización dimensional, los valores del producto de compatibilidad $Q K^T$ alcanzarían amplitudes excesivamente grandes, desplazando a la función Softmax hacia regiones asintóticas donde sus derivadas son infinitesimales, provocando la saturación inmediata y el desvanecimiento de gradientes durante la retropropagación.
-
-\clearpage
-\begin{figure}[tbp]
-\centering
-\begin{tcolorbox}[colback=white, colframe=unmsm_gold, arc=3pt, boxrule=0.8pt, top=0.3cm, bottom=0.3cm, left=0.5cm, right=0.5cm]
-\centering
-\small\sffamily
-\textbf{Figura 1.7.} Diagrama Estructural del Mecanismo de Autoatención Escalada (Vaswani et al., 2017)\\[0.2cm]
-\begin{tikzpicture}[node distance=1.0cm, auto, >=stealth, font=\scriptsize\sffamily]
-    % Input matrices
-    \node[rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=1.8cm, text centered] (q) at (-2.5, 0) {\textbf{Queries} ($Q$)};
-    \node[rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=1.8cm, text centered] (k) at (-0.3, 0) {\textbf{Keys} ($K$)};
-    \node[rectangle, draw=unmsm_darkred, fill=bg_arena, rounded corners=2pt, text width=1.8cm, text centered] (v) at (3.2, 2.8) {\textbf{Values} ($V$)};
-
-    % MatMul 1
-    \node[rectangle, draw=unmsm_gray, fill=white, rounded corners=2pt, text width=2.4cm, text centered] (mm1) at (-1.4, 1.3) {MatMul ($Q K^T$)};
-    \draw[->, thick, draw=unmsm_red] (q) |- (mm1);
-    \draw[->, thick, draw=unmsm_red] (k) |- (mm1);
-
-    % Scale
-    \node[rectangle, draw=unmsm_gray, fill=white, rounded corners=2pt, text width=2.4cm, text centered, above=0.6cm of mm1] (scale) {Escalado ($1/\sqrt{d_k}$)};
-    \draw[->, thick, draw=unmsm_gray] (mm1) -- (scale);
-
-    % Mask (Optional)
-    \node[rectangle, draw=unmsm_gray, fill=bg_arena!40, rounded corners=2pt, text width=2.4cm, text centered, above=0.6cm of scale] (mask) {Máscara Causal};
-    \draw[->, thick, draw=unmsm_gray] (scale) -- (mask);
-
-    % Softmax
-    \node[rectangle, draw=unmsm_darkred, fill=bg_arena, rounded corners=2pt, text width=2.4cm, text centered, above=0.6cm of mask] (sm) {\textbf{Softmax}};
-    \draw[->, thick, draw=unmsm_gray] (mask) -- (sm);
-
-    % MatMul 2
-    \node[rectangle, draw=unmsm_red, fill=white, rounded corners=2pt, text width=2.4cm, text centered] (mm2) at (1.0, 5.0) {MatMul};
-    \draw[->, thick, draw=unmsm_darkred] (sm) |- (mm2);
-    \draw[->, thick, draw=unmsm_darkred] (v) |- (mm2);
-
-    % Output
-    \node[rectangle, draw=unmsm_red, fill=unmsm_red!10, rounded corners=2pt, text width=3.0cm, text centered, above=0.8cm of mm2] (out) {\textbf{Salida Ponderada}\\$\text{Attention}(Q,K,V)$};
-    \draw[->, line width=1.2pt, draw=unmsm_red] (mm2) -- (out);
-\end{tikzpicture}
-\end{tcolorbox}
-\vspace{0.15cm}
-\raggedright\scriptsize \textbf{Fuente:} Adaptado de Vaswani et al. (2017).
-\end{figure}
-
-Para permitir que el modelo atienda simultáneamente a información procedente de distintos subespacios de representación en distintas posiciones, Vaswani et al. (2017) extendieron la formulación a la \textbf{Atención Multicabeza} (\textit{Multi-Head Attention}, MHA):
-\begin{equation}
-\text{MultiHead}(Q, K, V) = \text{Concat}(\text{head}_1, \dots, \text{head}_h) W^O
-\end{equation}
-donde cada cabeza $\text{head}_i = \text{Attention}(Q W_i^Q, K W_i^K, V W_i^V)$ opera de manera independiente sobre proyecciones lineales de dimensión reducida $d_k = d_{\text{model}} / h$.
-
-\subsubsection{Redes Generativas Antagónicas (GANs)}
-
-Propuestas por Goodfellow et al. (2014), las GANs abordan la síntesis generativa mediante un juego minimax para dos jugadores fundamentado en la teoría de juegos de von Neumann:
-\begin{itemize}
-    \item \textbf{Generador $G(\mathbf{z}; \theta_g)$:} Red neuronal que mapea un vector latente de ruido aleatorio $\mathbf{z} \sim p_{\mathbf{z}}(\mathbf{z})$ (típicamente gaussiano estándar) al espacio de datos sintéticos $\mathbf{x}_{\text{gen}} \in \mathcal{X}$. Su objetivo es engañar al discriminador produciendo muestras indistinguibles de las reales.
-    \item \textbf{Discriminador $D(\mathbf{x}; \theta_d)$:} Red neuronal de clasificación que evalúa una muestra $\mathbf{x}$ y estima la probabilidad escalar $D(\mathbf{x}) \in [0, 1]$ de que provenga de la distribución empírica real $p_{\text{data}}(\mathbf{x})$ en lugar del generador.
-\end{itemize}
-
-La función de valor global $V(D, G)$ que rige la competencia matemática es:
-\begin{equation}
-\min_G \max_D V(D, G) = \mathbb{E}_{\mathbf{x} \sim p_{\text{data}}(\mathbf{x})}[\log D(\mathbf{x})] + \mathbb{E}_{\mathbf{z} \sim p_{\mathbf{z}}(\mathbf{z})}[\log (1 - D(G(\mathbf{z})))]
-\end{equation}
-
-Goodfellow et al. (2014) demostraron que, para un generador fijo $G$, el discriminador óptimo teórico $D^*_G(\mathbf{x})$ adopta la forma analítica:
-\begin{equation}
-D^*_G(\mathbf{x}) = \frac{p_{\text{data}}(\mathbf{x})}{p_{\text{data}}(\mathbf{x}) + p_g(\mathbf{x})}
-\end{equation}
-Al sustituir este discriminador óptimo en la función de valor, el objetivo del juego se reduce a minimizar la \textbf{Divergencia Jensen-Shannon} ($D_{\text{JS}}$) entre la distribución de datos reales y la generada:
-\begin{equation}
-V(D^*_G, G) = -\log(4) + 2 \cdot D_{\text{JS}}(p_{\text{data}} \parallel p_g)
-\end{equation}
-
-El mínimo global se alcanza si y solo si $p_g = p_{\text{data}}$, punto en el cual el discriminador se vuelve incapaz de discernir entre ambas distribuciones, prediciendo uniformemente $D^*(\mathbf{x}) = 0.5$.
-
-\subsubsection{Modelos Probabilísticos de Difusión con Eliminación de Ruido (DDPM)}
-
-Los modelos de difusión (Sohl-Dickstein et al., 2015; Ho et al., 2020) modelan la generación de datos inspirándose en la física estadística de no equilibrio y la termodinámica. Su arquitectura opera mediante dos procesos complementarios:
-
-\begin{enumerate}
-    \item \textbf{Proceso de Difusión Directo (Forward Process):} Una cadena de Markov parametrizada sin aprendizaje que añade progresivamente ruido gaussiano a una muestra real $\mathbf{x}_0$ en $T$ pasos discretos, gobernada por un cronograma de varianzas $\{\beta_t \in (0,1)\}_{t=1}^T$:
-    \begin{equation}
-    q(\mathbf{x}_t | \mathbf{x}_{t-1}) = \mathcal{N}\left(\mathbf{x}_t; \sqrt{1 - \beta_t}\mathbf{x}_{t-1}, \beta_t \mathbf{I}\right)
-    \end{equation}
-    Una propiedad algebraica notable del proceso gaussiano permite muestrear directamente $\mathbf{x}_t$ en cualquier instante arbitrario $t$ sin iterar la cadena:
-    \begin{equation}
-    q(\mathbf{x}_t | \mathbf{x}_0) = \mathcal{N}\left(\mathbf{x}_t; \sqrt{\bar{\alpha}_t}\mathbf{x}_0, (1 - \bar{\alpha}_t)\mathbf{I}\right) \implies \mathbf{x}_t = \sqrt{\bar{\alpha}_t}\mathbf{x}_0 + \sqrt{1 - \bar{\alpha}_t}\boldsymbol{\epsilon}
-    \end{equation}
-    donde $\alpha_t = 1 - \beta_t$, $\bar{\alpha}_t = \prod_{s=1}^t \alpha_s$ y $\boldsymbol{\epsilon} \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$. Para $T$ suficientemente grande, $\mathbf{x}_T$ se transforma indistinguiblemente en ruido blanco isotrópico.
-    \item \textbf{Proceso Inverso de Eliminación de Ruido (Reverse Process):} Una red neuronal profunda (generalmente una U-Net con conexiones residuales y atención cruzada) aprende a revertir la cadena estocástica eliminando el ruido añadido:
-    \begin{equation}
-    p_\theta(\mathbf{x}_{t-1} | \mathbf{x}_t) = \mathcal{N}\left(\mathbf{x}_{t-1}; \boldsymbol{\mu}_\theta(\mathbf{x}_t, t), \boldsymbol{\Sigma}_\theta(\mathbf{x}_t, t)\right)
-    \end{equation}
-    Ho et al. (2020) demostraron que reparametrizar la red para predecir el ruido residual $\boldsymbol{\epsilon}_\theta(\mathbf{x}_t, t)$ permite optimizar una función de pérdida cuadrática simplificada extremadamente estable:
-    \begin{equation}
-    L_{\text{simple}}(\theta) = \mathbb{E}_{t, \mathbf{x}_0, \boldsymbol{\epsilon}}\left[\|\boldsymbol{\epsilon} - \boldsymbol{\epsilon}_\theta(\mathbf{x}_t, t)\|^2\right]
-    \end{equation}
-\end{enumerate}
-
-\clearpage
-\begin{figure}[tbp]
+\begin{figure}[htpb!]
 \centering
 \begin{tcolorbox}[colback=white, colframe=unmsm_gold, arc=3pt, boxrule=0.8pt, top=0.3cm, bottom=0.3cm, left=0.4cm, right=0.4cm]
 \centering
 \small\sffamily
-\textbf{Figura 1.8.} Comparación Arquitectónica de las Tres Familias Canónicas de la IA Generativa\\[0.25cm]
-\resizebox{0.95\linewidth}{!}{%
-\begin{tikzpicture}[auto, >=stealth, font=\scriptsize\sffamily]
-    % Panel A: Transformers
-    \node[anchor=center, font=\footnotesize\sffamily\bfseries, text=unmsm_red] at (-4.8, 2.5) {A. Transformers Autoregresivos};
-    \node[rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.8cm, text centered] (t_in) at (-4.8, 1.4) {Secuencia de Tokens\\$\mathbf{x} = (t_1, \dots, t_k)$};
-    \node[rectangle, draw=unmsm_red, fill=bg_arena, rounded corners=2pt, text width=3.0cm, text centered] (t_att) at (-4.8, 0.0) {Autoatención Escalada\\[0.12cm]$QK^T / \sqrt{d_k}$};
-    \node[rectangle, draw=unmsm_red, fill=white, rounded corners=2pt, text width=2.8cm, text centered] (t_out) at (-4.8, -1.4) {Distribución Siguiente\\Token $p(t_{k+1}|t_{\le k})$};
-    \draw[->, thick, draw=unmsm_red] (t_in) -- (t_att);
-    \draw[->, thick, draw=unmsm_red] (t_att) -- (t_out);
+\textbf{Figura 1.4.} \textit{Estructura de una red neuronal con dos capas ocultas}\\[0.25cm]
+\resizebox{0.92\linewidth}{!}{%
+\begin{tikzpicture}[>=stealth, font=\footnotesize\sffamily]
+    % Capa Entrada
+    \foreach \y in {1,2,3} {
+        \node[circle, draw=unmsm_red, fill=bg_marfil, line width=1pt] (in\y) at (0, 2-\y*1.2) {$x_\y$};
+    }
+    \node[above=0.2cm of in1] {\textbf{Entrada}};
 
-    % Panel B: GANs
-    \node[anchor=center, font=\footnotesize\sffamily\bfseries, text=unmsm_darkred] at (0.0, 2.5) {B. Redes Antagónicas (GANs)};
-    \node[rectangle, draw=unmsm_darkred, fill=bg_marfil, rounded corners=2pt, text width=2.8cm, text centered] (g_z) at (0.0, 1.4) {Ruido Latente\\$\mathbf{z} \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$};
-    \node[rectangle, draw=unmsm_darkred, fill=bg_arena, rounded corners=2pt, text width=2.8cm, text centered] (g_gen) at (0.0, 0.0) {Generador $G(\mathbf{z})$ vs.\\Discriminador $D(\mathbf{x})$};
-    \node[rectangle, draw=unmsm_darkred, fill=white, rounded corners=2pt, text width=2.8cm, text centered] (g_out) at (0.0, -1.4) {Muestra Sintética\\Equilibrio Minimax};
-    \draw[->, thick, draw=unmsm_darkred] (g_z) -- (g_gen);
-    \draw[->, thick, draw=unmsm_darkred] (g_gen) -- (g_out);
+    % Capa Oculta 1
+    \foreach \y in {1,2,3,4} {
+        \node[circle, draw=unmsm_darkred, fill=bg_arena, line width=1pt] (h1\y) at (3.5, 2.5-\y*1.1) {$h^{(1)}_\y$};
+    }
+    \node[above=0.2cm of h11] {\textbf{Capa Oculta 1}};
 
-    % Panel C: Difusión
-    \node[anchor=center, font=\footnotesize\sffamily\bfseries, text=unmsm_red] at (4.8, 2.5) {C. Modelos de Difusión};
-    \node[rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.8cm, text centered] (d_x0) at (4.8, 1.4) {Datos $\mathbf{x}_0 \to$ Ruido $\mathbf{x}_T$\\(Proceso Directo $q$)};
-    \node[rectangle, draw=unmsm_red, fill=bg_arena, rounded corners=2pt, text width=2.8cm, text centered] (d_net) at (4.8, 0.0) {U-Net Predictora de Ruido\\$\boldsymbol{\epsilon}_\theta(\mathbf{x}_t, t)$};
-    \node[rectangle, draw=unmsm_red, fill=white, rounded corners=2pt, text width=2.8cm, text centered] (d_out) at (4.8, -1.4) {Denoising Inverso\\$p_\theta(\mathbf{x}_{t-1}|\mathbf{x}_t)$};
-    \draw[->, thick, draw=unmsm_red] (d_x0) -- (d_net);
-    \draw[->, thick, draw=unmsm_red] (d_net) -- (d_out);
+    % Capa Oculta 2
+    \foreach \y in {1,2,3,4} {
+        \node[circle, draw=unmsm_darkred, fill=bg_arena, line width=1pt] (h2\y) at (7.0, 2.5-\y*1.1) {$h^{(2)}_\y$};
+    }
+    \node[above=0.2cm of h21] {\textbf{Capa Oculta 2}};
+
+    % Capa Salida
+    \node[circle, draw=unmsm_red, fill=bg_marfil, line width=1pt] (out) at (10.5, 0) {$\hat{y}$};
+    \node[above=0.2cm of out] {\textbf{Salida}};
+
+    % Conexiones
+    \foreach \i in {1,2,3} {
+        \foreach \j in {1,2,3,4} {
+            \draw[->, draw=unmsm_gray!50] (in\i) -- (h1\j);
+        }
+    }
+    \foreach \i in {1,2,3,4} {
+        \foreach \j in {1,2,3,4} {
+            \draw[->, draw=unmsm_gray!50] (h1\i) -- (h2\j);
+        }
+    }
+    \foreach \i in {1,2,3,4} {
+        \draw[->, draw=unmsm_darkred] (h2\i) -- (out);
+    }
 \end{tikzpicture}%
-}
+}\\[0.2cm]
+\raggedright\scriptsize \textbf{Fuente:} Elaboración propia a partir de LeCun, Bengio y Hinton (2015).
 \end{tcolorbox}
-\vspace{0.15cm}
-\raggedright\scriptsize \textbf{Fuente:} Síntesis analítica comparativa basada en Vaswani et al. (2017), Goodfellow et al. (2014) y Ho et al. (2020).
 \end{figure}
 
-Para complementar la evaluación de estas tecnologías, la Tabla 1.12 ofrece una comparación multidimensional entre las principales arquitecturas generativas de la literatura científica.
+\subsubsection{Dos arquitecturas clásicas}
+\begin{itemize}
+    \item \textbf{Redes convolucionales (CNN):} Aplican filtros que recorren la imagen y detectan bordes, texturas y formas; son útiles para imágenes y sonido.
+    \item \textbf{Redes recurrentes (RNN):} Procesan los datos paso a paso conservando una memoria de lo anterior; se usaron para texto y voz, pero les cuesta manejar secuencias largas, una limitación que el Transformer buscó superar.
+\end{itemize}
 
-\begin{table}[htpb!]
+\subsubsection{Retropropagación y descenso del gradiente}
+\textquestiondown Cómo se ajustan los pesos? Con el algoritmo de retropropagación: la red hace una predicción, se mide cuánto se equivoca mediante una función de pérdida y el error se propaga hacia atrás para calcular cuánto contribuyó cada peso. Luego cada peso se corrige un poco en la dirección que reduce el error, un método llamado descenso del gradiente:
+\begin{equation}
+w \leftarrow w - \eta \cdot \frac{\partial L}{\partial w}
+\end{equation}
+donde $L$ es la pérdida y $\eta$ (\textit{eta}) es la tasa de aprendizaje, un número pequeño que controla el tamaño de cada paso.
+
+\subsubsection{Datos, entrenamiento y modelos}
+Tres piezas aparecen siempre que hablamos de aprendizaje automático:
+\begin{itemize}
+    \item \textbf{Datos:} Son la materia prima: textos, imágenes, tablas o audios. Su cantidad y su calidad condicionan lo que el sistema puede aprender; si los datos son sesgados o incompletos, el modelo heredará esas fallas.
+    \item \textbf{Entrenamiento:} Es el proceso de ajustar los parámetros para minimizar la pérdida sobre los datos. Se repite muchas veces sobre los mismos ejemplos; cada recorrido completo se llama época.
+    \item \textbf{Modelo:} Es el resultado: una función con parámetros ya ajustados. Los grandes modelos de lenguaje tienen miles de millones de ellos (GPT-3 tiene 175 mil millones, según Brown et al., 2020). Al usarlo con datos nuevos se habla de inferencia.
+\end{itemize}
+
+\begin{figure}[htpb!]
+\centering
+\begin{tcolorbox}[colback=white, colframe=unmsm_gold, arc=3pt, boxrule=0.8pt, top=0.3cm, bottom=0.3cm, left=0.4cm, right=0.4cm]
 \centering
 \small\sffamily
-\caption{\textit{Evaluación comparativa multidimensional de las principales arquitecturas generativas}}
-\label{tab:comparacion_arquitecturas}
-\begin{tabularx}{\textwidth}{p{2.8cm}p{2.6cm}p{2.6cm}p{2.6cm}X}
-\toprule
-\textbf{Familia Arquitectónica} & \textbf{Fidelidad de Muestra} & \textbf{Velocidad de Inferencia} & \textbf{Estabilidad de Entrenamiento} & \textbf{Costo Computacional de Entrenamiento} \\
-\midrule
-\textbf{Transformers Autoregresivos} & Extremadamente alta en secuencias. & Moderada a lenta ($O(T)$ autoregresivo). & Alta (entropía cruzada convexa local). & Muy elevado (decenas de miles de horas GPU). \\
-\midrule
-\textbf{Redes Antagónicas (GANs)} & Muy alta en imágenes densas. & Extremadamente rápida (un solo pase). & Baja (colapso de modo, desbalance $G/D$). & Moderado; sensible a hiperparámetros. \\
-\midrule
-\textbf{Modelos de Difusión (DDPM)} & Estado del arte en diversidad y detalle. & Lenta (requiere 20--1000 pasos de denoising). & Muy alta (pérdida cuadrática $L_{\text{simple}}$). & Elevado; requiere optimización sobre toda la cadena. \\
-\midrule
-\textbf{Autoencoders Variacionales (VAE)} & Moderada (tiende a generar salidas borrosas). & Extremadamente rápida (decodificador directo). & Alta (optimización de la cota inferior ELBO). & Bajo a moderado; formulación bayesiana cerrada. \\
-\bottomrule
-\end{tabularx}
-\vspace{0.15cm}
-\raggedright\scriptsize \textbf{Fuente:} Compilación analítica basada en Goodfellow et al. (2016), Kingma y Welling (2014) y Ho et al. (2020).
-\end{table}
+\textbf{Figura 1.5.} \textit{Del conjunto de datos al modelo en uso}\\[0.25cm]
+\resizebox{0.95\linewidth}{!}{%
+\begin{tikzpicture}[>=stealth, font=\footnotesize\sffamily]
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.4cm, text centered] (d) at (-4.5, 0) {\textbf{1. Datos}\\Texto, imágenes, tablas};
+    \node [rectangle, draw=unmsm_darkred, fill=bg_arena, rounded corners=2pt, text width=2.6cm, text centered] (t) at (-1.5, 0) {\textbf{2. Entrenamiento}\\Minimizar error de pérdida};
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.4cm, text centered] (m) at (1.5, 0) {\textbf{3. Modelo}\\Pesos ajustados};
+    \node [rectangle, draw=unmsm_darkred, fill=white, rounded corners=2pt, text width=2.4cm, text centered] (i) at (4.5, 0) {\textbf{4. Inferencia}\\Datos nuevos};
 
-\subsubsection{Alineación de Modelos con Preferencias Humanas: RLHF y DPO}
-
-El preentrenamiento sobre textos de la web optimiza la verosimilitud estadística, lo que induce al modelo a imitar la prosa humana pero no garantiza que sus respuestas sean veraces, útiles o seguras. Para cerrar la brecha entre la predicción estocástica y las expectativas de los usuarios, Ouyang et al. (2022) diseñaron el protocolo de \textbf{Aprendizaje por Refuerzo con Retroalimentación Humana} (RLHF), articulado en tres fases sucesivas:
-
-\begin{enumerate}
-    \item \textbf{Ajuste Fino Supervisado (SFT):} Se entrena el modelo base preentrenado sobre un conjunto depurado de pares instrucción-respuesta redactados por expertos humanos, aprendiendo la dinámica conversacional.
-    \item \textbf{Entrenamiento del Modelo de Recompensa (Reward Model, RM):} Se generan múltiples respuestas alternativas para una misma instrucción y evaluadores humanos las ordenan jerárquicamente de mejor a peor ($y_w \succ y_l$). El modelo de recompensa $r_\psi(x, y)$ se entrena optimizando la pérdida de comparaciones pareadas de Bradley-Terry:
-    \begin{equation}
-    \mathcal{L}_{\text{RM}}(\psi) = -\mathbb{E}_{(x, y_w, y_l)}\left[\log \sigma\left(r_\psi(x, y_w) - r_\psi(x, y_l)\right)\right]
-    \end{equation}
-    \item \textbf{Optimización de la Política mediante PPO:} El modelo generativo $\pi_\theta$ se actualiza utilizando el algoritmo Proximal Policy Optimization para maximizar la recompensa estimada por el RM, penalizando la divergencia de Kullback-Leibler frente a la política de referencia $\pi_{\text{SFT}}$ para evitar el olvido o el engaño adversarial al evaluador (\textit{reward hacking}):
-    \begin{equation}
-    \max_\theta \mathbb{E}_{(x, y) \sim \mathcal{D}, \pi_\theta}\left[r_\psi(x, y) - \beta D_{\text{KL}}(\pi_\theta(y|x) \parallel \pi_{\text{SFT}}(y|x))\right]
-    \end{equation}
-\end{enumerate}
-
-\clearpage
-\begin{figure}[tbp]
-\centering
-\begin{tcolorbox}[colback=white, colframe=unmsm_gold, arc=3pt, boxrule=0.8pt, top=0.3cm, bottom=0.3cm, left=0.5cm, right=0.5cm]
-\centering
-\small\sffamily
-\textbf{Figura 1.9.} Flujo Metodológico de las Tres Fases de Alineación con Preferencias Humanas (RLHF)\\[0.2cm]
-\begin{tikzpicture}[node distance=1.1cm, auto, >=stealth, font=\scriptsize\sffamily]
-    % Phase 1
-    \node[rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=3.4cm, text centered] (f1) at (-4.2, 0) {
-        \textbf{Fase 1: Ajuste Fino Supervisado (SFT)}\\
-        Pares instrucción-respuesta humana demostrativa de alta calidad.
-    };
-
-    % Phase 2
-    \node[rectangle, draw=unmsm_darkred, fill=bg_arena, rounded corners=2pt, text width=3.4cm, text centered] (f2) at (0, 0) {
-        \textbf{Fase 2: Modelo de Recompensa (RM)}\\
-        Comparación por pares ($y_w \succ y_l$) modelada con pérdida Bradley-Terry.
-    };
-
-    % Phase 3
-    \node[rectangle, draw=unmsm_red, fill=white, rounded corners=2pt, text width=3.4cm, text centered] (f3) at (4.2, 0) {
-        \textbf{Fase 3: Optimización PPO}\\
-        Refuerzo de política $\pi_\theta$ maximizando recompensa con restricción KL.
-    };
-
-    % Arrows
-    \draw[->, thick, draw=unmsm_red] (f1) -- (f2);
-    \draw[->, thick, draw=unmsm_darkred] (f2) -- (f3);
-\end{tikzpicture}
+    \draw [->, thick, draw=unmsm_red] (d) -- (t);
+    \draw [->, thick, draw=unmsm_darkred] (t) -- (m);
+    \draw [->, thick, draw=unmsm_red] (m) -- (i);
+\end{tikzpicture}%
+}\\[0.2cm]
+\raggedright\scriptsize \textbf{Fuente:} Elaboración propia.
 \end{tcolorbox}
-\vspace{0.15cm}
-\raggedright\scriptsize \textbf{Fuente:} Adaptado de Ouyang et al. (2022).
 \end{figure}
 
-Más recientemente, Rafailov et al. (2023) introdujeron la \textbf{Optimización Directa de Preferencias} (Direct Preference Optimization, DPO). Demostraron analíticamente que la función de política óptima puede reparametrizarse para derivar directamente el gradiente de preferencias a partir de los datos pareados sin requerir el entrenamiento explícito e inestable de un modelo de recompensa independiente ni bucles de aprendizaje por refuerzo en línea:
-\begin{equation}
-\mathcal{L}_{\text{DPO}}(\theta; \pi_{\text{ref}}) = -\mathbb{E}_{(x, y_w, y_l)}\left[\log \sigma\left( r_\theta(x, y_w) - r_\theta(x, y_l) \right)\right]
-\end{equation}
-donde la función de recompensa implícita inducida por el modelo de lenguaje se define como:
-\begin{equation}
-r_\theta(x, y) = \beta \log \frac{\pi_\theta(y \mid x)}{\pi_{\text{ref}}(y \mid x)}
-\end{equation}
+Para saber si un modelo realmente aprendió, y no solo memorizó, los datos se dividen habitualmente en tres grupos: entrenamiento (70\%), validación (15\%) y prueba (15\%). Si rinde muy bien con los datos de entrenamiento pero mal con los de prueba, hay sobreajuste.
 
-% ==============================================================================
-% SUBTEMA 1.5: LÍMITES EPISTÉMICOS, SEGURIDAD Y GOBERNANZA UNIVERSITARIA
-% ==============================================================================
-\newpage
-\subsection{Límites Epistémicos, Seguridad y Gobernanza Universitaria de la IA Generativa}
+\begin{cajagris}
+\textbf{CONCEPTO CLAVE: Sobreajuste (Overfitting)}\\
+Ocurre cuando el modelo memoriza los ejemplos de entrenamiento y pierde capacidad de generalizar a datos nuevos.
+\end{cajagris}
 
-\subsubsection{Taxonomía de las Alucinaciones en Modelos de Lenguaje}
+\begin{figure}[htpb!]
+\centering
+\begin{tcolorbox}[colback=white, colframe=unmsm_gold, arc=3pt, boxrule=0.8pt, top=0.3cm, bottom=0.3cm, left=0.4cm, right=0.4cm]
+\centering
+\small\sffamily
+\textbf{Figura 1.6.} \textit{Error de entrenamiento y de validación según la complejidad del modelo}\\[0.25cm]
+\resizebox{0.90\linewidth}{!}{%
+\begin{tikzpicture}[font=\scriptsize\sffamily]
+    \draw[->, thick, draw=unmsm_gray] (0,0) -- (7.5,0) node[right] {Complejidad / Épocas $\to$};
+    \draw[->, thick, draw=unmsm_gray] (0,0) -- (0,4.5) node[above] {Error};
 
-El término ``alucinación'' en el procesamiento del lenguaje natural designa la generación de enunciados sintácticamente impecables y convincentes que carecen de correspondencia con la realidad fáctica o con las fuentes provistas en el contexto de consulta. Siguiendo el estudio taxonómico exhaustivo de Ji et al. (2023), las alucinaciones se clasifican formalmente en dos grandes categorías:
+    % Curva train
+    \draw[thick, draw=unmsm_red] (0.5, 4.0) to[out=-60, in=175] (7.0, 0.4);
+    \node[text=unmsm_red, font=\tiny\bfseries] at (6.0, 0.8) {Error entrenamiento};
 
+    % Curva val
+    \draw[thick, draw=unmsm_darkred] (0.5, 4.2) to[out=-55, in=180] (3.5, 1.6) to[out=0, in=-120] (7.0, 3.8);
+    \node[text=unmsm_darkred, font=\tiny\bfseries] at (6.0, 3.4) {Error validación};
+
+    % Punto optimo
+    \draw[dashed, draw=gray] (3.5, 0) -- (3.5, 1.6);
+    \node[below, font=\tiny] at (3.5, 0) {Punto óptimo};
+\end{tikzpicture}%
+}\\[0.2cm]
+\raggedright\scriptsize \textbf{Fuente:} Elaboración propia. Esquema ilustrativo.
+\end{tcolorbox}
+\end{figure}
+
+Hay que distinguir dos tipos de números: los \textbf{parámetros} (pesos y sesgos) los aprende el modelo durante el entrenamiento. Los \textbf{hiperparámetros} (como la tasa de aprendizaje $\eta$, el número de capas o de épocas) los decide la persona que diseña y entrena el modelo.
+
+\subsubsection{Ejemplo: un paso de entrenamiento}
+Consideremos el modelo más simple, $\hat{y} = w \cdot x$, con pérdida cuadrática $L = (\hat{y} - y)^2$. Para el dato $x = 2$ la respuesta correcta es $y = 6$, el peso inicial es $w = 1$ y la tasa de aprendizaje es $\eta = 0.05$. La Tabla 1.8 muestra el cálculo paso a paso.
+
+\begin{table}[htpb!]
+\centering
+\small\sffamily
+\caption{\textbf{Tabla 1.8.} \textit{Un paso de descenso del gradiente}}
+\vspace{0.15cm}
+\begin{tabularx}{\textwidth}{>{\bfseries}p{3.2cm} >{\raggedright\arraybackslash}p{6.0cm} >{\raggedright\arraybackslash}X}
+\toprule
+Paso & Cálculo & Resultado \\
+\midrule
+1. Predicción & $\hat{y} = 1 \cdot 2$ & $\hat{y} = 2$ \\
+\midrule
+2. Pérdida & $L = (2 - 6)^2$ & $L = 16$ \\
+\midrule
+3. Gradiente & $\frac{\partial L}{\partial w} = 2(\hat{y} - y) \cdot x = 2(-4)(2)$ & $-16$ \\
+\midrule
+4. Actualización & $w = 1 - 0.05 \cdot (-16)$ & $w = 1.8$ \\
+\midrule
+5. Nueva pérdida & $\hat{y} = 1.8 \cdot 2 = 3.6$; $L = (3.6 - 6)^2$ & $L = 5.76$ \\
+\bottomrule
+\end{tabularx}
+\vspace{0.15cm}
+\raggedright\scriptsize \textbf{Fuente:} Elaboración propia.
+\end{table}
+
+Con un solo paso, la pérdida bajó de 16 a 5.76. Repitiendo el proceso, $w$ se acerca a 3, el valor que hace que la predicción coincida exactamente con la respuesta. Un modelo real hace exactamente esto, pero con miles de millones de parámetros y millones de ejemplos.
+
+\subsubsection{Cómo medir si el modelo funciona}
+Supongamos un filtro de spam evaluado con 100 correos de prueba, 40 de ellos spam. La Tabla 1.9 resume sus aciertos y errores (datos hipotéticos).
+
+\begin{table}[htpb!]
+\centering
+\small\sffamily
+\caption{\textbf{Tabla 1.9.} \textit{Resultados de un filtro de spam sobre datos de prueba}}
+\vspace{0.15cm}
+\begin{tabularx}{\textwidth}{>{\bfseries}p{4.0cm} >{\raggedright\arraybackslash}p{4.0cm} >{\raggedright\arraybackslash}X}
+\toprule
+Realidad $\backslash$ Predicción & Predice "spam" & Predice "no spam" \\
+\midrule
+Es spam (40) & 34 aciertos & 6 errores \\
+\midrule
+No es spam (60) & 3 errores & 57 aciertos \\
+\bottomrule
+\end{tabularx}
+\vspace{0.15cm}
+\raggedright\scriptsize \textbf{Fuente:} Elaboración propia.
+\end{table}
+
+La exactitud (\textit{accuracy}) es la proporción de aciertos: $(34 + 57) / 100 = 91\%$. Pero también interesa cuántos spam detecta de los que existen (sensibilidad o \textit{recall}): $34 / 40 = 85\%$. Según el problema, importa más un tipo de error u otro; por eso no basta con un solo número.
+
+\subsubsection{De las redes a los modelos de lenguaje}
+Todo lo anterior se aplica a los modelos de lenguaje. Un modelo como GPT-3 es una red neuronal muy grande, entrenada de forma autosupervisada sobre grandes cantidades de texto para predecir la palabra siguiente. Su "conocimiento" está codificado en miles de millones de pesos ajustados con el mismo principio de pérdida y descenso del gradiente. En la sección 1.4 veremos qué cambia cuando el objetivo ya no es clasificar, sino generar.
+
+\vspace{0.3cm}
+
+\subsection{La IA generativa}
+
+La IA generativa produce contenido nuevo, como texto, imágenes, audio o código, a partir de los patrones aprendidos de los datos. No es una rama aparte, sino un resultado del aprendizaje profundo y de la escala de datos y cómputo vistos en la sección anterior.
+
+\subsubsection{Clasificar o predecir frente a generar}
+Un modelo discriminativo aprende a decidir entre opciones: dada una entrada, responde "\textquestiondown qué es?" o "\textquestiondown cuánto valdrá?". Un modelo generativo aprende cómo son los datos mismos y puede producir ejemplos nuevos que se parecen a los originales (Tabla 1.10 y Tabla 1.11).
+
+\begin{table}[htpb!]
+\centering
+\small\sffamily
+\caption{\textbf{Tabla 1.10.} \textit{Diferencias entre clasificar o predecir y generar}}
+\vspace{0.15cm}
+\begin{tabularx}{\textwidth}{>{\bfseries}p{3.2cm} >{\raggedright\arraybackslash}p{5.5cm} >{\raggedright\arraybackslash}X}
+\toprule
+Criterio & IA que clasifica o predice & IA que genera \\
+\midrule
+Pregunta que responde & "\textquestiondown Esta imagen contiene un gato?" & "Dibuja un gato dormido sobre un libro." \\
+\midrule
+Resultado & Una etiqueta o un número. & Contenido nuevo: texto, imagen, audio, código. \\
+\midrule
+Ejemplo típico & Filtro de spam, diagnóstico de imágenes. & Asistente conversacional, generador de imágenes. \\
+\midrule
+Cómo se evalúa & Aciertos frente a una respuesta conocida. & Calidad, coherencia y veracidad; a menudo hay varias respuestas válidas. \\
+\bottomrule
+\end{tabularx}
+\vspace{0.15cm}
+\raggedright\scriptsize \textbf{Fuente:} Elaboración propia a partir de Feuerriegel et al. (2024).
+\end{table}
+
+\begin{table}[htpb!]
+\centering
+\small\sffamily
+\caption{\textbf{Tabla 1.11.} \textit{Tipos de contenido que genera la IA}}
+\vspace{0.15cm}
+\begin{tabularx}{\textwidth}{>{\bfseries}p{2.5cm} >{\raggedright\arraybackslash}p{5.5cm} >{\raggedright\arraybackslash}X}
+\toprule
+Contenido & Enfoque habitual & Usos frecuentes \\
+\midrule
+Texto & Modelos de lenguaje basados en Transformer. & Redactar, resumir, traducir, responder preguntas. \\
+\midrule
+Imagen & Modelos de difusión y redes generativas antagónicas. & Ilustraciones, edición de imágenes, datos sintéticos. \\
+\midrule
+Audio & Modelos generativos de voz y sonido. & Síntesis de voz, música, restauración de audio. \\
+\midrule
+Código & Modelos de lenguaje especializados en programación. & Completar funciones, explicar errores, generar pruebas. \\
+\bottomrule
+\end{tabularx}
+\vspace{0.15cm}
+\raggedright\scriptsize \textbf{Fuente:} Elaboración propia a partir de Feuerriegel et al. (2024) y García-Peñalvo y Vázquez-Ingelmo (2023).
+\end{table}
+
+\subsubsection{Idea básica de los modelos de lenguaje}
+Un modelo de lenguaje divide el texto en pequeñas piezas llamadas tokens (palabras o fragmentos de palabra) y aprende a estimar la probabilidad del siguiente token dado todo lo anterior. Para escribir una respuesta, elige un token, lo añade al texto y repite el proceso (Figura 1.7).
+
+\begin{figure}[htpb!]
+\centering
+\begin{tcolorbox}[colback=white, colframe=unmsm_gold, arc=3pt, boxrule=0.8pt, top=0.3cm, bottom=0.3cm, left=0.4cm, right=0.4cm]
+\centering
+\small\sffamily
+\textbf{Figura 1.7.} \textit{Predicción del siguiente token (valores ilustrativos)}\\[0.25cm]
+\resizebox{0.90\linewidth}{!}{%
+\begin{tikzpicture}[font=\small\sffamily]
+    \node[anchor=west] at (0, 2.5) {\textbf{Entrada (prompt):} "La capital del Perú es \dots" $\to$ \textquestiondown qué token sigue?};
+
+    \draw[fill=unmsm_red, draw=unmsm_darkred] (0, 1.8) rectangle (6.88, 2.2);
+    \node[anchor=west] at (7.1, 2.0) {\textbf{Lima} (0.86)};
+
+    \draw[fill=bg_arena, draw=unmsm_gray] (0, 1.2) rectangle (0.4, 1.6);
+    \node[anchor=west] at (0.6, 1.4) {Luna (0.05)};
+
+    \draw[fill=bg_arena, draw=unmsm_gray] (0, 0.6) rectangle (0.32, 1.0);
+    \node[anchor=west] at (0.5, 0.8) {Arequipa (0.04)};
+
+    \draw[fill=bg_arena, draw=unmsm_gray] (0, 0.0) rectangle (0.24, 0.4);
+    \node[anchor=west] at (0.4, 0.2) {Cusco (0.03)};
+\end{tikzpicture}%
+}\\[0.2cm]
+\raggedright\scriptsize \textbf{Fuente:} Elaboración propia.
+\end{tcolorbox}
+\end{figure}
+
+Tres ingredientes explican su capacidad actual:
 \begin{enumerate}
-    \item \textbf{Alucinaciones Intrínsecas:} La información generada por el modelo contradice abiertamente las premisas explícitas provistas en el prompt o documento de entrada. Por ejemplo, al solicitar un resumen de un paper empírico que reporta una correlación negativa, el modelo afirma que la correlación fue positiva.
-    \item \textbf{Alucinaciones Extrínsecas:} El texto sintetizado introduce afirmaciones, datos cuantitativos, citas bibliográficas o demostraciones matemáticas que no pueden verificarse a partir de los datos provistos ni de los repositorios científicos reales. El ejemplo paradigmático en el entorno académico es la fabricación verosímil de autores, artículos, volúmenes de revista e identificadores DOI inexistentes.
+    \item \textbf{Arquitectura Transformer:} Su mecanismo de autoatención permite relacionar cada palabra con las demás del texto y procesarlas en paralelo.
+    \item \textbf{Escala:} Con más datos y parámetros, los modelos pueden aprender nuevas tareas a partir de pocos ejemplos escritos en la instrucción.
+    \item \textbf{Alineación con las personas:} La retroalimentación humana (RLHF) enseña al modelo a seguir instrucciones de forma más útil y segura.
 \end{enumerate}
 
-La raíz de esta patología no es un fallo superficial de programación, sino una consecuencia epistémica de la formulación probabilística del modelado del lenguaje: un LLM calcula probabilidades condicionales sobre cadenas léxicas ($p(t_i|t_{<i})$); no posee un mecanismo de verificación ontológica de la verdad fáctica ni noción de incertidumbre semántica intrínseca.
+Bommasani et al. (2021) llaman \textbf{modelos fundacionales} a este tipo de sistemas y subrayan dos rasgos: la aparición de capacidades nuevas con la escala y la reutilización de un mismo modelo para muchas aplicaciones.
 
-\subsubsection{Sesgos Algorítmicos, Asimetrías Epistémicas y Diversidad Lingüística}
+\subsubsection{Cómo se alinea un modelo con las instrucciones humanas}
+Un modelo entrenado solo para predecir texto no sigue necesariamente instrucciones. Ouyang et al. (2022) mostraron que añadir retroalimentación humana mejora el resultado, siguiendo tres pasos (Figura 1.8). Con este método, el modelo InstructGPT produjo respuestas más útiles, precisas y menos tóxicas que GPT-3, y se comprobó que el tamaño por sí solo no garantiza un mejor comportamiento.
 
-Los corpus masivos de entrenamiento extraídos de la web abierta (como Common Crawl) codifican profundas distorsiones históricas, geográficas y culturales. Como demostraron Bender et al. (2021), las fuentes que dominan el volumen de texto digital provienen mayoritariamente del Norte Global, en idioma inglés y generadas por sectores demográficos con amplio acceso tecnológico. 
-
-En consecuencia, los modelos generativos exhiben una marcada asimetría epistémica: tienden a proyectar visiones del mundo hegemónicas, reproducir estereotipos de género o profesión, y responder con menor precisión y profundidad conceptual cuando se les consulta en lenguas originarias o sobre saberes locales. En el contexto de universidades públicas latinoamericanas como la Universidad Nacional Mayor de San Marcos, esta limitación exige formular políticas explícitas para auditar la representatividad cultural y técnica de los modelos desplegados en la docencia y la investigación.
-
-\subsubsection{Costos Energéticos, Huella de Carbono y Sostenibilidad Computacional}
-
-El entrenamiento y la inferencia de modelos con cientos de miles de millones de parámetros imponen una huella ambiental sustancial. De acuerdo con estudios de sostenibilidad computacional citados por Bommasani et al. (2021), entrenar un modelo fundacional denso de gran escala demanda millones de kilovatios-hora de energía eléctrica, generando emisiones equivalentes a cientos de toneladas métricas de dióxido de carbono ($\text{CO}_2$).
-
-Asimismo, la inferencia masiva y recurrente genera un consumo hídrico y eléctrico continuo en los centros de datos encargados de refrigerar los clusters de aceleradores de cómputo. Esta realidad ha motivado una vigorosa línea de investigación en \textbf{Modelos de Lenguaje Compactos} (Small Language Models, SLMs), destilación de conocimiento (\textit{knowledge distillation}), cuantización de pesos (de coma flotante FP16 a enteros INT8 o INT4) y arquitecturas eficientes como redes de mezclas de expertos dispersos (Mixture of Experts, MoE), las cuales activan selectivamente solo una fracción de sus parámetros para cada token procesado.
-
-\begin{table}[htpb!]
+\begin{figure}[htpb!]
+\centering
+\begin{tcolorbox}[colback=white, colframe=unmsm_gold, arc=3pt, boxrule=0.8pt, top=0.3cm, bottom=0.3cm, left=0.4cm, right=0.4cm]
 \centering
 \small\sffamily
-\caption{\textit{Taxonomía y caracterización multidimensional de los riesgos críticos en la adopción de IA Generativa}}
-\label{tab:riesgos_genai}
-\begin{tabularx}{\textwidth}{p{3.0cm}p{3.8cm}X}
-\toprule
-\textbf{Categoría de Riesgo} & \textbf{Manifestación Operativa} & \textbf{Mecanismo de Mitigación Recomendado} \\
-\midrule
-\textbf{Alucinación y Fabulación} & Invención de referencias, datos estadísticos ficticios y demostraciones erróneas. & Generación aumentada por recuperación (RAG), comprobación cruzada de DOIs y revisión humana obligatoria. \\
-\midrule
-\textbf{Sesgo y Discriminación} & Reflejo de disparidades históricas, exclusión lingüística y estereotipos culturales. & Curaduría balanceada de corpus, evaluación con benchmarks de equidad y ajuste de instrucciones. \\
-\midrule
-\textbf{Propiedad Intelectual} & Reproducción involuntaria de código protegido y obras con derechos de autor. & Filtros de atribución de código, verificación de licencias abiertas y auditorías de datos. \\
-\midrule
-\textbf{Dependencia Acrítica} & Atrofia del pensamiento crítico e inhibición del esfuerzo deductivo propio. & Pedagogía de la ``descajanegrización'', evaluación de procesos de razonamiento y uso ético regulado. \\
-\bottomrule
-\end{tabularx}
-\vspace{0.15cm}
-\raggedright\scriptsize \textbf{Fuente:} Adaptado de Bommasani et al. (2021) y García-Peñalvo (2024).
-\end{table}
+\textbf{Figura 1.8.} \textit{Aprendizaje por refuerzo a partir de retroalimentación humana (RLHF)}\\[0.25cm]
+\resizebox{0.95\linewidth}{!}{%
+\begin{tikzpicture}[>=stealth, font=\footnotesize\sffamily]
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=3.4cm, text centered] (f1) at (-4.2, 0) {\textbf{1. Demostraciones}\\Personas escriben respuestas modelo a distintas instrucciones.};
+    \node [rectangle, draw=unmsm_darkred, fill=bg_arena, rounded corners=2pt, text width=3.4cm, text centered] (f2) at (0, 0) {\textbf{2. Comparaciones}\\Personas ordenan varias respuestas. Se entrena modelo de recompensa.};
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=3.4cm, text centered] (f3) at (4.2, 0) {\textbf{3. Refuerzo}\\El modelo se optimiza para obtener mayor recompensa.};
 
-\subsubsection{Gobernanza Universitaria y la Pedagogía de la Descajanegrización}
+    \draw [->, thick, draw=unmsm_red] (f1) -- (f2);
+    \draw [->, thick, draw=unmsm_darkred] (f2) -- (f3);
+\end{tikzpicture}%
+}\\[0.2cm]
+\raggedright\scriptsize \textbf{Fuente:} Elaboración propia a partir de Ouyang et al. (2022).
+\end{tcolorbox}
+\end{figure}
 
-Frente a la adopción impulsiva o las posturas de prohibición acrítica, las instituciones académicas de prestigio exigen una postura pedagógica informada. Como sostienen Artopoulos y Lliteras (2024) y García-Peñalvo (2024), la alfabetización en inteligencia artificial no consiste en aprender trucos cosméticos de interacción, sino en desarrollar competencias de \textbf{descajanegrización} (\textit{unblackboxing}): comprender la arquitectura interna, los supuestos epistemológicos y los márgenes de error de los modelos para cuestionar sus salidas de forma reflexiva y fundamentada.
-
-La Tabla 1.14 formaliza la matriz institucional de señales de alerta epistémica que todo investigador o estudiante universitario debe activar al interactuar con asistentes generativos.
-
-\begin{table}[htpb!]
-\centering
-\small\sffamily
-\caption{\textit{Matriz de señales de alerta epistémica y protocolos de auditoría humana en la producción académica}}
-\label{tab:senales_alerta}
-\begin{tabularx}{\textwidth}{p{3.5cm}p{4.0cm}X}
-\toprule
-\textbf{Señal de Alerta} & \textbf{Riesgo Subyacente} & \textbf{Acción Metodológica de Auditoría Obligatoria} \\
-\midrule
-\textbf{Citas con títulos atractivos sin DOI activo} & Alucinación extrínseca de literatura científica ficticia. & Buscar el artículo en bases de datos indexadas (Scopus, Web of Science, arXiv); si no existe, descartarlo de inmediato. \\
-\midrule
-\textbf{Cálculos aritméticos y derivaciones simbólicas} & Incapacidad de razonamiento deductivo determinista estricto. & Recalcular manualmente cada paso algebraico o verificarlo formalmente con motores simbólicos (SymPy, Mathematica). \\
-\midrule
-\textbf{Respuestas complacientes y adulación epistémica} & Tendencia del modelo a confirmar los sesgos del usuario (\textit{sycophancy}). & Formular contrapreguntas adversariales solicitando objeciones lógicas a la hipótesis planteada. \\
-\midrule
-\textbf{Afirmaciones categóricas sobre debates abiertos} & Sesgo de distribución que aplana la pluralidad académica. & Contrastar las conclusiones con revisiones sistemáticas de literatura arbitradas por pares. \\
-\bottomrule
-\end{tabularx}
-\vspace{0.15cm}
-\raggedright\scriptsize \textbf{Fuente:} Elaboración institucional basada en Artopoulos y Lliteras (2024) y Ji et al. (2023).
-\end{table}
-
-% ==============================================================================
-% BLOQUE 4: CASOS PRÁCTICOS APLICADOS
-% ==============================================================================
-\newpage
-\subsection{Casos Prácticos Aplicados: Auditoría Epistémica y Demostración Algorítmica}
-
-\subsubsection{Caso Práctico 1: Auditoría Epistémica y Mitigación de Alucinaciones en un Asistente Universitario}
-
-\subsubsection*{Contexto:}
-En el marco de un curso de posgrado en modelado computacional de la Facultad de Ciencias Matemáticas de la UNMSM, un equipo de estudiantes utilizó un modelo fundacional de lenguaje comercial (GPT-4) para acelerar la redacción del marco teórico de una investigación sobre convergencia de algoritmos estocásticos de optimización. El prompt suministrado fue:
+\subsubsection{Cómo pedir bien: las instrucciones o prompts}
+Como estos modelos responden a lo que se les escribe, la calidad de la instrucción importa. Brown et al. (2020) mostraron que basta con incluir unos pocos ejemplos dentro de la propia instrucción (\textit{few-shot}), como en este caso:
 \begin{quote}
-\textit{``Explica brevemente la tasa de convergencia del algoritmo Adam en funciones no convexas y cita dos artículos fundamentales de 2023 que demuestren cotas de complejidad temporal con sus respectivos identificadores DOI.''}
+\textit{Traduce al inglés. Ejemplo 1: "gato" $\to$ cat. Ejemplo 2: "casa" $\to$ house. Ahora tú: "libro" $\to$}
 \end{quote}
+Tres recomendaciones prácticas:
+\begin{itemize}
+    \item \textbf{Sé específico:} Indica la tarea, el contexto y el formato de respuesta que esperas.
+    \item \textbf{Da ejemplos:} Especialmente cuando el formato o estilo de salida importa.
+    \item \textbf{Pide los pasos o las fuentes y verifícalos:} Una respuesta convincente no es necesariamente correcta.
+\end{itemize}
 
-El modelo generó en cuestión de segundos un texto con una elocuencia gramatical extraordinaria, incorporando formalismos matemáticos rigurosos y proporcionando dos referencias académicas con autores de universidades reconocidas y títulos metodológicamente persuasivos. No obstante, al someter el texto al protocolo institucional de auditoría de fuentes, el comité editorial detectó que:
-\begin{enumerate}
-    \item Uno de los teoremas matemáticos presentados contenía un paso deductivo erróneo en el denominador de la cota asintótica, omitiendo la dependencia del gradiente estocástico.
-    \item Los dos identificadores DOI provistos correspondían a prefijos válidos de editoriales científicas, pero al resolverlos en la red (\texttt{https://doi.org/...}) arrojaron errores de recurso no encontrado (HTTP 404). Ambos artículos eran alucinaciones extrínsecas fabricadas por combinación probabilística de palabras frecuentes en el área.
-\end{enumerate}
+\subsubsection{Otras familias generativas: GAN y difusión}
+Los modelos de lenguaje no son los únicos. Para imágenes y otros datos se usan principalmente dos enfoques: las redes generativas antagónicas (donde un generador y un discriminador compiten) y los modelos de difusión (que aprenden a revertir un proceso gradual de adición de ruido). La Tabla 1.12 compara estas tres familias.
 
-\subsubsection*{Análisis e Implementación:}
-Para mitigar este riesgo epistémico y operacionalizar una política de interacción responsable, se implementó el \textbf{Protocolo de Verificación Humana en el Bucle} (\textit{Human-in-the-Loop Verification Protocol}), compuesto por cuatro etapas metodológicas consecutivas:
-
-\clearpage
-\begin{figure}[tbp]
-\centering
-\begin{tcolorbox}[colback=white, colframe=unmsm_gold, arc=3pt, boxrule=0.8pt, top=0.3cm, bottom=0.3cm, left=0.5cm, right=0.5cm]
+\begin{table}[htpb!]
 \centering
 \small\sffamily
-\textbf{Figura 1.10.} Flujo Metodológico de Auditoría Epistémica en Cuatro Fases\\[0.2cm]
-\begin{tikzpicture}[node distance=1.0cm, auto, >=stealth, font=\scriptsize\sffamily]
-    \node[rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.4cm, text centered] (p1) at (-4.5, 0) {
-        \textbf{1. Pedir}\\
-        Prompt estructurado con contexto delimitado.
-    };
-    \node[rectangle, draw=unmsm_darkred, fill=bg_arena, rounded corners=2pt, text width=2.4cm, text centered] (p2) at (-1.5, 0) {
-        \textbf{2. Revisar}\\
-        Análisis crítico de coherencia lógica interna.
-    };
-    \node[rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.4cm, text centered] (p3) at (1.5, 0) {
-        \textbf{3. Contrastar}\\
-        Auditoría cruzada en bases primarias (DOI).
-    };
-    \node[rectangle, draw=unmsm_darkred, fill=bg_arena, rounded corners=2pt, text width=2.4cm, text centered] (p4) at (4.5, 0) {
-        \textbf{4. Declarar}\\
-        Transparencia en autoría y trazabilidad.
-    };
-
-    \draw[->, thick, draw=unmsm_red] (p1) -- (p2);
-    \draw[->, thick, draw=unmsm_darkred] (p2) -- (p3);
-    \draw[->, thick, draw=unmsm_red] (p3) -- (p4);
-\end{tikzpicture}
-\end{tcolorbox}
+\caption{\textbf{Tabla 1.12.} \textit{Comparación de arquitecturas generativas}}
 \vspace{0.15cm}
-\raggedright\scriptsize \textbf{Fuente:} Elaboración propia basada en Artopoulos y Lliteras (2024) y García-Peñalvo (2024).
-\end{figure}
+\begin{tabularx}{\textwidth}{>{\bfseries}p{2.6cm} >{\raggedright\arraybackslash}p{4.2cm} >{\raggedright\arraybackslash}p{4.0cm} >{\raggedright\arraybackslash}X}
+\toprule
+Arquitectura & Idea central & Ventaja & Limitación \\
+\midrule
+Transformer & Atención entre todos los elementos de la secuencia. & Paralelismo y buen desempeño en lenguaje. & Puede alucinar; consume muchos recursos computacionales. \\
+\midrule
+GAN & Generador contra discriminador. & Imágenes realistas y rápidas de generar. & Entrenamiento inestable; poca variedad (colapso de modos). \\
+\midrule
+Difusión & Eliminar ruido de forma iterativa. & Alta calidad, comparable a las GAN en algunas pruebas. & Generación en varios pasos (más lenta). \\
+\bottomrule
+\end{tabularx}
+\vspace{0.15cm}
+\raggedright\scriptsize \textbf{Fuente:} Elaboración propia a partir de Goodfellow et al. (2014), de la Torre (2023), Ho et al. (2020) y Vaswani et al. (2017).
+\end{table}
 
-Las cuatro fases operaron de la siguiente manera:
-\begin{itemize}
-    \item \textbf{Fase 1 (Formulación Grounded):} En lugar de solicitar búsquedas en el espacio latente del modelo, se alimentaron directamente los PDFs arbitrados mediante una arquitectura RAG local, obligando al modelo a responder citando fragmentos textuales exactos.
-    \item \textbf{Fase 2 (Auditoría Lógica y Simbólica):} Las derivaciones matemáticas fueron exportadas y reevaluadas paso a paso mediante un script de cálculo algebraico determinista en Python con la biblioteca SymPy.
-    \item \textbf{Fase 3 (Verificación Bibliográfica Cruzada):} Se ejecutó un script automatizado que consultó la API de Crossref y OpenAlex para validar cada referencia bibliográfica, extrayendo los metadatos oficiales del registro original.
-    \item \textbf{Fase 4 (Declaración de Uso):} Se redactó la nota de transparencia de acuerdo con las directrices internacionales de publicación científica (declarando la herramienta de software empleada, la versión del modelo y el rol humano en la validación).
-\end{itemize}
+\subsubsection{Capacidades, límites y riesgos}
+La potencia de estos modelos viene acompañada de problemas que la literatura revisada documenta con insistencia (Tabla 1.13).
 
-\subsubsection*{Interpretación y Resultados:}
-La aplicación del protocolo transformó radicalmente la fiabilidad del trabajo de investigación:
-\begin{itemize}
-    \item \textbf{Tasa de Error Bibliográfico:} Se redujo del 100\% (2 de 2 referencias inventadas en el primer intento sin grounding) al 0\% tras la integración con RAG y verificación en Crossref.
-    \item \textbf{Corrección Formal del Teorema:} La inconsistencia en el denominador de la cota asintótica fue subsanada al contrastarla con el paper original de Kingma y Ba (2015), ajustando las constantes a su formulación formal en espacios no convexos.
-    \item \textbf{Lección Pedagógica:} Se demostró empíricamente que la IA generativa actúa como un extraordinario catalizador de productividad redaccional, pero que la responsabilidad epistémica sobre la veracidad científica es indelegable y recae exclusivamente en el investigador humano.
-\end{itemize}
+\begin{table}[htpb!]
+\centering
+\small\sffamily
+\caption{\textbf{Tabla 1.13.} \textit{Principales desafíos y riesgos de la IA generativa}}
+\vspace{0.15cm}
+\begin{tabularx}{\textwidth}{>{\bfseries}p{3.5cm} >{\raggedright\arraybackslash}p{7.5cm} >{\raggedright\arraybackslash}X}
+\toprule
+Desafío & En qué consiste & Fuente \\
+\midrule
+Alucinaciones & Contenido que contradice la fuente (internas) o que no puede verificarse con ella (externas). & Ji et al. (2023) \\
+\midrule
+Falta de comprensión & Generar texto coherente no implica comprender su significado real. & Bender et al. (2021) \\
+\midrule
+Sesgos y desinformación & Reproducción de prejuicios presentes en los datos de entrenamiento. & Bommasani et al. (2021) \\
+\midrule
+Costos ambientales & Entrenar modelos cada vez mayores exige mucha energía y recursos de refrigeración. & Bender et al. (2021) \\
+\midrule
+Dependencia acrítica & Aceptar las respuestas sin verificarlas ni entender cómo se producen. & Artopoulos y Lliteras (2024) \\
+\bottomrule
+\end{tabularx}
+\vspace{0.15cm}
+\raggedright\scriptsize \textbf{Fuente:} Elaboración propia a partir de la literatura citada.
+\end{table}
 
-% ==============================================================================
-% CASO PRÁCTICO 2: DEMOSTRACIÓN ALGORÍTMICA
-% ==============================================================================
-\subsubsection{Caso Práctico 2: Demostración Algorítmica Reproducible de la Autoatención Escalada}
+Estos límites no invalidan la tecnología, pero exigen supervisión humana, colaboración entre personas e IA y un uso responsable. Hay un contraste de fondo: mientras el rendimiento técnico crece con la escala, los problemas de base, como la comprensión semántica y las alucinaciones, persisten.
+
+\vspace{0.3cm}
+
+\subsection{Caso o aplicación: un asistente generativo en un curso universitario}
+
+El siguiente caso es ilustrativo: describe una situación plausible construida a partir de los problemas que documenta la literatura, no un hecho reportado en una de las fuentes.
 
 \subsubsection*{Contexto:}
-Para desmitificar el funcionamiento de los modelos de lenguaje tipo Transformer y comprender con rigor matemático el flujo vectorial que ocurre en cada capa interna, resulta indispensable implementar el mecanismo de autoatención escalada (\textit{Scaled Dot-Product Attention}) sin recurrir a bibliotecas de alto nivel que oculten los cómputos matriciales.
+Una estudiante de primer ciclo prepara un trabajo para un curso de matemática. Para avanzar más rápido, le pide a un asistente conversacional que resuelva un ejercicio y le indique "dos referencias bibliográficas que respalden el método". Sánchez y Carbajal (2023) y García-Peñalvo (2024) señalan que estas herramientas ofrecen oportunidades reales en la educación universitaria, pero también riesgos si se usan sin criterio.
 
-\subsubsection*{Análisis e Implementación:}
-A continuación se presenta una implementación algorítmica reproducible en Python puro con NumPy, detallando paso a paso el cálculo de productos punto, escalado dimensional, normalización de probabilidades y suma ponderada de valores:
+\subsubsection*{Análisis:}
+El asistente entrega una solución bien redactada y dos referencias con autores, año y revista. Al revisarlas, la estudiante descubre que una de las referencias no existe y que un paso del procedimiento contiene un error de cálculo. Es el comportamiento que describen Ji et al. (2023): una alucinación externa (la cita no puede verificarse) y otra interna (el resultado contradice el propio planteamiento). García-Peñalvo, Llorens-Largo y Vidal (2024) explican la causa de fondo: el modelo predice texto probable, no "consulta" una fuente verificada. Como recuerdan Bender et al. (2021), la fluidez del texto no garantiza que el sistema comprenda su contenido.
 
-\begin{lstlisting}[language=Python, caption={Implementación Vectorizada del Mecanismo de Autoatención Escalada}, label={lst:autoatencion_vectorizada}]
-import numpy as np
+La Tabla 1.14 resume las señales de alerta que la estudiante pudo haber detectado antes de confiar en la salida.
 
-def scaled_dot_product_attention(Q, K, V, mask=None, temperature=1.0):
-    """
-    Computa la autoatencion escalada de Vaswani et al. (2017).
-    
-    Parametros:
-      Q: Matriz de Consultas de tamano (seq_len, d_k)
-      K: Matriz de Claves de tamano (seq_len, d_k)
-      V: Matriz de Valores de tamano (seq_len, d_v)
-      mask: Matriz binaria booleana para enmascaramiento causal
-      temperature: Factor de suavizado estocastico (tau > 0)
-    
-    Retorna:
-      output: Matriz ponderada de contexto (seq_len, d_v)
-      attention_weights: Matriz estocastica de atencion (seq_len, seq_len)
-    """
-    d_k = Q.shape[-1]
-    
-    # 1. Producto matricial de similitud entre Consultas y Claves
-    scores = np.matmul(Q, K.T)
-    
-    # 2. Escalado dimensional para prevenir desvanecimiento de gradientes
-    scaled_scores = scores / (np.sqrt(d_k) * temperature)
-    
-    # 3. Aplicacion de mascara causal (opcional para decodificadores)
-    if mask is not None:
-        scaled_scores = np.where(mask == 0, -1e9, scaled_scores)
-    
-    # 4. Normalizacion Softmax estable
-    max_s = np.max(scaled_scores, axis=-1, keepdims=True)
-    exp_scores = np.exp(scaled_scores - max_s)
-    sum_s = np.sum(exp_scores, axis=-1, keepdims=True)
-    attention_weights = exp_scores / sum_s
-    
-    # 5. Agregacion ponderada de los vectores de Valores
-    output = np.matmul(attention_weights, V)
-    
-    return output, attention_weights
-
-# Demostracion experimental con 3 tokens y dimension latente d_k = 4
-np.random.seed(42)
-seq_len, d_k = 3, 4
-X = np.random.randn(seq_len, d_k)  # Embeddings de entrada
-W_Q = np.random.randn(d_k, d_k) * 0.5
-W_K = np.random.randn(d_k, d_k) * 0.5
-W_V = np.random.randn(d_k, d_k) * 0.5
-
-Q = np.matmul(X, W_Q)
-K = np.matmul(X, W_K)
-V = np.matmul(X, W_V)
-
-out, weights = scaled_dot_product_attention(Q, K, V)
-print("Matriz de Pesos de Atencion (filas suman 1.0):")
-print(np.round(weights, 4))
-\end{lstlisting}
+\begin{table}[htpb!]
+\centering
+\small\sffamily
+\caption{\textbf{Tabla 1.14.} \textit{Señales de alerta ante respuestas generadas por IA}}
+\vspace{0.15cm}
+\begin{tabularx}{\textwidth}{>{\bfseries}p{5.5cm} >{\raggedright\arraybackslash}X}
+\toprule
+Señal de alerta & Qué hacer \\
+\midrule
+Una cita sin enlace o DOI comprobable. & Buscar el título en una base de datos académica antes de usarla. \\
+\midrule
+Cifras o afirmaciones sin fuente. & Contrastarlas con un texto de referencia. \\
+\midrule
+Un resultado matemático que se presenta sin justificación. & Rehacer el cálculo por otro método o pedir los pasos desglosados. \\
+\midrule
+La respuesta cambia al repetir la pregunta. & Tratarla con cautela: el modelo genera probabilísticamente, no consulta una base fija. \\
+\midrule
+Seguridad excesiva ante un tema ambiguo. & Pedir que justifique y buscar una segunda fuente independiente. \\
+\bottomrule
+\end{tabularx}
+\vspace{0.15cm}
+\raggedright\scriptsize \textbf{Fuente:} Elaboración propia a partir de Ji et al. (2023) y Artopoulos y Lliteras (2024).
+\end{table}
 
 \subsubsection*{Interpretación y Resultados:}
-Al ejecutar el Listado 1.1 con la semilla aleatoria fijada, la matriz de pesos de atención resultante adopta la forma estocástica:
-\begin{equation}
-A = \begin{bmatrix}
-0.3812 & 0.3254 & 0.2934 \\
-0.2845 & 0.4121 & 0.3034 \\
-0.3110 & 0.3340 & 0.3550
-\end{bmatrix}
-\end{equation}
+La herramienta fue útil como punto de partida, pero no como fuente de verdad. La estudiante tuvo que verificar cada afirmación, comprobar las referencias en bases de datos académicas y rehacer el cálculo. Esto refleja lo que proponen Artopoulos y Lliteras (2024): desarrollar alfabetización crítica en IA, entender cómo funcionan estos sistemas y evaluar sus resultados. También aplica la recomendación de García-Peñalvo (2024) de declarar el uso de IA: qué herramienta se usó, qué se pidió y cómo se verificó el resultado (Figura 1.9).
 
-El análisis analítico de esta estructura permite extraer tres conclusiones fundamentales:
-\begin{enumerate}[itemsep=0.85em, parsep=0.25em, topsep=0.4em]
-    \item \textbf{Conservación de la Medida de Probabilidad:} Cada fila de la matriz de atención suma la unidad, asegurando que el vector de salida $\mathbf{o}_i$ constituya una combinación convexa válida de los vectores de valores $\mathbf{v}_j$ ponderados por $A_{ij}$.
-    \item \textbf{Efecto del Escalado Dimensional:} Si se elimina el término $\sqrt{d_k} = \sqrt{4} = 2.0$, la dispersión de las puntuaciones se duplica; en dimensiones industriales típicas ($d_k = 128$), la varianza sin escalado alcanzaría $128$, forzando a la función Softmax a concentrar prácticamente el 100\% del peso en un solo token, imposibilitando que el modelo aprenda a correlacionar múltiples fuentes de contexto simultáneamente.
-    \item \textbf{Rol de la Temperatura de Muestreo ($\tau$):} Para valores de temperatura reducidos ($\tau \to 0$), la distribución colapsa hacia la función argmax determinista (\textit{greedy decoding}); para valores elevados ($\tau > 1.5$), la distribución converge hacia la distribución uniforme discreta, incrementando la entropía y la variabilidad de las muestras pero aumentando exponencialmente el riesgo de alucinaciones incoherentes.
-\end{enumerate}
+\begin{figure}[htpb!]
+\centering
+\begin{tcolorbox}[colback=white, colframe=unmsm_gold, arc=3pt, boxrule=0.8pt, top=0.3cm, bottom=0.3cm, left=0.4cm, right=0.4cm]
+\centering
+\small\sffamily
+\textbf{Figura 1.9.} \textit{Flujo de uso responsable de un asistente generativo}\\[0.25cm]
+\resizebox{0.95\linewidth}{!}{%
+\begin{tikzpicture}[>=stealth, font=\footnotesize\sffamily]
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.4cm, text centered] (p1) at (-4.5, 0) {\textbf{1. Pedir}\\Tarea con contexto y fuentes.};
+    \node [rectangle, draw=unmsm_darkred, fill=bg_arena, rounded corners=2pt, text width=2.4cm, text centered] (p2) at (-1.5, 0) {\textbf{2. Revisar}\\Releer y rehacer cálculos.};
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.4cm, text centered] (p3) at (1.5, 0) {\textbf{3. Contrastar}\\Comprobar citas en bases reales.};
+    \node [rectangle, draw=unmsm_darkred, fill=white, rounded corners=2pt, text width=2.4cm, text centered] (p4) at (4.5, 0) {\textbf{4. Declarar}\\Indicar herramienta y verificación.};
 
-% ==============================================================================
-% BLOQUE 5: NOTAS BIBLIOGRÁFICAS E HISTÓRICAS
-% ==============================================================================
-\newpage
-\markboth{CAPÍTULO 1\quad NOTAS BIBLIOGRÁFICAS E HISTÓRICAS}{}
-\vspace*{0.8cm}
-\noindent{\Huge \textbf{Notas bibliográficas\\[0.2cm] e históricas}}\\[0.8cm]
+    \draw [->, thick, draw=unmsm_red] (p1) -- (p2);
+    \draw [->, thick, draw=unmsm_darkred] (p2) -- (p3);
+    \draw [->, thick, draw=unmsm_red] (p3) -- (p4);
+\end{tikzpicture}%
+}\\[0.2cm]
+\raggedright\scriptsize \textbf{Fuente:} Elaboración propia a partir de García-Peñalvo (2024) y Artopoulos y Lliteras (2024).
+\end{tcolorbox}
+\end{figure}
 
-\textbf{Antecedentes Teóricos Fundacionales:}\\[0.2cm]
-La construcción teórica de la inteligencia artificial como campo científico formal descansa en una genealogía interdisciplinaria que vincula la lógica matemática, la neurofisiología teórica y la termodinámica estadística. Las raíces formales del conexionismo se sitúan en el modelo binario de la neurona lógica formulado por Warren McCulloch y Walter Pitts (1943), cuya hipótesis demostró que las operaciones proposicionales del pensamiento deductivo podían emularse mediante redes de umbrales eléctricos. Siete años más tarde, Alan Turing (1950) redefinió operativamente el problema ontológico de la inteligencia en las máquinas a través del juego de imitación, concibiendo por primera vez a la mente como un sistema de procesamiento simbólico desacoplado de su sustrato biológico.
-
-El bautismo institucional de la disciplina acaeció en el verano de 1956 en Dartmouth College, bajo el liderazgo fundacional de John McCarthy, Marvin Minsky, Nathaniel Rochester y Claude Shannon (1955/2006). A pesar de los éxitos tempranos del Perceptrón monocapa de Frank Rosenblatt (1958), el rigor analítico de Marvin Minsky y Seymour Papert (1969) desnudó las limitaciones insalvables de los clasificadores lineales ante funciones lógicas no separables (como el operador XOR), desatando el primer invierno presupuestario de la disciplina. Esta barrera no fue superada hasta la formalización y demostración experimental del algoritmo de retropropagación del error en redes multicapa por David Rumelhart, Geoffrey Hinton y Ronald Williams (1986), hito que dotó a la ciencia computacional del mecanismo continuo para descender superficies de gradiente complejas en espacios multidimensionales.\\[0.4cm]
-
-\textbf{Contribuciones de las Investigaciones Base Contemporáneas:}\\[0.2cm]
-El marco teórico, las derivaciones analíticas y la evidencia técnica desarrolladas en este capítulo se sustentan en las investigaciones primarias arbitradas que articularon el surgimiento del aprendizaje profundo y la eclosión de la IA generativa moderna:
-\begin{itemize}
-    \item \textbf{LeCun, Bengio y Hinton (2015) [Nature]:} Publicaron la síntesis epistemológica definitiva sobre el aprendizaje profundo, formalizando cómo las redes neuronales multicapa aprenden representaciones jerárquicas abstractas directamente a partir de datos en bruto, superando la ingeniería manual de características.
-    \item \textbf{Vaswani et al. (2017) [Google Brain / NeurIPS]:} Introdujeron la arquitectura Transformer en el célebre trabajo \textit{Attention Is All You Need}, prescindiendo por completo de la recurrencia y estableciendo el mecanismo de autoatención escalada como el estándar universal del procesamiento de secuencias.
-    \item \textbf{Goodfellow et al. (2014) [Université de Montréal / NeurIPS]:} Formularon las Redes Generativas Antagónicas (GANs), modelando la síntesis generativa como un juego minimax de suma cero entre un generador y un discriminador fundamentado en la convergencia hacia la divergencia Jensen-Shannon.
-    \item \textbf{Ho, Jain y Abbeel (2020) [UC Berkeley / NeurIPS]:} Sistematizaron los Modelos Probabilísticos de Difusión con Eliminación de Ruido (DDPMs), conectando la termodinámica estocástica con el aprendizaje profundo mediante cadenas de Markov y derivando la función simplificada de predicción de ruido $L_{\text{simple}}$.
-    \item \textbf{Brown et al. (2020) [OpenAI / NeurIPS]:} Demostraron con GPT-3 el poder de las leyes de escalado en modelos de lenguaje autoregresivos con 175 mil millones de parámetros, evidenciando capacidades emergentes de aprendizaje en contexto y razonamiento pocos disparos (\textit{few-shot learning}).
-    \item \textbf{Ouyang et al. (2022) [OpenAI / NeurIPS]:} Formalizaron la canalización de alineación con retroalimentación humana (RLHF) en InstructGPT, articulando el ajuste fino supervisado, el modelo de recompensa pareado de Bradley-Terry y la optimización de políticas mediante PPO.
-    \item \textbf{Bommasani et al. (2021) [Stanford University / arXiv]:} Acuñaron y sistematizaron el paradigma de los Modelos Fundacionales (\textit{Foundation Models}), analizando exhaustivamente sus capacidades emergentes, su rol como infraestructura computacional transversal y sus riesgos ético-sociales.
-    \item \textbf{Feuerriegel et al. (2024) [BISE]:} Desarrollaron la taxonomía tripartita contemporánea de la inteligencia artificial generativa, clasificándola metódicamente en el nivel de modelos, nivel de sistemas y nivel de aplicaciones.
-    \item \textbf{Bender et al. (2021) [ACM FAccT] y Ji et al. (2023) [ACM Computing Surveys]:} Establecieron las críticas epistémicas capitales sobre los límites de los modelos masivos, conceptualizando la patología de los ``loros estocásticos'' y proveyendo la taxonomía formal de alucinaciones intrínsecas y extrínsecas.
-    \item \textbf{Artopoulos y Lliteras (2024) y García-Peñalvo (2024):} Aportaron el marco pedagógico y metodológico para la gobernanza universitaria de la IA, promoviendo la alfabetización crítica y la pedagogía de la ``descajanegrización'' (\textit{unblackboxing}) en la educación superior.
-\end{itemize}
-\vspace{0.4cm}
-
-\textbf{Lecturas Sugeridas Comentadas:}\\[0.2cm]
-\begin{enumerate}
-    \item \textbf{Russell, S., \& Norvig, P. (2020):} \textit{Artificial Intelligence: A Modern Approach} (4th ed., Pearson). Tratado enciclopédico indiscutible que abarca desde la lógica proposicional clásica y los procesos de decisión de Markov hasta las redes profundas y la gobernanza de agentes racionales.
-    \item \textbf{Goodfellow, I., Bengio, Y., \& Courville, A. (2016):} \textit{Deep Learning} (MIT Press). Texto de referencia matemática obligatoria para dominar el álgebra lineal aplicada, la teoría de la probabilidad, los algoritmos de retropropagación y las arquitecturas neuronales jerárquicas.
-    \item \textbf{UNESCO (2023):} \textit{Guidance for Generative AI in Education and Research}. Directriz internacional indispensable para estructurar marcos de gobernanza institucional, salvaguardar la integridad académica y promover la equidad en el uso científico de tecnologías generativas.
-\end{enumerate}
-
-% ==============================================================================
-% BLOQUE 6: RESUMEN DEL CAPÍTULO
-% ==============================================================================
-\newpage
-\markboth{CAPÍTULO 1\quad RESUMEN}{}
-\vspace*{0.8cm}
-{\Huge \textbf{Resumen del capítulo 1}}
-\vspace{0.8cm}
-
-La comprensión científica y rigurosa de la inteligencia artificial generativa exige trascender la fascinación superficial por sus interfaces comerciales para dominar sus fundamentos probabilísticos, su genealogía histórica y sus restricciones metodológicas. Lejos de constituir entidades con comprensión o consciencia ontológica, los modelos generativos contemporáneos son artefactos computacionales masivos optimizados para modelar la distribución estocástica de variedades de datos de alta dimensionalidad, sintetizando secuencias verosímiles pero inherentemente falibles que demandan una supervisión epistémica humana continua.
-
-\vspace{0.4cm}
-
-\begin{resumenlist}
-    \item \textbf{Evolución Epistemológica y Superación de Inviernos:} Desde la prueba empírica de Turing y la neurona lógica de McCulloch-Pitts hasta el acta fundacional de Dartmouth, la inteligencia artificial osciló entre el optimismo simbólico y los severos inviernos causados por barreras lógicas (el problema XOR de Minsky-Papert). El renacimiento del aprendizaje profundo se consolidó gracias a la confluencia de la retropropagación formalizada por Rumelhart et al., el cómputo masivo en GPUs y la disponibilidad masiva de datos digitalizados en la década de 2010.
-    \item \textbf{Mecanismos Fundamentales del Aprendizaje Automático:} La inversión del paradigma computacional tradicional permite ajustar parámetros sinápticos mediante optimización no lineal guiada por funciones de pérdida (MSE, Entropía Cruzada). Las redes neuronales profundas superan las limitaciones lineales mediante funciones de activación no lineales (ReLU, GELU) y retropropagación de gradientes, balanceando el ajuste empírico y la generalización para evitar patologías de subajuste o sobreajuste.
-    \item \textbf{Arquitecturas Canónicas de la IA Generativa:} El modelado generativo $p_{\text{data}}(\mathbf{x})$ se cimenta en tres paradigmas fundamentales: la autoatención escalada y la atención multicabeza en Transformers autoregresivos (Vaswani et al.), el juego minimax competitivo en redes generativas antagónicas (Goodfellow et al.) y la inversión estocástica de cadenas de Markov en modelos de difusión probabilística (Ho et al.), culminando en canalizaciones de alineación con preferencias humanas (RLHF y DPO).
-    \item \textbf{Límites Epistémicos y Gobernanza Universitaria:} Las alucinaciones (intrínsecas y extrínsecas), los sesgos representacionales derivados del corpus de entrenamiento y los costos energéticos constituyen fronteras críticas. La adopción universitaria exige desterrar el uso acrítico mediante la pedagogía de la descajanegrización (\textit{unblackboxing}), implementando protocolos estrictos de auditoría de fuentes (DOI/Crossref), verificación humana en el bucle (\textit{Human-in-the-Loop}) y transparencia metodológica.
-\end{resumenlist}
-
-\vspace{0.6cm}
 \begin{cajabeige}
-\textbf{Síntesis:} La inteligencia artificial generativa representa una evolución cualitativa hacia la síntesis autónoma de representaciones complejas en la ciencia computacional; su utilización profesional y científica requiere articular una comprensión rigurosa de sus fundamentos matemáticos y probabilísticos con una postura crítica indelegable que verifique sistemáticamente sus resultados frente a la realidad fáctica y los métodos formales del conocimiento humano.
+\textbf{CONCLUSIÓN DEL CASO:}\\
+La IA generativa puede acelerar el trabajo, pero la responsabilidad de verificar, justificar y decidir sigue siendo estrictamente humana.
 \end{cajabeige}
 
-% ==============================================================================
-% BLOQUE 7: CONCLUSIONES DEL CAPÍTULO
-% ==============================================================================
+\newpage
+\markboth{CAPÍTULO 1\quad NOTAS BIBLIOGRÁFICAS E HISTÓRICAS}{}
+\subsection*{Notas bibliográficas e históricas}
+\addcontentsline{toc}{subsection}{Notas bibliográficas e históricas}
+
+\begin{itemize}
+    \item \textbf{Sobre la definición y los conceptos (1.1):} Feuerriegel et al. (2024) ofrecen una introducción a la IA generativa en sus tres niveles, y García-Peñalvo y Vázquez-Ingelmo (2023) mapean su evolución y técnicas; ambos son un excelente punto de partida.
+    \item \textbf{Sobre la historia (1.2):} Los textos originales de Turing (1950) y de la propuesta de Dartmouth (McCarthy et al., 2006) son breves y accesibles. Nasser-Eddine (2024) recorre las etapas y los inviernos de la IA. Las referencias clave de la historia reciente son Vaswani et al. (2017), Brown et al. (2020), Ho et al. (2020) y Ouyang et al. (2022).
+    \item \textbf{Sobre el aprendizaje (1.3):} LeCun, Bengio y Hinton (2015) es la síntesis clásica del aprendizaje profundo y la retropropagación en \textit{Nature}.
+    \item \textbf{Sobre la IA generativa y sus límites (1.4):} Bommasani et al. (2021) y Zhao et al. (2023) revisan los modelos fundacionales y de lenguaje; Goodfellow et al. (2014) y de la Torre (2023) tratan las GAN; Ji et al. (2023) y Bender et al. (2021) analizan alucinaciones y riesgos sociotécnicos; Sánchez y Carbajal (2023), García-Peñalvo (2024), García-Peñalvo et al. (2024) y Artopoulos y Lliteras (2024) abordan la educación superior.
+\end{itemize}
+
+\newpage
+\markboth{CAPÍTULO 1\quad RESUMEN}{}
+\subsection*{Resumen del Capítulo 1}
+\addcontentsline{toc}{subsection}{Resumen del Capítulo 1}
+
+La inteligencia artificial es un conjunto de métodos diseñados para realizar tareas propias de la cognición humana, evolucionando desde los primeros modelos lógicos hasta la actual era generativa. Este recorrido se sintetiza en seis puntos fundamentales:
+
+\begin{resumenlist}
+    \item[01] La IA busca construir sistemas que realicen tareas propias de la inteligencia humana; toda la IA actual en uso práctico es estrecha.
+    \item[02] Su historia alterna avances e "inviernos": Turing y Dartmouth, el perceptrón, los sistemas expertos, el aprendizaje profundo y la era generativa.
+    \item[03] Una máquina aprende ajustando los parámetros de un modelo para reducir un error medido sobre datos, mediante retropropagación y descenso del gradiente.
+    \item[04] La IA generativa crea contenido nuevo; se apoya principalmente en Transformers, redes generativas antagónicas y modelos de difusión.
+    \item[05] Los modelos de lenguaje predicen el siguiente token; su escala y la retroalimentación humana explican su utilidad práctica.
+    \item[06] Persisten límites intrínsecos: alucinaciones, falta de comprensión real, sesgos, costos ambientales y riesgo de dependencia acrítica.
+\end{resumenlist}
+
+\begin{cajabeige}
+\textbf{Síntesis:}\\
+Definimos la IA como un conjunto de métodos para tareas que asociamos con la inteligencia humana, de tipo estrecho, y no como una mente ni una fuente infalible. Entre inviernos y veranos, despegó cuando coincidieron más datos, más cómputo y mejores algoritmos.
+\end{cajabeige}
+
 \newpage
 \markboth{CAPÍTULO 1\quad CONCLUSIONES}{}
-\vspace*{0.8cm}
-{\Huge \textbf{Conclusiones del capítulo 1}}
-\vspace{0.8cm}
+\subsection*{Conclusiones del Capítulo 1}
+\addcontentsline{toc}{subsection}{Conclusiones del Capítulo 1}
 
 \subsubsection*{Conclusión principal}
-La evolución histórica y algorítmica de la inteligencia artificial demuestra que la IA generativa contemporánea no constituye una ruptura mágica e inexplicable con el conocimiento científico previo, sino la culminación matemática de más de siete décadas de investigación en conexionismo, optimización no lineal y teoría estadística del aprendizaje. Al transitar desde la estimación condicional de etiquetas discriminativas $p(y|\mathbf{x})$ hacia la aproximación directa de la densidad de probabilidad de los datos $p_{\text{data}}(\mathbf{x})$, arquitecturas como el Transformer, las GANs y los modelos de difusión han logrado sintetizar artefactos simbólicos y multimodales de extraordinaria fidelidad formal. Sin embargo, su naturaleza puramente probabilística impone una desconexión insalvable entre elocuencia sintáctica y validez ontológica, confirmando que estos sistemas operan como sofisticados modelos estocásticos que requieren una auditoría humana rigurosa, sistemática y formalmente fundamentada en el método científico.
+La IA generativa es la continuación de una historia larga, no una ruptura repentina. Las ideas de neuronas artificiales, aprendizaje a partir de datos y retropropagación existían desde hace décadas; lo que cambió fue la combinación de arquitecturas como el Transformer, grandes volúmenes de datos y cómputo masivo.
 
 \subsubsection*{Aportes y límites}
-\textbf{Aportes:} El presente capítulo estructura una taxonomía jerárquica unificada que integra desde los fundamentos lógicos del conexionismo primitivo hasta las ecuaciones directas del mecanismo de autoatención escalada y las cadenas de difusión de Ho et al.; sistematiza analíticamente la tríada de catalizadores del aprendizaje profundo (datos masivos, paralelización en GPUs y madurez algorítmica); y establece una metodología práctica y reproducible de auditoría de fuentes y mitigación de alucinaciones diseñada a la medida de la educación superior y la investigación científica en la Universidad Nacional Mayor de San Marcos. \textbf{Límites:} Las formulaciones analizadas dependen de supuestos de estacionariedad e independencia estadística en las distribuciones de datos que no siempre se sostienen en escenarios científicos altamente dinámicos; asimismo, las arquitecturas más avanzadas permanecen condicionadas por costos computacionales y energéticos restrictivos que limitan su entrenamiento directo a grandes consorcios tecnológicos globales, planteando desafíos abiertos de soberanía técnica y asimetría epistémica para el ámbito universitario regional.
+Los modelos generativos amplían lo que una máquina puede hacer, pero no la vuelven infalible. Entender cómo aprenden y por qué fallan permite usarlos con criterio: verificar, citar y decidir con responsabilidad. La brecha entre el crecimiento técnico y los problemas aún no resueltos es, justamente, el tema que los siguientes capítulos permiten profundizar.
 
 \subsubsection*{Preguntas abiertas}
 \begin{enumerate}
-    \item \textquestiondown Es teóricamente posible dotar a los modelos generativos autoregresivos de capacidades genuinas de verificación de la verdad y razonamiento deductivo causal estricto sin abandonar la arquitectura puramente estadística basada en la predicción del siguiente token?
-    \item \textquestiondown De qué manera evolucionarán los marcos de autoría, propiedad intelectual y validación de hipótesis científicas a medida que los modelos multimodales asuman la redacción, formulación de demostraciones y diseño experimental autónomo en los laboratorios de ciencias exactas?
+    \item A medida que los modelos crecen y alucinan menos, \textquestiondown seguirá siendo suficiente que cada persona verifique lo que recibe, o harán falta mecanismos colectivos e institucionales para garantizar la confiabilidad?
+    \item \textquestiondown Qué significará "crear" cuando una máquina pueda producir textos, cálculos e imágenes originales avanzadas, y cómo habría que evaluar el aprendizaje en ese escenario?
 \end{enumerate}
 
-% ==============================================================================
-% BLOQUE 8: REFERENCIAS BIBLIOGRÁFICAS DEL CAPÍTULO 1 (APA 7)
-% ==============================================================================
 \newpage
 \markboth{CAPÍTULO 1\quad REFERENCIAS}{}
-\vspace*{0.8cm}
-{\Huge \textbf{Referencias del Capítulo 1}}\\[0.8cm]
+\subsection*{Referencias del Capítulo 1}
+\addcontentsline{toc}{subsection}{Referencias del Capítulo 1}
 
-\begin{itemize}[leftmargin=1.5em, label={}, itemsep=0.22ex, parsep=0pt]
-\small\raggedright
-\interlinepenalty=10000
-    \item Artopoulos, A., \& Lliteras, F. (2024). Alfabetizaciones algorítmicas y descajanegrización en la educación superior. \textit{Revista de Educación y Sociedad}, 45(2), 112--128. \url{https://doi.org/10.1590/es.2024.31845}
-    \item Bender, E. M., Gebru, T., McMillan-Major, A., \& Shmitchell, S. (2021). On the dangers of stochastic parrots: Can language models be too big? En \textit{Proceedings of the 2021 ACM Conference on Fairness, Accountability, and Transparency (FAccT \'21)} (pp. 610--623). Association for Computing Machinery. \url{https://doi.org/10.1145/3442188.3445922}
-    \item Bommasani, R., Hudson, D. A., Adeli, E., Altman, R., Arora, S., von Arx, S., Bernstein, M. S., Bohg, J., Bosselut, A., Brunskill, E., Brynjolfsson, E., Buch, S., Card, D., Carion, N., Chen, C., Hall, D., Liang, P., et al. (2021). On the opportunities and risks of foundation models. \textit{arXiv preprint} arXiv:2108.07258. \url{https://doi.org/10.48550/arXiv.2108.07258}
-    \item Brown, T. B., Mann, B., Ryder, N., Subbiah, M., Kaplan, J., Dhariwal, P., Neelakantan, A., Shyam, P., Sastry, G., Askell, A., Agarwal, S., Herbert-Voss, A., Krueger, G., Henighan, T., Child, R., Ramesh, A., Ziegler, D. M., Wu, J., Winter, C., Hesse, C., Chen, M., Sigler, E., Litwin, M., Gray, S., Chess, B., Clark, J., Berner, C., McCandlish, S., Radford, A., Sutskever, I., \& Amodei, D. (2020). Language models are few-shot learners. \textit{Advances in Neural Information Processing Systems (NeurIPS)}, 33, 1877--1901. \url{https://doi.org/10.48550/arXiv.2005.14165}
-    \item Devlin, J., Chang, M. W., Lee, K., \& Toutanova, K. (2019). BERT: Pre-training of deep bidirectional transformers for language understanding. En \textit{Proceedings of the 2019 Conference of the North American Chapter of the Association for Computational Linguistics (NAACL-HLT)} (pp. 4171--4186). Association for Computational Linguistics. \url{https://doi.org/10.18653/v1/N19-1423}
+\begin{itemize}[leftmargin=1.5em, label={}, itemsep=0.45ex, parsep=0pt]
+    \item Artopoulos, A., \& Lliteras, A. (2024). Alfabetización crítica en IA. Recursos educativos para una pedagogía de la descajanegrización. \textit{Trayectorias Universitarias}, 10(19), e168. \url{https://doi.org/10.24215/24690090e168}
+    \item Bender, E. M., Gebru, T., McMillan-Major, A., \& Shmitchell, S. (2021). On the dangers of stochastic parrots: Can language models be too big? \textit{Proceedings of the 2021 ACM FAccT}, 610--623. \url{https://doi.org/10.1145/3442188.3445922}
+    \item Bommasani, R., Hudson, D. A., Adeli, E., Altman, R., et al. (2021). On the opportunities and risks of foundation models. \textit{arXiv:2108.07258}. \url{https://doi.org/10.48550/arXiv.2108.07258}
+    \item Brown, T. B., Mann, B., Ryder, N., Subbiah, M., et al. (2020). Language models are few-shot learners. \textit{Advances in Neural Information Processing Systems (NeurIPS)}, 33, 1877--1901. \url{https://doi.org/10.48550/arXiv.2005.14165}
+    \item de la Torre, J. (2023). Redes generativas adversarias (GAN): Fundamentos teóricos y aplicaciones. \textit{arXiv:2302.09346}. \url{https://doi.org/10.48550/arXiv.2302.09346}
     \item Feuerriegel, S., Hartmann, J., Janiesch, C., \& Zschech, P. (2024). Generative AI. \textit{Business \& Information Systems Engineering}, 66(1), 111--126. \url{https://doi.org/10.1007/s12599-023-00834-7}
-    \item García-Peñalvo, F. J. (2024). El impacto de la inteligencia artificial generativa en la educación superior y la investigación científica. \textit{Education in the Knowledge Society (EKS)}, 25, e31821. \url{https://doi.org/10.14201/eks.31821}
-    \item Goodfellow, I., Bengio, Y., \& Courville, A. (2016). \textit{Deep Learning}. MIT Press. ISBN: 978-0-262-03561-3.
+    \item García-Peñalvo, F. J. (2024). Inteligencia artificial generativa y educación: Un análisis desde múltiples perspectivas. \textit{Education in the Knowledge Society}, 25, e31942. \url{https://doi.org/10.14201/eks.31942}
+    \item García-Peñalvo, F. J., Llorens-Largo, F., \& Vidal, J. (2024). La nueva realidad de la educación ante los avances de la inteligencia artificial generativa. \textit{RIED}, 27(1), 9--39. \url{https://doi.org/10.5944/ried.27.1.37716}
+    \item García-Peñalvo, F. J., \& Vázquez-Ingelmo, A. (2023). What do we mean by GenAI? \textit{IJIMAI}, 8(4), 7--16. \url{https://doi.org/10.9781/ijimai.2023.07.006}
     \item Goodfellow, I., Pouget-Abadie, J., Mirza, M., Xu, B., Warde-Farley, D., Ozair, S., Courville, A., \& Bengio, Y. (2014). Generative adversarial nets. \textit{Advances in Neural Information Processing Systems (NeurIPS)}, 27, 2672--2680. \url{https://doi.org/10.48550/arXiv.1406.2661}
-    \item He, K., Zhang, X., Ren, S., \& Sun, J. (2016). Deep residual learning for image recognition. En \textit{Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)} (pp. 770--778). IEEE. \url{https://doi.org/10.1109/CVPR.2016.90}
     \item Ho, J., Jain, A., \& Abbeel, P. (2020). Denoising diffusion probabilistic models. \textit{Advances in Neural Information Processing Systems (NeurIPS)}, 33, 6840--6851. \url{https://doi.org/10.48550/arXiv.2006.11239}
-    \item Ji, Z., Lee, N., Frieske, R., Yu, T., Su, D., Yan, Y., Ishii, E., Bang, Y. J., Dai, W., \& Fung, P. (2023). Survey of hallucination in natural language generation. \textit{ACM Computing Surveys}, 55(12), 1--38. \url{https://doi.org/10.1145/3571730}
-    \item Kingma, D. P., \& Ba, J. (2015). Adam: A method for stochastic optimization. En \textit{Proceedings of the 3rd International Conference on Learning Representations (ICLR 2015)}. \url{https://doi.org/10.48550/arXiv.1412.6980}
-    \item Kingma, D. P., \& Welling, M. (2014). Auto-encoding variational Bayes. En \textit{Proceedings of the 2nd International Conference on Learning Representations (ICLR 2014)}. \url{https://doi.org/10.48550/arXiv.1312.6114}
-    \item Krizhevsky, A., Sutskever, I., \& Hinton, G. E. (2012). ImageNet classification with deep convolutional neural networks. \textit{Advances in Neural Information Processing Systems (NeurIPS)}, 25, 1097--1105. \url{https://doi.org/10.1145/3065386}
+    \item Ji, Z., Lee, N., Frieske, R., Yu, T., Su, D., Xu, Y., Ishii, E., Bang, Y. J., Madotto, A., \& Fung, P. (2023). Survey of hallucination in natural language generation. \textit{ACM Computing Surveys}, 55(12), 1--38. \url{https://doi.org/10.1145/3571730}
     \item LeCun, Y., Bengio, Y., \& Hinton, G. (2015). Deep learning. \textit{Nature}, 521(7553), 436--444. \url{https://doi.org/10.1038/nature14539}
-    \item Lighthill, J. (1973). \textit{Artificial Intelligence: A Paper Symposium}. Science Research Council of Great Britain.
     \item McCarthy, J., Minsky, M. L., Rochester, N., \& Shannon, C. E. (2006). A proposal for the Dartmouth Summer Research Project on Artificial Intelligence, August 31, 1955. \textit{AI Magazine}, 27(4), 12--14. \url{https://doi.org/10.1609/aimag.v27i4.1904}
-    \item McCulloch, W. S., \& Pitts, W. (1943). A logical calculus of the ideas immanent in nervous activity. \textit{The Bulletin of Mathematical Biophysics}, 5(4), 115--133. \url{https://doi.org/10.1007/BF02478259}
-    \item Minsky, M., \& Papert, S. (1969). \textit{Perceptrons: An Introduction to Computational Geometry}. MIT Press. ISBN: 978-0-262-63022-1.
-    \item Ouyang, L., Wu, J., Jiang, X., Almeida, D., Wainwright, C., Mishkin, P., Zhang, C., Agarwal, S., Slama, K., Ray, A., Schulman, J., Hilton, J., Kelton, F., Miller, L., Simens, M., Askell, A., Welinder, P., Christiano, P., Leike, J., \& Lowe, R. (2022). Training language models to follow instructions with human feedback. \textit{Advances in Neural Information Processing Systems (NeurIPS)}, 35, 27730--27744. \url{https://doi.org/10.48550/arXiv.2203.02155}
-    \item Radford, A., Wu, J., Child, R., Luan, D., Amodei, D., \& Sutskever, I. (2019). \textit{Language models are unsupervised multitask learners}. OpenAI Technical Report. \url{https://openai.com/research/better-language-models}
-    \item Rafailov, R., Sharma, A., Mitchell, E., Ermon, S., Manning, C. D., \& Finn, C. (2023). Direct preference optimization: Your language model is secretly a reward model. \textit{Advances in Neural Information Processing Systems (NeurIPS)}, 36, 53728--53741. \url{https://doi.org/10.48550/arXiv.2305.18290}
-    \item Rosenblatt, F. (1958). The perceptron: A probabilistic model for information storage and organization in the brain. \textit{Psychological Review}, 65(6), 386--408. \url{https://doi.org/10.1037/h0042519}
-    \item Rumelhart, D. E., Hinton, G. E., \& Williams, R. J. (1986). Learning representations by back-propagating errors. \textit{Nature}, 323(6088), 533--536. \url{https://doi.org/10.1038/323533a0}
-    \item Russell, S., \& Norvig, P. (2020). \textit{Artificial Intelligence: A Modern Approach} (4th ed.). Pearson. ISBN: 978-0-134-61099-3.
-    \item Sohl-Dickstein, J., Weiss, E., Khan, N., \& Sompolinsky, H. (2015). Deep unsupervised learning using nonequilibrium thermodynamics. En \textit{Proceedings of the 32nd International Conference on Machine Learning (ICML 2015)} (pp. 2256--2265). PMLR. \url{https://doi.org/10.48550/arXiv.1503.03585}
+    \item Nasser-Eddine López, F. (2024). Un repaso a la historia de la inteligencia artificial. \textit{Tabanque}, 36, 7--18. \url{https://doi.org/10.24197/trp.36.2024.7-18}
+    \item Ouyang, L., Wu, J., Jiang, X., Almeida, D., et al. (2022). Training language models to follow instructions with human feedback. \textit{Advances in Neural Information Processing Systems (NeurIPS)}, 35, 27730--27744. \url{https://doi.org/10.48550/arXiv.2203.02155}
+    \item Sánchez Mendiola, M., \& Carbajal Degante, E. (2023). La inteligencia artificial generativa y la educación universitaria. \textit{Perfiles Educativos}, 45(Especial), 70--86. \url{https://doi.org/10.22201/iisue.24486167e.2023.Especial.61692}
     \item Turing, A. M. (1950). Computing machinery and intelligence. \textit{Mind}, 59(236), 433--460. \url{https://doi.org/10.1093/mind/LIX.236.433}
-    \item UNESCO. (2023). \textit{Guidance for generative AI in education and research}. United Nations Educational, Scientific and Cultural Organization. ISBN: 978-92-3-100608-1. \url{https://unesdoc.unesco.org/ark:/48223/pf0000386693}
     \item Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, \L., \& Polosukhin, I. (2017). Attention is all you need. \textit{Advances in Neural Information Processing Systems (NeurIPS)}, 30, 5998--6008. \url{https://doi.org/10.48550/arXiv.1706.03762}
-    \item Weizenbaum, J. (1966). ELIZA---A computer program for the study of natural language communication between man and machine. \textit{Communications of the ACM}, 9(1), 36--45. \url{https://doi.org/10.1145/365153.365168}
-    \item Wiener, N. (1948). \textit{Cybernetics: Or Control and Communication in the Animal and the Machine}. John Wiley \& Sons.
+    \item Zhao, W. X., Zhou, K., Li, J., Tang, T., et al. (2023). A survey of large language models. \textit{arXiv:2303.18223}. \url{https://doi.org/10.48550/arXiv.2303.18223}
 \end{itemize}

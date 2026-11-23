@@ -89,7 +89,7 @@ La manifestación material más contundente del modelo estadounidense es el desp
 \label{fig:cadena_suministro_usa}
 \end{figure}
 
-Como ilustra la Figura \ref{fig:cadena_suministro_usa}, el aprovisionamiento de supercómputo ha reconfigurado los requerimientos de capital de la industria tecnológica. Un centro de datos contemporáneo de IA no solo demanda cientos de miles de aceleradores gráficos tensorizados (GPUs Nvidia H100, B200 o arquitecturas afines), sino también soluciones avanzadas de refrigeración líquida directa al chip (\textit{direct-to-chip liquid cooling}) y contratos de suministro energético continuo de carga base (\textit{baseload power}), impulsando acuerdos corporativos de largo plazo con reactores nucleares civiles reacondicionados y plantas térmicas de gas natural (Moussa et al., 2025; Williams, 2025). 
+Como ilustra la Figura 3.1, el aprovisionamiento de supercómputo ha reconfigurado los requerimientos de capital de la industria tecnológica. Un centro de datos contemporáneo de IA no solo demanda cientos de miles de aceleradores gráficos tensorizados (GPUs Nvidia H100, B200 o arquitecturas afines), sino también soluciones avanzadas de refrigeración líquida directa al chip (\textit{direct-to-chip liquid cooling}) y contratos de suministro energético continuo de carga base (\textit{baseload power}), impulsando acuerdos corporativos de largo plazo con reactores nucleares civiles reacondicionados y plantas térmicas de gas natural (Moussa et al., 2025; Williams, 2025). 
 
 Esta escalada infraestructural genera una barrera económica insalvable para actores emergentes. La inversión de capital (\textit{CapEx}) requerida para entrenar un modelo de frontera de próxima generación superó los 1.000 millones de dólares en cómputo directo durante 2024, proyectándose hacia cifras superiores a los 5.000 millones para modelos multimodales con razonamiento extendido en 2026 (Moussa et al., 2025). Como consecuencia, la capacidad de sostener investigaciones punteras ha quedado concentrada en un oligopolio cerrado de corporaciones con balances financieros multimillonarios, marginando a los laboratorios universitarios tradicionales a un rol secundario de experimentación teórica sobre modelos preentrenados.
 
@@ -140,13 +140,13 @@ El constitucionalismo digital europeo se apoya en tres principios rectores:
 
 \subsubsection{Arquitectura de Riesgo de Cuatro Niveles de la Ley de IA de la UE}
 
-La piedra angular legislativa de este modelo es el Reglamento (UE) 2024/1689, conocido globalmente como la Ley de Inteligencia Artificial (\textit{EU AI Act}). El instrumento articula una taxonomía piramidal de gobernanza basada estrictamente en el riesgo objetivo que cada aplicación representa para los derechos fundamentales y la seguridad pública (Hulok, 2025). Como se detalla en la Tabla \ref{tab:niveles_riesgo_ai_act}, la norma divide los sistemas en cuatro categorías operativas:
+La piedra angular legislativa de este modelo es el Reglamento (UE) 2024/1689, conocido globalmente como la Ley de Inteligencia Artificial (\textit{EU AI Act}). El instrumento articula una taxonomía piramidal de gobernanza basada estrictamente en el riesgo objetivo que cada aplicación representa para los derechos fundamentales y la seguridad pública (Hulok, 2025). Como se detalla en la Tabla 3.1, la norma divide los sistemas en cuatro categorías operativas:
 
 \begin{table}[htbp]
 \centering
-\caption{\textit{Estructura de Riesgo y Obligaciones Normativas bajo el EU AI Act}}
-\label{tab:niveles_riesgo_ai_act}
 \small
+\textbf{Tabla 3.1.} \textit{Estructura de Riesgo y Obligaciones Normativas bajo el EU AI Act}\\[0.25cm]
+\label{tab:niveles_riesgo_ai_act}
 \begin{tabularx}{\textwidth}{p{2.8cm} p{4.2cm} p{4.8cm} p{2.2cm}}
 \toprule
 \textbf{Nivel de Riesgo} & \textbf{Tipología de Aplicaciones} & \textbf{Requisitos de Cumplimiento Mandatorios} & \textbf{Régimen Sancionador} \\
@@ -185,7 +185,7 @@ Los desarrolladores y proveedores de sistemas de alto riesgo deben certificar do
     \item \textbf{Exactitud, Robustez y Ciberseguridad (Artículo 15):} El sistema debe alcanzar niveles certificados de exactitud y resistencia frente a fallos imprevistos, degradación de datos, ataques de envenenamiento de entrenamiento (\textit{data poisoning}), perturbaciones adversariales (\textit{adversarial evasion}) y extracción maliciosa de información mediante ingeniería inversa.
 \end{enumerate}
 
-La Figura \ref{fig:conformidad_ai_act} ilustra la ruta metodológica y los puntos de control obligatorios que debe seguir cualquier sistema clasificado como de alto riesgo para obtener el marcado de conformidad CE en el espacio económico europeo.
+La Figura 3.2 ilustra la ruta metodológica y los puntos de control obligatorios que debe seguir cualquier sistema clasificado como de alto riesgo para obtener el marcado de conformidad CE en el espacio económico europeo.
 
 \begin{figure}[htbp]
 \centering
@@ -275,7 +275,7 @@ El AI Act no opera de manera aislada, sino que se articula en una infraestructur
 \label{fig:gobernanza_ue}
 \end{figure}
 
-Como ilustra la Figura \ref{fig:gobernanza_ue}, la gobernanza institucional europea articula un esquema de competencias compartidas. Mientras la Oficina de IA en Bruselas centraliza la supervisión directa sobre los modelos fundacionales GPAI y sus umbrales sistémicos, las autoridades nacionales de vigilancia del mercado en cada Estado miembro supervisan los sistemas específicos de alto riesgo aplicados en su territorio.
+Como ilustra la Figura 3.3, la gobernanza institucional europea articula un esquema de competencias compartidas. Mientras la Oficina de IA en Bruselas centraliza la supervisión directa sobre los modelos fundacionales GPAI y sus umbrales sistémicos, las autoridades nacionales de vigilancia del mercado en cada Estado miembro supervisan los sistemas específicos de alto riesgo aplicados en su territorio.
 
 Consciente de que la regulación estricta puede agravar la brecha de competitividad frente a EE. UU., la Comisión Europea complementó su política con la iniciativa \textit{AI Factories} (Fábricas de IA), movilizando más de 4.000 millones de euros en colaboración con la Empresa Común de Informática de Alto Rendimiento Europea (\textit{EuroHPC JU}) (Hulok, 2025). Esta iniciativa interconecta los supercomputadores soberanos de la red (LUMI en Finlandia, Leonardo en Italia, MareNostrum 5 en España y JUPITER en Alemania) para ofrecer tiempo de cálculo gratuito o altamente subsidiado a startups, pymes y científicos europeos, democratizando el entrenamiento de modelos abiertos en infraestructuras libres de control corporativo estadounidense.
 
@@ -310,13 +310,13 @@ Asimismo, la alemana \textit{Aleph Alpha} consolidó su presencia en el sector c
 
 \subsubsection{Matriz Comparativa del Ecosistema Occidental}
 
-La interacción dinámica entre ambas orillas del Atlántico configura un panorama multidimensional divergente que resume de forma exhaustiva la Tabla \ref{tab:matriz_comparativa_occidente}:
+La interacción dinámica entre ambas orillas del Atlántico configura un panorama multidimensional divergente que resume de forma exhaustiva la Tabla 3.2:
 
 \begin{table}[htbp]
 \centering
-\caption{\textit{Matriz Comparativa Multidimensional: Estados Unidos frente a la Unión Europea}}
-\label{tab:matriz_comparativa_occidente}
 \small
+\textbf{Tabla 3.2.} \textit{Matriz Comparativa Multidimensional: Estados Unidos frente a la Unión Europea}\\[0.25cm]
+\label{tab:matriz_comparativa_occidente}
 \begin{tabularx}{\textwidth}{p{3.2cm} p{5.5cm} p{5.5cm}}
 \toprule
 \textbf{Dimensión de Análisis} & \textbf{Estados Unidos (EE. UU.)} & \textbf{Unión Europea (UE)} \\
@@ -339,13 +339,13 @@ La interacción dinámica entre ambas orillas del Atlántico configura un panora
 
 \subsubsection{Lista de Chequeo de Autoevaluación de Conformidad Técnica}
 
-Para orientar a las organizaciones que pretenden poner en servicio un sistema clasificado como de alto riesgo o un modelo GPAI en la Unión Europea, la Tabla \ref{tab:checklist_conformidad} resume los requisitos técnicos documentales obligatorios especificados en el Anexo IV del AI Act:
+Para orientar a las organizaciones que pretenden poner en servicio un sistema clasificado como de alto riesgo o un modelo GPAI en la Unión Europea, la Tabla 3.3 resume los requisitos técnicos documentales obligatorios especificados en el Anexo IV del AI Act:
 
 \begin{table}[htbp]
 \centering
-\caption{\textit{Lista de Chequeo de Autoevaluación Técnica bajo el Anexo IV del EU AI Act}}
-\label{tab:checklist_conformidad}
 \small
+\textbf{Tabla 3.3.} \textit{Lista de Chequeo de Autoevaluación Técnica bajo el Anexo IV del EU AI Act}\\[0.25cm]
+\label{tab:checklist_conformidad}
 \begin{tabularx}{\textwidth}{p{2.8cm} p{4.5cm} p{4.2cm} p{2.5cm}}
 \toprule
 \textbf{Área Técnica} & \textbf{Requisito Documental Mandatorio} & \textbf{Estándar de Evidencia Técnica} & \textbf{Verificación} \\

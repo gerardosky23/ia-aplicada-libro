@@ -102,7 +102,7 @@ En la generación autorregresiva de texto característica de los modelos decodif
 En el mecanismo clásico de Atención Multicabeza (Multi-Head Attention, MHA) formulado por Vaswani et al. (2017), para un modelo de $n_{layers}$ capas, con $n_{heads}$ cabezas de atención por capa y una dimensión por cabeza $d_{head}$, la huella de memoria consumida por la caché KV para almacenar un único token viene dada formalmente por:
 
 \begin{equation}
-\mathcal{M}_{token}^{MHA} = 2 \times n_{layers} \times n_{heads} \times d_{head} \times b_{bytes}
+\mathrm{Mem}_{\mathrm{MHA}} = 2 \times n_{layers} \times n_{heads} \times d_{head} \times b_{bytes}
 \end{equation}
 
 donde el factor $2$ contempla la retención simultánea de las matrices de claves y valores, y $b_{bytes}$ representa la precisión de almacenamiento (típicamente 2 bytes para FP16 o BF16). 
@@ -110,13 +110,13 @@ donde el factor $2$ contempla la retención simultánea de las matrices de clave
 Para contextualizar la gravedad de esta saturación física, consideremos una arquitectura moderna de gran escala como DeepSeek-V3, cuyas dimensiones nominales corresponden a $n_{layers} = 61$, $n_{heads} = 128$, $d_{head} = 128$ y $b_{bytes} = 2$. Bajo el esquema MHA tradicional, la memoria consumida por cada token ascendería a:
 
 \begin{equation}
-\mathcal{M}_{token}^{MHA} = 2 \times 61 \times 128 \times 128 \times 2 = 3.997.696\ \mathrm{bytes} \approx 3.81\ \mathrm{MB/token}
+\mathrm{Mem}_{\mathrm{MHA}} = 2 \times 61 \times 128 \times 128 \times 2 = 3.997.696\ \mathrm{bytes} \approx 3.81\ \mathrm{MB/token}
 \end{equation}
 
 Si el sistema procesa una secuencia con una ventana de contexto extendida de $L = 128.000$ tokens (128k), un único flujo de inferencia monopólico consumiría:
 
 \begin{equation}
-\mathcal{M}_{total}^{MHA} = 128.000 \times 3.997.696\ \mathrm{bytes} \approx 511.7\ \mathrm{GB}
+\mathrm{Mem}_{\mathrm{total}}(\mathrm{MHA}) = 128.000 \times 3.997.696\ \mathrm{bytes} \approx 511.7\ \mathrm{GB}
 \end{equation}
 
 En consecuencia, el almacenamiento de la caché KV para una sola consulta requeriría la memoria HBM completa de más de seis GPU Nvidia H100 de 80 GB dedicadas exclusivamente a retener el contexto, impidiendo por completo el servicio concurrente de múltiples usuarios y elevando los costos de infraestructura a niveles económicamente prohibitivos.
@@ -138,67 +138,67 @@ donde $d_c$ es la dimensión latente de claves y valores, seleccionada tal que $
 A partir de este vector latente compacto $\mathbf{c}_t^{KV}$, las claves y valores individuales para cada cabeza $i \in \{1, \dots, n_{heads}\}$ se reconstituyen teóricamente en la fase de entrenamiento mediante proyecciones ascendentes desacopladas:
 
 \begin{equation}
-\mathbf{k}_{t,i}^C = W^{UK}_i \mathbf{c}_t^{KV}, \quad W^{UK}_i \in \mathbb{R}^{d_{head} \times d_c}
+\mathbf{k}_{t,i} = W^{UK}_i \mathbf{c}_t^{KV}, \quad W^{UK}_i \in \mathbb{R}^{d_{head} \times d_c}
 \end{equation}
 
 \begin{equation}
-\mathbf{v}_{t,i}^C = W^{UV}_i \mathbf{c}_t^{KV}, \quad W^{UV}_i \in \mathbb{R}^{d_{head} \times d_c}
+\mathbf{v}_{t,i} = W^{UV}_i \mathbf{c}_t^{KV}, \quad W^{UV}_i \in \mathbb{R}^{d_{head} \times d_c}
 \end{equation}
 
 De forma análoga, para reducir el costo computacional de las consultas durante el entrenamiento, se aplica una compresión de bajo rango sobre el vector de consultas mediante $W^{DQ} \in \mathbb{R}^{d_c' \times d}$ y proyecciones ascendentes $W^{UQ}_i \in \mathbb{R}^{d_{head} \times d_c'}$:
 
 \begin{equation}
-\mathbf{c}_t^Q = W^{DQ} \mathbf{h}_t, \quad \mathbf{q}_{t,i}^C = W^{UQ}_i \mathbf{c}_t^Q
+\mathbf{c}_t^Q = W^{DQ} \mathbf{h}_t, \quad \mathbf{q}_{t,i} = W^{UQ}_i \mathbf{c}_t^Q
 \end{equation}
 
 con $d_c' = 1536$.
 
 \subsubsection{Absorción Matricial en Tiempo de Inferencia}
 
-El avance algebraico más profundo de MLA radica en el mecanismo de \textbf{absorción matricial}, el cual elimina la necesidad de descomprimir físicamente las claves y valores en la memoria HBM durante la fase de inferencia. En la formulación estándar, el cálculo de afinidad de atención entre la consulta del token actual $\mathbf{q}_{t,i}^C$ y la clave de un token precedente $\mathbf{k}_{s,i}^C$ ($s \le t$) involucra el producto punto:
+El avance algebraico más profundo de MLA radica en el mecanismo de \textbf{absorción matricial}, el cual elimina la necesidad de descomprimir físicamente las claves y valores en la memoria HBM durante la fase de inferencia. En la formulación estándar, el cálculo de afinidad de atención entre la consulta del token actual $\mathbf{q}_{t,i}$ y la clave de un token precedente $\mathbf{k}_{s,i}$ ($s \le t$) involucra el producto punto:
 
 \begin{equation}
-\mathrm{Score}_{t,s,i} = (\mathbf{q}_{t,i}^C)^T \mathbf{k}_{s,i}^C = (\mathbf{q}_{t,i}^C)^T \left( W^{UK}_i \mathbf{c}_s^{KV} \right)
+\mathrm{Score}_{t,s,i} = \mathbf{q}_{t,i} \cdot \mathbf{k}_{s,i} = \mathbf{q}_{t,i} \cdot \left( W^{UK}_i \mathbf{c}_s^{KV} \right)
 \end{equation}
 
 Dado que el producto de matrices es asociativo, el término puede reordenarse de la siguiente manera:
 
 \begin{equation}
-\mathrm{Score}_{t,s,i} = \left( (\mathbf{q}_{t,i}^C)^T W^{UK}_i \right) \mathbf{c}_s^{KV} = \left( (W^{UK}_i)^T \mathbf{q}_{t,i}^C \right)^T \mathbf{c}_s^{KV}
+\mathrm{Score}_{t,s,i} = ( \mathbf{q}_{t,i} W^{UK}_i ) \cdot \mathbf{c}_s^{KV} = \tilde{\mathbf{q}}_{t,i} \cdot \mathbf{c}_s^{KV}
 \end{equation}
 
 Definiendo una consulta transformada o absorbida:
 
 \begin{equation}
-\tilde{\mathbf{q}}_{t,i} = (W^{UK}_i)^T \mathbf{q}_{t,i}^C \in \mathbb{R}^{d_c}
+\tilde{\mathbf{q}}_{t,i} = (W^{UK}_i)^\top \mathbf{q}_{t,i} \in \mathbb{R}^{d_c}
 \end{equation}
 
-el producto escalar de atención puede ejecutarse directamente multiplicando la consulta absorbida $\tilde{\mathbf{q}}_{t,i}$ contra el vector latente comprimido $\mathbf{c}_s^{KV}$. Por consiguiente, el sistema \textbf{nunca necesita generar ni almacenar en caché el vector de clave completo $\mathbf{k}_{s,i}^C$}; únicamente retiene en memoria el vector latente $\mathbf{c}_s^{KV}$ de dimensión 512.
+el producto escalar de atención puede ejecutarse directamente multiplicando la consulta absorbida $\tilde{\mathbf{q}}_{t,i}$ contra el vector latente comprimido $\mathbf{c}_s^{KV}$. Por consiguiente, el sistema \textbf{nunca necesita generar ni almacenar en caché el vector de clave completo $\mathbf{k}_{s,i}$}; únicamente retiene en memoria el vector latente $\mathbf{c}_s^{KV}$ de dimensión 512.
 
-Idéntica propiedad algebraica se aplica a la acumulación de los vectores de valores. En lugar de proyectar $\mathbf{v}_{s,i}^C = W^{UV}_i \mathbf{c}_s^{KV}$ para cada token histórico y luego calcular la suma ponderada por los pesos de atención normalizados $a_{t,s,i}$:
+Idéntica propiedad algebraica se aplica a la acumulación de los vectores de valores. En lugar de proyectar $\mathbf{v}_{s,i} = W^{UV}_i \mathbf{c}_s^{KV}$ para cada token histórico y luego calcular la suma ponderada por los pesos de atención normalizados $a_{t,s,i}$:
 
 \begin{equation}
-\mathbf{o}_{t,i} = \sum_{s \le t} a_{t,s,i} \mathbf{v}_{s,i}^C = \sum_{s \le t} a_{t,s,i} \left( W^{UV}_i \mathbf{c}_s^{KV} \right) = W^{UV}_i \left( \sum_{s \le t} a_{t,s,i} \mathbf{c}_s^{KV} \right)
+\mathbf{o}_{t,i} = \sum_{s \le t} a_{t,s,i} \mathbf{v}_{s,i} = \sum_{s \le t} a_{t,s,i} \left( W^{UV}_i \mathbf{c}_s^{KV} \right) = W^{UV}_i \left( \sum_{s \le t} a_{t,s,i} \mathbf{c}_s^{KV} \right)
 \end{equation}
 
 el motor de inferencia calcula en primer lugar la combinación lineal de los vectores latentes comprimidos:
 \begin{equation}
 \mathbf{c}_{\text{accum}} = \sum_{s \le t} a_{t,s,i} \mathbf{c}_s^{KV} \in \mathbb{R}^{d_c}
 \end{equation}
-y posteriormente aplica una única proyección ascendente $W^{UV}_i$ sobre el resultado acumulado. De este modo, los valores $\mathbf{v}_{s,i}^C$ tampoco son instanciados individualmente en memoria HBM.
+y posteriormente aplica una única proyección ascendente $W^{UV}_i$ sobre el resultado acumulado. De este modo, los valores $\mathbf{v}_{s,i}$ tampoco son instanciados individualmente en memoria HBM.
 
 \subsubsection{Desacoplamiento de Posicionamiento Rotatorio (Decoupled RoPE)}
 
 Un obstáculo fundamental para la aplicación de la compresión matricial de bajo rango a modelos Transformer contemporáneos es la incompatibilidad matemática entre la absorción matricial y el mecanismo de Incrustación de Posición Rotatoria (Rotary Position Embedding, RoPE) formulado por Su et al. (2024). RoPE inyecta información de posición relativa multiplicando las representaciones de consulta y clave por matrices ortogonales de rotación en bloque $\mathcal{R}_{\Theta, t} \in \mathbb{R}^{d_{head} \times d_{head}}$:
 
 \begin{equation}
-\mathbf{k}_{t,i}^{RoPE} = \mathcal{R}_{\Theta, t} \mathbf{k}_{t,i}
+\mathbf{k}_t^R = \mathcal{R}_{\Theta, t} \mathbf{k}_{t,i}
 \end{equation}
 
 Si se intentara aplicar la rotación de RoPE sobre las claves reconstruidas a partir del vector latente $\mathbf{c}_t^{KV}$, se obtendría la expresión:
 
 \begin{equation}
-\mathbf{k}_{t,i}^{RoPE} = \mathcal{R}_{\Theta, t} \left( W^{UK}_i \mathbf{c}_t^{KV} \right)
+\mathbf{k}_t^R = \mathcal{R}_{\Theta, t} \left( W^{UK}_i \mathbf{c}_t^{KV} \right)
 \end{equation}
 
 Sin embargo, debido a que la matriz de rotación dependiente de la posición $\mathcal{R}_{\Theta, t}$ no conmuta con la matriz de proyección ascendente rectangular $W^{UK}_i$:
@@ -207,7 +207,7 @@ Sin embargo, debido a que la matriz de rotación dependiente de la posición $\m
 \mathcal{R}_{\Theta, t} W^{UK}_i \neq W^{UK}_i \mathcal{R}_{\Theta, t}
 \end{equation}
 
-se anula la propiedad asociativa que permitía absorber la matriz $W^{UK}_i$ en la consulta $\mathbf{q}_{t,i}^C$. Si se forzara el uso de RoPE estándar, la caché de inferencia se vería obligada a almacenar las claves completamente descomprimidas para retener su orientación rotacional, destruyendo los beneficios de la compresión de bajo rango.
+se anula la propiedad asociativa que permitía absorber la matriz $W^{UK}_i$ en la consulta $\mathbf{q}_{t,i}$. Si se forzara el uso de RoPE estándar, la caché de inferencia se vería obligada a almacenar las claves completamente descomprimidas para retener su orientación rotacional, destruyendo los beneficios de la compresión de bajo rango.
 
 Para resolver elegantemente esta paradoja sin renunciar a las ventajas posicionales de RoPE, DeepSeek formuló el \textbf{RoPE desacoplado (Decoupled RoPE)}. Bajo esta técnica, el vector de atención se escinde en dos canales ortogonales e independientes:
 
@@ -218,7 +218,7 @@ Para resolver elegantemente esta paradoja sin renunciar a las ventajas posiciona
     \mathbf{k}_t^R = \mathrm{RoPE}\left( W^{KR} \mathbf{h}_t \right), \quad W^{KR} \in \mathbb{R}^{d_R \times d}
     \end{equation}
     \begin{equation}
-    \mathbf{q}_{t,i}^R = \mathrm{RoPE}\left( W^{QR}_i \mathbf{c}_t^Q \right), \quad W^{QR}_i \in \mathbb{R}^{d_R \times d_c'}
+    \mathbf{q}_t^R = \mathrm{RoPE}\left( W^{QR}_i \mathbf{c}_t^Q \right), \quad W^{QR}_i \in \mathbb{R}^{d_R \times d_c'}
     \end{equation}
     donde $d_R$ es la dimensión del vector rotatorio ($d_R = 64$ en DeepSeek-V3), compartida uniformemente por todas las cabezas de atención.
 \end{enumerate}
@@ -226,13 +226,13 @@ Para resolver elegantemente esta paradoja sin renunciar a las ventajas posiciona
 El ensamblaje final de los vectores de consulta y clave se realiza mediante concatenación directa de los componentes de contenido y posición:
 
 \begin{equation}
-\mathbf{q}_{t,i} = \left[ \begin{array}{c} \mathbf{q}_{t,i}^C \\ \mathbf{q}_{t,i}^R \end{array} \right], \quad \mathbf{k}_{s,i} = \left[ \begin{array}{c} W^{UK}_i \mathbf{c}_s^{KV} \\ \mathbf{k}_s^R \end{array} \right]
+\mathbf{q}_{t,i} = \left[ \begin{array}{c} \mathbf{q}_{t,i} \\ \mathbf{q}_t^R \end{array} \right], \quad \mathbf{k}_{s,i} = \left[ \begin{array}{c} W^{UK}_i \mathbf{c}_s^{KV} \\ \mathbf{k}_s^R \end{array} \right]
 \end{equation}
 
 El producto de atención escalado se deriva expandiendo la forma bilineal:
 
 \begin{equation}
-\mathrm{Score}_{t,s,i} = \frac{\mathbf{q}_{t,i}^T \mathbf{k}_{s,i}}{\sqrt{d_{head} + d_R}} = \frac{\left( (W^{UK}_i)^T \mathbf{q}_{t,i}^C \right)^T \mathbf{c}_s^{KV} + (\mathbf{q}_{t,i}^R)^T \mathbf{k}_s^R}{\sqrt{d_{head} + d_R}}
+\mathrm{Score}_{t,s,i} = d_{\mathrm{h}}^{-1/2} \left( \tilde{\mathbf{q}}_{t,i} \cdot \mathbf{c}_s^{KV} + \mathbf{q}_t^R \cdot \mathbf{k}_s^R \right)
 \end{equation}
 
 Como se observa en la formulación, el término de contenido se calcula mediante absorción directa contra el vector latente $\mathbf{c}_s^{KV}$, mientras que el término posicional opera exclusivamente sobre el vector rotatorio $\mathbf{k}_s^R$. 
@@ -240,7 +240,7 @@ Como se observa en la formulación, el término de contenido se calcula mediante
 Por lo tanto, la huella de memoria en la caché KV por cada token en cada capa queda restringida estrictamente a:
 
 \begin{equation}
-\mathcal{M}_{token}^{MLA} = \left( d_c + d_R \right) \times b_{bytes} = (512 + 64) \times 2 = 1.152\ \mathrm{bytes} \approx 1.125\ \mathrm{KB/token}
+\mathrm{Mem}_{\mathrm{MLA}} = \left( d_c + d_R \right) \times b_{bytes} = (512 + 64) \times 2 = 1.152\ \mathrm{bytes} \approx 1.125\ \mathrm{KB/token}
 \end{equation}
 
 Frente a los $3.997.696$ bytes requeridos por MHA, MLA logra una \textbf{reducción de memoria en la caché KV del 98.24\%}, y una reducción superior al \textbf{71.8\% respecto a GQA con 8 cabezas}, preservando simultáneamente la capacidad de modelado representacional de un sistema con 128 cabezas de atención completas.
@@ -267,7 +267,7 @@ Para resolver estas deficiencias, la arquitectura DeepSeekMoE (DeepSeek-AI, 2024
 d_{expert\_ffn} = \frac{d_{standard\_ffn}}{m}
 \end{equation}
 
-En la configuración de DeepSeek-V3, el modelo implementa un total de $N_{routed} = 256$ expertos enrutados por capa, activando $K_{routed} = 8$ expertos para cada token. Esta granularidad expande la flexibilidad combinatoria a:
+En la configuración de DeepSeek-V3, el modelo implementa un total de $N_{\mathrm{routed}} = 256$ expertos enrutados por capa, activando $K_{routed} = 8$ expertos para cada token. Esta granularidad expande la flexibilidad combinatoria a:
 
 \begin{equation}
 \binom{256}{8} = \frac{256!}{8!(256-8)!} \approx 4.38 \times 10^{14}\ \mathrm{combinaciones\ posibles}
@@ -282,7 +282,7 @@ Un pilar metodológico indispensable de DeepSeekMoE es la separación formal ent
 DeepSeekMoE resuelve esta tensión aislando $N_{shared} = 1$ experto compartido que se ejecuta obligatoriamente para todos y cada uno de los tokens, al margen de la compuerta de enrutamiento. Formalmente, la salida de la capa MoE para una señal de entrada $\mathbf{u}_t$ se define como:
 
 \begin{equation}
-\mathbf{h}_t^{MoE} = \sum_{i=1}^{N_{shared}} FFN_i^{shared}(\mathbf{u}_t) + \sum_{j \in \mathcal{K}_t} g_{j,t} FFN_j^{routed}(\mathbf{u}_t)
+\mathbf{h}_t^{MoE} = \sum\nolimits_{i=1}^{N_{\mathrm{sh}}} FFN_i^{\mathrm{sh}}(\mathbf{u}_t) + \sum\nolimits_{j \in \mathcal{K}_t} g_{j,t} FFN_j^{\mathrm{rt}}(\mathbf{u}_t)
 \end{equation}
 
 donde $\mathcal{K}_t$ representa el conjunto de los 8 expertos enrutados seleccionados por la compuerta para el token $t$, y $g_{j,t}$ denota sus pesos de ponderación normalizados. El experto compartido captura de manera estable el sustrato semántico y formal del lenguaje, liberando a los 256 expertos enrutados para una especialización matemática, científica o contextual ultraprecisa.
@@ -306,7 +306,7 @@ s'_{j,t} = \mathbf{e}_j^T \mathbf{u}_t + b_j
 El conjunto de índices seleccionados corresponde a los $K$ valores máximos de $s'_{j,t}$:
 
 \begin{equation}
-\mathcal{K}_t = \mathrm{TopK}\left( \{ s'_{j,t} \}_{j=1}^{N_{routed}}, K=8 \right)
+\mathcal{K}_t = \operatorname{TopK}\bigl( \{ s'_{j,t} \mid 1 \le j \le 256 \}, \; K=8 \bigr)
 \end{equation}
 
 El sesgo $b_j$ se ajusta de manera adaptativa al final de cada paso de optimización según la carga observada en el experto: si el experto $j$ está subutilizado, $b_j$ se incrementa ligeramente; si está sobrecargado, $b_j$ se reduce:
@@ -328,7 +328,7 @@ De este modo, se logra un equilibrio perfecto de carga en clústeres masivos sin
 Como innovación complementaria, DeepSeek-V3 integra una arquitectura de \textbf{Predicción Multitoken (Multi-Token Prediction, MTP)}. A diferencia del entrenamiento autorregresivo estándar, que supervisa exclusivamente el token inmediato $t+1$, la arquitectura MTP añade módulos decodificadores secuenciales que predicen simultáneamente múltiples tokens hacia adelante ($t+1, t+2$):
 
 \begin{equation}
-\mathcal{L}_{pretrain} = \mathcal{L}_{next\_token} + \lambda_{MTP} \sum_{k=1}^M \mathcal{L}_{k}
+\mathcal{L}_{\mathrm{pretrain}} = \mathcal{L}_{\mathrm{next}} + \lambda_{\mathrm{MTP}} \sum\nolimits_{k=1}^m \mathcal{L}_k
 \end{equation}
 
 Esta formulación aporta dos ventajas determinantes:
@@ -437,7 +437,7 @@ El algoritmo \textbf{Group Relative Policy Optimization (GRPO)} elimina por comp
 Cada respuesta $o_i$ recibe una recompensa escalar objetiva $r_i$ otorgada por un conjunto de reglas deterministas. A continuación, GRPO calcula la media empírica y la desviación estándar de las recompensas dentro del propio grupo de respuestas:
 
 \begin{equation}
-\mu_G = \frac{1}{G} \sum_{i=1}^G r_i, \quad \sigma_G = \sqrt{ \frac{1}{G} \sum_{i=1}^G (r_i - \mu_G)^2 }
+\mu_G = \frac{1}{G} \sum\nolimits_{i=1}^G r_i, \quad \sigma_G = \left[ \frac{1}{G} \sum\nolimits_{i=1}^G (r_i - \mu_G)^2 \right]^{1/2}
 \end{equation}
 
 La ventaja estandarizada para la respuesta $i$ se define de forma puramente relativa a sus pares del grupo:
@@ -451,10 +451,7 @@ donde $\epsilon$ es una constante para evitar divisiones por cero. De este modo,
 La función objetivo de optimización de la política en GRPO se formula como:
 
 \begin{equation}
-\begin{aligned}
-\mathcal{J}_{GRPO}(\theta) = \mathbb{E}_{\substack{q \sim P(Q) \\ \{o_i\}_{i=1}^G \sim \pi_{\theta_{old}}}} \Bigg[ \frac{1}{G} \sum_{i=1}^G \Big( &\min\left( \rho_{i,t} A_i, \mathrm{clip}(\rho_{i,t}, 1-\epsilon, 1+\epsilon) A_i \right) \\
-&- \beta D_{KL}(\pi_\theta || \pi_{ref}) \Big) \Bigg]
-\end{aligned}
+\mathcal{J}_{\mathrm{GRPO}}(\theta) = \mathbb{E}_{q \sim \mathcal{D}, \, \{o_i\} \sim \pi_{\mathrm{old}}} \left[ \frac{1}{G} \sum\nolimits_{i=1}^G \left( \min\bigl( \rho_i A_i, \, \operatorname{clip}(\rho_i, 1-\epsilon, 1+\epsilon) A_i \bigr) - \beta D_{\mathrm{KL}}(\pi_\theta \parallel \pi_{\mathrm{ref}}) \right) \right]
 \end{equation}
 
 donde $\rho_{i,t} = \frac{\pi_\theta(o_i|q)}{\pi_{\theta_{old}}(o_i|q)}$ es la razón de probabilidades de la política y $D_{KL}(\pi_\theta || \pi_{ref})$ es la penalización de divergencia de Kullback-Leibler con respecto a una política de referencia congelada, garantizando que el modelo no colapse en derivas semánticas degeneradas.
@@ -561,18 +558,18 @@ El combustible sobre el cual se entrenan los 14.8 billones de tokens de DeepSeek
     \draw [->, thick, draw=unmsm_gray] (input) -- node[right, font=\scriptsize] {$W^{DQ}$} (cq);
     
     % Fase de inferencia / absorción (lado derecho, despejado)
-    \node [rectangle, draw=unmsm_red, fill=bg_arena, rounded corners=2pt, text width=3.8cm, text centered] (q_abs) at (4.2, 4.0) {\textbf{Consultas Absorbidas}\\$\tilde{\mathbf{q}}_{t,i} = (W^{UK}_i)^T \mathbf{q}_{t,i}^C \in \mathbb{R}^{512}$\\$\mathbf{q}_{t,i}^R = \mathrm{RoPE}(W^{QR}_i \mathbf{c}_t^Q) \in \mathbb{R}^{64}$};
+    \node [rectangle, draw=unmsm_red, fill=bg_arena, rounded corners=2pt, text width=3.8cm, text centered] (q_abs) at (4.2, 4.0) {\textbf{Consultas Absorbidas}\\$\tilde{\mathbf{q}}_{t,i} = (W^{UK}_i)^\top \mathbf{q}_{t,i} \in \mathbb{R}^{512}$\\$\mathbf{q}_t^R = \mathrm{RoPE}(W^{QR}_i \mathbf{c}_t^Q) \in \mathbb{R}^{64}$};
     \draw [->, thick, draw=unmsm_gray] (cq) -- (q_abs);
     
     % Bloque central de atención (elevado y espaciado)
-    \node [rectangle, draw=unmsm_darkred, fill=white, rounded corners=2pt, text width=7.2cm, text centered] (attn) at (-0.8, 5.8) {\textbf{Cálculo de Atención Directo sin Descompresión}\\$\mathrm{Score}_{t,s,i} = \frac{\tilde{\mathbf{q}}_{t,i}^T \mathbf{c}_s^{KV} + (\mathbf{q}_{t,i}^R)^T \mathbf{k}_s^R}{\sqrt{d_{head} + d_R}}$\\[0.1cm]\textcolor{unmsm_red}{\textbf{Ahorro de Caché KV: 576 escalares/token vs 32.768}}};
+    \node [rectangle, draw=unmsm_darkred, fill=white, rounded corners=2pt, text width=7.4cm, text centered] (attn) at (-0.8, 5.8) {\textbf{Cálculo de Atención Directo sin Descompresión}\\[0.15cm]$\mathrm{Score}_{t,s,i} = (\tilde{\mathbf{q}}_{t,i} \cdot \mathbf{c}_s^{KV} + \mathbf{q}_t^R \cdot \mathbf{k}_s^R) / \sqrt{d_{\mathrm{h}}}$\\[0.15cm]\textcolor{unmsm_red}{\textbf{Ahorro de Caché KV: 576 escalares/token vs 32.768}}};
     
     \draw [->, thick, draw=unmsm_darkred] (ckv) -- (attn);
     \draw [->, thick, draw=unmsm_darkred] (rope) -- (attn);
     \draw [->, thick, draw=unmsm_darkred] (q_abs) -- (attn);
     
     % Salida
-    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=4.8cm, text centered] (out) at (-0.8, 7.8) {\textbf{Proyección de Salida $\mathbf{o}_{t,i}$}\\$\mathbf{o}_{t,i} = W^{UV}_i \left( \sum_s a_{t,s,i} \mathbf{c}_s^{KV} \right)$};
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=5.2cm, text centered] (out) at (-0.8, 8.4) {\textbf{Proyección de Salida $\mathbf{o}_{t,i}$}\\[0.2cm]$\mathbf{o}_{t,i} = W^{UV}_i \left( \sum\nolimits_s a_{t,s,i} \mathbf{c}_s^{KV} \right)$};
     \draw [->, thick, draw=unmsm_red] (attn) -- (out);
 \end{tikzpicture}%
 }\\[0.25cm]

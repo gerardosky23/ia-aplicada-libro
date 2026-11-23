@@ -211,7 +211,7 @@ El pipeline matemático y computacional de un sistema RAG de contexto cerrado co
     \end{equation}
     \item \textbf{Búsqueda Semántica por Similitud Coseno:} El sistema computa la proximidad semántica entre la consulta y cada fragmento indexado mediante la fórmula:
     \begin{equation}
-        \mathrm{sim}(\mathbf{e}_q, \mathbf{e}_i) = \frac{\mathbf{e}_q \cdot \mathbf{e}_i}{\|\mathbf{e}_q\| \|\mathbf{e}_i\|} = \frac{\sum_{j=1}^d e_{q,j} e_{i,j}}{\sqrt{\sum_{j=1}^d e_{q,j}^2} \sqrt{\sum_{j=1}^d e_{i,j}^2}}
+        \operatorname{sim}(\mathbf{e}_q, \mathbf{e}_i) = \frac{\mathbf{e}_q \cdot \mathbf{e}_i}{\|\mathbf{e}_q\| \|\mathbf{e}_i\|}
     \end{equation}
     \item \textbf{Reordenamiento y Ensamblado de Contexto:} Se seleccionan los fragmentos de mayor puntaje (Top-$k$), se filtran mediante un modelo discriminativo de reclasificación (\textit{re-ranker}) y se inyectan en el prompt junto con instrucciones estrictas de cerramiento: *"Responda a la pregunta basándose única y exclusivamente en los siguientes fragmentos. Si la respuesta no figura en el texto, declare explícitamente que no posee la información."*
     \item \textbf{Trazabilidad y Citación a Renglón:} Cada afirmación sintetizada genera un anclaje bidireccional que vincula la frase generada con el identificador exacto del fragmento, permitiendo al usuario auditar la fuente original con un clic.

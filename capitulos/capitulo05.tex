@@ -123,7 +123,8 @@ El principio subyacente establece que la cercanía geométrica entre dos vectore
 La métrica canónica para evaluar la proximidad semántica entre la consulta y el bloque de contexto es la \textbf{similitud del coseno} (\textit{cosine similarity}), definida como el producto interno normalizado de los dos vectores:
 
 \begin{equation}
-\mathrm{sim}(\mathbf{e}_q, \mathbf{e}_c) = \frac{\mathbf{e}_q \cdot \mathbf{e}_c}{\|\mathbf{e}_q\| \|\mathbf{e}_c\|} = \frac{\sum_{k=1}^d e_{q,k} e_{c,k}}{\sqrt{\sum_{k=1}^d e_{q,k}^2} \sqrt{\sum_{k=1}^d e_{c,k}^2}}
+\mathrm{sim}(\mathbf{e}_q, \mathbf{e}_c) = \frac{\mathbf{e}_q \cdot \mathbf{e}_c}{\|\mathbf{e}_q\| \|\mathbf{e}_c\|}
+\label{eq:similitud_coseno}
 \end{equation}
 
 Si los vectores han sido normalizados previamente durante la etapa de indización tal que $\|\mathbf{e}_q\|_2 = \|\mathbf{e}_c\|_2 = 1$, la similitud del coseno se reduce computacionalmente al producto escalar estándar:
@@ -352,14 +353,26 @@ La Figura 5.2 formaliza el protocolo metodológico de verificación cruzada que 
 \caption*{\scriptsize \textbf{Fuente:} Elaboración propia a partir de Zapata (2025) y Alvariño-Pérez y Saravia-Rojas (2025).}
 \end{figure}
 
+\begin{figure}[htpb!]
+\centering
+\begin{tcolorbox}[colback=white, colframe=unmsm_gold, arc=3pt, boxrule=0.8pt, top=0.3cm, bottom=0.3cm, left=0.4cm, right=0.4cm]
+\centering
+\small\sffamily
+\textbf{Figura 5.3.} \textit{Interfaz de Ingesta Multimodal y Anclaje de Fuentes en Google NotebookLM}\\[0.25cm]
+\includegraphics[width=0.88\linewidth]{figuras/cap05/fig_p06_1.png}\\[0.2cm]
+\raggedright\scriptsize \textbf{Fuente:} Captura experimental obtenida en la plataforma oficial de Google NotebookLM (Grupo 2, 2026).
+\end{tcolorbox}
+\end{figure}
+
 \subsubsection{Matrices Comparativas y Evidencias Cuantitativas Consolidadas}
 
 A continuación, se presentan tres matrices tabulares analíticas que sintetizan la evidencia empírica acumulada en la literatura universitaria internacional sobre NotebookLM:
 
 \vspace{0.4cm}
-\textbf{Tabla 5.1.} \textit{Matriz Comparativa Multidimensional de Enfoques sobre NotebookLM en la Educación Superior}\\[0.1cm]
 \begin{table}[htpb!]
 \centering
+\small
+\textbf{Tabla 5.1.} \textit{Matriz Comparativa Multidimensional de Enfoques sobre NotebookLM en la Educación Superior}\\[0.25cm]
 \footnotesize
 \renewcommand{\arraystretch}{1.4}
 \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash\bfseries}p{2.6cm} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X}
@@ -378,9 +391,10 @@ Recomendación Clave & Escucha activa combinada con lectura guiada del PDF origi
 \end{table}
 
 \vspace{0.4cm}
-\textbf{Tabla 5.2.} \textit{Matriz de Extracción Estructurada de Evidencias Cuantitativas de la Revisión Sistemática sobre NotebookLM}\\[0.1cm]
 \begin{table}[htpb!]
 \centering
+\small
+\textbf{Tabla 5.2.} \textit{Matriz de Extracción Estructurada de Evidencias Cuantitativas de la Revisión Sistemática sobre NotebookLM}\\[0.25cm]
 \footnotesize
 \renewcommand{\arraystretch}{1.4}
 \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash\bfseries}p{2.8cm} >{\raggedright\arraybackslash}p{2.2cm} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X}
@@ -400,9 +414,10 @@ Tasa de Aprobación (Laines-Canepa) & 81.8\% aprobación & Frente a una tasa his
 \end{table}
 
 \vspace{0.4cm}
-\textbf{Tabla 5.3.} \textit{Matriz de Auditoría Metodológica de Sesgos, Alucinaciones y Vacíos Informativos (Gap Analysis)}\\[0.1cm]
 \begin{table}[htpb!]
 \centering
+\small
+\textbf{Tabla 5.3.} \textit{Matriz de Auditoría Metodológica de Sesgos, Alucinaciones y Vacíos Informativos (Gap Analysis)}\\[0.25cm]
 \footnotesize
 \renewcommand{\arraystretch}{1.4}
 \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash\bfseries}X >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X}
@@ -417,6 +432,17 @@ Alucinación Interpretativa Secundaria & Fusión indebida de dos conceptos formu
 \end{tabularx}
 \caption*{\scriptsize \textbf{Fuente:} Elaboración propia adaptada a partir de Alvariño-Pérez y Saravia-Rojas (2025) y Zapata (2025).}
 \end{table}
+
+\begin{figure}[htpb!]
+\centering
+\begin{tcolorbox}[colback=white, colframe=unmsm_gold, arc=3pt, boxrule=0.8pt, top=0.3cm, bottom=0.3cm, left=0.4cm, right=0.4cm]
+\centering
+\small\sffamily
+\textbf{Figura 5.4.} \textit{Espacio de Trabajo de NotebookLM y Cuadrícula Conceptual de Notas}\\[0.25cm]
+\includegraphics[width=0.88\linewidth]{figuras/cap05/fig_p15_1.png}\\[0.2cm]
+\raggedright\scriptsize \textbf{Fuente:} Captura experimental obtenida en el estudio de síntesis documental de NotebookLM (Grupo 2, 2026).
+\end{tcolorbox}
+\end{figure}
 
 % ==============================================================================
 % SECCIÓN 4: CASOS PRÁCTICOS APLICADOS (3 DISCIPLINAS)
@@ -564,7 +590,8 @@ El equipo procedió en tres etapas matemáticas secuenciales:
     \item \textbf{Modelado de Pruebas de Hipótesis y Estadísticos $t$ de Student:}
     Para el estudio de comprensión auditiva con audio talk-show reportado por Liu y Zhao (citado en Medina Huamán et al., 2026), se reportó un estadístico de prueba $t$ para muestras relacionadas con $n = 78$ participantes ($\mathrm{gl} = 78 - 1 = 77$ grados de libertad), con valor $t = 9.83$:
     \begin{equation}
-    t = \frac{\bar{D} - \mu_0}{S_D / \sqrt{n}} = 9.83, \quad \mbox{con } \mathrm{gl} = 77
+    t = \frac{\bar{D} - \mu_0}{s_e} = 9.83 \quad (\mathrm{gl} = 77, \; p < 0.001)
+    \label{eq:t_student_test}
     \end{equation}
     Para comprobar la significancia estricta, se modeló la función de densidad de probabilidad acumulada $F_t(x; \nu)$ mediante `scipy.stats`.
     

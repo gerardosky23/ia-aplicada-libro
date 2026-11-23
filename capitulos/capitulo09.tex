@@ -46,7 +46,7 @@ Frente a este cuello de botella, la literatura especializada en gestión del con
 
 La convergencia de las arquitecturas basadas en Transformers (Vaswani et al., 2017) y los modelos de codificación bidireccional densa (Devlin et al., 2019; Reimers \& Gurevych, 2019) ha revolucionado radicalmente la recuperación de literatura. Al transformar los resúmenes y textos completos en vectores densos en espacios de alta dimensionalidad ($\mathbf{R}^d$, típicamente con $d \in \{768, 1536\}$), los motores de búsqueda modernos calculan la similitud de coseno semántica:
 \begin{equation}
-\text{Sim}(\mathbf{u}, \mathbf{v}) = \frac{\mathbf{u} \cdot \mathbf{v}}{\|\mathbf{u}\|_2 \|\mathbf{v}\|_2} = \frac{\sum_{i=1}^d u_i v_i}{\sqrt{\sum_{i=1}^d u_i^2} \sqrt{\sum_{i=1}^d v_i^2}}
+\operatorname{Sim}(\mathbf{u}, \mathbf{v}) = \frac{\mathbf{u} \cdot \mathbf{v}}{\|\mathbf{u}\| \|\mathbf{v}\|}
 \end{equation}
 donde $\mathbf{u}$ representa la proyección vectorial de la pregunta de investigación y $\mathbf{v}$ representa el vector del documento candidato. Esta formulación permite trascender la coincidencia léxica literal y recuperar estudios metodológicamente relevantes independientemente de las divergencias terminológicas particulares de cada subcampo científico.
 
@@ -237,17 +237,17 @@ Ante la proliferación de textos producidos por modelos generativos en el ámbit
 
 Un modelo de lenguaje autorregresivo $\theta$ factoriza la probabilidad conjunta de una secuencia de $N$ tokens $W = (w_1, w_2, \dots, w_N)$ mediante la regla de la cadena de probabilidades condicionales:
 \begin{equation}
-P_\theta(W) = \prod_{i=1}^N P_\theta(w_i \mid w_1, w_2, \dots, w_{i-1})
+P_\theta(W) = \prod\nolimits_{i=1}^N P_\theta(w_i \mid w_1, w_2, \dots, w_{i-1})
 \end{equation}
 
 A partir de esta probabilidad, se define formalmente la \textbf{entropía cruzada media} $\mathcal{H}_\theta(W)$ de la secuencia respecto al modelo como:
 \begin{equation}
-\mathcal{H}_\theta(W) = -\frac{1}{N} \sum_{i=1}^N \ln P_\theta(w_i \mid w_1, \dots, w_{i-1})
+\mathcal{H}_\theta(W) = -\frac{1}{N} \sum\nolimits_{i=1}^N \ln P_\theta(w_i \mid w_1, \dots, w_{i-1})
 \end{equation}
 
 La \textbf{Perplejidad} ($\text{PPL}$) se define operacionalmente como la función exponencial de la entropía cruzada media (Shannon, 1948; Sankar et al., 2023):
 \begin{equation}
-\text{PPL}_\theta(W) = \exp\left( \mathcal{H}_\theta(W) \right) = \exp\left( -\frac{1}{N} \sum_{i=1}^N \ln P_\theta(w_i \mid w_1, \dots, w_{i-1}) \right)
+\operatorname{PPL}_\theta(W) = \exp\bigl( \mathcal{H}_\theta(W) \bigr) = \exp\left( -\frac{1}{N} \sum\nolimits_{i=1}^N \ln P_\theta(w_i \mid w_{<i}) \right)
 \end{equation}
 
 \textit{Interpretación Analítica:} La perplejidad cuantifica el "desconcierto" o grado de sorpresa que experimenta el modelo probabilístico al predecir el siguiente token de la secuencia. Un valor bajo de perplejidad ($\text{PPL} \in [10, 35]$) indica que las palabras seleccionadas poseen una probabilidad condicional muy alta según la distribución estadística paramétrica del modelo, lo cual es característico del texto generado por LLMs guiados por estrategias de decodificación como \textit{greedy decoding} o \textit{nucleus sampling} de baja temperatura. En contraste, la redacción humana espontánea suele incorporar selecciones léxicas inesperadas, neologismos y términos de baja frecuencia en el corpus, produciendo picos notables de perplejidad ($\text{PPL} > 60$).
@@ -256,7 +256,7 @@ La segunda métrica medular es la \textbf{Variabilidad Sintáctica o Burstiness}
 
 Sea un documento compuesto por $M$ oraciones, donde $L_k$ denota la longitud (en número de palabras o tokens) de la $k$-ésima oración para $k \in \{1, 2, \dots, M\}$. Se definen la media muestral $\mu_L$ y la desviación estándar muestral $\sigma_L$ como:
 \begin{equation}
-\mu_L = \frac{1}{M} \sum_{k=1}^M L_k, \qquad \sigma_L = \sqrt{\frac{1}{M-1} \sum_{k=1}^M (L_k - \mu_L)^2}
+\mu_L = \frac{1}{M} \sum\nolimits_{k=1}^M L_k, \qquad \sigma_L = \left[ \frac{1}{M-1} \sum\nolimits_{k=1}^M (L_k - \mu_L)^2 \right]^{1/2}
 \end{equation}
 
 La métrica normalizada de \textbf{Burstiness} ($B$) se formula como el coeficiente de dispersión relativo:
@@ -286,9 +286,9 @@ El ataque adversarial más devastador y rigurosamente documentado contra los cla
     \item \textbf{Reordenamiento de Oraciones ($O \in [0, 100]$):} Controla el nivel de reestructuración de cláusulas y la alteración de la secuencia discursiva a escala de párrafo, transformando oraciones simples en pasivas, combinando enunciados o invirtiendo causas y consecuencias.
 \end{enumerate}
 
-Matemáticamente, la aplicación de DIPPER sobre una secuencia de texto sintético $W$ produce una secuencia transformada $\widetilde{W} = \text{DIPPER}(W; L, O)$. Al forzar $L \ge 60$ y $O \ge 60$, la distribución de probabilidad condicional de los tokens se altera sustancialmente:
+Matemáticamente, la aplicación de DIPPER sobre una secuencia de texto sintético $W$ produce una secuencia transformada $W\prime = \operatorname{DIPPER}(W; L, O)$. Al forzar $L \ge 60$ y $O \ge 60$, la distribución de probabilidad condicional de los tokens se altera sustancialmente:
 \begin{equation}
-\mathcal{H}_\theta(\widetilde{W}) \gg \mathcal{H}_\theta(W) \implies \text{PPL}(\widetilde{W}) \gg \text{PPL}(W), \quad B(\widetilde{W}) > B(W)
+\mathcal{H}_\theta(W\prime) \gg \mathcal{H}_\theta(W) \implies \operatorname{PPL}(W\prime) \gg \operatorname{PPL}(W), \quad B(W\prime) > B(W)
 \end{equation}
 
 El impacto empírico es demoledor. En la evaluación conducida por Krishna et al. (2023) sobre diversos detectores de texto líderes (incluyendo GPTZero, DetectGPT de Mitchell et al., 2023, y clasificadores basados en RoBERTa), la tasa de verdaderos positivos ($\text{TPR}$) colapsó de un $98.4\%$ inicial en texto directo de GPT a valores inferiores al $14.2\%$ tras una sola pasada de parafraseo con DIPPER, manteniendo inalterada la fidelidad semántica original del contenido.

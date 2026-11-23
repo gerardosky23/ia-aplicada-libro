@@ -47,7 +47,7 @@ En un entorno probabilístico riguroso, este objetivo equivale a maximizar la lo
 \begin{equation}
 \max_\theta \mathbf{E}_{x \sim p_{\mathrm{data}}(x)} \left[ \log p_\theta(x) \right] \iff \min_\theta D_{\mathrm{KL}}(p_{\mathrm{data}}(x) \parallel p_\theta(x))
 \end{equation}
-donde $D_{\mathrm{KL}}$ denota la divergencia de Kullback-Leibler. Sin embargo, en espacios de alta dimensionalidad (por ejemplo, imágenes en resolución nativa de $512 \times 512 \times 3 \approx 7.86 \times 10^5$ dimensiones), la densidad marginal $p_\theta(x) = \int p_\theta(x, z) dz$ resulta analíticamente intratable debido a la presencia de múltiples variables latentes no observadas $z$ y la naturaleza altamente no lineal de la variedad geométrica sobre la cual residen las imágenes naturales (Kingma \& Welling, 2013).
+donde $D_{\mathrm{KL}}$ denota la divergencia de Kullback-Leibler. Sin embargo, en espacios de alta dimensionalidad (por ejemplo, imágenes en resolución nativa de $512 \times 512 \times 3 \approx 7.86 \times 10^5$ dimensiones), la densidad marginal $p_\theta(x)$ obtenida al integrar sobre las variables latentes $z$ resulta analíticamente intratable debido a la presencia de múltiples variables latentes no observadas $z$ y la naturaleza altamente no lineal de la variedad geométrica sobre la cual residen las imágenes naturales (Kingma \& Welling, 2013).
 
 Para soslayar esta intratabilidad, la literatura de aprendizaje profundo ha formulado distintas aproximaciones metodológicas para modelar distribuciones complejas, dando origen a diversas familias arquitectónicas cuyas propiedades matemáticas determinan su estabilidad, calidad perceptual y costo computacional.
 
@@ -70,7 +70,7 @@ Históricamente, cuatro grandes paradigmas han precedido y enriquecido el surgim
     
     \item \textbf{Modelos Autorregresivos (ARM):} Factorizan la densidad conjunta de los datos mediante la regla de la cadena de probabilidades:
     \begin{equation}
-    p_\theta(x) = \prod_{i=1}^N p_\theta(x_i \mid x_{<i})
+    p_\theta(x) = \prod\nolimits_{i=1}^N p_\theta(x_i \mid x_{<i})
     \end{equation}
     utilizando redes recurrentes o Transformers visuales (Image Transformer, VQ-GAN autorregresivo). Si bien proporcionan un cálculo exacto y tractable de la verosimilitud sin aproximaciones variacionales ni juegos minimax, su proceso de generación es estrictamente secuencial píxel a píxel o token a token, volviendo la inferencia computacionalmente prohibitiva para resoluciones medianas y altas.
     
@@ -99,7 +99,7 @@ Autoencoders Variacionales (VAE) & Maximización del ELBO con regularización KL
 \midrule
 Redes Adversarias (GAN) & Juego minimax bi-jugador entre Generador y Discriminador: $\min_G \max_D V(D,G)$ & Extraordinaria nitidez perceptual y velocidad de síntesis en tiempo real & Inestabilidad de entrenamiento; colapso de modos (\textit{mode collapse}); gradientes nulos & Ultrarrápido ($O(1)$, pase directo por generador) \\
 \midrule
-Modelos Autorregresivos (ARM) & Factorización secuencial de la densidad:\\[0.05cm] $p(x) = \prod_i p(x_i \mid x_{<i})$\\[0.05cm] mediante Transformers & Modelado exacto de dependencias de largo alcance; verosimilitud exacta sin aproximación & Inferencia secuencial extremadamente lenta; alto consumo de memoria & Muy Lento ($O(N)$, paso por cada píxel o token visual) \\
+Modelos Autorregresivos (ARM) & Factorización autorregresiva de la densidad conjunta sobre tokens visuales mediante Transformers & Modelado exacto de dependencias de largo alcance; verosimilitud exacta sin aproximación & Inferencia secuencial extremadamente lenta; alto consumo de memoria & Muy Lento ($O(N)$, paso por cada píxel o token visual) \\
 \midrule
 Flujos Normalizados (Flows) & Transformación invertible de variables mediante matriz Jacobiana:\\[0.05cm] $p(x) = p(z)|\det J_f^{-1}|$ & Cálculo analítico de verosimilitud exacta e inferencia invertible bidireccional & Restricción topológica de invertibilidad; alto requerimiento de memoria y parámetros & Rápido ($O(1)$, evaluación analítica directa) \\
 \midrule
@@ -216,14 +216,14 @@ donde:
 \end{equation}
 Sustituyendo la expresión de inversión $x_0 = \frac{1}{\sqrt{\bar{\alpha}_t}} \left( x_t - \sqrt{1 - \bar{\alpha}_t} \epsilon \right)$ en la ecuación de $\tilde{\mu}_t$, obtenemos la parametrización de la media en función del ruido inyectado $\epsilon$:
 \begin{equation}
-\tilde{\mu}_t(x_t, \epsilon) = \frac{1}{\sqrt{\alpha_t}} \left( x_t - \frac{\beta_t}{\sqrt{1 - \bar{\alpha}_t}} \epsilon \right)
+\tilde{\mu}_t(x_t, \epsilon) = \frac{1}{\sqrt{\alpha_t}} \left( x_t - \frac{\beta_t}{\sigma_t} \epsilon \right), \quad \sigma_t = \sqrt{1 - \bar{\alpha}_t}
 \end{equation}
 
 \subsubsection{La Función Objetivo Simplificada $L_{\mathrm{simple}}(\theta)$ y Parametrización del Ruido}
 
 Si parametrizamos la media de la red neuronal $p_\theta(x_{t-1}|x_t)$ emulando la estructura óptima $\tilde{\mu}_t$:
 \begin{equation}
-\mu_\theta(x_t, t) = \frac{1}{\sqrt{\alpha_t}} \left( x_t - \frac{\beta_t}{\sqrt{1 - \bar{\alpha}_t}} \epsilon_\theta(x_t, t) \right)
+\mu_\theta(x_t, t) = \frac{1}{\sqrt{\alpha_t}} \left( x_t - \frac{\beta_t}{\sigma_t} \epsilon_\theta(x_t, t) \right)
 \end{equation}
 la divergencia KL entre dos distribuciones gaussianas con matrices de covarianza proporcionales $\Sigma_\theta(x_t, t) = \sigma_t^2 \mathbf{I}$ se reduce a:
 \begin{equation}
@@ -246,7 +246,7 @@ dx = f(x, t) dt + g(t) dw
 \end{equation}
 donde $f(x, t): \mathbf{R}^d \times [0, T] \to \mathbf{R}^d$ es el coeficiente de deriva (\textit{drift}), $g(t): [0, T] \to \mathbf{R}$ es el coeficiente de difusión, y $w \in \mathbf{R}^d$ es un proceso de Wiener browniano estándar. Para el caso correspondiente a DDPM (denominado \textit{Variance Preserving SDE}, VP-SDE):
 \begin{equation}
-f(x, t) = -\frac{1}{2} \beta(t) x, \quad g(t) = \sqrt{\beta(t)}
+f(x, t) = -\tfrac{1}{2} \beta(t) x, \quad g(t) = \sqrt{\beta(t)}
 \end{equation}
 
 Fundamentándose en los teoremas de inversión temporal estocástica de Anderson (1982), Song et al. (2020) demostraron que el proceso que revierte el tiempo desde $t=T$ hasta $t=0$ está gobernado exactamente por la SDE en tiempo inverso:
@@ -257,14 +257,14 @@ donde $d\bar{w}$ es un proceso de Wiener estándar que fluye hacia atrás en el 
 
 La red neuronal $\epsilon_\theta(x_t, t)$ entrenada bajo $\mathcal{L}_{\mathrm{simple}}$ se vincula directamente con la función de puntuación mediante la relación analítica exacta:
 \begin{equation}
-s_\theta(x_t, t) = \nabla_x \log p_t(x_t) \approx - \frac{\epsilon_\theta(x_t, t)}{\sqrt{1 - \bar{\alpha}_t}}
+s_\theta(x_t, t) = \nabla_x \log p_t(x_t) \approx - \frac{\epsilon_\theta(x_t, t)}{\sigma_t}
 \end{equation}
 
 \subsubsection{La ODE de Flujo de Probabilidad (Probability Flow ODE) y Muestreo Acelerado}
 
 Uno de los resultados teóricos más trascendentes de la formulación en tiempo continuo es la existencia de una Ecuación Diferencial Ordinaria determinista asociada, denominada \textit{Probability Flow ODE}, cuyas curvas integrales reproducen exactamente las mismas distribuciones marginales $p_t(x)$ que la SDE estocástica:
 \begin{equation}
-\frac{dx}{dt} = f(x, t) - \frac{1}{2} g(t)^2 \nabla_x \log p_t(x) = -\frac{1}{2} \beta(t) \left[ x + \frac{\epsilon_\theta(x, t)}{\sqrt{1 - \bar{\alpha}_t}} \right]
+\frac{dx}{dt} = f(x, t) - \tfrac{1}{2} g(t)^2 \nabla_x \log p_t(x) = -\tfrac{1}{2} \beta(t) \left[ x + \frac{\epsilon_\theta(x, t)}{\sigma_t} \right]
 \end{equation}
 
 Esta formulación determinista ofrece ventajas fundamentales:
@@ -296,7 +296,7 @@ La Figura 8.1 ilustra la dinámica de Markov y la reversión de entropía que fu
 
     % Flechas proceso inverso (Reverse)
     \path [->, thick, draw=unmsm_darkred] (xT) edge [bend left=25] node [below] {\scriptsize $p_\theta(x_{T-1}|x_T)$} (xtm1);
-    \path [->, thick, draw=unmsm_darkred, dashed] (xtm1) edge [bend left=25] node [below] {\scriptsize $-\frac{\beta_t}{\sqrt{1-\bar{\alpha}_t}}\epsilon_\theta$} (x1);
+    \path [->, thick, draw=unmsm_darkred, dashed] (xtm1) edge [bend left=25] node [below=2pt] {\scriptsize $-\beta_t \epsilon_\theta / \sigma_t$} (x1);
     \path [->, thick, draw=unmsm_darkred] (x1) edge [bend left=25] node [below] {\scriptsize $p_\theta(x_0|x_1)$} (x0);
 
     % Anotaciones separadas verticalmente
@@ -369,7 +369,7 @@ Q = \phi_i(z_t) W_Q^{(i)}, \quad K = \tau_\theta(y) W_K^{(i)}, \quad V = \tau_\t
 \end{equation}
 La operación de atención cruzada calcula la compatibilidad producto-punto escalada entre cada posición espacial de la imagen latente y todos los tokens del texto descriptivo:
 \begin{equation}
-\mathrm{Attention}(Q, K, V) = \mathrm{softmax}\left( \frac{Q K^T}{\sqrt{d_\epsilon}} \right) V
+\mathrm{Attention}(Q, K, V) = \operatorname{softmax}\bigl( (Q K^\top) / \sqrt{d_\epsilon} \bigr) V
 \end{equation}
 La matriz de pesos de atención $A = \mathrm{softmax}(Q K^T / \sqrt{d_\epsilon}) \in \mathbf{R}^{N \times M}$ gobierna explícitamente qué regiones espaciales latentes responden a palabras clave específicas del prompt, permitiendo un direccionamiento semántico local y desagregado.
 
@@ -377,7 +377,7 @@ La matriz de pesos de atención $A = \mathrm{softmax}(Q K^T / \sqrt{d_\epsilon})
 
 El codificador de texto $\tau_\theta$ no se entrena desde cero con la U-Net, sino que se hereda de modelos fundacionales multimodales entrenados con objetivos contrastivos sobre cientos de millones de pares imagen-texto web, tales como CLIP (\textit{Contrastive Language-Image Pretraining}, Radford et al., 2021) u OpenCLIP (Cherti et al., 2023).
 
-CLIP proyecta imágenes y textos hacia un espacio euclidiano compartido de representaciones semánticas donde pares alineados maximizan su similitud coseno $\cos(u, v) = \frac{u \cdot v}{\|u\|_2 \|v\|_2}$. Al utilizar las activaciones de la penúltima capa del codificador de texto de CLIP (ViT-L/14 en SD 1.5, ViT-H/14 en SD 2.1), la U-Net recibe representaciones ricas en conceptos ontológicos, atributos estéticos y relaciones espaciales, sin necesidad de aprender la estructura gramatical del lenguaje durante el costoso proceso de difusión.
+CLIP proyecta imágenes y textos hacia un espacio euclidiano compartido de representaciones semánticas donde pares alineados maximizan su similitud coseno $\cos(u, v) = (u \cdot v) / (\|u\| \|v\|)$. Al utilizar las activaciones de la penúltima capa del codificador de texto de CLIP (ViT-L/14 en SD 1.5, ViT-H/14 en SD 2.1), la U-Net recibe representaciones ricas en conceptos ontológicos, atributos estéticos y relaciones espaciales, sin necesidad de aprender la estructura gramatical del lenguaje durante el costoso proceso de difusión.
 
 La Figura 8.2 esquematiza la arquitectura global de este sistema bi-etápico.
 
@@ -556,7 +556,7 @@ La evaluación cuantitativa de los modelos generativos visuales constituye un pr
 
 \subsubsection{Inception Score (IS): Formulación Matemática y Limitaciones Epistémicas}
 
-Propuesto originalmente por Salimans et al. (2016) para evaluar GANs, el \textit{Inception Score} (IS) cuantifica la calidad y diversidad evaluando las predicciones de un clasificador de objetos preentrenado (habitualmente Inception-v3 sobre ImageNet). Sea $p(y|x)$ la distribución condicional de etiquetas generada por el clasificador para la imagen sintetizada $x$, y sea $p(y) = \int p(y|x) p_g(x) dx$ la distribución marginal promedio de clases sobre todo el conjunto generado.
+Propuesto originalmente por Salimans et al. (2016) para evaluar GANs, el \textit{Inception Score} (IS) cuantifica la calidad y diversidad evaluando las predicciones de un clasificador de objetos preentrenado (habitualmente Inception-v3 sobre ImageNet). Sea $p(y|x)$ la distribución condicional de etiquetas generada por el clasificador para la imagen sintetizada $x$, y sea la distribución marginal $p(y) = \mathbf{E}_{x \sim p_g}[p(y \mid x)]$ promedio de clases sobre todo el conjunto generado.
 
 El IS se define formalmente como:
 \begin{equation}

@@ -53,7 +53,7 @@ La arquitectura fundacional que sustenta la totalidad de los modelos de lenguaje
 
 Matemáticamente, para cada token se proyectan tres matrices de pesos entrenables: Consultas ($Q \in \mathbf{R}^{n \times d_k}$), Claves ($K \in \mathbf{R}^{n \times d_k}$) y Valores ($V \in \mathbf{R}^{n \times d_v}$). El cálculo de los pesos de atención escalada se formaliza mediante la expresión:
 \begin{equation}
-\mathrm{Attention}(Q, K, V) = \mathrm{softmax}\left( \frac{QK^T}{\sqrt{d_k}} \right) V
+\mathrm{Attention}(Q, K, V) = \operatorname{softmax}\bigl( (Q K^\top) / \sqrt{d_k} \bigr) V
 \end{equation}
 donde el factor $\sqrt{d_k}$ actúa como un estabilizador numérico que previene la saturación prematura de la función $\mathrm{softmax}$ en espacios de alta dimensionalidad. A través de múltiples cabezales paralelos de atención y capas no lineales de proyección (\textit{Feed-Forward Networks}), el modelo aprende a asignar coeficientes de relevancia diferencial a relaciones sintácticas de largo alcance, concordancias gramaticales y correlaciones temáticas.
 
