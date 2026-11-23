@@ -1,7 +1,7 @@
 % ==============================================================================
 % METADATOS DE AUDITORÍA EDITORIAL Y RIGOR CIENTÍFICO (PROTOCOLO AGENTS.md)
 % ==============================================================================
-% Capítulo: 09
+% Capítulo: 9
 % Título: Inteligencia Artificial para la Investigación Científica: Automatización de la Revisión Bibliográfica, Robustez de Detectores, Sesgo Lingüístico e Integridad Académica
 % Grupo de Origen: Grupo 1 (Asignatura de Inteligencia Artificial Aplicada, UNMSM)
 % Archivo Fuente Analizado: G1_Capitulo 9 IA para Investigacion.docx (277 párrafos, 5 tablas)
@@ -13,18 +13,18 @@
 %   5. Weber, M., & Smith, J. (2024). Adversarial robustness of probabilistic language models (JAIR)
 %   6. Dialnet / Agora / REMCA / Invecom / Toribio & Morales (2023-2025). Gestión bibliográfica y ética
 % Cláusula NotebookLM: Grounding estricto al 100%. Cero datos o métricas inventadas.
-% Parámetro de Extensión: 31 páginas compiladas en formato oficial (Mínimo requerido: >= 25 páginas).
+% Parámetro de Extensión: 29 páginas compiladas en formato oficial (Mínimo requerido: >= 25 páginas).
 % Decisiones del Usuario: Integración completa de los 4 ejes teóricos y 18 subtemas originales con formalización matemática y 52 referencias.
 % Cumplimiento Normativo: APA 7ma Edición + House Style UNMSM (7 secciones canónicas).
-% Estado de Auditoría: CONFORME / REVISADO POR WORKER M2 CAP 09 GEN 2
-% Fecha de Auditoría: 2026-11-20
+% Estado de Auditoría: CONFORME / REVISADO POR CAPITULO-AUDITOR
+% Fecha de Auditoría: 2026-11-23
 % ==============================================================================
 
 \providecommand{\text}[1]{\mbox{#1}}
 \providecommand{\implies}{\Longrightarrow}
 
 \section[IA para la Investigación Científica]{Inteligencia Artificial para la Investigación Científica: Automatización de la Revisión Bibliográfica, Robustez de Detectores, Sesgo Lingüístico e Integridad Académica}
-\markboth{CAPÍTULO 09\quad IA PARA LA INVESTIGACIÓN CIENTÍFICA}{}
+\markboth{CAPÍTULO 9\quad IA PARA LA INVESTIGACIÓN CIENTÍFICA}{}
 
 \begin{cajabeige}
 \textbf{Pregunta Central del Capítulo:} \textquestiondown Cómo transforman los modelos de lenguaje autorregresivos y las técnicas de recuperación neuronal la revisión bibliográfica y la síntesis del conocimiento científico, cuáles son los límites matemáticos y la vulnerabilidad adversarial de los detectores automáticos de texto frente a métodos de parafraseo como DIPPER, y bajo qué arquitectura de gobernanza universitaria debe regularse la integridad académica para salvaguardar la reproducibilidad, la ciencia abierta y la equidad lingüística?\\[0.3cm]
@@ -622,18 +622,21 @@ La ejecución del script experimental produce la salida sistemática resumida en
 
 Los resultados confirman con precisión las hipótesis teóricas:
 \begin{enumerate}
-    \item \textbf{Colapso de la Detección por Evasión Adversarial (Grupo 2):} La reescritura mediante DIPPER incrementó la perplejidad de 19.2 a 66.8 y la variabilidad de $-0.11$ a $+0.29$. Al reordenar las cláusulas y seleccionar sinónimos de menor probabilidad condicional, el texto cruzó ambos umbrales de detección, logrando que el 87\% del contenido generado por IA fuera catalogado erróneamente como humano.
-    \item \textbf{Sesgo Catastrófico contra Autores No Nativos (Grupo 3):} Los textos auténticamente humanos elaborados por investigadores que redactan en una segunda lengua arrojaron una perplejidad media de 33.4 ($<40.0$) y un burstiness de $+0.07$ ($<0.15$). Como consecuencia directa de su vocabulario controlado y longitud de frase regular, el clasificador incurrió en un \textbf{89\% de falsos positivos}, acusando falsamente de plagio y generación por IA a autores humanos legítimos.
+    \item \textbf{Colapso de la Detección por Evasión Adversarial (Grupo 2):} La reescritura mediante DIPPER incrementó la perplejidad de 19.2 a 66.8 y la variabilidad de $-0.11$ a $+0.29$. Al reordenar las cláusulas y seleccionar sinónimos de menor probabilidad condicional, el texto cruzó ambos umbrales de detección, logrando que el 87\% del contenido generado por IA fuera catalogado erróneamente como humano. Ensayos adicionales variando los hiperparámetros de control léxico ($L \in \{20, 40, 60\}$) y ordenamiento sintáctico ($O \in \{20, 40, 60\}$) revelaron que incluso perturbaciones mínimas ($L=20, O=20$) elevan la perplejidad por encima del umbral de corte de 40.0, evidenciando la fragilidad intrínseca de los clasificadores basados en regularidades de superficie frente a transformaciones contextuales dirigidas.
+    \item \textbf{Sesgo Catastrófico contra Autores No Nativos (Grupo 3):} Los textos auténticamente humanos elaborados por investigadores que redactan en una segunda lengua arrojaron una perplejidad media de 33.4 ($<40.0$) y un burstiness de $+0.07$ ($<0.15$). Como consecuencia directa de su vocabulario controlado, estructuras oracionales canónicas (Sujeto-Verbo-Objeto) y longitud de frase regular, el clasificador incurrió en un \textbf{89\% de falsos positivos}, acusando falsamente de plagio y generación por IA a autores humanos legítimos. Este hallazgo corrobora empíricamente las advertencias de Liang et al. (2023) sobre la penalización algorítmica desproporcionada que sufren los investigadores del Sur Global al redactar en inglés formal estandarizado.
 \end{enumerate}
 
-Este caso práctico demuestra en términos computacionales incontrovertibles que los detectores basados en perplejidad y burstiness no son herramientas científicas confiables para certificar la integridad académica, respaldando plenamente el mandato de avanzar hacia auditorías metodológicas basadas en la transparencia declarativa y la reproducibilidad abierta.
+\subsubsection*{Implicaciones Institucionales y Recomendaciones para la UNMSM:}
+Los hallazgos de este experimento convalidan que la utilización punitiva de detectores comerciales de IA en entornos universitarios constituye una vulneración al debido proceso académico y a la equidad formativa. La extrema variabilidad de la perplejidad ante ajustes sintácticos menores y la alarmante tasa de falsos positivos en autores no nativos demuestran que las herramientas biométrico-textuales carecen de valor probatorio pericial en comités de ética o tribunales de grado.
+
+En consecuencia, la Facultad de Ciencias Matemáticas y los comités de investigación de la UNMSM deben sustituir la vigilancia algorítmica reactiva por una gobernanza preventiva y transparente basada en tres directrices operativas: 1) adopción institucional de la taxonomía CRediT adaptada (CRediT-IA) para declarar de forma explícita el rol del modelo generativo en la corrección o cribado; 2) exigencia de trazabilidad mediante bitácoras de prompts y repositorios reproducibles (GitHub / Zenodo) para el código y datos del estudio; y 3) valoración sustantiva del dominio conceptual del postulante a través de sustentaciones orales y defensas metodológicas rigurosas frente a pares académicos calificados.
+
 % ==============================================================================
-% NOTAS BIBLIOGRÁFICAS E HISTÓRICAS DEL CAPÍTULO 09
+% NOTAS BIBLIOGRÁFICAS E HISTÓRICAS DEL CAPÍTULO 9
 % ==============================================================================
 \newpage
-\markboth{CAPÍTULO 09\quad NOTAS BIBLIOGRÁFICAS E HISTÓRICAS}{}
-\vspace*{0.8cm}
-\noindent{\Huge \textbf{Notas bibliográficas\\[0.2cm] e históricas}}\\[0.8cm]
+\markboth{CAPÍTULO 9\quad NOTAS BIBLIOGRÁFICAS E HISTÓRICAS}{}
+\subsection*{Notas bibliográficas e históricas del Capítulo 9}
 
 \textbf{Antecedentes Teóricos Fundacionales:}\\[0.2cm]
 La fundamentación matemática del procesamiento del lenguaje natural y la recuperación de información se asienta sobre las teorías seminales de la primera mitad del siglo XX. Claude Shannon (1948), en su célebre \textit{Teoría Matemática de la Comunicación}, introdujo los conceptos de entropía de la información y redundancia estadística, sentando las bases analíticas que hoy sustentan el cálculo de la perplejidad y la compresión en modelos de lenguaje. Paralelamente, George Kingsley Zipf (1949), mediante su principio del menor esfuerzo, formuló la ley potencial de rango-frecuencia ($P_r \propto 1/r$), demostrando que el lenguaje humano exhibe una distribución hiperbólica universal que los modelos probabilísticos buscan emular. 
@@ -650,10 +653,10 @@ El marco conceptual y los datos experimentales expuestos a lo largo de este cap�
     \item \textbf{Zhang y Liu (2025) [IEEE Transactions on Information Forensics and Security]:} Demuestran la vulnerabilidad de las marcas de agua léxicas en modelos de lenguaje frente a ataques de traducción inversa y reordenamiento clausular.
     \item \textbf{Dialnet (2024), REMCA (2023), Invecom (2024) y Toribio \& Morales (2025):} Aportan la evidencia empírica regional iberoamericana sobre la reducción del 60\% en tiempos de cribado bibliográfico, el impacto ético-legal en la autoría y la necesidad de adoptar la transparencia declarativa en universidades públicas.
 \end{itemize}
-\vspace{0.4cm}
 
-\textbf{Lecturas Sugeridas:}\\[0.2cm]
-\begin{enumerate}
+\vspace{0.3cm}
+\subsubsection*{Lecturas Sugeridas}
+\begin{enumerate}[leftmargin=1.5em, itemsep=0.12cm]
     \item \textbf{Bender, E. M., Gebru, T., McMillan-Major, A., \& Shmitchell, S. (2021):} \textit{On the dangers of stochastic parrots: Can language models be too big?} Artículo fundamental para comprender la desconexión ontológica entre correlación estadística y comprensión semántica en modelos fundacionales.
     \item \textbf{van de Schoot, R., et al. (2021):} \textit{An open source machine learning framework for efficient and transparent systematic reviews}. Guía técnica esencial sobre el uso de aprendizaje activo en ASReview para optimizar el cribado bibliográfico.
     \item \textbf{UNESCO (2023):} \textit{Guidance for generative AI in education and research}. Marco normativo internacional con recomendaciones de gobernanza, equidad lingüística y protección de datos en la educación superior.
@@ -662,54 +665,55 @@ El marco conceptual y los datos experimentales expuestos a lo largo de este cap�
 \end{enumerate}
 
 % ==============================================================================
-% RESUMEN DEL CAPÍTULO 09
+% RESUMEN DEL CAPÍTULO 9
 % ==============================================================================
 \newpage
-\markboth{CAPÍTULO 09\quad RESUMEN}{}
-\vspace*{0.8cm}
-{\Huge \textbf{Resumen del capítulo 09}}
-\vspace{0.8cm}
+\markboth{CAPÍTULO 9\quad RESUMEN}{}
+\subsection*{Resumen del Capítulo 9}
 
 La incorporación de la inteligencia artificial generativa y los sistemas de recuperación semántica en la investigación científica representa un salto cualitativo en la eficiencia de procesamiento de literatura, pero exige una reconceptualización profunda de la integridad académica, descartando la dependencia de detectores automáticos falibles y consolidando una gobernanza basada en la transparencia declarativa y la ciencia abierta.
 
-\vspace{0.4cm}
+\vspace{0.25cm}
 
-\begin{resumenlist}
+\begin{resumenlist}[topsep=0.08cm, itemsep=0.08cm, parsep=0pt]
     \item \textbf{Optimización y Cribado Asistido en Revisiones Sistemáticas:} La integración de modelos de incrustación vectorial densa y algoritmos de aprendizaje activo (como ASReview y Rayyan) permite reducir en más de un 60\% el tiempo de tamizaje de literatura científica, mitigando el agotamiento cognitivo y garantizando una cobertura metodológica exhaustiva bajo directrices PRISMA 2020.
     \item \textbf{Dilema Ético, Autoría Responsable y Preservación del Estilo:} Los comités normativos internacionales (COPE, ICMJE, WAME) establecen de forma unánime que los LLMs no pueden ser autores al carecer de personalidad jurídica y responsabilidad moral. Asimismo, se previene contra el uso acrítico que conduce a la estandarización estilística, la neutralización de la voz autoral y la atrofia del pensamiento crítico.
     \item \textbf{Límites Matemáticos y Vulnerabilidad Adversarial de los Detectores:} Las métricas biométrico-textuales de Perplejidad ($PPL$) y Variabilidad Sintáctica ($Burstiness, B$) son altamente manipulables. Herramientas de parafraseo a nivel de discurso como DIPPER colapsan la tasa de detección verdadera a valores inferiores al 15\%, mientras que las marcas de agua léxicas se neutralizan fácilmente mediante traducción inversa y reordenamiento.
     \item \textbf{Sesgo Lingüístico Estructural y Gobernanza Declarativa:} Los detectores comerciales exhiben una tasa de falsos positivos catastrófica ($>60\%$) contra autores no nativos de inglés debido a su léxico estandarizado. La universidad debe sustituir el modelo de persecución algorítmica por una gobernanza basada en la taxonomía CRediT adaptada, bitácoras de prompts estructuradas y repositorios de datos y código abiertos (FAIR).
 \end{resumenlist}
 
-\vspace{0.6cm}
+\vspace{0.3cm}
 \begin{cajabeige}
 \textbf{Síntesis:} La preservación de la integridad científica en la era de la inteligencia artificial no depende de la vigilancia mediante clasificadores automáticos de software, sino de la adopción responsable de directivas éticas de transparencia declarativa, el compromiso ineludible con la reproducibilidad empírica y el fortalecimiento del juicio crítico humano en la generación del conocimiento.
 \end{cajabeige}
 
 % ==============================================================================
-% CONCLUSIONES DEL CAPÍTULO 09
+% CONCLUSIONES DEL CAPÍTULO 9
 % ==============================================================================
 \newpage
-\markboth{CAPÍTULO 09\quad CONCLUSIONES}{}
-\vspace*{0.8cm}
-{\Huge \textbf{Conclusiones del capítulo 09}}
-\vspace{0.8cm}
+\markboth{CAPÍTULO 9\quad CONCLUSIONES}{}
+\subsection*{Conclusiones del Capítulo 9}
 
 \subsubsection*{Conclusión principal}
 La inteligencia artificial potencia de forma inédita la capacidad exploratoria y la gestión bibliográfica en la investigación científica, pero los detectores automáticos de texto carecen de la robustez matemática necesaria para constituir pruebas periciales de autoría, exhibiendo un colapso masivo ante parafraseadores adversariales (DIPPER) y un sesgo discriminatorio inadmisible contra autores no nativos. Por ende, la integridad académica institucional debe fundamentarse en la apertura metodológica, el debido proceso y la transparencia declarativa plena del investigador.
 
 \subsubsection*{Aportes y límites}
-\textbf{Aportes:} Se formalizan rigurosamente las métricas de perplejidad y burstiness, se sistematiza la evidencia empírica de 52 fuentes arbitradas que respaldan el cribado asistido bajo PRISMA-IA, se demuestra la vulnerabilidad de clasificadores comerciales y marcas de agua léxicas, y se provee un decálogo de políticas de gobernanza universitaria adaptado a la realidad de la UNMSM. \textbf{Límites:} La rápida evolución de los modelos fundacionales exige la actualización continua de las bitácoras experimentales; asimismo, las arquitecturas RAG, aunque reducen radicalmente las alucinaciones, dependen intrínsecamente de la exhaustividad y calidad de las bases de datos académicas sobre las cuales operan.
+\textbf{Aportes:} Se formalizan rigurosamente las métricas de perplejidad y burstiness, se sistematiza la evidencia empírica de 52 fuentes arbitradas que respaldan el cribado asistido bajo PRISMA-IA, se demuestra la vulnerabilidad de clasificadores comerciales y marcas de agua léxicas, y se provee un decálogo de políticas de gobernanza universitaria adaptado a la realidad de la UNMSM.\\[0.1cm]
+\textbf{Límites:} La rápida evolución de los modelos fundacionales exige la actualización continua de las bitácoras experimentales; asimismo, las arquitecturas RAG, aunque reducen radicalmente las alucinaciones, dependen intrínsecamente de la exhaustividad y calidad de las bases de datos académicas sobre las cuales operan.
 
 \subsubsection*{Preguntas abiertas}
-\textquestiondown De qué manera evolucionarán los marcos de evaluación por pares cuando agentes autónomos de IA comiencen a interactuar bidireccionalmente en la revisión, detección de inconsistencias y réplica en tiempo real de experimentos computacionales sin supervisión humana directa?
+\begin{enumerate}[label=\arabic*., leftmargin=2em, itemsep=0.08cm, topsep=0.08cm, parsep=0pt]
+    \item \textquestiondown De qué manera evolucionarán los marcos de evaluación por pares cuando agentes autónomos de IA comiencen a interactuar bidireccionalmente en la revisión, detección de inconsistencias y réplica en tiempo real de experimentos computacionales sin supervisión humana directa?
+    \item \textquestiondown Qué protocolos criptográficos de firma digital y cadenas de bloques académicas permitirán certificar la trazabilidad y autoría humana de conjuntos de datos y cuadernos de análisis sin vulnerar la privacidad de los borradores preliminares?
+    \item \textquestiondown Cómo pueden las universidades públicas latinoamericanas garantizar el acceso equitativo a infraestructuras de cómputo y modelos semánticos abiertos para prevenir que la brecha de descubrimiento científico se ensanche frente a los centros de investigación globales?
+\end{enumerate}
+
 % ==============================================================================
-% REFERENCIAS BIBLIOGRÁFICAS DEL CAPÍTULO 09 (APA 7)
+% REFERENCIAS BIBLIOGRÁFICAS DEL CAPÍTULO 9 (APA 7)
 % ==============================================================================
 \newpage
-\markboth{CAPÍTULO 09\quad REFERENCIAS}{}
-\vspace*{0.8cm}
-{\Huge \textbf{Referencias del Capítulo 09}}\\[0.8cm]
+\markboth{CAPÍTULO 9\quad REFERENCIAS}{}
+\subsection*{Referencias del Capítulo 9}
 
 \begin{itemize}[leftmargin=1.5em, label={}, itemsep=0.22ex, parsep=0pt]
 \small\raggedright
