@@ -133,31 +133,33 @@ Entre ambos extremos ha surgido el concepto de \textit{Modelos Fundacionales} (F
 \clearpage
 \begin{figure}[tbp]
 \centering
-\begin{tcolorbox}[colback=white, colframe=unmsm_gold, arc=3pt, boxrule=0.8pt, top=0.3cm, bottom=0.3cm, left=0.5cm, right=0.5cm]
+\begin{tcolorbox}[colback=white, colframe=unmsm_gold, arc=3pt, boxrule=0.8pt, top=0.3cm, bottom=0.3cm, left=0.4cm, right=0.4cm]
 \centering
 \small\sffamily
-\textbf{Figura 1.1.} Taxonomía Jerárquica e Inclusión de Disciplinas en la Computación Inteligente\\[0.2cm]
+\textbf{Figura 1.1.} Taxonomía Jerárquica e Inclusión de Disciplinas en la Computación Inteligente\\[0.25cm]
+\resizebox{0.96\linewidth}{!}{%
 \begin{tikzpicture}[font=\footnotesize\sffamily]
-    % Outer Box: IA (Alto total 9.0cm, de y=-4.6 a y=4.4)
-    \draw[rounded corners=6pt, fill=bg_marfil, draw=unmsm_red, line width=1.2pt] (-6.8,-4.6) rectangle (6.8,4.4);
-    \node[anchor=north west, text=unmsm_red, font=\normalsize\sffamily\bfseries] at (-6.4,4.0) {INTELIGENCIA ARTIFICIAL (IA)};
-    \node[anchor=north west, text=unmsm_gray, text width=12.8cm] at (-6.4,3.4) {Sistemas de cómputo que emulan facultades de percepción, razonamiento, planificación y optimización racional.};
+    % Outer Box: IA (Alto total 10.4cm, de y=-5.2 a y=5.2)
+    \draw[rounded corners=6pt, fill=bg_marfil, draw=unmsm_red, line width=1.2pt] (-6.8,-5.2) rectangle (6.8,5.2);
+    \node[anchor=north west, text=unmsm_red, font=\normalsize\sffamily\bfseries] at (-6.4,4.8) {INTELIGENCIA ARTIFICIAL (IA)};
+    \node[anchor=north west, text=unmsm_gray, text width=12.8cm] at (-6.4,4.2) {Sistemas de cómputo que emulan facultades de percepción, razonamiento, planificación y optimización racional.};
 
-    % Middle Outer Box: ML (Alto total 6.6cm, de y=-4.2 a y=2.4)
-    \draw[rounded corners=5pt, fill=bg_arena!60, draw=unmsm_darkred, line width=1.0pt] (-6.3,-4.2) rectangle (6.3,2.4);
-    \node[anchor=north west, text=unmsm_darkred, font=\small\sffamily\bfseries] at (-5.9,2.0) {APRENDIZAJE AUTOMÁTICO (MACHINE LEARNING, ML)};
-    \node[anchor=north west, text=unmsm_gray, text width=11.8cm] at (-5.9,1.5) {Algoritmos que aprenden representaciones latentes y parámetros predictivos a partir de datos empíricos.};
+    % Middle Outer Box: ML (Alto total 8.0cm, de y=-4.7 a y=3.3)
+    \draw[rounded corners=5pt, fill=bg_arena!60, draw=unmsm_darkred, line width=1.0pt] (-6.3,-4.7) rectangle (6.3,3.3);
+    \node[anchor=north west, text=unmsm_darkred, font=\small\sffamily\bfseries] at (-5.9,2.9) {APRENDIZAJE AUTOMÁTICO (MACHINE LEARNING, ML)};
+    \node[anchor=north west, text=unmsm_gray, text width=11.8cm] at (-5.9,2.4) {Algoritmos que aprenden representaciones latentes y parámetros predictivos a partir de datos empíricos.};
 
-    % Middle Inner Box: DL (Alto total 4.3cm, de y=-3.8 a y=0.5)
-    \draw[rounded corners=4pt, fill=white, draw=unmsm_red, line width=0.9pt] (-5.8,-3.8) rectangle (5.8,0.5);
-    \node[anchor=north west, text=unmsm_red, font=\footnotesize\sffamily\bfseries] at (-5.4,0.1) {APRENDIZAJE PROFUNDO (DEEP LEARNING, DL)};
-    \node[anchor=north west, text=unmsm_gray, text width=10.8cm] at (-5.4,-0.3) {Redes neuronales artificiales jerárquicas con múltiples capas de transformaciones no lineales.};
+    % Middle Inner Box: DL (Alto total 5.7cm, de y=-4.2 a y=1.5)
+    \draw[rounded corners=4pt, fill=white, draw=unmsm_red, line width=0.9pt] (-5.8,-4.2) rectangle (5.8,1.5);
+    \node[anchor=north west, text=unmsm_red, font=\footnotesize\sffamily\bfseries] at (-5.4,1.1) {APRENDIZAJE PROFUNDO (DEEP LEARNING, DL)};
+    \node[anchor=north west, text=unmsm_gray, text width=10.8cm] at (-5.4,0.6) {Redes neuronales artificiales jerárquicas con múltiples capas de transformaciones no lineales.};
 
-    % Innermost Box: GenAI (Alto total 2.0cm, de y=-3.4 a y=-1.4)
-    \draw[rounded corners=3pt, fill=unmsm_red!10, draw=unmsm_darkred, line width=0.8pt] (-5.3,-3.4) rectangle (5.3,-1.4);
-    \node[anchor=center, text=unmsm_darkred, font=\footnotesize\sffamily\bfseries] at (0,-1.8) {INTELIGENCIA ARTIFICIAL GENERATIVA (GenAI)};
-    \node[anchor=center, text=unmsm_gray, text width=9.8cm, text centered] at (0,-2.5) {Modelos probabilísticos entrenados para aproximar $p(\mathbf{x})$ y sintetizar contenido inédito: texto, código, audio, imágenes y simulaciones científicas complejas.};
-\end{tikzpicture}
+    % Innermost Box: GenAI (Alto total 3.3cm, de y=-3.7 a y=-0.4)
+    \draw[rounded corners=3pt, fill=unmsm_red!10, draw=unmsm_darkred, line width=0.8pt] (-5.3,-3.7) rectangle (5.3,-0.4);
+    \node[anchor=center, text=unmsm_darkred, font=\footnotesize\sffamily\bfseries] at (0,-0.9) {INTELIGENCIA ARTIFICIAL GENERATIVA (GenAI)};
+    \node[anchor=center, text=unmsm_gray, text width=9.8cm, text centered] at (0,-2.1) {Modelos probabilísticos fundacionales entrenados para modelar $p(\mathbf{x})$ y sintetizar contenido multimodal inédito: texto, código, imágenes y simulaciones científicas complejas.};
+\end{tikzpicture}%
+}
 \end{tcolorbox}
 \vspace{0.15cm}
 \raggedright\scriptsize \textbf{Fuente:} Elaboración propia basada en la estructura taxonómica de Russell y Norvig (2020) y Bommasani et al. (2021).
@@ -230,13 +232,12 @@ Sin embargo, el optimismo se quebró abruptamente en 1969 con la publicación de
     % Grid ticks
     \draw (2,0.05) -- (2,-0.05) node[below] {$1$};
     \draw (0.05,2) -- (-0.05,2) node[left] {$1$};
-    \node at (-0.2,-0.2) {$0$};
 
     % Points for XOR
     % (0,0) -> 0 (Circle)
-    \filldraw[fill=bg_marfil, draw=unmsm_red, line width=1.2pt] (0,0) circle (0.16) node[below left=2pt, text=unmsm_red] {$(0,0) \to 0$};
+    \filldraw[fill=bg_marfil, draw=unmsm_red, line width=1.2pt] (0,0) circle (0.16) node[below left=3pt, text=unmsm_red] {$(0,0) \to 0$};
     % (1,1) -> 0 (Circle)
-    \filldraw[fill=bg_marfil, draw=unmsm_red, line width=1.2pt] (2,2) circle (0.16) node[above right=2pt, text=unmsm_red] {$(1,1) \to 0$};
+    \filldraw[fill=bg_marfil, draw=unmsm_red, line width=1.2pt] (2,2) circle (0.16) node[above right=3pt, text=unmsm_red] {$(1,1) \to 0$};
 
     % (0,1) -> 1 (Square)
     \filldraw[fill=unmsm_red, draw=unmsm_darkred, line width=1.2pt] (-0.16,1.84) rectangle (0.16,2.16);
@@ -424,17 +425,17 @@ Formalmente, el aprendizaje automático se subdivide en cuatro paradigmas princi
 \small\sffamily
 \caption{\textit{Comparación analítica de los cuatro paradigmas canónicos del aprendizaje computacional}}
 \label{tab:paradigmas_ml}
-\begin{tabularx}{\textwidth}{p{2.8cm}p{3.2cm}p{3.5cm}X}
+\begin{tabularx}{\textwidth}{>{\bfseries}p{2.4cm} >{\raggedright\arraybackslash}p{3.2cm} >{\raggedright\arraybackslash}p{4.2cm} >{\raggedright\arraybackslash}X}
 \toprule
 \textbf{Paradigma} & \textbf{Estructura de Datos} & \textbf{Función Objetivo Matemática} & \textbf{Aplicaciones Representativas} \\
 \midrule
-\textbf{Supervisado} & Pares etiqueta-entrada $\mathcal{D} = \{(\mathbf{x}_i, y_i)\}_{i=1}^N$ con $y_i$ conocida. & Minimizar el riesgo empírico $\frac{1}{N}\sum L(f_\theta(\mathbf{x}_i), y_i)$. & Regresión inmobiliaria, diagnóstico de patologías, detección de spam. \\
+Supervisado & Pares etiqueta-entrada $\mathcal{D} = \{(\mathbf{x}_i, y_i)\}_{i=1}^N$ con $y_i$ conocida. & Minimizar el riesgo empírico $\frac{1}{N}\sum L(f_\theta(\mathbf{x}_i), y_i)$. & Regresión inmobiliaria, diagnóstico de patologías, detección de spam. \\
 \midrule
-\textbf{No Supervisado} & Datos no etiquetados $\mathcal{D} = \{\mathbf{x}_i\}_{i=1}^N$. & Estimar densidad $p(\mathbf{x})$, agrupar clusters o reducir dimensionalidad. & Segmentación de perfiles, reducción con PCA/t-SNE, detección de anomalías. \\
+No Supervisado & Datos no etiquetados $\mathcal{D} = \{\mathbf{x}_i\}_{i=1}^N$. & Estimar densidad $p(\mathbf{x})$, agrupar clusters o reducir dimensionalidad. & Segmentación de perfiles, reducción con PCA/t-SNE, detección de anomalías. \\
 \midrule
-\textbf{Por Refuerzo (RL)} & Tuplas de interacción $(s_t, a_t, r_t, s_{t+1})$ con el entorno. & Maximizar retorno acumulado esperado $\mathbb{E}[\sum \gamma^t r_t]$. & Navegación robótica, juegos complejos (AlphaGo), optimización de inventarios. \\
+Por Refuerzo (RL) & Tuplas de interacción $(s_t, a_t, r_t, s_{t+1})$ con el entorno. & Maximizar retorno acumulado esperado $\mathbb{E}[\sum \gamma^t r_t]$. & Navegación robótica, juegos complejos (AlphaGo), optimización de inventarios. \\
 \midrule
-\textbf{Autosupervisado} & Datos masivos sin etiquetas directas $\mathcal{D} = \{\mathbf{x}_i\}$. & Predecir partes ocultas de la entrada a partir del contexto visible. & Modelado de lenguaje autorregresivo (GPT), preentrenamiento contrastivo. \\
+Autosupervisado & Datos masivos sin etiquetas directas $\mathcal{D} = \{\mathbf{x}_i\}$. & Predecir partes ocultas de la entrada a partir del contexto visible. & Modelado de lenguaje autorregresivo (GPT), preentrenamiento contrastivo. \\
 \bottomrule
 \end{tabularx}
 \vspace{0.15cm}
@@ -843,35 +844,37 @@ Los modelos de difusión (Sohl-Dickstein et al., 2015; Ho et al., 2020) modelan 
 \clearpage
 \begin{figure}[tbp]
 \centering
-\begin{tcolorbox}[colback=white, colframe=unmsm_gold, arc=3pt, boxrule=0.8pt, top=0.3cm, bottom=0.3cm, left=0.5cm, right=0.5cm]
+\begin{tcolorbox}[colback=white, colframe=unmsm_gold, arc=3pt, boxrule=0.8pt, top=0.3cm, bottom=0.3cm, left=0.4cm, right=0.4cm]
 \centering
 \small\sffamily
-\textbf{Figura 1.8.} Comparación Arquitectónica de las Tres Familias Canónicas de la IA Generativa\\[0.2cm]
-\begin{tikzpicture}[node distance=1.1cm, auto, >=stealth, font=\scriptsize\sffamily]
+\textbf{Figura 1.8.} Comparación Arquitectónica de las Tres Familias Canónicas de la IA Generativa\\[0.25cm]
+\resizebox{0.95\linewidth}{!}{%
+\begin{tikzpicture}[auto, >=stealth, font=\scriptsize\sffamily]
     % Panel A: Transformers
-    \node[anchor=center, font=\footnotesize\sffamily\bfseries, text=unmsm_red] at (-5.0, 2.5) {A. Transformers Autoregresivos};
-    \node[rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.6cm, text centered] (t_in) at (-5.0, 1.4) {Secuencia de Tokens\\$\mathbf{x} = (t_1, \dots, t_k)$};
-    \node[rectangle, draw=unmsm_red, fill=bg_arena, rounded corners=2pt, text width=2.6cm, text centered] (t_att) at (-5.0, 0.0) {Autoatención\\Escalada $QK^T/\sqrt{d_k}$};
-    \node[rectangle, draw=unmsm_red, fill=white, rounded corners=2pt, text width=2.6cm, text centered] (t_out) at (-5.0, -1.4) {Distribución Siguiente\\Token $p(t_{k+1}|t_{\le k})$};
+    \node[anchor=center, font=\footnotesize\sffamily\bfseries, text=unmsm_red] at (-4.8, 2.5) {A. Transformers Autoregresivos};
+    \node[rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.8cm, text centered] (t_in) at (-4.8, 1.4) {Secuencia de Tokens\\$\mathbf{x} = (t_1, \dots, t_k)$};
+    \node[rectangle, draw=unmsm_red, fill=bg_arena, rounded corners=2pt, text width=3.0cm, text centered] (t_att) at (-4.8, 0.0) {Autoatención Escalada\\[0.12cm]$QK^T / \sqrt{d_k}$};
+    \node[rectangle, draw=unmsm_red, fill=white, rounded corners=2pt, text width=2.8cm, text centered] (t_out) at (-4.8, -1.4) {Distribución Siguiente\\Token $p(t_{k+1}|t_{\le k})$};
     \draw[->, thick, draw=unmsm_red] (t_in) -- (t_att);
     \draw[->, thick, draw=unmsm_red] (t_att) -- (t_out);
 
     % Panel B: GANs
-    \node[anchor=center, font=\footnotesize\sffamily\bfseries, text=unmsm_darkred] at (-0.2, 2.5) {B. Redes Antagónicas (GANs)};
-    \node[rectangle, draw=unmsm_darkred, fill=bg_marfil, rounded corners=2pt, text width=2.6cm, text centered] (g_z) at (-0.2, 1.4) {Ruido Latente\\$\mathbf{z} \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$};
-    \node[rectangle, draw=unmsm_darkred, fill=bg_arena, rounded corners=2pt, text width=2.6cm, text centered] (g_gen) at (-0.2, 0.0) {Generador $G(\mathbf{z})$ vs.\\Discriminador $D(\mathbf{x})$};
-    \node[rectangle, draw=unmsm_darkred, fill=white, rounded corners=2pt, text width=2.6cm, text centered] (g_out) at (-0.2, -1.4) {Muestra Sintética\\Equilibrio Minimax};
+    \node[anchor=center, font=\footnotesize\sffamily\bfseries, text=unmsm_darkred] at (0.0, 2.5) {B. Redes Antagónicas (GANs)};
+    \node[rectangle, draw=unmsm_darkred, fill=bg_marfil, rounded corners=2pt, text width=2.8cm, text centered] (g_z) at (0.0, 1.4) {Ruido Latente\\$\mathbf{z} \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$};
+    \node[rectangle, draw=unmsm_darkred, fill=bg_arena, rounded corners=2pt, text width=2.8cm, text centered] (g_gen) at (0.0, 0.0) {Generador $G(\mathbf{z})$ vs.\\Discriminador $D(\mathbf{x})$};
+    \node[rectangle, draw=unmsm_darkred, fill=white, rounded corners=2pt, text width=2.8cm, text centered] (g_out) at (0.0, -1.4) {Muestra Sintética\\Equilibrio Minimax};
     \draw[->, thick, draw=unmsm_darkred] (g_z) -- (g_gen);
     \draw[->, thick, draw=unmsm_darkred] (g_gen) -- (g_out);
 
     % Panel C: Difusión
-    \node[anchor=center, font=\footnotesize\sffamily\bfseries, text=unmsm_red] at (4.4, 2.5) {C. Modelos de Difusión};
-    \node[rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.6cm, text centered] (d_x0) at (4.4, 1.4) {Datos $\mathbf{x}_0 \to$ Ruido $\mathbf{x}_T$\\(Proceso Directo $q$)};
-    \node[rectangle, draw=unmsm_red, fill=bg_arena, rounded corners=2pt, text width=2.6cm, text centered] (d_net) at (4.4, 0.0) {U-Net Predicctora\\de Ruido $\boldsymbol{\epsilon}_\theta(\mathbf{x}_t, t)$};
-    \node[rectangle, draw=unmsm_red, fill=white, rounded corners=2pt, text width=2.6cm, text centered] (d_out) at (4.4, -1.4) {Denoising Inverso\\$p_\theta(\mathbf{x}_{t-1}|\mathbf{x}_t)$};
+    \node[anchor=center, font=\footnotesize\sffamily\bfseries, text=unmsm_red] at (4.8, 2.5) {C. Modelos de Difusión};
+    \node[rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.8cm, text centered] (d_x0) at (4.8, 1.4) {Datos $\mathbf{x}_0 \to$ Ruido $\mathbf{x}_T$\\(Proceso Directo $q$)};
+    \node[rectangle, draw=unmsm_red, fill=bg_arena, rounded corners=2pt, text width=2.8cm, text centered] (d_net) at (4.8, 0.0) {U-Net Predictora de Ruido\\$\boldsymbol{\epsilon}_\theta(\mathbf{x}_t, t)$};
+    \node[rectangle, draw=unmsm_red, fill=white, rounded corners=2pt, text width=2.8cm, text centered] (d_out) at (4.8, -1.4) {Denoising Inverso\\$p_\theta(\mathbf{x}_{t-1}|\mathbf{x}_t)$};
     \draw[->, thick, draw=unmsm_red] (d_x0) -- (d_net);
     \draw[->, thick, draw=unmsm_red] (d_net) -- (d_out);
-\end{tikzpicture}
+\end{tikzpicture}%
+}
 \end{tcolorbox}
 \vspace{0.15cm}
 \raggedright\scriptsize \textbf{Fuente:} Síntesis analítica comparativa basada en Vaswani et al. (2017), Goodfellow et al. (2014) y Ho et al. (2020).
@@ -1193,7 +1196,7 @@ A = \begin{bmatrix}
 \end{equation}
 
 El análisis analítico de esta estructura permite extraer tres conclusiones fundamentales:
-\begin{enumerate}[itemsep=0.45em]
+\begin{enumerate}[itemsep=0.85em, parsep=0.25em, topsep=0.4em]
     \item \textbf{Conservación de la Medida de Probabilidad:} Cada fila de la matriz de atención suma la unidad, asegurando que el vector de salida $\mathbf{o}_i$ constituya una combinación convexa válida de los vectores de valores $\mathbf{v}_j$ ponderados por $A_{ij}$.
     \item \textbf{Efecto del Escalado Dimensional:} Si se elimina el término $\sqrt{d_k} = \sqrt{4} = 2.0$, la dispersión de las puntuaciones se duplica; en dimensiones industriales típicas ($d_k = 128$), la varianza sin escalado alcanzaría $128$, forzando a la función Softmax a concentrar prácticamente el 100\% del peso en un solo token, imposibilitando que el modelo aprenda a correlacionar múltiples fuentes de contexto simultáneamente.
     \item \textbf{Rol de la Temperatura de Muestreo ($\tau$):} Para valores de temperatura reducidos ($\tau \to 0$), la distribución colapsa hacia la función argmax determinista (\textit{greedy decoding}); para valores elevados ($\tau > 1.5$), la distribución converge hacia la distribución uniforme discreta, incrementando la entropía y la variabilidad de las muestras pero aumentando exponencialmente el riesgo de alucinaciones incoherentes.

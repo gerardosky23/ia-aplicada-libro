@@ -74,21 +74,25 @@ Desde una perspectiva de gestión institucional y economía de la investigación
 \centering
 \small\sffamily
 \textbf{Figura 9.1.} Pipeline Metodológico de Revisión Sistemática Asistida por IA (PRISMA-IA)\\[0.25cm]
-\begin{tikzpicture}[node distance=1.1cm, auto, >=stealth, font=\footnotesize\sffamily]
-    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.5cm, text centered] (fase1) {\textbf{Fase 1: Búsqueda}\\Scopus, WoS, arXiv\\Embeddings $\mathbf{R}^d$};
-    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.5cm, text centered, right of=fase1, node distance=3.6cm] (fase2) {\textbf{Fase 2: Cribado}\\Aprendizaje Activo\\ASReview / Rayyan};
-    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.5cm, text centered, right of=fase2, node distance=3.6cm] (fase3) {\textbf{Fase 3: RAG}\\Extracción guiada\\Verificación DOI};
-    \node [rectangle, draw=unmsm_darkred, fill=bg_arena, rounded corners=2pt, text width=2.5cm, text centered, right of=fase3, node distance=3.6cm] (fase4) {\textbf{Fase 4: Síntesis}\\Auditoría humana\\PRISMA 2020};
+\resizebox{0.95\linewidth}{!}{%
+\begin{tikzpicture}[>=stealth, font=\footnotesize\sffamily]
+    % Fila Superior: Fases PRISMA (y = 0.8)
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.6cm, text centered] (fase1) at (-4.8, 0.8) {\textbf{Fase 1: Búsqueda}\\Scopus, WoS, arXiv\\Embeddings $\mathbf{R}^d$};
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.6cm, text centered] (fase2) at (-1.6, 0.8) {\textbf{Fase 2: Cribado}\\Aprendizaje Activo\\ASReview / Rayyan};
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.6cm, text centered] (fase3) at (1.6, 0.8) {\textbf{Fase 3: RAG}\\Extracción guiada\\Verificación DOI};
+    \node [rectangle, draw=unmsm_darkred, fill=bg_arena, rounded corners=2pt, text width=2.6cm, text centered] (fase4) at (4.8, 0.8) {\textbf{Fase 4: Síntesis}\\Auditoría humana\\PRISMA 2020};
     
     \draw [->, thick, draw=unmsm_red] (fase1) -- (fase2);
     \draw [->, thick, draw=unmsm_red] (fase2) -- (fase3);
     \draw [->, thick, draw=unmsm_red] (fase3) -- (fase4);
     
-    \node [rectangle, draw=unmsm_gold, fill=white, rounded corners=2pt, text width=9.5cm, text centered, below of=fase2, node distance=1.6cm, xshift=1.8cm] (metrics) {\scriptsize \textbf{Aseguramiento Metodológico:} Reducción del 60\% de tiempo en cribado preliminar $\cdot$ Validación de fuentes con identificador persistente $\cdot$ Cero alucinaciones sin sustento primario};
-    \draw [->, dashed, draw=unmsm_gray] (fase2.south) |- (metrics.west);
-    \draw [->, dashed, draw=unmsm_gray] (fase3.south) |- (metrics.east);
-    \path (0, -2.7);
-\end{tikzpicture}
+    % Fila Inferior: Aseguramiento Metodológico (y = -1.2)
+    \node [rectangle, draw=unmsm_gold, fill=white, rounded corners=2pt, text width=11.2cm, text centered] (metrics) at (0.0, -1.2) {\scriptsize \textbf{Aseguramiento Metodológico:} Reducción del 60\% de tiempo en cribado preliminar $\cdot$ Validación de fuentes con identificador persistente $\cdot$ Cero alucinaciones sin sustento primario};
+    
+    \draw [->, dashed, draw=unmsm_gray] (fase2.south) -- (fase2.south |- metrics.north);
+    \draw [->, dashed, draw=unmsm_gray] (fase3.south) -- (fase3.south |- metrics.north);
+\end{tikzpicture}%
+}
 
 \vspace{0.3cm}
 {\scriptsize \textbf{Fuente:} Elaboración propia basada en Page et al. (2021), Dialnet (2024) y van de Schoot et al. (2021).\par}
@@ -295,19 +299,24 @@ El impacto empírico es demoledor. En la evaluación conducida por Krishna et al
 \centering
 \small\sffamily
 \textbf{Figura 9.2.} Arquitectura del Ataque Adversarial de Parafraseo DIPPER y Evasión de Detectores\\[0.25cm]
-\begin{tikzpicture}[node distance=1.1cm, auto, >=stealth, font=\footnotesize\sffamily]
-    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.4cm, text centered] (llm) {\textbf{Generador LLM}\\GPT-4o / Claude\\Texto base};
-    \node [rectangle, draw=unmsm_red, fill=bg_arena, rounded corners=2pt, text width=2.5cm, text centered, right of=llm, node distance=3.3cm] (raw) {\textbf{Texto Sintético}\\PPL = 18.4, $B = -0.12$\\Detección: \textbf{98.4\%}};
-    \node [rectangle, draw=unmsm_darkred, fill=bg_marfil, rounded corners=2pt, text width=2.5cm, text centered, right of=raw, node distance=3.4cm] (dipper) {\textbf{Modelo DIPPER}\\$L=60$, $O=60$\\Reescritura discursiva};
-    \node [rectangle, draw=unmsm_darkred, fill=bg_arena, rounded corners=2pt, text width=2.5cm, text centered, right of=dipper, node distance=3.4cm] (mod) {\textbf{Texto Perturbado}\\PPL = 64.2, $B = +0.31$\\Detección: \textbf{$<$14.2\%}};
+\resizebox{0.95\linewidth}{!}{%
+\begin{tikzpicture}[>=stealth, font=\footnotesize\sffamily]
+    % Nodos superiores con coordenadas explícitas (y = 1.0)
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.8cm, text centered] (llm) at (-4.95, 1.0) {\textbf{Generador LLM}\\GPT-4o / Claude\\Texto base};
+    \node [rectangle, draw=unmsm_red, fill=bg_arena, rounded corners=2pt, text width=2.8cm, text centered] (raw) at (-1.65, 1.0) {\textbf{Texto Sintético}\\PPL = 18.4, $B = -0.12$\\Detección: \textbf{98.4\%}};
+    \node [rectangle, draw=unmsm_darkred, fill=bg_marfil, rounded corners=2pt, text width=2.8cm, text centered] (dipper) at (1.65, 1.0) {\textbf{Modelo DIPPER}\\$L=60$, $O=60$\\Reescritura discursiva};
+    \node [rectangle, draw=unmsm_darkred, fill=bg_arena, rounded corners=2pt, text width=2.8cm, text centered] (mod) at (4.95, 1.0) {\textbf{Texto Perturbado}\\PPL = 64.2, $B = +0.31$\\Detección: \textbf{$<$14.2\%}};
     
     \draw [->, thick, draw=unmsm_red] (llm) -- (raw);
     \draw [->, thick, draw=unmsm_red] (raw) -- (dipper);
     \draw [->, thick, draw=unmsm_darkred] (dipper) -- (mod);
     
-    \node [rectangle, draw=unmsm_gold, fill=white, rounded corners=2pt, text width=11.2cm, text centered, below of=raw, node distance=2.2cm, xshift=1.7cm] (adv_note) {\scriptsize \textbf{Mecanismo de Falla:} La sustitución sinonímica incrementa artificialmente la perplejidad y el reordenamiento clausular eleva el burstiness, desplazando el vector del texto fuera del hiperplano de decisión del clasificador sin alterar la semántica del mensaje.};
-    \draw [->, dashed, draw=unmsm_gray] (dipper.south) |- (adv_note.north);
-\end{tikzpicture}\\[0.15cm]
+    % Nota explicativa inferior (y = -1.2)
+    \node [rectangle, draw=unmsm_gold, fill=white, rounded corners=2pt, text width=11.6cm, text centered] (adv_note) at (0.0, -1.2) {\scriptsize \textbf{Mecanismo de Falla:} La sustitución sinonímica incrementa artificialmente la perplejidad y el reordenamiento clausular eleva el burstiness, desplazando el vector del texto fuera del hiperplano de decisión del clasificador sin alterar la semántica del mensaje.};
+    \draw [->, dashed, thick, draw=unmsm_gray] (dipper.south) -- ++(0, -0.4) -| (adv_note.north);
+\end{tikzpicture}%
+}\\[0.15cm]
+\raggedright
 \scriptsize \textbf{Fuente:} Adaptado de Krishna et al. (2023), Weber y Smith (2024) y Zhao et al. (2025).
 \end{tcolorbox}
 \end{figure}

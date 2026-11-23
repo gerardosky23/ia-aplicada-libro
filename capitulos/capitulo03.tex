@@ -56,32 +56,37 @@ La manifestación material más contundente del modelo estadounidense es el desp
 
 \begin{figure}[htbp]
 \centering
+\begin{tcolorbox}[colback=white, colframe=unmsm_gold, arc=3pt, boxrule=0.8pt, top=0.3cm, bottom=0.3cm, left=0.4cm, right=0.4cm]
+\centering
+\small\sffamily
+\textbf{Figura 3.1.} \textit{Arquitectura de la Cadena de Suministro e Integración Vertical de IA en EE. UU.}\\[0.25cm]
+\resizebox{0.95\linewidth}{!}{%
 \begin{tikzpicture}[
-    box/.style={rectangle, draw=unmsm_red, fill=bg_marfil, thick, rounded corners=3pt, minimum width=4.0cm, minimum height=1.1cm, align=center, font=\small\sffamily},
+    box/.style={rectangle, draw=unmsm_red, fill=bg_marfil, thick, rounded corners=3pt, text width=5.8cm, minimum height=1.2cm, align=center, font=\small\sffamily},
     arrow/.style={->, >=stealth, thick, color=unmsm_darkred}
 ]
-\node[box] (silicio) at (0, 4.5) {\textbf{Capa 1: Aceleradores y Silicio}\\Diseño fabless (Nvidia, AMD)\\Monopolio litográfico (ASML EUV)};
-\node[box] (infra) at (0, 3.0) {\textbf{Capa 2: Infraestructura Cómputo}\\Centros de datos gigawatt-scale\\Proyecto Stargate (\$500.000M)};
-\node[box] (cloud) at (0, 1.5) {\textbf{Capa 3: Hiperescala Cloud}\\Microsoft Azure, AWS, GCP\\Integración vertical cautiva};
-\node[box] (modelos) at (0, 0.0) {\textbf{Capa 4: Modelos Fundacionales}\\OpenAI, Anthropic, Meta\\Inversión multimillonaria};
-\node[box] (app) at (0, -1.5) {\textbf{Capa 5: Capa de Aplicaciones}\\Copilot, Enterprise API, Software\\Monetización directa B2B/B2C};
+\node[box] (silicio) at (-3.0, 4.8) {\textbf{Capa 1: Aceleradores y Silicio}\\Diseño fabless (Nvidia, AMD)\\Monopolio litográfico (ASML EUV)};
+\node[box] (infra) at (-3.0, 2.4) {\textbf{Capa 2: Infraestructura Cómputo}\\Centros de datos gigawatt-scale\\Proyecto Stargate (\$500.000M)};
+\node[box] (cloud) at (-3.0, 0.0) {\textbf{Capa 3: Hiperescala Cloud}\\Microsoft Azure, AWS, GCP\\Integración vertical cautiva};
+\node[box] (modelos) at (-3.0, -2.4) {\textbf{Capa 4: Modelos Fundacionales}\\OpenAI, Anthropic, Meta\\Inversión multimillonaria};
+\node[box] (app) at (-3.0, -4.8) {\textbf{Capa 5: Capa de Aplicaciones}\\Copilot, Enterprise API, Software\\Monetización directa B2B/B2C};
 
 \draw[arrow] (silicio) -- (infra);
 \draw[arrow] (infra) -- (cloud);
 \draw[arrow] (cloud) -- (modelos);
 \draw[arrow] (modelos) -- (app);
 
-\node[anchor=west, font=\scriptsize\sffamily, text=unmsm_gray] at (2.3, 4.5) {Control de cuota $>80\%$ de GPUs tensorizadas};
-\node[anchor=west, font=\scriptsize\sffamily, text=unmsm_gray] at (2.3, 3.0) {Alianzas energéticas nucleares y microgrids};
-\node[anchor=west, font=\scriptsize\sffamily, text=unmsm_gray] at (2.3, 1.5) {Créditos de nube a cambio de capital accionario};
-\node[anchor=west, font=\scriptsize\sffamily, text=unmsm_gray] at (2.3, 0.0) {Barreras de entrada por coste de preentrenamiento};
-\node[anchor=west, font=\scriptsize\sffamily, text=unmsm_gray] at (2.3, -1.5) {Efectos de red y empaquetamiento comercial cautivo};
-\end{tikzpicture}
-\caption{\textit{Arquitectura de la Cadena de Suministro e Integración Vertical de IA en EE. UU.}}
-\label{fig:cadena_suministro_usa}
-\begin{center}
+\node[anchor=west, font=\scriptsize\sffamily, text=unmsm_gray, text width=6.5cm] at (0.8, 4.8) {Control de cuota $>80\%$ de GPUs tensorizadas};
+\node[anchor=west, font=\scriptsize\sffamily, text=unmsm_gray, text width=6.5cm] at (0.8, 2.4) {Alianzas energéticas nucleares y microgrids};
+\node[anchor=west, font=\scriptsize\sffamily, text=unmsm_gray, text width=6.5cm] at (0.8, 0.0) {Créditos de nube a cambio de capital accionario};
+\node[anchor=west, font=\scriptsize\sffamily, text=unmsm_gray, text width=6.5cm] at (0.8, -2.4) {Barreras de entrada por coste de preentrenamiento};
+\node[anchor=west, font=\scriptsize\sffamily, text=unmsm_gray, text width=6.5cm] at (0.8, -4.8) {Efectos de red y empaquetamiento comercial cautivo};
+\end{tikzpicture}%
+}\\[0.2cm]
+\raggedright
 \scriptsize \textbf{Fuente:} Adaptación metodológica basada en Zheng (2025) y Moussa et al. (2025).
-\end{center}
+\end{tcolorbox}
+\label{fig:cadena_suministro_usa}
 \end{figure}
 
 Como ilustra la Figura \ref{fig:cadena_suministro_usa}, el aprovisionamiento de supercómputo ha reconfigurado los requerimientos de capital de la industria tecnológica. Un centro de datos contemporáneo de IA no solo demanda cientos de miles de aceleradores gráficos tensorizados (GPUs Nvidia H100, B200 o arquitecturas afines), sino también soluciones avanzadas de refrigeración líquida directa al chip (\textit{direct-to-chip liquid cooling}) y contratos de suministro energético continuo de carga base (\textit{baseload power}), impulsando acuerdos corporativos de largo plazo con reactores nucleares civiles reacondicionados y plantas térmicas de gas natural (Moussa et al., 2025; Williams, 2025). 
@@ -184,7 +189,11 @@ La Figura \ref{fig:conformidad_ai_act} ilustra la ruta metodológica y los punto
 
 \begin{figure}[htbp]
 \centering
-\resizebox{0.95\linewidth}{!}{%
+\begin{tcolorbox}[colback=white, colframe=unmsm_gold, arc=3pt, boxrule=0.8pt, top=0.3cm, bottom=0.3cm, left=0.4cm, right=0.4cm]
+\centering
+\small\sffamily
+\textbf{Figura 3.2.} \textit{Procedimiento de Evaluación de la Conformidad y Certificación CE bajo el EU AI Act}\\[0.25cm]
+\resizebox{0.92\linewidth}{!}{%
 \begin{tikzpicture}[
     node distance=1.2cm and 0.8cm,
     font=\small\sffamily,
@@ -211,12 +220,11 @@ La Figura \ref{fig:conformidad_ai_act} ilustra la ruta metodológica y los punto
     \draw [arrow] (internal) |- (cert);
     \draw [arrow] (notified) |- (cert);
 \end{tikzpicture}%
-}
-\caption{\textit{Procedimiento de Evaluación de la Conformidad y Certificación CE bajo el EU AI Act.}}
-\label{fig:conformidad_ai_act}
-\begin{center}
+}\\[0.2cm]
+\raggedright
 \scriptsize \textbf{Fuente:} Elaboración propia basada en los Artículos 43, 48 y Anexos VI y VII del Reglamento (UE) 2024/1689 (Hulok, 2025; Malgieri, 2022).
-\end{center}
+\end{tcolorbox}
+\label{fig:conformidad_ai_act}
 \end{figure}
 
 
@@ -239,29 +247,32 @@ El AI Act no opera de manera aislada, sino que se articula en una infraestructur
 
 \begin{figure}[htbp]
 \centering
-\resizebox{0.95\linewidth}{!}{%
+\begin{tcolorbox}[colback=white, colframe=unmsm_gold, arc=3pt, boxrule=0.8pt, top=0.3cm, bottom=0.3cm, left=0.4cm, right=0.4cm]
+\centering
+\small\sffamily
+\textbf{Figura 3.3.} \textit{Estructura Institucional de Gobernanza de la Inteligencia Artificial en la UE}\\[0.25cm]
+\resizebox{0.92\linewidth}{!}{%
 \begin{tikzpicture}[
-    node distance=1.6cm,
-    bloque/.style={rectangle, draw=unmsm_red, fill=bg_marfil, thick, rounded corners=3pt, minimum width=4.5cm, minimum height=1.1cm, align=center, font=\small\sffamily},
+    node distance=1.4cm,
+    bloque/.style={rectangle, draw=unmsm_red, fill=bg_marfil, thick, rounded corners=3pt, text width=3.8cm, minimum height=1.1cm, align=center, font=\small\sffamily},
     enlace/.style={->, >=stealth, thick, color=unmsm_darkred}
 ]
 \node[bloque] (comision) {\textbf{Comisión Europea}\\Dirección General CNECT};
-\node[bloque, below=of comision] (aioffice) {\textbf{Oficina Europea de IA (AI Office)}\\Supervisión directa de modelos GPAI sistémicos};
-\node[bloque, left=1.2cm of aioffice] (aiboard) {\textbf{Comité Europeo de IA (AI Board)}\\Representantes de Estados Miembros};
-\node[bloque, right=1.2cm of aioffice] (panel) {\textbf{Panel Científico de Expertos}\\Auditorías técnicas independientes};
-\node[bloque, below=of aioffice] (autoridades) {\textbf{Autoridades Nacionales de Supervisión}\\Vigilancia de mercado de sistemas de alto riesgo};
+\node[bloque, below=of comision] (aioffice) {\textbf{Oficina Europea de IA}\\Supervisión de modelos GPAI};
+\node[bloque, left=0.8cm of aioffice] (aiboard) {\textbf{Comité Europeo de IA}\\Representantes Estados Miembros};
+\node[bloque, right=0.8cm of aioffice] (panel) {\textbf{Panel Científico}\\Auditorías independientes};
+\node[bloque, below=of aioffice] (autoridades) {\textbf{Autoridades Nacionales}\\Vigilancia de mercado nacional};
 
 \draw[enlace] (comision) -- (aioffice);
 \draw[enlace] (aioffice) -- (autoridades);
 \draw[enlace] (aiboard) -- (aioffice);
 \draw[enlace] (panel) -- (aioffice);
 \end{tikzpicture}%
-}
-\caption{\textit{Estructura Institucional de Gobernanza de la Inteligencia Artificial en la UE}}
-\label{fig:gobernanza_ue}
-\begin{center}
+}\\[0.2cm]
+\raggedright
 \scriptsize \textbf{Fuente:} Adaptación metodológica basada en Hulok (2025) y Reglamento (UE) 2024/1689.
-\end{center}
+\end{tcolorbox}
+\label{fig:gobernanza_ue}
 \end{figure}
 
 Como ilustra la Figura \ref{fig:gobernanza_ue}, la gobernanza institucional europea articula un esquema de competencias compartidas. Mientras la Oficina de IA en Bruselas centraliza la supervisión directa sobre los modelos fundacionales GPAI y sus umbrales sistémicos, las autoridades nacionales de vigilancia del mercado en cada Estado miembro supervisan los sistemas específicos de alto riesgo aplicados en su territorio.

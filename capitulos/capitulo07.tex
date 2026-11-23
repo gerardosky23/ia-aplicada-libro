@@ -545,6 +545,7 @@ El combustible sobre el cual se entrenan los 14.8 billones de tokens de DeepSeek
 \centering
 \small\sffamily
 \textbf{Figura 7.1.} \textit{Arquitectura de Multi-Head Latent Attention (MLA) y Absorción Matricial}\\[0.25cm]
+\resizebox{0.92\linewidth}{!}{%
 \begin{tikzpicture}[auto, >=stealth, font=\footnotesize\sffamily]
     % Entrada
     \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=3.0cm, text centered] (input) at (0, 0) {\textbf{Estado Oculto $\mathbf{h}_t$}\\($d = 7168$)};
@@ -573,11 +574,12 @@ El combustible sobre el cual se entrenan los 14.8 billones de tokens de DeepSeek
     % Salida
     \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=4.8cm, text centered] (out) at (-0.8, 7.8) {\textbf{Proyección de Salida $\mathbf{o}_{t,i}$}\\$\mathbf{o}_{t,i} = W^{UV}_i \left( \sum_s a_{t,s,i} \mathbf{c}_s^{KV} \right)$};
     \draw [->, thick, draw=unmsm_red] (attn) -- (out);
-\end{tikzpicture}\\[0.25cm]
+\end{tikzpicture}%
+}\\[0.25cm]
 \raggedright
 \scriptsize \textbf{Fuente:} Adaptación metodológica basada en el reporte técnico de DeepSeek-V3 (DeepSeek-AI, 2024).
 \end{tcolorbox}
-\vspace{-0.2cm}
+\vspace{0.15cm}
 \end{figure}
 
 \begin{figure}[htpb!]
@@ -586,24 +588,23 @@ El combustible sobre el cual se entrenan los 14.8 billones de tokens de DeepSeek
 \centering
 \small\sffamily
 \textbf{Figura 7.2.} \textit{Arquitectura DeepSeekMoE de Grano Fino con Expertos Compartidos y Balanceo Dinámico}\\[0.25cm]
-\begin{tikzpicture}[node distance=1.0cm, auto, >=stealth, font=\footnotesize\sffamily]
-    % Entrada
-    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.8cm, text centered] (token) {\textbf{Token Entrada $\mathbf{u}_t$}};
+\resizebox{0.88\linewidth}{!}{%
+\begin{tikzpicture}[>=stealth, font=\footnotesize\sffamily]
+    % Entrada (y = 0.0)
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=3.0cm, text centered] (token) at (0.0, 0.0) {\textbf{Token Entrada $\mathbf{u}_t$}};
     
-    % Experto compartido
-    \node [rectangle, draw=unmsm_darkred, fill=bg_arena, rounded corners=2pt, text width=3.4cm, text centered, above left of=token, node distance=2.2cm, xshift=-1.0cm] (shared) {\textbf{Experto Compartido}\\$FFN^{shared}(\mathbf{u}_t)$\\(Siempre activo, $N_{sh}=1$)};
+    % Experto compartido y Router Dinámico (y = 2.0)
+    \node [rectangle, draw=unmsm_darkred, fill=bg_arena, rounded corners=2pt, text width=3.6cm, text centered] (shared) at (-3.6, 2.0) {\textbf{Experto Compartido}\\$FFN^{shared}(\mathbf{u}_t)$\\(Siempre activo, $N_{sh}=1$)};
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=3.6cm, text centered] (router) at (3.0, 2.0) {\textbf{Router Dinámico}\\$s'_{j,t} = \mathbf{e}_j^T \mathbf{u}_t + b_j$\\(Balanceo sin pérdidas)};
     
-    % Router
-    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=3.6cm, text centered, above right of=token, node distance=2.2cm, xshift=1.0cm] (router) {\textbf{Router Dinámico}\\$s'_{j,t} = \mathbf{e}_j^T \mathbf{u}_t + b_j$\\(Balanceo sin pérdidas)};
+    % Expertos enrutados (y = 4.4)
+    \node [rectangle, draw=unmsm_gray, fill=white, rounded corners=2pt, text width=5.2cm, text centered] (routed) at (3.0, 4.4) {\textbf{256 Sub-expertos de Grano Fino}\\Selección Top-8 ($K=8$ activos)\\$\binom{256}{8} \approx 4.38 \times 10^{14}$ combinaciones};
     
-    % Expertos enrutados
-    \node [rectangle, draw=unmsm_gray, fill=white, rounded corners=2pt, text width=5.0cm, text centered, above of=router, node distance=2.0cm] (routed) {\textbf{256 Sub-expertos de Grano Fino}\\Selección Top-8 ($K=8$ activos)\\$\binom{256}{8} \approx 4.38 \times 10^{14}$ combinaciones};
+    % Agregación (y = 6.4)
+    \node [circle, draw=unmsm_red, fill=bg_arena, text centered] (sum) at (0.0, 6.4) {\Large $\mathbf{\Sigma}$};
     
-    % Agregación
-    \node [circle, draw=unmsm_red, fill=bg_arena, text centered, above of=token, node distance=4.5cm] (sum) {\Large $\mathbf{\Sigma}$};
-    
-    % MTP
-    \node [rectangle, draw=unmsm_darkred, fill=bg_marfil, rounded corners=2pt, text width=4.5cm, text centered, above of=sum, node distance=1.6cm] (mtp) {\textbf{Módulo MTP (Predicción Multitoken)}\\Predicción simultánea de tokens $t+1, t+2$};
+    % MTP (y = 8.2)
+    \node [rectangle, draw=unmsm_darkred, fill=bg_marfil, rounded corners=2pt, text width=5.2cm, text centered] (mtp) at (0.0, 8.2) {\textbf{Módulo MTP (Predicción Multitoken)}\\Predicción simultánea de tokens $t+1, t+2$};
     
     \draw [->, thick, draw=unmsm_red] (token) -- (shared);
     \draw [->, thick, draw=unmsm_red] (token) -- (router);
@@ -611,11 +612,12 @@ El combustible sobre el cual se entrenan los 14.8 billones de tokens de DeepSeek
     \draw [->, thick, draw=unmsm_darkred] (shared) -- (sum);
     \draw [->, thick, draw=unmsm_gray] (routed) -- node[above, font=\scriptsize] {$\sum g_{j,t} FFN_j$} (sum);
     \draw [->, thick, draw=unmsm_red] (sum) -- (mtp);
-\end{tikzpicture}\\[0.25cm]
+\end{tikzpicture}%
+}\\[0.25cm]
 \raggedright
 \scriptsize \textbf{Fuente:} Adaptación metodológica basada en DeepSeek-AI (2024).
 \end{tcolorbox}
-\vspace{-0.2cm}
+\vspace{0.15cm}
 \end{figure}
 
 \begin{figure}[htpb!]

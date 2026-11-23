@@ -62,35 +62,37 @@ La Figura \ref{fig:cuatro_ecosistemas_chinos} ilustra esquemáticamente la distr
 
 \begin{figure}[htbp]
 \centering
+\begin{tcolorbox}[colback=white, colframe=unmsm_gold, arc=3pt, boxrule=0.8pt, top=0.3cm, bottom=0.3cm, left=0.4cm, right=0.4cm]
+\centering
+\small\sffamily
+\textbf{Figura 4.1.} \textit{Vectores de Especialización Tecnológica del Ecosistema Chino de Inteligencia Artificial}\\[0.25cm]
 \resizebox{0.95\linewidth}{!}{%
 \begin{tikzpicture}[
-    node distance=1.5cm and 1.2cm,
     font=\small\sffamily,
     hub/.style={circle, draw=unmsm_red, line width=1.5pt, fill=bg_marfil, align=center, inner sep=8pt, text width=3.2cm, font=\bfseries\sffamily\color{unmsm_red}},
     node_box/.style={rectangle, rounded corners=3mm, draw=unmsm_darkred, line width=1pt, fill=bg_arena!60, align=center, inner sep=6pt, text width=3.4cm, font=\small\sffamily},
     link/.style={-{Latex[length=3mm, width=2mm]}, line width=1.2pt, draw=unmsm_red}
 ]
-    \node (hub) [hub] {Ecosistemas\\ Chinos de IA\\[0.1cm]\scriptsize Soberanía Tecnológica};
+    \node (hub) at (0, 0) [hub] {Ecosistemas\\ Chinos de IA\\[0.1cm]\scriptsize Soberanía Tecnológica};
     
-    \node (deepseek) [node_box, above left=1.2cm and 1.0cm of hub] {\textbf{DeepSeek}\\[0.1cm]\footnotesize Razonamiento Lógico\\ Aprendizaje por Refuerzo Puro\\ Atención Latente (MLA)};
+    \node (deepseek) at (-4.6, 2.4) [node_box] {\textbf{DeepSeek}\\[0.1cm]\footnotesize Razonamiento Lógico\\ Aprendizaje por Refuerzo Puro\\ Atención Latente (MLA)};
     
-    \node (kimi) [node_box, above right=1.2cm and 1.0cm of hub] {\textbf{Moonshot Kimi}\\[0.1cm]\footnotesize Contexto Ultralargo\\ Memoria de Millones de Tokens\\ Compresión de KV-Cache};
+    \node (kimi) at (4.6, 2.4) [node_box] {\textbf{Moonshot Kimi}\\[0.1cm]\footnotesize Contexto Ultralargo\\ Memoria de Millones de Tokens\\ Compresión de KV-Cache};
     
-    \node (ernie) [node_box, below left=1.2cm and 1.0cm of hub] {\textbf{Baidu ERNIE}\\[0.1cm]\footnotesize Integración con Grafos\\ Ecosistema de Búsqueda\\ Procesamiento Nativo Chino};
+    \node (ernie) at (-4.6, -2.4) [node_box] {\textbf{Baidu ERNIE}\\[0.1cm]\footnotesize Integración con Grafos\\ Ecosistema de Búsqueda\\ Procesamiento Nativo Chino};
     
-    \node (zhipu) [node_box, below right=1.2cm and 1.0cm of hub] {\textbf{Zhipu AI}\\[0.1cm]\footnotesize Agentes Autónomos AutoGLM\\ Modelos Abiertos GLM-4.5\\ Grounding en Dispositivos};
+    \node (zhipu) at (4.6, -2.4) [node_box] {\textbf{Zhipu AI}\\[0.1cm]\footnotesize Agentes Autónomos AutoGLM\\ Modelos Abiertos GLM-4.5\\ Grounding en Dispositivos};
 
     \draw [link] (hub) -- (deepseek);
     \draw [link] (hub) -- (kimi);
     \draw [link] (hub) -- (ernie);
     \draw [link] (hub) -- (zhipu);
 \end{tikzpicture}%
-}
-\caption{\textit{Vectores de Especialización Tecnológica del Ecosistema Chino de Inteligencia Artificial.}}
-\label{fig:cuatro_ecosistemas_chinos}
-\begin{center}
+}\\[0.2cm]
+\raggedright
 \scriptsize \textbf{Fuente:} Elaboración propia basada en DeepSeek-AI (2025), Moonshot AI (2024), Baidu (2024) y Zhipu AI (2024).
-\end{center}
+\end{tcolorbox}
+\label{fig:cuatro_ecosistemas_chinos}
 \end{figure}
 
 La Tabla \ref{tab:comparativa_ecosistemas_chinos} sintetiza las dimensiones arquitectónicas, capacidades distintivas y limitaciones operativas de cada uno de los cuatro ecosistemas.
@@ -153,6 +155,11 @@ Bajo este esquema de incentivos puro, el modelo experimentó espontáneamente lo
 
 \begin{figure}[htbp]
 \centering
+\begin{tcolorbox}[colback=white, colframe=unmsm_gold, arc=3pt, boxrule=0.8pt, top=0.3cm, bottom=0.3cm, left=0.4cm, right=0.4cm]
+\centering
+\small\sffamily
+\textbf{Figura 4.2.} \textit{Bucle de Razonamiento Endógeno y Optimización por GRPO en DeepSeek-R1}\\[0.25cm]
+\resizebox{0.85\linewidth}{!}{%
 \begin{tikzpicture}[
     node distance=1.0cm and 0.8cm,
     font=\small\sffamily,
@@ -168,12 +175,12 @@ Bajo este esquema de incentivos puro, el modelo experimentó espontáneamente lo
     \draw [arrow] (think) -- (eval);
     \draw [arrow] (eval) -- (reward);
     \draw [arrow] (reward.east) -- ++(1.0,0) |- node[right, font=\scriptsize\bfseries, text width=2.0cm] {Incentivo de Razonamiento} (think.east);
-\end{tikzpicture}
-\caption{\textit{Bucle de Razonamiento Endógeno y Optimización por GRPO en DeepSeek-R1.}}
-\label{fig:deepseek_grpo_loop}
-\begin{center}
+\end{tikzpicture}%
+}\\[0.2cm]
+\raggedright
 \scriptsize \textbf{Fuente:} Adaptado de DeepSeek-AI (2025).
-\end{center}
+\end{tcolorbox}
+\label{fig:deepseek_grpo_loop}
 \end{figure}
 
 \subsubsection{Atención Latente Multikabezal (MLA) y la Microeconomía de Inferencia}

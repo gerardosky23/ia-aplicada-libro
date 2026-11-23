@@ -89,20 +89,21 @@ La tensión fundamental entre fidelidad perceptual, cobertura modal, estabilidad
 \centering
 \small\sffamily
 \caption{\textbf{Tabla 8.1.} \textit{Comparación Arquitectónica y Epistémica de las Principales Familias de Modelos Generativos Visuales}}
-\resizebox{0.93\linewidth}{!}{%
-\begin{tabularx}{\textwidth}{p{2.6cm} p{3.2cm} p{3.2cm} p{3.2cm} p{2.2cm}}
+\vspace{0.15cm}
+\resizebox{\linewidth}{!}{%
+\begin{tabularx}{\textwidth}{>{\bfseries}p{2.4cm} >{\raggedright\arraybackslash}p{3.2cm} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}p{2.4cm}}
 \toprule
 \textbf{Familia / Modelo} & \textbf{Principio Matemático} & \textbf{Ventajas Destacadas} & \textbf{Limitaciones Críticas} & \textbf{Costo de Muestreo} \\
 \midrule
-\textbf{Autoencoders Variacionales (VAE)} & Maximización del ELBO con regularización KL sobre el espacio latente continuo & Espacio latente continuo y bien estructurado; inferencia probabilística analítica & Pérdida de alta frecuencia; tendencia a generar imágenes borrosas (\textit{blurry}) & Ultrarrápido ($O(1)$, un solo paso feed-forward) \\
+Autoencoders Variacionales (VAE) & Maximización del ELBO con regularización KL sobre el espacio latente continuo & Espacio latente continuo y bien estructurado; inferencia probabilística analítica & Pérdida de alta frecuencia; tendencia a generar imágenes borrosas (\textit{blurry}) & Ultrarrápido ($O(1)$, un solo paso feed-forward) \\
 \midrule
-\textbf{Redes Adversarias (GAN)} & Juego minimax bi-jugador entre Generador y Discriminador: $\min_G \max_D V(D,G)$ & Extraordinaria nitidez perceptual y velocidad de síntesis en tiempo real & Inestabilidad de entrenamiento; colapso de modos (\textit{mode collapse}); gradientes nulos & Ultrarrápido ($O(1)$, pase directo por generador) \\
+Redes Adversarias (GAN) & Juego minimax bi-jugador entre Generador y Discriminador: $\min_G \max_D V(D,G)$ & Extraordinaria nitidez perceptual y velocidad de síntesis en tiempo real & Inestabilidad de entrenamiento; colapso de modos (\textit{mode collapse}); gradientes nulos & Ultrarrápido ($O(1)$, pase directo por generador) \\
 \midrule
-\textbf{Modelos Autorregresivos (ARM)} & Factorización secuencial de la densidad: $p(x) = \prod_i p(x_i | x_{<i})$ mediante Transformers & Modelado exacto de dependencias de largo alcance; verosimilitud exacta sin aproximación & Inferencia secuencial extremadamente lenta; alto consumo de memoria & Muy Lento ($O(N)$, paso por cada píxel o token visual) \\
+Modelos Autorregresivos (ARM) & Factorización secuencial de la densidad:\\[0.05cm] $p(x) = \prod_i p(x_i \mid x_{<i})$\\[0.05cm] mediante Transformers & Modelado exacto de dependencias de largo alcance; verosimilitud exacta sin aproximación & Inferencia secuencial extremadamente lenta; alto consumo de memoria & Muy Lento ($O(N)$, paso por cada píxel o token visual) \\
 \midrule
-\textbf{Flujos Normalizados (Flows)} & Transformación invertible de variables mediante matriz Jacobiana: $p(x) = p(z)|\det J_f^{-1}|$ & Cálculo analítico de verosimilitud exacta e inferencia invertible bidireccional & Restricción topológica de invertibilidad; alto requerimiento de memoria y parámetros & Rápido ($O(1)$, evaluación analítica directa) \\
+Flujos Normalizados (Flows) & Transformación invertible de variables mediante matriz Jacobiana:\\[0.05cm] $p(x) = p(z)|\det J_f^{-1}|$ & Cálculo analítico de verosimilitud exacta e inferencia invertible bidireccional & Restricción topológica de invertibilidad; alto requerimiento de memoria y parámetros & Rápido ($O(1)$, evaluación analítica directa) \\
 \midrule
-\textbf{Modelos de Difusión (DDPM / LDM)} & Eliminación progresiva de perturbaciones gaussianas guiada por estimación de ruido o función de puntuación & Máxima diversidad muestral; estabilidad de entrenamiento sin juegos minimax; fácil acondicionamiento & Requiere múltiples evaluaciones secuenciales de la red neuronal durante el muestreo & Moderado a Alto ($O(T)$, 15--50 pasos con DDIM/DPM-Solver) \\
+Modelos de Difusión (DDPM / LDM) & Eliminación progresiva de perturbaciones gaussianas guiada por estimación de ruido o función de puntuación & Máxima diversidad muestral; estabilidad de entrenamiento sin juegos minimax; fácil acondicionamiento & Requiere múltiples evaluaciones secuenciales de la red neuronal durante el muestreo & Moderado a Alto ($O(T)$, 15--50 pasos con DDIM/DPM-Solver) \\
 \bottomrule
 \end{tabularx}%
 }
@@ -281,12 +282,12 @@ La Figura 8.1 ilustra la dinámica de Markov y la reversión de entropía que fu
 \small\sffamily
 \textbf{Figura 8.1.} \textit{Cadena de Markov del Proceso de Difusión Directo e Inverso}\\[0.25cm]
 \resizebox{\linewidth}{!}{%
-\begin{tikzpicture}[node distance=2.2cm, auto, >=stealth, font=\footnotesize\sffamily]
-    % Estados
-    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=3pt, text width=2.0cm, text centered, minimum height=1.2cm] (x0) {\textbf{Imagen Real}\\$x_0 \sim q(x_0)$};
-    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=3pt, text width=2.0cm, text centered, minimum height=1.2cm, right of=x0, node distance=3.2cm] (x1) {\textbf{Perturbación}\\$x_t \sim q(x_t|x_0)$};
-    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=3pt, text width=2.0cm, text centered, minimum height=1.2cm, right of=x1, node distance=3.2cm] (xtm1) {\textbf{Casi Ruido}\\$x_{T-1}$};
-    \node [rectangle, draw=unmsm_darkred, fill=bg_arena, rounded corners=3pt, text width=2.2cm, text centered, minimum height=1.2cm, right of=xtm1, node distance=3.2cm] (xT) {\textbf{Ruido Puro}\\$x_T \sim \mathcal{N}(0, \mathbf{I})$};
+\begin{tikzpicture}[>=stealth, font=\footnotesize\sffamily]
+    % Estados (y = 0.0)
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=3pt, text width=2.4cm, text centered, minimum height=1.2cm] (x0) at (-5.1, 0.0) {\textbf{Imagen Real}\\$x_0 \sim q(x_0)$};
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=3pt, text width=2.4cm, text centered, minimum height=1.2cm] (x1) at (-1.7, 0.0) {\textbf{Perturbación}\\$x_t \sim q(x_t|x_0)$};
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=3pt, text width=2.4cm, text centered, minimum height=1.2cm] (xtm1) at (1.7, 0.0) {\textbf{Casi Ruido}\\$x_{T-1}$};
+    \node [rectangle, draw=unmsm_darkred, fill=bg_arena, rounded corners=3pt, text width=2.4cm, text centered, minimum height=1.2cm] (xT) at (5.1, 0.0) {\textbf{Ruido Puro}\\$x_T \sim \mathcal{N}(0, \mathbf{I})$};
 
     % Flechas proceso directo (Forward)
     \path [->, thick, draw=unmsm_red] (x0) edge [bend left=25] node [above] {\scriptsize $q(x_t|x_{t-1})$} (x1);
@@ -299,8 +300,8 @@ La Figura 8.1 ilustra la dinámica de Markov y la reversión de entropía que fu
     \path [->, thick, draw=unmsm_darkred] (x1) edge [bend left=25] node [below] {\scriptsize $p_\theta(x_0|x_1)$} (x0);
 
     % Anotaciones separadas verticalmente
-    \node [above of=x1, node distance=1.3cm, xshift=1.6cm, text=unmsm_red] {\scriptsize \textbf{Proceso Directo (Forward):} Destrucción progresiva de información (entropía creciente)};
-    \node [below of=x1, node distance=1.3cm, xshift=1.6cm, text=unmsm_darkred] {\scriptsize \textbf{Proceso Inverso (Reverse):} Reconstrucción guiada por red neuronal $\epsilon_\theta(x_t, t)$};
+    \node [text=unmsm_red] at (0.0, 1.9) {\scriptsize \textbf{Proceso Directo (Forward):} Destrucción progresiva de información (entropía creciente)};
+    \node [text=unmsm_darkred] at (0.0, -1.9) {\scriptsize \textbf{Proceso Inverso (Reverse):} Reconstrucción guiada por red neuronal $\epsilon_\theta(x_t, t)$};
 \end{tikzpicture}%
 }
 \end{tcolorbox}
@@ -386,14 +387,14 @@ La Figura 8.2 esquematiza la arquitectura global de este sistema bi-etápico.
 \centering
 \small\sffamily
 \textbf{Figura 8.2.} \textit{Arquitectura Global del Modelo de Difusión Latente (LDM / Stable Diffusion)}\\[0.25cm]
-\resizebox{\linewidth}{!}{%
-\begin{tikzpicture}[node distance=1.8cm, auto, >=stealth, font=\footnotesize\sffamily]
-    % Espacio de píxeles
-    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.4cm, text centered] (img) {\textbf{Píxeles $x$}\\$H \times W \times 3$};
-    \node [rectangle, draw=unmsm_red, fill=bg_arena, rounded corners=2pt, text width=2.0cm, text centered, right of=img, node distance=3.0cm] (enc) {\textbf{Encoder $\mathcal{E}$}\\Factor $f=8$};
-    \node [rectangle, draw=unmsm_darkred, fill=bg_marfil, rounded corners=2pt, text width=2.2cm, text centered, right of=enc, node distance=2.8cm] (lat) {\textbf{Espacio Latente}\\$z_t \in \mathbf{R}^{h \times w \times c}$};
-    \node [rectangle, draw=unmsm_red, fill=bg_arena, rounded corners=2pt, text width=2.0cm, text centered, right of=lat, node distance=2.8cm] (dec) {\textbf{Decoder $\mathcal{D}$}\\Síntesis};
-    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.4cm, text centered, right of=dec, node distance=3.0cm] (out) {\textbf{Imagen $\hat{x}$}\\Reconstruida};
+\resizebox{0.95\linewidth}{!}{%
+\begin{tikzpicture}[>=stealth, font=\footnotesize\sffamily]
+    % Espacio de píxeles (Fila Superior, y = 1.4)
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.2cm, text centered] (img) at (-5.6, 1.4) {\textbf{Píxeles $x$}\\$H \times W \times 3$};
+    \node [rectangle, draw=unmsm_red, fill=bg_arena, rounded corners=2pt, text width=2.0cm, text centered] (enc) at (-2.8, 1.4) {\textbf{Encoder $\mathcal{E}$}\\Factor $f=8$};
+    \node [rectangle, draw=unmsm_darkred, fill=bg_marfil, rounded corners=2pt, text width=2.4cm, text centered] (lat) at (0.0, 1.4) {\textbf{Espacio Latente}\\$z_t \in \mathbf{R}^{h \times w \times c}$};
+    \node [rectangle, draw=unmsm_red, fill=bg_arena, rounded corners=2pt, text width=2.0cm, text centered] (dec) at (2.8, 1.4) {\textbf{Decoder $\mathcal{D}$}\\Síntesis};
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.2cm, text centered] (out) at (5.6, 1.4) {\textbf{Imagen $\hat{x}$}\\Reconstruida};
 
     % Flujo VAE
     \draw [->, thick, draw=unmsm_red] (img) -- (enc);
@@ -402,13 +403,13 @@ La Figura 8.2 esquematiza la arquitectura global de este sistema bi-etápico.
     \draw [->, thick, draw=unmsm_red] (dec) -- (out);
 
     % U-Net Backbone y Condicionamiento
-    \node [rectangle, draw=unmsm_darkred, fill=bg_marfil, rounded corners=3pt, text width=4.4cm, text centered, below of=lat, node distance=2.2cm] (unet) {\textbf{U-Net Denoising Engine}\\ResNet + Self-Attention\\$\epsilon_\theta(z_t, t, \tau(y))$};
-    \node [rectangle, draw=unmsm_red, fill=bg_arena, rounded corners=2pt, text width=3.4cm, text centered, left of=unet, node distance=5.0cm] (clip) {\textbf{CLIP Text Encoder}\\$\tau_\theta(y) \in \mathbf{R}^{77 \times 768}$};
-    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.4cm, text centered, left of=clip, node distance=3.6cm] (txt) {\textbf{Prompt $y$}\\"Un laboratorio..."};
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.6cm, text centered] (txt) at (-5.0, 0.0) {\textbf{Prompt $y$}\\"Un laboratorio..."};
+    \node [rectangle, draw=unmsm_red, fill=bg_arena, rounded corners=2pt, text width=3.0cm, text centered] (clip) at (-5.0, -1.8) {\textbf{CLIP Text Encoder}\\$\tau_\theta(y) \in \mathbf{R}^{77 \times 768}$};
+    \node [rectangle, draw=unmsm_darkred, fill=bg_marfil, rounded corners=3pt, text width=4.6cm, text centered] (unet) at (0.0, -1.8) {\textbf{U-Net Denoising Engine}\\ResNet + Self-Attention\\$\epsilon_\theta(z_t, t, \tau(y))$};
 
-    \draw [->, thick, draw=unmsm_red] (txt) -- (clip);
-    \draw [->, thick, draw=unmsm_red] (clip.east) -- node [above=2pt, font=\tiny\sffamily] {Cross-Attn} (unet.west);
-    \draw [<->, thick, draw=unmsm_darkred] (lat) -- node [right] {\scriptsize Denoising} (unet);
+    \draw [->, thick, draw=unmsm_red] (txt) -- node [right=2pt, font=\scriptsize\sffamily] {Tokenización} (clip);
+    \draw [->, thick, draw=unmsm_red] (clip.east) -- node [above=2pt, font=\scriptsize\sffamily] {Cross-Attn} (unet.west);
+    \draw [<->, thick, draw=unmsm_darkred] (lat.south) -- node [right=2pt, font=\scriptsize\sffamily] {Denoising} (unet.north);
 \end{tikzpicture}%
 }
 \end{tcolorbox}
@@ -486,31 +487,27 @@ La Figura 8.3 detalla el flujo de información de esta arquitectura.
 \small\sffamily
 \textbf{Figura 8.3.} \textit{Arquitectura de ControlNet con Mecanismo de Convolución Cero ($1 \times 1$)}\\[0.25cm]
 \resizebox{\linewidth}{!}{%
-\begin{tikzpicture}[node distance=2.0cm, auto, >=stealth, font=\footnotesize\sffamily]
-    % Entradas
-    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.6cm, text centered] (x) {\textbf{Mapa Latente $x$}\\(Features U-Net)};
-    \node [rectangle, draw=unmsm_darkred, fill=bg_arena, rounded corners=2pt, text width=2.6cm, text centered, below of=x, node distance=2.2cm] (c) {\textbf{Condición $c$}\\(Bordes / Depth / Pose)};
+\begin{tikzpicture}[>=stealth, font=\footnotesize\sffamily]
+    % Entradas y Fila Superior (y = 1.6)
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.8cm, text centered] (x) at (-5.0, 1.6) {\textbf{Mapa Latente $x$}\\(Features U-Net)};
+    \node [rectangle, draw=black, fill=gray!15, rounded corners=2pt, text width=3.4cm, text centered] (locked) at (0.0, 1.6) {\textbf{Bloque Congelado}\\$\mathcal{F}(x; \Theta)$\\(Pesos bloqueados)};
+    \node [circle, draw=unmsm_darkred, fill=bg_arena, text centered] (sum) at (3.8, 1.6) {\textbf{+}};
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.4cm, text centered] (out) at (6.4, 1.6) {\textbf{Salida $y_c$}\\Hacia U-Net};
 
-    % Bloque Congelado
-    \node [rectangle, draw=black, fill=gray!15, rounded corners=2pt, text width=3.2cm, text centered, right of=x, node distance=4.5cm] (locked) {\textbf{Bloque Congelado}\\$\mathcal{F}(x; \Theta)$\\(Pesos originales bloqueados)};
-
-    % Bloque Entrenable y Convoluciones Cero
-    \node [circle, draw=unmsm_red, fill=bg_marfil, right of=c, node distance=2.2cm] (z1) {$\mathcal{Z}$};
-    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=3.2cm, text centered, right of=z1, node distance=2.6cm] (train) {\textbf{Copia Entrenable}\\$\mathcal{F}(x + \mathcal{Z}(c); \Theta_c)$};
-    \node [circle, draw=unmsm_red, fill=bg_marfil, right of=train, node distance=2.6cm] (z2) {$\mathcal{Z}$};
-
-    % Sumador final
-    \node [circle, draw=unmsm_darkred, fill=bg_arena, text centered, right of=locked, node distance=4.2cm] (sum) {\textbf{+}};
-    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.4cm, text centered, right of=sum, node distance=2.6cm] (out) {\textbf{Salida $y_c$}\\Hacia U-Net};
+    % Fila Inferior de Control (y = -1.4)
+    \node [rectangle, draw=unmsm_darkred, fill=bg_arena, rounded corners=2pt, text width=2.8cm, text centered] (c) at (-5.0, -1.4) {\textbf{Condición $c$}\\(Bordes / Depth / Pose)};
+    \node [circle, draw=unmsm_red, fill=bg_marfil] (z1) at (-2.3, -1.4) {$\mathcal{Z}$};
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=3.4cm, text centered] (train) at (0.8, -1.4) {\textbf{Copia Entrenable}\\$\mathcal{F}(x + \mathcal{Z}(c); \Theta_c)$};
+    \node [circle, draw=unmsm_red, fill=bg_marfil] (z2) at (3.8, -1.4) {$\mathcal{Z}$};
 
     % Conexiones
     \draw [->, thick, draw=black] (x) -- (locked);
-    \draw [->, thick, draw=unmsm_red] (c) -- node [above] {\scriptsize $1 \times 1, W=0$} (z1);
-    \draw [->, thick, draw=unmsm_red] (x) |- (train);
+    \draw [->, thick, draw=unmsm_red] (c) -- node [above, font=\tiny] {$1 \times 1, W=0$} (z1);
+    \draw [->, thick, draw=unmsm_red] (x.south) |- ++(0, -0.6) -| (train.north west);
     \draw [->, thick, draw=unmsm_red] (z1) -- (train);
     \draw [->, thick, draw=unmsm_red] (train) -- (z2);
     \draw [->, thick, draw=black] (locked) -- (sum);
-    \draw [->, thick, draw=unmsm_red] (z2) -| (sum);
+    \draw [->, thick, draw=unmsm_red] (z2) -- (sum);
     \draw [->, thick, draw=unmsm_darkred] (sum) -- (out);
 \end{tikzpicture}%
 }
@@ -566,7 +563,7 @@ El IS se define formalmente como:
 \mathrm{IS} = \exp\left( \mathbf{E}_{x \sim p_g} \left[ D_{\mathrm{KL}}(p(y|x) \parallel p(y)) \right] \right)
 \end{equation}
 Un modelo óptimo debe satisfacer dos criterios complementarios:
-\begin{itemize}
+\begin{itemize}[itemsep=0.4em]
     \item Para cada imagen individual, $p(y|x)$ debe poseer baja entropía (la imagen contiene un objeto identificable con alta certeza por el clasificador).
     \item La distribución marginal $p(y) = \frac{1}{N} \sum_{i=1}^N p(y|x_i)$ debe poseer alta entropía (el generador produce una amplia variedad de clases distintas sin sesgarse hacia una sola).
 \end{itemize}
@@ -609,10 +606,10 @@ Esta factorización revela que un modelo puede exhibir un IS aparentemente acept
 \subsubsection{Descomposición Condicional del FID: BCFID, WCFID y la Cota Superior}
 
 De forma análoga, Benny et al. (2021) extendieron la descomposición al Fréchet Inception Distance, definiendo las medias y covarianzas condicionales $\mu_{r,c}, \Sigma_{r,c}$ para datos reales y $\mu_{g,c}, \Sigma_{g,c}$ para datos generados bajo la condición $c$:
-\begin{eqnarray}
-\mathrm{BCFID} &=& \left\| \bar{\mu}_r - \bar{\mu}_g \right\|_2^2 + \mathrm{Tr}\left( \bar{\Sigma}_r + \bar{\Sigma}_g - 2(\bar{\Sigma}_r \bar{\Sigma}_g)^{1/2} \right) \\
-\mathrm{WCFID} &=& \sum_{c \in \mathcal{C}} p(c) \left[ \left\| \mu_{r,c} - \mu_{g,c} \right\|_2^2 + \mathrm{Tr}\left( \Sigma_{r,c} + \Sigma_{g,c} - 2(\Sigma_{r,c} \Sigma_{g,c})^{1/2} \right) \right]
-\end{eqnarray}
+\begin{align}
+\mathrm{BCFID} &= \left\| \bar{\mu}_r - \bar{\mu}_g \right\|_2^2 + \mathrm{Tr}\left( \bar{\Sigma}_r + \bar{\Sigma}_g - 2(\bar{\Sigma}_r \bar{\Sigma}_g)^{1/2} \right) \\[0.2cm]
+\mathrm{WCFID} &= \sum_{c \in \mathcal{C}} p(c) \left[ \left\| \mu_{r,c} - \mu_{g,c} \right\|_2^2 + \mathrm{Tr}\left( \Sigma_{r,c} + \Sigma_{g,c} - 2(\Sigma_{r,c} \Sigma_{g,c})^{1/2} \right) \right]
+\end{align}
 donde $\bar{\mu} = \sum_c p(c) \mu_c$ y $\bar{\Sigma} = \sum_c p(c) \Sigma_c$.
 
 Bajo esta formalización, se demuestra la desigualdad de cota superior:
@@ -628,17 +625,18 @@ La Tabla 8.3 compendia las propiedades y el comportamiento deseable de estas mé
 \small\sffamily
 \caption{\textbf{Tabla 8.3.} \textit{Matriz Comparativa de Métricas de Evaluación para Modelos Generativos Visuales}}
 \vspace{0.15cm}
-\begin{tabularx}{\textwidth}{>{\bfseries}p{1.4cm} >{\raggedright\arraybackslash}p{4.2cm} >{\raggedright\arraybackslash}p{2.8cm} >{\raggedright\arraybackslash}p{2.7cm} >{\raggedright\arraybackslash}X}
+\resizebox{\linewidth}{!}{%
+\begin{tabularx}{\textwidth}{>{\bfseries}p{1.5cm} >{\raggedright\arraybackslash}p{4.0cm} >{\raggedright\arraybackslash}p{2.8cm} >{\raggedright\arraybackslash}p{2.6cm} >{\raggedright\arraybackslash}X}
 \toprule
 \textbf{Métrica} & \textbf{Formulación / Fundamento} & \textbf{Dimensión Evaluada} & \textbf{Comportamiento Deseable} & \textbf{Sensibilidad Crítica} \\
 \midrule
-IS & $\exp(\mathbf{E}[D_{\mathrm{KL}}(p(y|x) \parallel p(y))])$ con Inception-v3 & Calidad visual de objetos y diversidad marginal global & Valor alto & Insensible al colapso intra-clase y a condiciones textuales \\
+IS & $\exp\bigl(\mathbf{E}[D_{\mathrm{KL}}(p(y|x) \parallel p(y))]\bigr)$ con Inception-v3 & Calidad visual de objetos y diversidad marginal global & Valor alto & Insensible al colapso intra-clase y a condiciones textuales \\
 \midrule
-FID & $\|\mu_r - \mu_g\|^2 + \mathrm{Tr}(\Sigma_r + \Sigma_g - 2(\Sigma_r \Sigma_g)^{1/2})$ & Distancia estadística en espacio de características profundas & Valor bajo (próximo a 0) & Sensible a artefactos globales; no mide correspondencia prompt-imagen \\
+FID & $\|\mu_r - \mu_g\|^2 + \mathrm{Tr}\bigl(\Sigma_r + \Sigma_g$\newline $- 2(\Sigma_r \Sigma_g)^{1/2}\bigr)$ & Distancia estadística en espacio de características profundas & Valor bajo (próximo a 0) & Sensible a artefactos globales; no mide correspondencia prompt-imagen \\
 \midrule
-BCIS & $\exp(\sum_c p(c) D_{\mathrm{KL}}(p(y|c) \parallel p(y)))$ & Separabilidad y discriminación entre clases condicionales & Valor alto & Mide diversidad entre condiciones distintas \\
+BCIS & $\exp\bigl(\sum_c p(c) D_{\mathrm{KL}}(p(y|c) \parallel p(y))\bigr)$ & Separabilidad y discriminación entre clases condicionales & Valor alto & Mide diversidad entre condiciones distintas \\
 \midrule
-WCIS & $\exp(\sum_c p(c) \mathbf{E}_{x|c}[D_{\mathrm{KL}}(p(y|x,c) \parallel p(y|c))])$ & Coherencia y consistencia interna dentro de cada clase & Valor próximo a 1 & Detecta ambigüedad en predicciones intra-condición \\
+WCIS & $\exp\Bigl(\sum_c p(c) \cdot$\newline $\mathbf{E}_{x|c}\bigl[D_{\mathrm{KL}}(p(y|x,c) \parallel p(y|c))\bigr]\Bigr)$ & Coherencia y consistencia interna dentro de cada clase & Valor próximo a 1 & Detecta ambigüedad en predicciones intra-condición \\
 \midrule
 BCFID & Distancia Fréchet entre medias y covarianzas promedio inter-clase & Desplazamiento global del centroide condicional & Valor bajo & Evalúa fidelidad macroestructural del generador \\
 \midrule
@@ -646,7 +644,8 @@ WCFID & Suma ponderada de distancias Fréchet dentro de cada condición & Variab
 \midrule
 CLIP-Score & $\cos(\tau_I(x), \tau_T(y))$ entre embeddings imagen-texto & Alineación semántica y correspondencia multimodal & Valor alto (típicamente $>0.28$) & Vulnerable a "hackeo adversarial" de palabras clave sin coherencia física \\
 \bottomrule
-\end{tabularx}
+\end{tabularx}%
+}
 \vspace{0.25cm}
 {\scriptsize \textbf{Fuente:} Adaptado de Benny et al. (2021) y Hessel et al. (2021).}
 \end{table}

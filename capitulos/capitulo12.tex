@@ -91,20 +91,23 @@ El sistema desarrollado integra Power Apps como interfaz de captura estructurada
 \begin{tcolorbox}[colback=white, colframe=unmsm_gold, arc=3pt, boxrule=0.8pt, top=0.3cm, bottom=0.3cm, left=0.5cm, right=0.5cm]
 \centering
 \small\sffamily
-\textbf{Figura 1.1.} Arquitectura del Flujo Documental Multitarea (MAF) en Power Platform\\[0.2cm]
-\begin{tikzpicture}[node distance=1.2cm, auto, >=stealth, font=\footnotesize\sffamily]
-    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.6cm, text centered] (papps) {\textbf{Power Apps}\\Captura UI / RBAC};
-    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.6cm, text centered, right of=papps, node distance=3.8cm] (pauto) {\textbf{Power Automate}\\Orquestador MAF};
-    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.6cm, text centered, right of=pauto, node distance=3.8cm] (sp) {\textbf{SharePoint / Dataverse}\\Persistencia \& ISO};
-    \node [rectangle, draw=unmsm_darkred, fill=bg_arena, rounded corners=2pt, text width=2.6cm, text centered, below of=pauto, node distance=1.6cm] (notif) {\textbf{Aprobación Digital}\\Notificación y Firma};
+\textbf{Figura 12.1.} Arquitectura del Flujo Documental Multitarea (MAF) en Power Platform\\[0.25cm]
+\resizebox{0.92\linewidth}{!}{%
+\begin{tikzpicture}[>=stealth, font=\footnotesize\sffamily]
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.8cm, text centered] (papps) at (-4.0, 0.8) {\textbf{Power Apps}\\Captura UI / RBAC};
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.8cm, text centered] (pauto) at (0.0, 0.8) {\textbf{Power Automate}\\Orquestador MAF};
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.8cm, text centered] (sp) at (4.0, 0.8) {\textbf{SharePoint / Dataverse}\\Persistencia \& ISO};
+    \node [rectangle, draw=unmsm_darkred, fill=bg_arena, rounded corners=2pt, text width=2.8cm, text centered] (notif) at (0.0, -1.2) {\textbf{Aprobación Digital}\\Notificación y Firma};
+    
     \draw [->, thick, draw=unmsm_red] (papps) -- (pauto);
     \draw [->, thick, draw=unmsm_red] (pauto) -- (sp);
     \draw [<->, thick, draw=unmsm_darkred] (pauto) -- (notif);
-\end{tikzpicture}\\[0.25cm]
+\end{tikzpicture}%
+}\\[0.25cm]
 \raggedright
 \scriptsize \textbf{Fuente:} Adaptación metodológica basada en Marian, Neferu y Mitrea (2026).
 \end{tcolorbox}
-\vspace{-0.2cm}
+\vspace{0.15cm}
 \end{figure}
 
 En un estudio piloto controlado de seis semanas con 25 usuarios activos en un entorno académico-industrial, se obtuvieron los siguientes resultados:

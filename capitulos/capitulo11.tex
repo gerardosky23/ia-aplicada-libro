@@ -242,29 +242,31 @@ SummarizeBot (SummarizeBot, 2024) utiliza algoritmos de procesamiento de lenguaj
 \centering
 \small\sffamily
 \textbf{Figura 11.1.} Arquitectura del Pipeline de Síntesis Documental y Verificación de Citas con RAG de Contexto Cerrado\\[0.25cm]
-\begin{tikzpicture}[node distance=1.1cm, auto, >=stealth, font=\footnotesize\sffamily]
-    % Nodos superiores
-    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.4cm, text centered] (pdf) {\textbf{Corpus Fuente}\\PDFs / Artículos};
-    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.4cm, text centered, right of=pdf, node distance=3.3cm] (chunk) {\textbf{Chunking \&}\\\textbf{Solapamiento}};
-    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.4cm, text centered, right of=chunk, node distance=3.3cm] (embed) {\textbf{Modelo Embeddings}\\Proyección $\mathbf{R}^d$};
-    \node [rectangle, draw=unmsm_darkred, fill=bg_arena, rounded corners=2pt, text width=2.5cm, text centered, right of=embed, node distance=3.4cm] (vdb) {\textbf{Base Vectorial}\\Índice Semántico};
+\resizebox{0.95\linewidth}{!}{%
+\begin{tikzpicture}[>=stealth, font=\footnotesize\sffamily]
+    % Nodos superiores (y = 1.4)
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.6cm, text centered] (pdf) at (-4.8, 1.4) {\textbf{Corpus Fuente}\\PDFs / Artículos};
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.6cm, text centered] (chunk) at (-1.6, 1.4) {\textbf{Chunking \&}\\\textbf{Solapamiento}};
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.6cm, text centered] (embed) at (1.6, 1.4) {\textbf{Modelo Embeddings}\\Proyección $\mathbf{R}^d$};
+    \node [rectangle, draw=unmsm_darkred, fill=bg_arena, rounded corners=2pt, text width=2.6cm, text centered] (vdb) at (4.8, 1.4) {\textbf{Base Vectorial}\\Índice Semántico};
 
-    % Nodos inferiores
-    \node [rectangle, draw=unmsm_gray, fill=white, rounded corners=2pt, text width=2.4cm, text centered, below of=pdf, node distance=2.2cm] (query) {\textbf{Consulta Académica}\\Pregunta Investigador};
-    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.4cm, text centered, below of=chunk, node distance=2.2cm] (cos) {\textbf{Similitud Coseno}\\Top-$k$ Chunks};
-    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.4cm, text centered, below of=embed, node distance=2.2cm] (rag) {\textbf{Ensamblado RAG}\\Cerramiento Estricto};
-    \node [rectangle, draw=unmsm_darkred, fill=bg_arena, rounded corners=2pt, text width=2.5cm, text centered, below of=vdb, node distance=2.2cm] (synth) {\textbf{Síntesis Validada}\\Citas a Renglón};
+    % Nodos inferiores (y = -1.4)
+    \node [rectangle, draw=unmsm_gray, fill=white, rounded corners=2pt, text width=2.6cm, text centered] (query) at (-4.8, -1.4) {\textbf{Consulta Académica}\\Pregunta Investigador};
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.6cm, text centered] (cos) at (-1.6, -1.4) {\textbf{Similitud Coseno}\\Top-$k$ Chunks};
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.6cm, text centered] (rag) at (1.6, -1.4) {\textbf{Ensamblado RAG}\\Cerramiento Estricto};
+    \node [rectangle, draw=unmsm_darkred, fill=bg_arena, rounded corners=2pt, text width=2.6cm, text centered] (synth) at (4.8, -1.4) {\textbf{Síntesis Validada}\\Citas a Renglón};
 
     % Conexiones
     \draw [->, thick, draw=unmsm_red] (pdf) -- (chunk);
     \draw [->, thick, draw=unmsm_red] (chunk) -- (embed);
     \draw [->, thick, draw=unmsm_red] (embed) -- (vdb);
     \draw [->, thick, draw=unmsm_gray] (query) -- (cos);
-    \draw [->, thick, draw=unmsm_red] (vdb) |- (cos);
+    \draw [->, thick, draw=unmsm_red] (vdb) -- (synth);
     \draw [->, thick, draw=unmsm_red] (cos) -- (rag);
     \draw [->, thick, draw=unmsm_darkred] (rag) -- (synth);
-    \draw [->, dashed, thick, draw=unmsm_darkred] (synth) -| node [near end, above, font=\tiny] {Auditoría Citas} (pdf);
-\end{tikzpicture}\\[0.25cm]
+    \draw [->, dashed, thick, draw=unmsm_darkred] (synth.south) -- ++(0, -0.6) -| node [pos=0.25, below, font=\tiny] {Auditoría Citas} (pdf.south);
+\end{tikzpicture}%
+}\\[0.25cm]
 \raggedright
 \scriptsize \textbf{Fuente:} Elaboración propia basada en la arquitectura RAG de Lewis et al. (2020) y los principios de contexto cerrado de NotebookLM (Google, 2024).
 \end{tcolorbox}
@@ -390,34 +392,34 @@ Para neutralizar este riesgo, todo flujo de trabajo basado en agentes inteligent
 \centering
 \small\sffamily
 \textbf{Figura 11.2.} Arquitectura de un Agente Inteligente Autónomo para Investigación Científica basado en el Ciclo ReAct\\[0.25cm]
-\begin{tikzpicture}[node distance=1.3cm, auto, >=stealth, font=\footnotesize\sffamily]
-    % Núcleo central
-    \node [rectangle, draw=unmsm_darkred, fill=bg_arena, rounded corners=3pt, text width=3.2cm, text centered] (llm) {\textbf{Núcleo Cognitivo}\\Modelo LLM / Razonador\\(Directivas de Perfil)};
+\resizebox{0.95\linewidth}{!}{%
+\begin{tikzpicture}[>=stealth, font=\footnotesize\sffamily]
+    % Nivel 1: Núcleo y Procesamiento Cognitivo (y = 2.4)
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=3.4cm, text centered] (plan) at (-4.5, 2.4) {\textbf{Módulo Planificador}\\CoT / Reflexion\\Descomposición Submetas};
+    \node [rectangle, draw=unmsm_darkred, fill=bg_arena, rounded corners=3pt, text width=3.6cm, text centered] (llm) at (0.0, 2.4) {\textbf{Núcleo Cognitivo}\\Modelo LLM / Razonador\\(Directivas de Perfil)};
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=3.4cm, text centered] (mem) at (4.5, 2.4) {\textbf{Memoria Dual}\\Corto Plazo (Contexto)\\Largo Plazo (Vectorial)};
     
-    % Planificación y Memoria
-    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.8cm, text centered, left of=llm, node distance=4.3cm] (plan) {\textbf{Módulo Planificador}\\CoT / Reflexion\\Descomposición Submetas};
-    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.8cm, text centered, right of=llm, node distance=4.3cm] (mem) {\textbf{Memoria Dual}\\Corto Plazo (Contexto)\\Largo Plazo (Vectorial)};
+    % Nivel 2: Router de Acciones y Herramientas (y = -0.1)
+    \node [rectangle, draw=unmsm_gray, fill=white, rounded corners=2pt, text width=3.2cm, text centered] (apis) at (-4.5, -0.1) {\textbf{Bases Académicas}\\Semantic Scholar\\API Zotero / arXiv};
+    \node [rectangle, draw=unmsm_darkred, fill=bg_marfil, rounded corners=2pt, text width=3.6cm, text centered] (tools) at (0.0, -0.1) {\textbf{Router de Acciones}\\Protocolo Toolformer\\Llamada a APIs};
+    \node [rectangle, draw=unmsm_gray, fill=white, rounded corners=2pt, text width=3.2cm, text centered] (exec) at (4.5, -0.1) {\textbf{Cálculo \& Código}\\Kernel Python\\Compilador LaTeX};
     
-    % Enrutador de Herramientas
-    \node [rectangle, draw=unmsm_darkred, fill=bg_marfil, rounded corners=2pt, text width=3.2cm, text centered, below of=llm, node distance=2.2cm] (tools) {\textbf{Router de Acciones}\\Protocolo Toolformer\\Llamada a APIs};
-    
-    % Herramientas externas
-    \node [rectangle, draw=unmsm_gray, fill=white, rounded corners=2pt, text width=2.4cm, text centered, below of=plan, node distance=2.2cm] (apis) {\textbf{Bases Académicas}\\Semantic Scholar\\API Zotero / arXiv};
-    \node [rectangle, draw=unmsm_gray, fill=white, rounded corners=2pt, text width=2.4cm, text centered, below of=mem, node distance=2.2cm] (exec) {\textbf{Cálculo \& Código}\\Kernel Python\\Compilador LaTeX};
-    
-    % Capa HITL
-    \node [rectangle, draw=unmsm_red, fill=bg_arena, rounded corners=2pt, text width=10.0cm, text centered, below of=tools, node distance=1.8cm] (hitl) {\textbf{Capa de Gobernanza Human-in-the-Loop (HITL)}\\Puntos de Decisión $\cdot$ Auditoría de Sesgos $\cdot$ Verificación Epistémica Final};
+    % Nivel 3: Capa HITL (y = -2.5)
+    \node [rectangle, draw=unmsm_red, fill=bg_arena, rounded corners=2pt, text width=11.6cm, text centered] (hitl) at (0.0, -2.5) {\textbf{Capa de Gobernanza Human-in-the-Loop (HITL)}\\Puntos de Decisión $\cdot$ Auditoría de Sesgos $\cdot$ Verificación Epistémica Final};
 
-    % Conexiones
+    % Conexiones Horizontales y Verticales
     \draw [<->, thick, draw=unmsm_red] (plan) -- (llm);
     \draw [<->, thick, draw=unmsm_red] (llm) -- (mem);
-    \draw [->, thick, draw=unmsm_darkred] (llm) -- node [right, font=\tiny] {$\mathrm{Thought}_t \to \mathrm{Action}_t$} (tools);
+    \draw [->, thick, draw=unmsm_darkred] (llm) -- node [right=4pt, font=\tiny] {$\mathrm{Thought}_t \to \mathrm{Action}_t$} (tools);
     \draw [->, thick, draw=unmsm_red] (tools) -- (apis);
     \draw [->, thick, draw=unmsm_red] (tools) -- (exec);
-    \draw [->, dashed, thick, draw=unmsm_gray] (apis.west) -- ++(-0.6,0) |- node [pos=0.25, left, font=\tiny] {$\mathrm{Observation}_t$} (llm.north west);
-    \draw [->, dashed, thick, draw=unmsm_gray] (exec.east) -- ++(0.6,0) |- (llm.north east);
+    
+    % Ciclo de Observación ReAct
+    \draw [->, dashed, thick, draw=unmsm_gray] (apis.west) -- ++(-0.6,0) |- node [pos=0.25, left=2pt, font=\tiny] {$\mathrm{Observation}_t$} (plan.west);
+    \draw [->, dashed, thick, draw=unmsm_gray] (exec.east) -- ++(0.6,0) |- (mem.east);
     \draw [->, very thick, draw=unmsm_darkred] (tools) -- (hitl);
-\end{tikzpicture}\\[0.25cm]
+\end{tikzpicture}%
+}\\[0.25cm]
 \raggedright
 {\scriptsize \textbf{Fuente:} Adaptación metodológica basada en Yao et al. (2023), Schick et al. (2023) y la taxonomía de agentes autónomos de Wang et al. (2024).\par}
 \end{tcolorbox}

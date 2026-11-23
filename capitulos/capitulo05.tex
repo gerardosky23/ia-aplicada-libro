@@ -279,27 +279,28 @@ La Figura 5.1 ilustra la canalización integral de datos en una arquitectura de 
 \centering
 \small\sffamily
 \textbf{Figura 5.1.} Arquitectura de Corpus Cerrado (Grounded AI) y Recuperación Aumentada por Generación (RAG) en NotebookLM\\[0.3cm]
-\begin{tikzpicture}[node distance=1.1cm, auto, >=stealth, font=\scriptsize\sffamily]
-    % Bloques superiores: Ingesta
-    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.5cm, text centered] (pdf) {\textbf{PDF con DOI}\\Artículos / Tesis};
-    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.5cm, text centered, right of=pdf, node distance=3.2cm] (docs) {\textbf{Docs / Texto}\\Notas de Campo};
-    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.5cm, text centered, right of=docs, node distance=3.2cm] (audio) {\textbf{Audio / Video}\\ASR con Timestamps};
+\resizebox{0.95\linewidth}{!}{%
+\begin{tikzpicture}[>=stealth, font=\scriptsize\sffamily]
+    % Bloques superiores: Ingesta (y = 3.6)
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.6cm, text centered] (pdf) at (-3.4, 3.6) {\textbf{PDF con DOI}\\Artículos / Tesis};
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.6cm, text centered] (docs) at (0.0, 3.6) {\textbf{Docs / Texto}\\Notas de Campo};
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=2.6cm, text centered] (audio) at (3.4, 3.6) {\textbf{Audio / Video}\\ASR con Timestamps};
 
-    % Capa de procesamiento
-    \node [rectangle, draw=unmsm_darkred, fill=bg_arena, rounded corners=2pt, text width=9.2cm, text centered, below of=docs, node distance=1.3cm] (chunk) {\textbf{Segmentación Semántica Recursiva (\textit{Chunking})}\\$c_{i,j} = \mathrm{Chunk}(d_i; L=800, \Delta L=150)$ con metadatos de página};
+    % Capa de procesamiento (y = 2.1)
+    \node [rectangle, draw=unmsm_darkred, fill=bg_arena, rounded corners=2pt, text width=9.6cm, text centered] (chunk) at (0.0, 2.1) {\textbf{Segmentación Semántica Recursiva (\textit{Chunking})}\\$c_{i,j} = \mathrm{Chunk}(d_i; L=800, \Delta L=150)$ con metadatos de página};
 
-    % Modelo de Embeddings y Vector Store
-    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=4.2cm, text centered, below of=chunk, node distance=1.4cm, xshift=-2.4cm] (embed) {\textbf{Dense Embedding Model}\\$E: \mathcal{T} \to \mathbf{R}^{3072}$\\(Gemini / BGE-M3)};
-    \node [rectangle, draw=unmsm_red, fill=bg_arena, rounded corners=2pt, text width=4.2cm, text centered, below of=chunk, node distance=1.4cm, xshift=2.4cm] (vdb) {\textbf{Base de Datos Vectorial}\\Corpus Cerrado $\mathcal{D}$\\Índice HNSW / ScaNN};
+    % Modelo de Embeddings y Vector Store (y = 0.6)
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=4.5cm, text centered] (embed) at (-2.6, 0.6) {\textbf{Dense Embedding Model}\\$E: \mathcal{T} \to \mathbf{R}^{3072}$ (Gemini / BGE-M3)};
+    \node [rectangle, draw=unmsm_red, fill=bg_arena, rounded corners=2pt, text width=4.5cm, text centered] (vdb) at (2.6, 0.6) {\textbf{Base de Datos Vectorial}\\Corpus Cerrado $\mathcal{D}$ (Índice HNSW)};
 
-    % Consulta del usuario y Reranking
-    \node [rectangle, draw=unmsm_darkred, fill=bg_marfil, rounded corners=2pt, text width=4.2cm, text centered, below of=embed, node distance=1.5cm] (query) {\textbf{Consulta del Investigador ($q$)}\\Interrogante estructurada};
-    \node [rectangle, draw=unmsm_darkred, fill=bg_arena, rounded corners=2pt, text width=4.2cm, text centered, below of=vdb, node distance=1.5cm] (rerank) {\textbf{Cross-Encoder Reranker}\\Top-$k$ selección de precisión\\$s_{\mathrm{rerank}}(q, c) > \tau$};
+    % Consulta del usuario y Reranking (y = -0.9)
+    \node [rectangle, draw=unmsm_darkred, fill=bg_marfil, rounded corners=2pt, text width=4.5cm, text centered] (query) at (-2.6, -0.9) {\textbf{Consulta del Investigador ($q$)}\\Interrogante estructurada};
+    \node [rectangle, draw=unmsm_darkred, fill=bg_arena, rounded corners=2pt, text width=4.5cm, text centered] (rerank) at (2.6, -0.9) {\textbf{Cross-Encoder Reranker}\\Top-$k$ selección de precisión ($s > \tau$)};
 
-    % Generación y Salida Trazable
-    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=9.2cm, text centered, below of=query, node distance=1.5cm, xshift=2.4cm] (llm) {\textbf{Motor Fundacional Gemini 1.5 Pro (Ventana de 2M Tokens)}\\Generación condicionada $P(Y \mid q, \mathcal{C}_q) \longrightarrow$ Sin extrapolación libre};
+    % Generación y Salida Trazable (y = -2.3 y y = -3.7)
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=9.6cm, text centered] (llm) at (0.0, -2.3) {\textbf{Motor Fundacional Gemini 1.5 Pro (Ventana de 2M Tokens)}\\Generación condicionada $P(Y \mid q, \mathcal{C}_q) \longrightarrow$ Sin extrapolación libre};
 
-    \node [rectangle, draw=unmsm_red, fill=unmsm_red, text=white, rounded corners=2pt, text width=9.2cm, text centered, below of=llm, node distance=1.2cm] (out) {\textbf{Respuesta Sintetizada con Citación Atribuida}\\Anclajes interactivos a páginas exactas y marcas de tiempo del PDF};
+    \node [rectangle, draw=unmsm_red, fill=unmsm_red, text=white, rounded corners=2pt, text width=9.6cm, text centered] (out) at (0.0, -3.7) {\textbf{Respuesta Sintetizada con Citación Atribuida}\\Anclajes interactivos a páginas exactas y marcas de tiempo del PDF};
 
     % Conexiones
     \draw [->, thick, draw=unmsm_red] (pdf) -- (chunk);
@@ -312,9 +313,10 @@ La Figura 5.1 ilustra la canalización integral de datos en una arquitectura de 
     \draw [->, thick, draw=unmsm_darkred] (query) -- (rerank);
     \draw [->, thick, draw=unmsm_red] (rerank) -- (llm);
     \draw [->, thick, draw=unmsm_red] (llm) -- (out);
-\end{tikzpicture}
+\end{tikzpicture}%
+}
 \end{tcolorbox}
-\vspace{-0.2cm}
+\vspace{0.2cm}
 \caption*{\scriptsize \textbf{Fuente:} Elaboración propia basada en Lewis et al. (2020), Saravia-Rojas y Camarena-Fonseca (2026) y Google Workspace (2024).}
 \end{figure}
 
@@ -328,12 +330,13 @@ La Figura 5.2 formaliza el protocolo metodológico de verificación cruzada que 
 \centering
 \small\sffamily
 \textbf{Figura 5.2.} Flujo Metodológico de Verificación Cruzada, Anclaje de Citas y Autoridad de Diseño Humana\\[0.3cm]
-\begin{tikzpicture}[node distance=1.3cm, auto, >=stealth, font=\scriptsize\sffamily]
-    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=7.5cm, text centered] (f1) {\textbf{Paso 1: Curaduría y Delimitación del Corpus}\\Selección de fuentes primarias arbitradas indexadas con DOI};
-    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=7.5cm, text centered, below of=f1] (f2) {\textbf{Paso 2: Ingesta en Cuaderno Digital Cerrado}\\Carga de documentos PDF, guías y audios sin interferencia externa};
-    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=7.5cm, text centered, below of=f2] (f3) {\textbf{Paso 3: Prompting Dialéctico y Contrastación}\\Instrucciones analíticas para extraer divergencias teóricas y estadísticas};
-    \node [rectangle, draw=unmsm_darkred, fill=bg_arena, rounded corners=2pt, text width=7.5cm, text centered, below of=f3] (f4) {\textbf{Paso 4: Auditoría de Anclajes de Citación (\textit{Inline Clicks})}\\Verificación directa del pasaje del PDF: ¿afirma el texto lo citado?};
-    \node [rectangle, draw=unmsm_red, fill=unmsm_red, text=white, rounded corners=2pt, text width=7.5cm, text centered, below of=f4, node distance=1.4cm] (f5) {\textbf{Paso 5: Ejercicio de la Autoridad de Diseño (\textit{Design Authority})}\\Refactorización humana, contextualización teórica y redacción final};
+\resizebox{0.92\linewidth}{!}{%
+\begin{tikzpicture}[>=stealth, font=\scriptsize\sffamily]
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=8.5cm, text centered] (f1) at (0, 2.8) {\textbf{Paso 1: Curaduría y Delimitación del Corpus}\\Selección de fuentes primarias arbitradas indexadas con DOI};
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=8.5cm, text centered] (f2) at (0, 1.4) {\textbf{Paso 2: Ingesta en Cuaderno Digital Cerrado}\\Carga de documentos PDF, guías y audios sin interferencia externa};
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=2pt, text width=8.5cm, text centered] (f3) at (0, 0.0) {\textbf{Paso 3: Prompting Dialéctico y Contrastación}\\Instrucciones analíticas para extraer divergencias teóricas y estadísticas};
+    \node [rectangle, draw=unmsm_darkred, fill=bg_arena, rounded corners=2pt, text width=8.5cm, text centered] (f4) at (0, -1.4) {\textbf{Paso 4: Auditoría de Anclajes de Citación (\textit{Inline Clicks})}\\Verificación directa del pasaje del PDF: ¿afirma el texto lo citado?};
+    \node [rectangle, draw=unmsm_red, fill=unmsm_red, text=white, rounded corners=2pt, text width=8.5cm, text centered] (f5) at (0, -2.8) {\textbf{Paso 5: Ejercicio de la Autoridad de Diseño (\textit{Design Authority})}\\Refactorización humana, contextualización teórica y redacción final};
 
     \draw [->, thick, draw=unmsm_red] (f1) -- (f2);
     \draw [->, thick, draw=unmsm_red] (f2) -- (f3);
@@ -342,9 +345,10 @@ La Figura 5.2 formaliza el protocolo metodológico de verificación cruzada que 
     
     % Bucle de retroalimentación
     \draw [->, dashed, thick, draw=unmsm_darkred] (f4.east) -- ++(1.0,0) |- node [pos=0.25, right, text=unmsm_darkred] {\textit{¿Dato distorsionado o vacío?}} (f1.east);
-\end{tikzpicture}
+\end{tikzpicture}%
+}
 \end{tcolorbox}
-\vspace{-0.2cm}
+\vspace{0.2cm}
 \caption*{\scriptsize \textbf{Fuente:} Elaboración propia a partir de Zapata (2025) y Alvariño-Pérez y Saravia-Rojas (2025).}
 \end{figure}
 

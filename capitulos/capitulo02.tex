@@ -136,15 +136,15 @@ La articulación entre los marcos ciudadanos y pedagógicos descritos se sinteti
 \small\sffamily
 \textbf{Figura 2.1.} Matriz Arquitectónica Integrada de Competencias Digitales e Inteligencia Artificial en Educación Superior\\[0.3cm]
 \resizebox{\linewidth}{!}{%
-\begin{tikzpicture}[node distance=1.3cm, auto, >=stealth, font=\footnotesize\sffamily]
-    % Bloque Central IA Transversal
-    \node [rectangle, draw=unmsm_red, fill=bg_arena, rounded corners=3pt, text width=12cm, text centered, inner sep=6pt] (ia_layer) {
+\begin{tikzpicture}[>=stealth, font=\footnotesize\sffamily]
+    % Bloque Superior IA Transversal (y = 3.2)
+    \node [rectangle, draw=unmsm_red, fill=bg_arena, rounded corners=3pt, text width=12cm, text centered, inner sep=6pt] (ia_layer) at (0, 3.2) {
         \textbf{\textcolor{unmsm_red}{Capa Transversal de Inteligencia Artificial y Soberanía Epistémica (DigComp 3.0 / UNESCO 2024)}}\\
         Comprensión de LLMs $\cdot$ Auditoría de Alucinaciones $\cdot$ Prompting Crítico $\cdot$ Ética Algorítmica $\cdot$ Gobernanza de Datos
     };
 
-    % Bloque DigComp 3.0 (Ciudadanía)
-    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=3pt, text width=5.6cm, text centered, below left=0.8cm and -0.2cm of ia_layer, inner sep=5pt] (digcomp) {
+    % Bloque DigComp 3.0 (Ciudadanía) (y = 0.4)
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=3pt, text width=5.6cm, text centered, inner sep=5pt] (digcomp) at (-3.3, 0.4) {
         \textbf{\textcolor{unmsm_red}{DigComp 3.0: Ciudadanía Digital}}\\
         \scriptsize
         \begin{itemize}[leftmargin=1.1em, topsep=2pt, itemsep=1pt]
@@ -156,8 +156,8 @@ La articulación entre los marcos ciudadanos y pedagógicos descritos se sinteti
         \end{itemize}
     };
 
-    % Bloque DigCompEdu (Docencia Universitaria)
-    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=3pt, text width=5.6cm, text centered, below right=0.8cm and -0.2cm of ia_layer, inner sep=5pt] (digcompedu) {
+    % Bloque DigCompEdu (Docencia Universitaria) (y = 0.4)
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=3pt, text width=5.6cm, text centered, inner sep=5pt] (digcompedu) at (3.3, 0.4) {
         \textbf{\textcolor{unmsm_red}{DigCompEdu: Pedagogía Universitaria}}\\
         \scriptsize
         \begin{itemize}[leftmargin=1.1em, topsep=2pt, itemsep=1pt]
@@ -170,8 +170,8 @@ La articulación entre los marcos ciudadanos y pedagógicos descritos se sinteti
         \end{itemize}
     };
 
-    % Bloque Base: Praxis Universitaria
-    \node [rectangle, draw=unmsm_darkred, fill=bg_arena, rounded corners=3pt, text width=12cm, text centered, below=3.6cm of ia_layer, inner sep=5pt] (praxis) {
+    % Bloque Base: Praxis Universitaria (y = -3.2)
+    \node [rectangle, draw=unmsm_darkred, fill=bg_arena, rounded corners=3pt, text width=12cm, text centered, inner sep=5pt] (praxis) at (0, -3.2) {
         \textbf{\textcolor{unmsm_darkred}{Praxis Universitaria UNMSM: Agencia Crítica, Ética Científica y Equidad Social}}\\
         Trazabilidad DOI $\cdot$ Inoculación contra Desinformación $\cdot$ Accesibilidad Universal WCAG 2.2 $\cdot$ Criptografía NIST
     };
@@ -232,9 +232,17 @@ La curaduría rigurosa de fuentes demanda la aplicación sistemática de pregunt
 El componente medular de la trazabilidad científica moderna es el \textbf{Identificador de Objeto Digital} (\textit{Digital Object Identifier}, \textbf{DOI}). Administrado por la Fundación Internacional DOI (IDF) y agencias de registro como Crossref y DataCite, el DOI es un identificador alfanumérico persistente e interoperable que resuelve de forma permanente la ubicación de un documento en la web, inmune a los enlaces rotos originados por la migración de servidores o el cambio de plataformas editoriales.
 
 La anatomía formal de un DOI consta invariablemente de dos segmentos separados por una barra inclinada:
-\[
-\underbrace{\texttt{10.1038}}_{\text{Prefijo (Agencia y Editorial)}} \Big/ \underbrace{\texttt{s41467-022-30073-5}}_{\text{Sufijo (Objeto Específico e ISSN/Artículo)}}
-\]
+\begin{center}
+\vspace{0.15cm}
+\begin{tikzpicture}[font=\small\sffamily]
+    \node [rectangle, draw=unmsm_red, fill=bg_marfil, rounded corners=3pt, inner sep=6pt] (pref) at (-3.2, 0) {\textbf{\texttt{10.1038}}};
+    \node at (0, 0) {\Large\textbf{/}};
+    \node [rectangle, draw=unmsm_darkred, fill=bg_arena, rounded corners=3pt, inner sep=6pt] (suf) at (3.5, 0) {\textbf{\texttt{s41467-022-30073-5}}};
+    \node [font=\scriptsize\sffamily, text=unmsm_red, below=0.15cm of pref] {\textbf{Prefijo}: Agencia y Editorial (Crossref)};
+    \node [font=\scriptsize\sffamily, text=unmsm_darkred, below=0.15cm of suf] {\textbf{Sufijo}: Objeto Específico e Identificador de Manuscrito};
+\end{tikzpicture}
+\vspace{0.15cm}
+\end{center}
 La resolución del DOI a través de su protocolo estándar (\url{https://doi.org/10.1038/s41467-022-30073-5}) garantiza el acceso instantáneo a los metadatos oficiales del artículo en el servidor de la editorial, lo que permite a los investigadores contrastar la autenticidad del manuscrito y protegerse frente al fenómeno del secuestro de revistas (\textit{journal hijacking}) y la proliferación de sitios clonados que suplantan publicaciones prestigiosas para capturar pagos ilegítimos.
 
 \subsubsection{Psicología Cognitiva de la Desinformación: Pausas de Precisión (Accuracy Prompts)}
