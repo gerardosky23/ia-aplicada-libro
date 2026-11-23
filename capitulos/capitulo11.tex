@@ -13,11 +13,11 @@
 %   5. Wang, L., Ma, C., Feng, X., et al. (2024). A Survey on Large Language Model based Autonomous Agents (Frontiers of Computer Science, 18(6), 186345).
 %   6. Nicholson, J. M., Mordaunt, M., Lopez, P., et al. (2021). scite: A smart citation index (Quantitative Science Studies, 2(3), 882-898).
 % Cláusula NotebookLM: Grounding estricto al 100%. Cero datos o métricas inventadas.
-% Parámetro de Extensión: 35 páginas compiladas en formato oficial A4 (Mínimo requerido: >= 25 páginas).
+% Parámetro de Extensión: 31 páginas compiladas en formato oficial A4 (Mínimo requerido: >= 25 páginas).
 % Decisiones del Usuario: Expansión académica integral anclada en literatura arbitrada para alcanzar el umbral institucional.
 % Cumplimiento Normativo: APA 7ma Edición + House Style UNMSM (7 secciones canónicas completas).
 % Estado de Auditoría: CONFORME / REVISADO POR CAPITULO-AUDITOR
-% Fecha de Auditoría: 2026-11-20
+% Fecha de Auditoría: 2026-11-23
 % ==============================================================================
 
 \section[Herramientas de Productividad y Agentes]{Herramientas de Productividad\\ Académica y Agentes Inteligentes:\\ Andamiaje Digital, Síntesis Automatizada\\ y Orquestación de Tareas}
@@ -131,7 +131,7 @@ Entre estas especificaciones, el lenguaje \textbf{Mermaid.js} se ha consolidado 
 
 \begin{tcolorbox}[colback=white, colframe=unmsm_gold, arc=3pt, boxrule=0.8pt, top=0.3cm, bottom=0.3cm, left=0.4cm, right=0.4cm]
 \small\sffamily
-\textbf{Listado 4.1.} Gramática formal en Mermaid.js de un pipeline de andamiaje cognitivo
+\textbf{Listado 11.1.} Gramática formal en Mermaid.js de un pipeline de andamiaje cognitivo
 \vspace{0.2cm}
 \begin{verbatim}
 graph TD
@@ -514,7 +514,7 @@ Claude / ChatGPT & Modelos LLM guiados por prompts & Manual mediante nuevas inst
 
 \subsection{Casos Prácticos Aplicados y Validación Experimental}
 
-\subsubsection{Caso 4.1: Pipeline de Revisión Sistemática Acelerada con Elicit, NotebookLM y Scite.ai}
+\subsubsection{Caso 11.1: Pipeline de Revisión Sistemática Acelerada con Elicit, NotebookLM y Scite.ai}
 
 \subsubsection*{Contexto:}
 Un grupo de investigación de la Escuela Profesional de Computación Científica de la Universidad Nacional Mayor de San Marcos (UNMSM) requería elaborar un estado del arte exhaustivo sobre el impacto pedagógico y los riesgos éticos de los modelos de lenguaje en la educación superior. El equipo se enfrentaba a un corpus inicial de 120 artículos científicos en inglés publicados entre 2023 y 2026, disponiendo de una ventana temporal estricta de cinco días hábiles para emitir un informe metodológico contrastado y libre de citas ficticias.
@@ -531,7 +531,7 @@ Para abordar el desafío sin incurrir en alucinaciones ni desbordar la memoria d
 
 \begin{tcolorbox}[colback=white, colframe=unmsm_gold, arc=3pt, boxrule=0.8pt, top=0.3cm, bottom=0.3cm, left=0.4cm, right=0.4cm]
 \small\sffamily
-\textbf{Listado 4.2.} Script en Python para auditoría automatizada de metadatos y citas de literatura
+\textbf{Listado 11.2.} Script en Python para auditoría automatizada de metadatos y citas de literatura
 \vspace{0.2cm}
 \begin{verbatim}
 import requests
@@ -583,7 +583,7 @@ El despliegue de este pipeline produjo los siguientes resultados verificados:
     \item \textbf{Detección Preventiva de Sesgos:} La auditoría cruzada permitió identificar que 3 de los estudios preliminares contaban con muestras extremadamente pequeñas ($N < 15$) o carecían de grupos de control, permitiendo al equipo matizar adecuadamente sus conclusiones en el estado del arte.
 \end{itemize}
 
-\subsubsection{Caso 4.2: Transducción Semántica de Artículos Técnicos a Cartografía Conceptual Jerárquica}
+\subsubsection{Caso 11.2: Transducción Semántica de Artículos Técnicos a Cartografía Conceptual Jerárquica}
 
 \subsubsection*{Contexto:}
 En el marco del seminario avanzado de Inteligencia Artificial de la UNMSM, un equipo de estudiantes debía preparar una exposición magistral sobre el funcionamiento matemático y arquitectónico de los modelos de difusión estocástica (\textit{Denoising Diffusion Probabilistic Models}, DDPM). El texto base constaba de un artículo técnico de 45 páginas repleto de deducciones formales basadas en ecuaciones diferenciales estocásticas y cadenas de Markov. El desafío consistía en desglosar esta teoría abstracta en un mapa conceptual interactivo de alta fidelidad que facilitara la asimilación cognitiva de sus compañeros de clase.
@@ -599,7 +599,7 @@ Se adoptó un enfoque de transducción semántica guiada por gramáticas formale
 
 \begin{tcolorbox}[colback=white, colframe=unmsm_gold, arc=3pt, boxrule=0.8pt, top=0.3cm, bottom=0.3cm, left=0.4cm, right=0.4cm]
 \small\sffamily
-\textbf{Listado 4.3.} Especificación formal en Mermaid.js de la arquitectura funcional de un modelo de difusión
+\textbf{Listado 11.3.} Especificación formal en Mermaid.js de la arquitectura funcional de un modelo de difusión
 \vspace{0.2cm}
 \begin{verbatim}
 graph LR
@@ -623,7 +623,7 @@ graph LR
     \item \textbf{Evaluación de Asimilación Estudiantil:} Tras la sesión de exposición, se administró un cuestionario de comprensión a 24 estudiantes de computación científica. El 91.6\% de los evaluados logró explicar con precisión la distinción entre el proceso directo y el proceso inverso de Markov basándose en el grafo visual, frente a un 54.2\% obtenido en el grupo histórico previo que solo utilizó diapositivas de texto lineal continuo.
 \end{itemize}
 
-\subsubsection{Caso 4.3: Orquestación Algorítmica de Cronogramas con Time-Blocking y Agentes Reactivos}
+\subsubsection{Caso 11.3: Orquestación Algorítmica de Cronogramas con Time-Blocking y Agentes Reactivos}
 
 \subsubsection*{Contexto:}
 Un estudiante de último año de la Facultad de Ciencias Matemáticas debía coordinar simultáneamente la redacción de su tesis de grado, el desarrollo del proyecto final de una asignatura de computación paralela y su asistencia como asistente de docencia. Enfrentado a continuos imprevistos académicos y solicitudes de asesoría urgente, el estudiante experimentaba una alta tasa de incumplimiento de plazos (más del 35\% de tareas entregadas con retraso) y síntomas severos de fatiga cognitiva y dispersión atencional.
@@ -638,42 +638,30 @@ Se formuló e implementó un protocolo algorítmico de gestión temporal combina
     \item \textbf{Ejecución del Algoritmo Heurístico de Rebalanceo:} Se ejecutó un script en Python que recalibró los pesos de urgencia de las tareas según la distancia al vencimiento y reorganizó los bloques libres sin desplazar las clases fijas.
 \end{enumerate}
 
-\begin{tcolorbox}[colback=white, colframe=unmsm_gold, arc=3pt, boxrule=0.8pt, top=0.3cm, bottom=0.3cm, left=0.4cm, right=0.4cm]
+\begin{tcolorbox}[colback=white, colframe=unmsm_gold, arc=3pt, boxrule=0.8pt, top=0.25cm, bottom=0.25cm, left=0.4cm, right=0.4cm]
 \small\sffamily
-\textbf{Listado 4.4.} Algoritmo heurístico de rebalanceo dinámico de tareas y Time-Blocking en Python
-\vspace{0.2cm}
+\textbf{Listado 11.4.} Algoritmo heurístico de rebalanceo dinámico de tareas y Time-Blocking en Python
+\vspace{0.15cm}
 \begin{verbatim}
 class TareaAcademica:
     def __init__(self, nombre, duracion_h, deadline_dias, prioridad):
-        self.nombre = nombre
-        self.duracion_h = duracion_h
-        self.deadline_dias = deadline_dias
-        self.prioridad = prioridad # 1 (Baja) a 5 (Crítica)
+        self.nombre, self.duracion_h = nombre, duracion_h
+        self.deadline_dias, self.prioridad = deadline_dias, prioridad
         
-    def calcular_peso_urgencia(self):
-        # Heurística: penaliza proximidad de deadline por prioridad
-        friccion_tiempo = max(0.1, self.deadline_dias)
-        return (self.prioridad * 10.0) / friccion_tiempo
+    def peso_urgencia(self):
+        return (self.prioridad * 10.0) / max(0.1, self.deadline_dias)
 
 def rebalancear_cronograma(tareas, horas_libres_diarias=4.0):
-    # Ordenamiento por peso de urgencia decreciente
-    tareas_ordenadas = sorted(tareas,
-        key=lambda t: t.calcular_peso_urgencia(), reverse=True)
-    cronograma = {}
-    dia = 1
-    tiempo_acumulado = 0.0
-    
-    for t in tareas_ordenadas:
+    tareas_ord = sorted(tareas, key=lambda t: t.peso_urgencia(), reverse=True)
+    cronograma, dia, tiempo_acumulado = {}, 1, 0.0
+    for t in tareas_ord:
         if tiempo_acumulado + t.duracion_h <= horas_libres_diarias:
-            cronograma.setdefault(f"Dia {dia}", []).append(
-                (t.nombre, t.duracion_h))
+            cronograma.setdefault(f"Dia {dia}", []).append((t.nombre, t.duracion_h))
             tiempo_acumulado += t.duracion_h
         else:
             dia += 1
-            cronograma.setdefault(f"Dia {dia}", []).append(
-                (t.nombre, t.duracion_h))
+            cronograma.setdefault(f"Dia {dia}", []).append((t.nombre, t.duracion_h))
             tiempo_acumulado = t.duracion_h
-            
     return cronograma
 
 # Simulación de contingencia académica
@@ -683,7 +671,6 @@ pool_tareas = [
     TareaAcademica("Arbitraje Paper Urgente", 3.0, 2, 5),
     TareaAcademica("Calificación Práctica Asistente", 2.0, 4, 2)
 ]
-
 agenda = rebalancear_cronograma(pool_tareas)
 for d, ts in agenda.items():
     print(f"[{d}]: {ts}")
@@ -698,13 +685,16 @@ El seguimiento controlado durante un periodo de cuatro semanas demostró:
     \item \textbf{Bienestar Mental y Claridad Cognitiva:} La descarga mental de no tener que recordar o reorganizar mentalmente las prioridades cotidianas redujo drásticamente el estrés percibido por el estudiante, validando empíricamente los principios de Risko y Gilbert (2016).
 \end{itemize}
 
+Desde una perspectiva analítica e institucional, la comparación entre el modelo heurístico local en Python y plataformas en la nube (como Reclaim.ai o Motion) plantea consideraciones críticas de gobernanza y soberanía digital. Mientras que los algoritmos comerciales ofrecen integración fluida con calendarios corporativos e interfaces móviles, conllevan la transmisión de agendas personales y datos de proyectos a servidores de terceros, lo que puede vulnerar la confidencialidad de investigaciones patentables o convenios industriales en laboratorios de la UNMSM. Por el contrario, un script local determinista o un agente conversacional autoalojado permite salvaguardar la privacidad integral de los cronogramas sin sacrificar la capacidad de replanificación adaptativa.
+
+Asimismo, la experiencia documentada confirma que la optimización temporal no debe operar como una tiranía de productividad deshumanizante. La flexibilidad de los bloques Pomodoro adaptativos (50/10) combinada con márgenes de holgura explícitos (búferes de contingencia de 30 a 45 minutos diarios) previene el agotamiento cognitivo (\textit{burnout}) y asegura que la descarga atencional redunde directamente en una mayor calidad del razonamiento abstracto y la producción científica.
+
 % ==============================================================================
-% NOTAS BIBLIOGRÁFICAS E HISTÓRICAS DEL CAPÍTULO 04
+% NOTAS BIBLIOGRÁFICAS E HISTÓRICAS DEL CAPÍTULO 11
 % ==============================================================================
 \newpage
 \markboth{CAPÍTULO 11\quad NOTAS BIBLIOGRÁFICAS E HISTÓRICAS}{}
-\vspace*{0.8cm}
-\noindent{\Huge \textbf{Notas bibliográficas\\[0.2cm] e históricas}}\par\vspace{0.8cm}
+\subsection*{Notas bibliográficas e históricas del Capítulo 11}
 
 \textbf{Antecedentes Teóricos Fundacionales:}\par\vspace{0.2cm}
 La búsqueda de sistemas mecánicos y computacionales diseñados para potenciar el intelecto humano y mitigar la sobrecarga atencional posee una genealogía intelectual ilustre que antecede por décadas a la emergencia de los grandes modelos de lenguaje contemporáneos. 
@@ -726,67 +716,65 @@ El andamiaje conceptual y empírico de este capítulo se nutre directamente de i
     \item \textbf{Josh M. Nicholson et al. (2021) [Quantitative Science Studies]:} Desarrollaron \textit{Scite.ai}, revolucionando la cienciometría mediante la clasificación profunda del contexto y la intención de citación académica.
     \item \textbf{Grupo de Investigación de Trabajo N° 4 (2026) [UNMSM]:} Aportó el relevamiento fundacional, el relevamiento de plataformas de productividad y la formulación inicial de la pregunta central en la Facultad de Ciencias Matemáticas de la Universidad Nacional Mayor de San Marcos (Chavarry, Ordinola, Sánchez \& Valenzuela, 2026).
 \end{itemize}
-\vspace{0.4cm}
+\vspace{0.3cm}
 
-\textbf{Lecturas Sugeridas:}\par\vspace{0.2cm}
-\begin{enumerate}
+\subsubsection*{Lecturas Sugeridas}
+\begin{enumerate}[leftmargin=1.5em, itemsep=0.12cm]
     \item \textbf{Risko, E. F., \& Gilbert, S. J. (2016):} \textit{Cognitive offloading}. Lectura indispensable para comprender los fundamentos neurocognitivos de la interacción hombre-máquina en tareas de memoria y resolución de problemas.
     \item \textbf{Yao, S., et al. (2023):} \textit{ReAct: Synergizing Reasoning and Acting in Language Models}. Texto técnico seminal sobre la arquitectura de agentes inteligentes contemporáneos.
     \item \textbf{Ahrens, S. (2017):} \textit{How to take smart notes}. Guía maestra para implementar el método Zettelkasten y estructurar un sistema de gestión del conocimiento personal a largo plazo.
 \end{enumerate}
 
 % ==============================================================================
-% RESUMEN DEL CAPÍTULO 04
+% RESUMEN DEL CAPÍTULO 11
 % ==============================================================================
 \newpage
 \markboth{CAPÍTULO 11\quad RESUMEN}{}
-\vspace*{0.8cm}
-{\Huge \textbf{Resumen del capítulo 11}}
-\vspace{0.8cm}
+\subsection*{Resumen del Capítulo 11}
 
 La incorporación metódica de herramientas de inteligencia artificial y agentes autónomos en la investigación científica representa un cambio de paradigma cognitivo en la educación superior. Lejos de constituir un atajo mecánico o una amenaza desestabilizadora, estas tecnologías actúan como un andamiaje digital que reasigna estratégicamente la carga mental del investigador, absorbiendo la fricción logística de la redacción preliminar, la estructuración visual y la calendarización para potenciar el análisis crítico y la creatividad epistémica.
 
-\vspace{0.4cm}
+\vspace{0.25cm}
 
-\begin{resumenlist}
+\begin{resumenlist}[topsep=0.08cm, itemsep=0.08cm, parsep=0pt]
     \item \textbf{Andamiaje Digital y Descarga Cognitiva:} La Teoría de la Carga Cognitiva (Sweller, 1988) y el concepto de descarga cognitiva (Risko \& Gilbert, 2016) demuestran que la memoria de trabajo humana posee un ancho de banda biológico limitado. La externalización de tareas mecánicas a asistentes inteligentes reduce la sobrecarga extrínseca, permitiendo que los investigadores reasignen su tiempo hacia la evaluación crítica, lo cual concuerda con la reducción del 40\% en tiempos de ejecución reportada empíricamente en \textit{Science} por Noy y Zhang (2023).
     \item \textbf{Cartografía Mental y Gramáticas de Representación:} La codificación dual (Paivio, 1986) fundamenta la necesidad de esquemas visuales para asimilar conceptos abstractos densos. La transición desde herramientas propietarias hacia gramáticas de texto plano estructurado (Mermaid.js, Markdown anidado) permite versionar mapas conceptuales y acoplarlos a sistemas de Gestión del Conocimiento Personal (PKM Zettelkasten), garantizando la interoperabilidad y perdurabilidad de las notas científicas.
     \item \textbf{Síntesis de Contexto Cerrado y Trazabilidad Estricta:} La mitigación definitiva de las alucinaciones probabilísticas en revisiones de literatura exige la adopción de arquitecturas RAG acotadas (NotebookLM, ChatPDF, Elicit), donde el modelo opera condicionado estrictamente al corpus documental del usuario. Esto se complementa con matrices de prompting estructurado en tres niveles y la auditoría cualitativa de citas mediante herramientas cienciométricas como Scite.ai.
     \item \textbf{Agentes Autónomos y Gestión Algorítmica del Tiempo:} La evolución tecnológica transita de herramientas pasivas a agentes inteligentes provistos de bucles ReAct (Yao et al., 2023) y uso autónomo de herramientas (Toolformer, AutoGen), combinándose con optimizadores temporales reactivos (Motion, Reclaim.ai) bajo el problema RCPSP. Esta orquestación exige salvaguardas de gobernanza \textit{Human-in-the-Loop} para prevenir la atrofia del juicio crítico del investigador.
 \end{resumenlist}
 
-\vspace{0.6cm}
+\vspace{0.3cm}
 \begin{cajabeige}
 \textbf{Síntesis:} La verdadera productividad académica en la era de la inteligencia artificial no reside en delegar acríticamente el pensamiento a las máquinas, sino en orquestar con rigor un andamiaje digital de contexto cerrado y agentes supervisados que potencien la capacidad intelectual del científico bajo principios inquebrantables de verificación empírica y honestidad académica.
 \end{cajabeige}
 
 % ==============================================================================
-% CONCLUSIONES DEL CAPÍTULO 04
+% CONCLUSIONES DEL CAPÍTULO 11
 % ==============================================================================
 \newpage
 \markboth{CAPÍTULO 11\quad CONCLUSIONES}{}
-\vspace*{0.8cm}
-{\Huge \textbf{Conclusiones del capítulo 11}}
-\vspace{0.8cm}
+\subsection*{Conclusiones del Capítulo 11}
 
 \subsubsection*{Conclusión principal}
 Las herramientas de inteligencia artificial generativa, los sistemas de recuperación semántica acotada (RAG) y los agentes inteligentes basados en el paradigma ReAct constituyen un andamiaje digital sumamente eficaz para optimizar la productividad académica en la educación superior y la investigación científica. Al mitigar la sobrecarga cognitiva extrínseca derivada de la síntesis preliminar de documentos densos, la diagramación conceptual y la optimización de cronogramas, liberan recursos atencionales invaluables de la memoria de trabajo. No obstante, dicha optimización preserva la rigurosidad epistémica y el análisis crítico únicamente cuando se despliega bajo arquitecturas de contexto cerrado que garanticen la trazabilidad a renglón de las fuentes primarias y se subordinen a protocolos estrictos de supervisión humana activa (\textit{Human-in-the-Loop}).
 
 \subsubsection*{Aportes y límites}
-\textbf{Aportes:} Este capítulo sistematiza una taxonomía progresiva de asistencia cognitiva (L0 a L4); formaliza el marco de prompting en tres niveles para la síntesis crítica de manuscritos técnicos; articula la gramática abierta de diagramación en Mermaid.js con sistemas PKM Zettelkasten; y modela matemáticamente la gestión del tiempo como un problema RCPSP acoplado a asistentes reactivos como Motion y Reclaim.ai. Asimismo, valida cuantitativamente la reducción de tiempos de ciclo y la erradicación de alucinaciones mediante tres casos prácticos reproducibles en computación científica.
-
+\textbf{Aportes:} Este capítulo sistematiza una taxonomía progresiva de asistencia cognitiva (L0 a L4); formaliza el marco de prompting en tres niveles para la síntesis crítica de manuscritos técnicos; articula la gramática abierta de diagramación en Mermaid.js con sistemas PKM Zettelkasten; y modela matemáticamente la gestión del tiempo como un problema RCPSP acoplado a asistentes reactivos como Motion y Reclaim.ai. Asimismo, valida cuantitativamente la reducción de tiempos de ciclo y la erradicación de alucinaciones mediante tres casos prácticos reproducibles en computación científica.\\[0.1cm]
 \textbf{Límites:} Las soluciones comerciales en la nube conllevan riesgos potenciales de privacidad de datos, fuga de propiedad intelectual y dependencia de interfaces propietarias; los modelos de lenguaje mantienen una vulnerabilidad residual ante sesgos no declarados en sus fuentes de entrenamiento; y existe el riesgo permanente del \textit{síndrome del investigador hueco} si las instituciones universitarias no forman a sus estudiantes en la lectura analítica profunda y la verificación metodológica manual.
 
 \subsubsection*{Preguntas abiertas}
-\textquestiondown De qué manera deben transformar las universidades sus modelos pedagógicos y sistemas de evaluación académica para medir con fidelidad la creatividad epistémica, el rigor demostrativo y el pensamiento crítico de los estudiantes cuando los sistemas multiagente autónomos sean capaces de realizar revisiones sistemáticas completas, derivar demostraciones intermedias y maquetar monografías académicas impecables en cuestión de segundos?
+\begin{enumerate}[label=\arabic*., leftmargin=2em, itemsep=0.08cm, topsep=0.08cm, parsep=0pt]
+    \item \textquestiondown De qué manera deben transformar las universidades sus modelos pedagógicos y sistemas de evaluación académica para medir con fidelidad la creatividad epistémica, el rigor demostrativo y el pensamiento crítico cuando los sistemas multiagente autónomos sean capaces de realizar revisiones sistemáticas completas y derivar demostraciones intermedias en cuestión de segundos?
+    \item \textquestiondown Cómo pueden formularse arquitecturas de agentes autónomos que optimicen dinámicamente el compromiso de Pareto entre la velocidad de ejecución y la explicabilidad paso a paso de sus decisiones en entornos de laboratorio científico?
+    \item \textquestiondown Qué protocolos de soberanía digital y computación local deben adoptar las universidades públicas latinoamericanas para evitar que los datos de investigación formativa y agendas académicas queden cautivos en ecosistemas comerciales propietarios en la nube?
+\end{enumerate}
 
 % ==============================================================================
-% REFERENCIAS BIBLIOGRÁFICAS DEL CAPÍTULO 04 (APA 7)
+% REFERENCIAS BIBLIOGRÁFICAS DEL CAPÍTULO 11 (APA 7)
 % ==============================================================================
 \newpage
 \markboth{CAPÍTULO 11\quad REFERENCIAS}{}
-\vspace*{0.8cm}
-{\Huge \textbf{Referencias del Capítulo 11}}\par\vspace{0.8cm}
+\subsection*{Referencias del Capítulo 11}
 
 \begin{itemize}[leftmargin=1.5em, label={}, itemsep=0.22ex, parsep=0pt]
 \small\raggedright
