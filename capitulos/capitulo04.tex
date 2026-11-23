@@ -1,7 +1,7 @@
 % ==============================================================================
 % METADATOS DE AUDITORÍA EDITORIAL Y RIGOR CIENTÍFICO (PROTOCOLO AGENTS.md)
 % ==============================================================================
-% Capítulo: 04
+% Capítulo: 4
 % Título: Ecosistemas Chinos de Inteligencia Artificial: De Consumidores a Productores, Modelos de Razonamiento y Soberanía Tecnológica
 % Grupo de Origen: Grupo 14 (Asignatura de Inteligencia Artificial Aplicada, UNMSM)
 % Archivo Fuente Analizado: Capitulo 4.pptx (25 diapositivas)
@@ -20,11 +20,11 @@
 % Decisiones del Usuario: Monografía independiente del Grupo 14 sobre Ecosistemas Chinos.
 % Cumplimiento Normativo: APA 7ma Edición + House Style UNMSM (7 bloques canónicos completos).
 % Estado de Auditoría: CONFORME / REVISADO POR CAPITULO-AUDITOR
-% Fecha de Auditoría: 2026-11-20
+% Fecha de Auditoría: 2026-11-23
 % ==============================================================================
 
 \section[Ecosistemas Chinos de Inteligencia Artificial]{Ecosistemas Chinos de Inteligencia Artificial:\\ De Consumidores a Productores, Modelos de Razonamiento\\ y Soberanía Tecnológica}
-\markboth{CAPÍTULO 04\quad ECOSISTEMAS CHINOS DE IA}{}
+\markboth{CAPÍTULO 4\quad ECOSISTEMAS CHINOS DE IA}{}
 
 \begin{cajabeige}
 \textbf{Pregunta Central del Capítulo:} \textquestiondown Cómo ha transitado el ecosistema tecnológico de China de una posición de consumidor a una de productor soberano de modelos fundacionales de inteligencia artificial (DeepSeek, Kimi, ERNIE, Zhipu AI), y cuáles son sus innovaciones arquitectónicas en razonamiento autónomo, ventanas de contexto masivo, sesgos de ecosistema y límites de autonomía frente al estándar occidental?\\[0.3cm]
@@ -555,15 +555,12 @@ print(f"Puntaje de Fidelidad Factual: {metricas['factive_fidelity_score']:.2%}")
 
 Para evaluar empíricamente el comportamiento de los modelos de razonamiento incentivados por aprendizaje por refuerzo puro, se diseñó un analizador sintáctico en Python que extrae y clasifica los patrones cognitivos en la traza deliberativa generada entre las etiquetas \texttt{<think>} y \texttt{</think>}:
 
-\begin{lstlisting}[language=Python, caption={Analizador de Trazas de Razonamiento y Marcha Atrás (\textit{Backtracking}).}, label={lst:analizador_pensamiento}]
+\begin{lstlisting}[language=Python, caption={Analizador de Trazas de Razonamiento y Marcha Atrás (\textit{Backtracking}).}, label={lst:analizador_pensamiento}, captionpos=t]
 import re
 from typing import Dict, Any
 
 class ReasoningTraceAnalyzer:
-    """
-    Analizador de trazas deliberativas para modelos de razonamiento tipo DeepSeek-R1.
-    Cuantifica la profundidad del razonamiento y eventos de marcha atras.
-    """
+    """Analizador de trazas deliberativas para modelos tipo DeepSeek-R1."""
     def __init__(self, raw_output: str):
         self.raw_output = raw_output
         self.think_content, self.final_answer = self._split_think_trace(raw_output)
@@ -571,32 +568,25 @@ class ReasoningTraceAnalyzer:
     def _split_think_trace(self, text: str):
         match = re.search(r'<think>(.*?)</think>', text, flags=re.DOTALL)
         if match:
-            think_text = match.group(1).strip()
-            answer_text = text[match.end():].strip()
-            return think_text, answer_text
+            return match.group(1).strip(), text[match.end():].strip()
         return "", text.strip()
 
     def analyze_cognitive_patterns(self) -> Dict[str, Any]:
         words = self.think_content.split()
         token_estimate = int(len(words) * 1.3)
-        
         # Marcadores discursivos de marcha atras y rectificacion
         backtracking_markers = [
             "wait", "espera", "however", "sin embargo", "no,", "no es correcto",
             "let me recheck", "revisemos de nuevo", "alternativamente", "mistake"
         ]
-        
         backtracking_events = sum(
             len(re.findall(r'\b' + re.escape(m) + r'\b',
                            self.think_content, re.IGNORECASE))
             for m in backtracking_markers
         )
-        
         # Evaluacion de presencia de hipotesis condicionales
         patron_hip = r'\b(si|if|asumiendo|assuming|caso|case)\b'
-        hypotheses_count = len(re.findall(
-            patron_hip, self.think_content, re.IGNORECASE
-        ))
+        hypotheses_count = len(re.findall(patron_hip, self.think_content, re.IGNORECASE))
 
         return {
             "has_think_tags": bool(self.think_content),
@@ -609,67 +599,60 @@ class ReasoningTraceAnalyzer:
 # Prueba de ejecucion con traza representativa
 salida_deepseek = """<think>
 Para calcular la transferencia, necesitamos la ecuacion T = Datos / Ancho_Banda.
-Espera, los datos mencionan perdida de paquetes del 2%.
-Sin embargo, no tenemos el RTT ni el ancho de banda nominal.
-Revisemos de nuevo: si asumimos RTT = 40ms...
-No, el problema no lo especifica. Debemos indicar la falta de parametros.
+Espera, los datos mencionan perdida de paquetes del 2%. Sin embargo, no tenemos el RTT.
+Revisemos de nuevo: el problema no especifica el ancho de banda.
 </think>
 El problema no contiene informacion suficiente para calcular un valor unico."""
 
 analizador = ReasoningTraceAnalyzer(salida_deepseek)
 reporte = analizador.analyze_cognitive_patterns()
-print(f"Eventos de marcha atras detectados: {reporte['backtracking_frequency']}")
-print(f"Tokens de pensamiento estimados: {reporte['estimated_think_tokens']}")
+print(f"Eventos de marcha atras: {reporte['backtracking_frequency']}")
+print(f"Tokens de pensamiento: {reporte['estimated_think_tokens']}")
 \end{lstlisting}
 
 \newpage
-\markboth{CAPÍTULO 04\quad NOTAS BIBLIOGRÁFICAS E HISTÓRICAS}{}
+\markboth{CAPÍTULO 4\quad NOTAS BIBLIOGRÁFICAS E HISTÓRICAS}{}
 
 \subsection*{Notas Bibliográficas e Históricas del Capítulo 4}
 
 \subsubsection*{Antecedentes Teóricos y Doctrinales Fundacionales}
 
-La comprensión integral de los ecosistemas chinos de inteligencia artificial exige situar el debate en la intersección entre la sociología de la tecnología, las ciencias cognitivas y las teorías del aprendizaje en la era digital. El concepto de alfabetización digital y en IA no surgió como una respuesta reactiva a los grandes modelos de lenguaje, sino como la evolución natural de los marcos de competencia mediática y computacional desarrollados en las últimas dos décadas.
+La comprensión de los ecosistemas chinos de inteligencia artificial se sitúa en la intersección entre la sociología de la tecnología, las ciencias cognitivas y la pedagogía digital. Thomaz et al. (2022) postulan que la alfabetización digital trasciende el dominio instrumental de aplicaciones individuales, integrando dimensiones éticas y críticas que facultan a los ciudadanos para evaluar información mediada por algoritmos y ejercer su autonomía frente a infraestructuras tecnológicas concentradas.
 
-Felipe Thomaz y colaboradores (2022) establecieron con claridad que la alfabetización digital en sistemas sociotécnicos modernos trasciende ampliamente el dominio de herramientas de software individuales. Su marco conceptual postula que la interacción tecnológica involucra dimensiones cognitivas, actitudinales y éticas que determinan cómo los ciudadanos interpretan la información mediada por algoritmos y ejercen su autonomía decisional frente a infraestructuras digitales concentradas.
-
-En el ámbito de la educación superior, Davy Tsz Kit Ng y su equipo en la Universidad de Hong Kong (Ng et al., 2021) llevaron a cabo una revisión sistemática exploratoria que sentó las bases canónicas para la enseñanza de la inteligencia artificial a públicos no especializados. Su propuesta de cuatro dimensiones operativas (comprender, usar, evaluar y considerar las dimensiones éticas) superó la falsa dicotomía entre la formación puramente técnica en ciencias de la computación y el analfabetismo funcional del usuario común, suministrando el marco pedagógico que estructura las actividades formativas de este capítulo.
-
-Complementariamente, Astrid Carolus y colaboradores (2023) en la Universidad de Würzburgo desarrollaron y validaron la Escala Meta-Alfabetización en IA (MAILS). Su investigación aportó evidencia psicométrica decisiva sobre el sesgo de sobredimensión de competencias: los usuarios expuestos a interfaces conversacionales fluidas tienden a atribuir inteligencia, intencionalidad y veracidad a los modelos artificiales, reduciendo su predisposición a verificar los resultados. La escala MAILS proporciona las herramientas empíricas necesarias para evaluar de forma rigurosa la interacción humano-máquina y diseñar intervenciones pedagógicas correctivas.
+En la educación superior, Ng et al. (2021) estructuraron un marco canónico de cuatro dimensiones operativas (comprender, usar, evaluar y considerar dimensiones éticas) que articula la formación de públicos no especializados. Complementariamente, Carolus et al. (2023) desarrollaron y validaron la Escala Meta-Alfabetización en IA (MAILS), aportando evidencia psicométrica sobre el sesgo de sobredimensión de competencias: la fluidez conversacional induce a atribuir erróneamente intencionalidad y veracidad a los modelos, reduciendo la predisposición a auditar sus respuestas.
 
 \subsubsection*{Contribuciones de las Investigaciones Base}
 
-El contenido técnico, los datos empíricos y los análisis comparativos desarrollados a lo largo de este capítulo se fundamentan en un cuerpo de fuentes primarias y literatura científica arbitrada:
+Los análisis técnicos y empíricos del capítulo se sustentan en fuentes primarias arbitradas:
 
-\begin{itemize}[leftmargin=1.5em]
-    \item \textbf{DeepSeek-AI (2025):} El informe técnico fundacional sobre DeepSeek-R1 describe exhaustivamente la metodología de incentivación del razonamiento mediante aprendizaje por refuerzo a gran escala (GRPO) sin datos supervisados humanos, así como los procesos de destilación a arquitecturas densas más pequeñas.
-    \item \textbf{DeepSeek-AI (2024):} El reporte técnico de DeepSeek-V3 detalla las innovaciones arquitectónicas en Multi-Head Latent Attention (MLA), la arquitectura DeepSeekMoE de expertos dispersos y los protocolos de comunicación optimizados que redujeron el costo de entrenamiento a una fracción del estándar global.
-    \item \textbf{Moonshot AI (2024):} La documentación técnica y publicaciones oficiales del asistente Kimi aportan los fundamentos de la compresión adaptativa de KV-cache y la gestión de ventanas de contexto continuo de millones de tokens sin degradación en tareas de aguja en un pajar (\textit{Needle in a Haystack}).
-    \item \textbf{Baidu (2024):} Los informes de investigación del laboratorio de procesamiento de lenguaje natural de Baidu explican la convergencia entre ERNIE Bot 4.0 y los grafos masivos de conocimiento factual, documentando las ventajas en idioma chino y los desafíos de generalización bilingüe.
-    \item \textbf{Zhipu AI (2024):} Las publicaciones técnicas sobre GLM-4.5 y el agente de interfaz AutoGLM aportan la evidencia metodológica sobre el grounding visual en aplicaciones móviles, la segmentación perceptual de interfaces gráficas y las limitaciones de confiabilidad en bucles de acción autónoma.
-    \item \textbf{Ng et al. (2021) y Carolus et al. (2023):} Proporcionan la fundamentación pedagógica y psicométrica para estructurar la alfabetización crítica, la taxonomía de errores y los protocolos de supervisión humana frente a modelos de IA generativa.
+\begin{itemize}[leftmargin=1.5em, itemsep=0.18em, topsep=0.15em]
+    \item \textbf{DeepSeek-AI (2024, 2025):} Los informes técnicos de DeepSeek-V3 y R1 documentan las arquitecturas Multi-Head Latent Attention (MLA), enrutamiento DeepSeekMoE y el aprendizaje por refuerzo a gran escala (GRPO) con verificadores basados en reglas.
+    \item \textbf{Moonshot AI (2024):} Documentación oficial del asistente Kimi sobre compresión adaptativa de KV-cache y digestión de ventanas de contexto continuo de millones de tokens.
+    \item \textbf{Baidu (2024):} Reportes de Baidu AI sobre la hibridación de ERNIE Bot 4.0 con grafos de conocimiento estructurado factual y sus fortalezas lingüísticas en idioma chino.
+    \item \textbf{Zhipu AI (2024):} Publicaciones de Zhipu AI sobre GLM-4.5 y el agente AutoGLM para la automatización visual de interfaces móviles y sus retos de confiabilidad procedimental.
+    \item \textbf{Ng et al. (2021) y Carolus et al. (2023):} Fundamentación pedagógica y psicométrica para la alfabetización crítica, taxonomía de errores y protocolos de supervisión humana.
 \end{itemize}
 
 \newpage
-\markboth{CAPÍTULO 04\quad RESUMEN}{}
+\markboth{CAPÍTULO 4\quad RESUMEN}{}
 
 \subsection*{Resumen del Capítulo 4}
 
-La transición del ecosistema de inteligencia artificial de China desde un rol de consumidor pasivo hacia el estatus de productor soberano de tecnologías de frontera representa una transformación tectónica en la geopolítica del conocimiento contemporáneo. Este capítulo ha examinado cómo las restricciones externas de suministro de hardware y semiconductores actuaron como catalizadores de una reingeniería de la eficiencia computacional, dando lugar a innovaciones algorítmicas disruptivas estructuradas en cuatro vertientes complementarias: el razonamiento incentivado por aprendizaje por refuerzo puro en DeepSeek, la gestión de ventanas de contexto ultralargo en Moonshot Kimi, la fusión de modelos neuronales con grafos de conocimiento masivos en Baidu ERNIE y la orquestación de agentes de interfaz autónomos en Zhipu AutoGLM. A través de pruebas empíricas rigurosas y la aplicación de marcos consolidados de alfabetización en IA (Ng et al., 2021; Carolus et al., 2023), se ha demostrado que la verdadera autonomía digital no radica en el consumo acrítico de una plataforma particular, sino en la capacidad metódica de seleccionar la herramienta óptima para cada tarea, formular prompts estructurados, contrastar datos factuales y mantener una supervisión humana reflexiva e indelegable.
+La transición del ecosistema de inteligencia artificial de China desde un rol de consumidor pasivo hacia el estatus de productor soberano de tecnologías de frontera responde a restricciones externas de suministro que actuaron como catalizadores de una reingeniería de la eficiencia computacional. Este capítulo examinó cómo se articularon innovaciones disruptivas en cuatro vertientes: el razonamiento por refuerzo puro en DeepSeek, la gestión de contexto masivo en Kimi, los grafos de conocimiento estructurado en ERNIE y la autonomía de interfaz en AutoGLM. A partir de marcos consolidados de alfabetización (Ng et al., 2021; Carolus et al., 2023), se concluye que la autonomía digital radica en la selección metódica de herramientas, prompts estructurados y una supervisión humana crítica e indelegable.
 
-\begin{resumenlist}
-    \item \textbf{DeepSeek y el Razonamiento Endógeno por RL:} DeepSeek-R1 demostró empíricamente que el razonamiento lógico y matemático complejo puede incentivarse mediante aprendizaje por refuerzo a gran escala (GRPO) con verificadores basados en reglas, sin necesidad de ajuste fino supervisado por humanos. Su proceso deliberativo visible (\texttt{<think>}) permite auditar hipótesis intermedias, ejecutar marcha atrás y reconocer explícitamente la ausencia de parámetros antes de arriesgar una respuesta falaz.
-    \item \textbf{Moonshot Kimi y la Gestión de Contexto Masivo:} La arquitectura de Kimi permite digerir monografías y expedientes de más de 70 páginas en una sola pasada mediante técnicas avanzadas de atención agrupada y compresión de KV-cache. Aunque sobresale en la cartografía conceptual y la síntesis temática de grandes volúmenes de texto, exhibe una tendencia sistemática a redondear o simplificar densidades numéricas complejas, demandando verificación ocular obligatoria.
-    \item \textbf{Baidu ERNIE y el Sesgo de Ecosistema Comercial:} Al hibridar modelos de lenguaje con grafos masivos de conocimiento factual estructurado, ERNIE 4.0 alcanza una precisión referencial superior en consultas históricas, culturales y científicas formuladas en idioma chino. No obstante, sufre una severa degradación sintáctica y conceptual en idiomas occidentales y manifiesta un sesgo comercial sistemático hacia los servicios propietarios de Baidu Cloud.
-    \item \textbf{Zhipu AI y la Fragilidad de los Agentes Autónomos:} Zhipu GLM-4.5 y el agente de interfaz AutoGLM introducen el paradigma de la acción autónoma sobre sistemas operativos móviles y web mediante percepción visual de capturas de pantalla. Sin embargo, las pruebas experimentales revelaron una elevada tasa de interrupción en flujos multi-pantalla y la ocurrencia de alucinaciones procedimentales, confirmando que la delegación operativa en agentes exige salvaguardas estrictas de control humano en el bucle (\textit{Human-in-the-Loop}).
+\begin{resumenlist}[topsep=0.08cm, itemsep=0.08cm, parsep=0pt]
+    \item \textbf{DeepSeek y el Razonamiento Endógeno por RL:} DeepSeek-R1 demostró que el razonamiento lógico complejo emerge mediante aprendizaje por refuerzo puro (GRPO) con verificadores basados en reglas. Su traza deliberativa (\texttt{<think>}) permite auditar hipótesis intermedias, ejecutar marcha atrás y reconocer explícitamente la falta de datos antes de alucinar.
+    \item \textbf{Moonshot Kimi y la Gestión de Contexto Masivo:} La arquitectura de Kimi procesa monografías y expedientes extensos en una sola pasada gracias a la compresión de memoria KV-cache. Aunque sobresale en cartografía temática, exhibe una tendencia sistemática a simplificar cifras numéricas, demandando verificación ocular obligatoria.
+    \item \textbf{Baidu ERNIE y el Sesgo de Ecosistema Comercial:} Al hibridar modelos neuronales con grafos de conocimiento masivos, ERNIE 4.0 logra alta precisión referencial en chino. No obstante, manifiesta menor riqueza sintáctica en lenguas occidentales y un sesgo comercial sistemático hacia los servicios propietarios de Baidu Cloud.
+    \item \textbf{Zhipu AI y la Fragilidad de los Agentes Autónomos:} Zhipu GLM-4.5 y el agente de interfaz AutoGLM introducen el paradigma de acción autónoma sobre sistemas operativos móviles y web mediante percepción visual. Las pruebas experimentales revelaron una elevada tasa de interrupción en flujos multi-pantalla, confirmando la necesidad de estricto control humano en el bucle (\textit{Human-in-the-Loop}).
 \end{resumenlist}
 
 \begin{cajabeige}
-\textbf{Síntesis Integradora:} La soberanía tecnológica y la autonomía digital universitaria no se conquistan mediante la simple sustitución de proveedores corporativos extranjeros por otros de origen asiático, sino mediante el desarrollo de una alfabetización crítica que desmitifique la supuesta infalibilidad de los modelos fundacionales. El investigador contemporáneo debe dominar la microeconomía del cómputo, comprender los sesgos y limitaciones algorítmicas de cada ecosistema y asumir la responsabilidad epistémica indelegable de verificar cada dato, fecha y conclusión antes de incorporarlos a la producción científica.
+\textbf{Síntesis Integradora:} La autonomía digital universitaria no reside en sustituir proveedores occidentales por asiáticos, sino en dominar la alfabetización crítica, comprender la microeconomía del cómputo y asumir la responsabilidad epistémica indelegable de verificar cada dato, fecha y conclusión antes de incorporarlos a la producción científica.
 \end{cajabeige}
 
 \newpage
-\markboth{CAPÍTULO 04\quad CONCLUSIONES}{}
+\markboth{CAPÍTULO 4\quad CONCLUSIONES}{}
 
 \subsection*{Conclusiones del Capítulo 4}
 
@@ -687,7 +670,7 @@ Este capítulo aporta una cartografía sistemática y empíricamente sustentada 
 \end{enumerate}
 
 \newpage
-\markboth{CAPÍTULO 04\quad REFERENCIAS}{}
+\markboth{CAPÍTULO 4\quad REFERENCIAS}{}
 
 \subsection*{Referencias del Capítulo 4}
 
